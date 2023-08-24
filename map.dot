@@ -1,0 +1,82 @@
+digraph GreatWesternTrail {
+    NeutralBuilding1 [shape=box;style=filled;fillcolor=gray;label="Neutral Building 1\nempty=false"];
+    NeutralBuilding2 [shape=box;style=filled;fillcolor=gray;label="Neutral Building 2\nempty=false"];
+    NeutralBuilding3 [shape=box;style=filled;fillcolor=gray;label="Neutral Building 3\nempty=false"];
+    NeutralBuilding4 [shape=box;style=filled;fillcolor=gray;label="Neutral Building 4\nempty=false"];
+    NeutralBuilding5 [shape=box;style=filled;fillcolor=gray;label="Neutral Building 5\nempty=false"];
+    NeutralBuilding6 [shape=box;style=filled;fillcolor=gray;label="Neutral Building 6\nempty=false"];
+    NeutralBuilding7 [shape=box;style=filled;fillcolor=gray;label="Neutral Building 7\nempty=false"];
+    NeutralBuilding8 [shape=box;style=filled;fillcolor=gray;label="Neutral Building 8\nempty=false"];
+    GreenFarmer1 [shape=box;style=filled;fillcolor=green;label="Green Farmer 1\nempty=true;constReward=0;variableReward=0;grayHand=false;blackHand=false"];
+    GreenFarmer2 [shape=box;style=filled;fillcolor=green;label="Green Farmer 2\nempty=true;constReward=1;variableReward=0;grayHand=false;blackHand=false"];
+    GreenFarmer3 [shape=box;style=filled;fillcolor=green;label="Green Farmer 3\nempty=true;constReward=2;variableReward=0;grayHand=false;blackHand=false"];
+    GreenFarmer4 [shape=box;style=filled;fillcolor=green;label="Green Farmer 4\nempty=true;constReward=3;variableReward=0;grayHand=false;blackHand=false"];
+    BlueFarmer1 [shape=box;style=filled;fillcolor=lightblue;label="Blue Farmer 1\nempty=true;constReward=0;variableReward=0;grayHand=false;blackHand=false"];
+    BlueFarmer2 [shape=box;style=filled;fillcolor=lightblue;label="Blue Farmer 2\nempty=true;constReward=1;variableReward=0;grayHand=false;blackHand=false"];
+    BlueFarmer3 [shape=box;style=filled;fillcolor=lightblue;label="Blue Farmer 3\nempty=true;constReward=2;variableReward=0;grayHand=false;blackHand=false"];
+    BlueFarmer4 [shape=box;style=filled;fillcolor=lightblue;label="Blue Farmer 4\nempty=true;constReward=3;variableReward=0;grayHand=false;blackHand=false"];
+    OrangeFarmer1 [shape=box;style=filled;fillcolor=orange;label="Orange Farmer 1\nempty=true;constReward=0;variableReward=0;grayHand=false;blackHand=false"];
+    OrangeFarmer2 [shape=box;style=filled;fillcolor=orange;label="Orange Farmer 2\nempty=true;constReward=1;variableReward=0;grayHand=false;blackHand=false"];
+    OrangeFarmer3 [shape=box;style=filled;fillcolor=orange;label="Orange Farmer 3\nempty=true;constReward=2;variableReward=0;grayHand=false;blackHand=false"];
+    OrangeFarmer4 [shape=box;style=filled;fillcolor=orange;label="Orange Farmer 4\nempty=true;constReward=3;variableReward=0;grayHand=false;blackHand=false"];
+    YellowFarmer1 [shape=box;style=filled;fillcolor=yellow;label="Yellow Farmer 1\nempty=true;constReward=6;variableReward=0;grayHand=false;blackHand=false"];
+    YellowFarmer2 [shape=box;style=filled;fillcolor=yellow;label="Yellow Farmer 2\nempty=true;constReward=5;variableReward=0;grayHand=false;blackHand=false"];
+    YellowFarmer3 [shape=box;style=filled;fillcolor=yellow;label="Yellow Farmer 3\nempty=true;constReward=4;variableReward=0;grayHand=false;blackHand=false"];
+    YellowFarmer4 [shape=box;style=filled;fillcolor=yellow;label="Yellow Farmer 4\nempty=true;constReward=3;variableReward=0;grayHand=false;blackHand=false"];
+    YellowFarmer5 [shape=box;style=filled;fillcolor=yellow;label="Yellow Farmer 5\nempty=true;constReward=2;variableReward=0;grayHand=false;blackHand=false"];
+    YellowFarmer6 [shape=box;style=filled;fillcolor=yellow;label="Yellow Farmer 6\nempty=true;constReward=1;variableReward=0;grayHand=false;blackHand=false"];
+    YellowFarmer7 [shape=box;style=filled;fillcolor=yellow;label="Yellow Farmer 7\nempty=true;constReward=0;variableReward=0;grayHand=false;blackHand=false"];
+    BasicBuilding1 [shape=box;style=filled;fillcolor=white;label="Basic Building 1\nempty=true;grayHand=false;blackHand=false"];
+    BasicBuilding2 [shape=box;style=filled;fillcolor=white;label="Basic Building 2\nempty=true;grayHand=false;blackHand=false"];
+    BasicBuilding3 [shape=box;style=filled;fillcolor=white;label="Basic Building 3\nempty=true;grayHand=false;blackHand=false"];
+    BasicBuilding4 [shape=box;style=filled;fillcolor=white;label="Basic Building 4\nempty=true;grayHand=false;blackHand=false"];
+    BasicBuilding5 [shape=box;style=filled;fillcolor=white;label="Basic Building 5\nempty=true;grayHand=false;blackHand=false"];
+    BasicBuilding6 [shape=box;style=filled;fillcolor=white;label="Basic Building 6\nempty=true;grayHand=false;blackHand=false"];
+    BasicBuilding7 [shape=box;style=filled;fillcolor=white;label="Basic Building 7\nempty=true;grayHand=false;blackHand=false"];
+    GrainBuilding1 [shape=box;style=filled;fillcolor=white;label="Grain Building 1\nempty=true;grayHand=false;blackHand=false"];
+    GrainBuilding2 [shape=box;style=filled;fillcolor=white;label="Grain Building 2\nempty=true;grayHand=false;blackHand=false"];
+    GrainBuilding3 [shape=box;style=filled;fillcolor=white;label="Grain Building 3\nempty=true;grayHand=false;blackHand=false"];
+    GrainBuilding4 [shape=box;style=filled;fillcolor=white;label="Grain Building 4\nempty=true;grayHand=false;blackHand=false"];
+    GrainBuilding5 [shape=box;style=filled;fillcolor=white;label="Grain Building 5\nempty=true;grayHand=false;blackHand=false"];
+    GrainBuilding6 [shape=box;style=filled;fillcolor=white;label="Grain Building 6\nempty=true;grayHand=false;blackHand=false"];
+    GrainBuilding7 [shape=box;style=filled;fillcolor=white;label="Grain Building 7\nempty=true;grayHand=false;blackHand=false"];
+    GrainBuilding8 [shape=box;style=filled;fillcolor=white;label="Grain Building 8\nempty=true;grayHand=false;blackHand=false"];
+    SpecialBuilding1 [shape=box;style=filled;fillcolor=white;label="Special Building 1\nempty=true;specialAction=gold;grayHand=false;blackHand=false"];
+    SpecialBuilding2 [shape=box;style=filled;fillcolor=white;label="Special Building 2\nempty=true;specialAction=certificate;grayHand=false;blackHand=false"];
+    SpecialBuilding3 [shape=box;style=filled;fillcolor=white;label="Special Building 3\nempty=true;specialAction=certificate;grayHand=false;blackHand=false"];
+    SpecialBuilding4 [shape=box;style=filled;fillcolor=white;label="Special Building 4\nempty=true;specialAction=gold;grayHand=false;blackHand=false"];
+    SpecialGrainBuilding1 [shape=box;style=filled;fillcolor=white;label="Special Grain Building 1\nempty=true;specialAction=certificate;grayHand=false;blackHand=false"];
+    SpecialGrainBuilding2 [shape=box;style=filled;fillcolor=white;label="Special Grain Building 2\nempty=true;specialAction=grain;grayHand=false;blackHand=false"];
+    SpecialGrainBuilding3 [shape=box;style=filled;fillcolor=white;label="Special Grain Building 3\nempty=true;specialAction=grain;grayHand=false;blackHand=false"];
+    BuenosAiresExit1 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 1\nempty=true"];
+    BuenosAiresExit2 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 2\nempty=true"];
+    BuenosAiresExit3 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 3\nempty=true"];
+    BuenosAiresExit4 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 4\nempty=true"];
+    BuenosAiresExit5 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 5\nempty=true"];
+    BuenosAiresExit6 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 6\nempty=true"];
+    BuenosAiresExit7 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 7\nempty=true"];
+
+    NeutralBuilding1 -> BasicBuilding1 -> GrainBuilding1 -> GrainBuilding2 -> NeutralBuilding2 -> GrainBuilding3 -> GrainBuilding4 -> BasicBuilding2 -> BasicBuilding3 -> NeutralBuilding3 -> BasicBuilding4 -> NeutralBuilding4 -> NeutralBuilding5 -> GrainBuilding5 -> GrainBuilding6 -> BasicBuilding6 -> NeutralBuilding6 -> BasicBuilding7 -> NeutralBuilding7 -> YellowFarmer1 -> YellowFarmer2 -> YellowFarmer3 -> NeutralBuilding8 -> YellowFarmer4 -> YellowFarmer5 -> YellowFarmer6 -> YellowFarmer7 -> BuenosAiresExit1
+    NeutralBuilding1 -> GreenFarmer1 -> GreenFarmer2 -> GreenFarmer3 -> GreenFarmer4 -> SpecialGrainBuilding1 -> SpecialGrainBuilding2 -> NeutralBuilding2
+    NeutralBuilding2 -> BlueFarmer1 -> BlueFarmer2 -> BlueFarmer3 -> BlueFarmer4 -> SpecialBuilding1 -> NeutralBuilding3
+    NeutralBuilding3 -> BasicBuilding5
+    NeutralBuilding5 -> SpecialGrainBuilding3 -> SpecialBuilding2 -> OrangeFarmer1 -> OrangeFarmer2 -> OrangeFarmer3 -> OrangeFarmer4 -> NeutralBuilding6
+    NeutralBuilding6 -> GrainBuilding7 -> NeutralBuilding7
+    YellowFarmer2 -> GrainBuilding8 -> YellowFarmer3
+    NeutralBuilding8 -> SpecialBuilding3 -> YellowFarmer4
+    YellowFarmer5 -> SpecialBuilding4 -> YellowFarmer6
+    YellowFarmer6 -> BuenosAiresExit2
+    YellowFarmer4 -> BuenosAiresExit3
+    NeutralBuilding8 -> BuenosAiresExit4
+    YellowFarmer1 -> BuenosAiresExit5
+    NeutralBuilding7 -> BuenosAiresExit6
+    NeutralBuilding6 -> BuenosAiresExit7
+//    Start -> NeutralBuilding1
+//    BuenosAiresExit1 -> Start
+//    BuenosAiresExit2 -> Start
+//    BuenosAiresExit3 -> Start
+//    BuenosAiresExit4 -> Start
+//    BuenosAiresExit5 -> Start
+//    BuenosAiresExit6 -> Start
+//    BuenosAiresExit7 -> Start
+}
