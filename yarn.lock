@@ -89,6 +89,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"array-shuffle@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "array-shuffle@npm:3.0.0"
+  checksum: 003d813f10d6a57174d134d46d9465e0ca76a802a8c2d21c4b42513af914d4a25b3c51a3004c3d170c3a7b2caab356108c34455c327b21537978a6417cfde1d7
+  languageName: node
+  linkType: hard
+
 "create-require@npm:^1.1.0":
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
@@ -107,6 +114,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "gwta@workspace:."
   dependencies:
+    array-shuffle: ^3.0.0
     ts-node: ^10.9.1
     typescript: ^5.1.6
   languageName: unknown

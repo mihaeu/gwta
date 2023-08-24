@@ -24,7 +24,7 @@
 <text text-anchor="middle" x="1339.5" y="-2671.8" font-family="Times,serif" font-size="14.00">empty=true;constReward=0;variableReward=0;grayHand=false;blackHand=false</text>
 </g>
 <!-- NeutralBuilding1&#45;&gt;GreenFarmer1 -->
-<g id="edge28" class="edge">
+<g id="edge2" class="edge">
 <title>NeutralBuilding1&#45;&gt;GreenFarmer1</title>
 <path fill="none" stroke="black" d="M1525.24,-2737.92C1490.75,-2727.91 1447.7,-2715.41 1411.73,-2704.97"/>
 <polygon fill="black" stroke="black" points="1412.37,-2701.51 1401.79,-2702.08 1410.41,-2708.23 1412.37,-2701.51"/>
@@ -70,7 +70,7 @@
 <text text-anchor="middle" x="1862.5" y="-2153.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- NeutralBuilding2&#45;&gt;GrainBuilding3 -->
-<g id="edge5" class="edge">
+<g id="edge6" class="edge">
 <title>NeutralBuilding2&#45;&gt;GrainBuilding3</title>
 <path fill="none" stroke="black" d="M1676.01,-2219.92C1710.64,-2209.91 1753.87,-2197.41 1789.98,-2186.97"/>
 <polygon fill="black" stroke="black" points="1791.33,-2190.22 1799.96,-2184.08 1789.38,-2183.5 1791.33,-2190.22"/>
@@ -90,7 +90,7 @@
 <text text-anchor="middle" x="1443.5" y="-1709.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- NeutralBuilding3&#45;&gt;BasicBuilding4 -->
-<g id="edge10" class="edge">
+<g id="edge11" class="edge">
 <title>NeutralBuilding3&#45;&gt;BasicBuilding4</title>
 <path fill="none" stroke="black" d="M1581.07,-1775.83C1556.13,-1766.07 1525.22,-1753.98 1499.02,-1743.72"/>
 <polygon fill="black" stroke="black" points="1500.18,-1740.42 1489.6,-1740.04 1497.63,-1746.94 1500.18,-1740.42"/>
@@ -123,7 +123,7 @@
 <text text-anchor="middle" x="1443.5" y="-1561.8" font-family="Times,serif" font-size="14.00">empty=false</text>
 </g>
 <!-- NeutralBuilding4&#45;&gt;NeutralBuilding5 -->
-<g id="edge12" class="edge">
+<g id="edge13" class="edge">
 <title>NeutralBuilding4&#45;&gt;NeutralBuilding5</title>
 <path fill="none" stroke="black" d="M1443.5,-1627.83C1443.5,-1620.13 1443.5,-1610.97 1443.5,-1602.42"/>
 <polygon fill="black" stroke="black" points="1447,-1602.41 1443.5,-1592.41 1440,-1602.41 1447,-1602.41"/>
@@ -136,7 +136,7 @@
 <text text-anchor="middle" x="1222.5" y="-1487.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- NeutralBuilding5&#45;&gt;GrainBuilding5 -->
-<g id="edge13" class="edge">
+<g id="edge14" class="edge">
 <title>NeutralBuilding5&#45;&gt;GrainBuilding5</title>
 <path fill="none" stroke="black" d="M1388.02,-1553.92C1357.54,-1544 1319.57,-1531.63 1287.69,-1521.24"/>
 <polygon fill="black" stroke="black" points="1288.6,-1517.85 1278.01,-1518.08 1286.43,-1524.51 1288.6,-1517.85"/>
@@ -169,7 +169,7 @@
 <text text-anchor="middle" x="1067.5" y="-969.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- NeutralBuilding6&#45;&gt;BasicBuilding7 -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>NeutralBuilding6&#45;&gt;BasicBuilding7</title>
 <path fill="none" stroke="black" d="M1360.59,-1039.34C1305.54,-1028.57 1230.12,-1013.82 1169.57,-1001.97"/>
 <polygon fill="black" stroke="black" points="1170.08,-998.5 1159.6,-1000.02 1168.74,-1005.37 1170.08,-998.5"/>
@@ -215,7 +215,7 @@
 <text text-anchor="middle" x="1051.5" y="-821.8" font-family="Times,serif" font-size="14.00">empty=true;constReward=6;variableReward=0;grayHand=false;blackHand=false</text>
 </g>
 <!-- NeutralBuilding7&#45;&gt;YellowFarmer1 -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>NeutralBuilding7&#45;&gt;YellowFarmer1</title>
 <path fill="none" stroke="black" d="M1201.29,-887.92C1173.95,-878.08 1139.94,-865.84 1111.24,-855.51"/>
 <polygon fill="black" stroke="black" points="1112.33,-852.18 1101.73,-852.08 1109.95,-858.76 1112.33,-852.18"/>
@@ -248,7 +248,7 @@
 <text text-anchor="middle" x="703.5" y="-377.8" font-family="Times,serif" font-size="14.00">empty=true;constReward=3;variableReward=0;grayHand=false;blackHand=false</text>
 </g>
 <!-- NeutralBuilding8&#45;&gt;YellowFarmer4 -->
-<g id="edge23" class="edge">
+<g id="edge24" class="edge">
 <title>NeutralBuilding8&#45;&gt;YellowFarmer4</title>
 <path fill="none" stroke="black" d="M776.68,-531.8C703.84,-525.96 600.56,-512.44 575.5,-482 564.77,-468.96 566.16,-458.07 575.5,-444 584.55,-430.35 597.81,-420.15 612.41,-412.51"/>
 <polygon fill="black" stroke="black" points="614.13,-415.57 621.64,-408.09 611.11,-409.25 614.13,-415.57"/>
@@ -443,7 +443,7 @@
 <text text-anchor="middle" x="851.5" y="-747.8" font-family="Times,serif" font-size="14.00">empty=true;constReward=5;variableReward=0;grayHand=false;blackHand=false</text>
 </g>
 <!-- YellowFarmer1&#45;&gt;YellowFarmer2 -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>YellowFarmer1&#45;&gt;YellowFarmer2</title>
 <path fill="none" stroke="black" d="M1001.29,-813.92C973.95,-804.08 939.94,-791.84 911.24,-781.51"/>
 <polygon fill="black" stroke="black" points="912.33,-778.18 901.73,-778.08 909.95,-784.76 912.33,-778.18"/>
@@ -469,7 +469,7 @@
 <text text-anchor="middle" x="851.5" y="-599.8" font-family="Times,serif" font-size="14.00">empty=true;constReward=4;variableReward=0;grayHand=false;blackHand=false</text>
 </g>
 <!-- YellowFarmer2&#45;&gt;YellowFarmer3 -->
-<g id="edge21" class="edge">
+<g id="edge22" class="edge">
 <title>YellowFarmer2&#45;&gt;YellowFarmer3</title>
 <path fill="none" stroke="black" d="M807.57,-739.75C792.73,-731.22 777.83,-719.46 769.5,-704 761.49,-689.13 761.49,-680.87 769.5,-666 776.2,-653.56 787.16,-643.52 798.91,-635.62"/>
 <polygon fill="black" stroke="black" points="800.92,-638.5 807.57,-630.25 797.22,-632.55 800.92,-638.5"/>
@@ -488,7 +488,7 @@
 <polygon fill="black" stroke="black" points="921.62,-712.79 927.77,-704.16 917.58,-707.07 921.62,-712.79"/>
 </g>
 <!-- YellowFarmer3&#45;&gt;NeutralBuilding8 -->
-<g id="edge22" class="edge">
+<g id="edge23" class="edge">
 <title>YellowFarmer3&#45;&gt;NeutralBuilding8</title>
 <path fill="none" stroke="black" d="M851.5,-591.83C851.5,-584.13 851.5,-574.97 851.5,-566.42"/>
 <polygon fill="black" stroke="black" points="855,-566.41 851.5,-556.41 848,-566.41 855,-566.41"/>
@@ -501,7 +501,7 @@
 <text text-anchor="middle" x="503.5" y="-303.8" font-family="Times,serif" font-size="14.00">empty=true;constReward=2;variableReward=0;grayHand=false;blackHand=false</text>
 </g>
 <!-- YellowFarmer4&#45;&gt;YellowFarmer5 -->
-<g id="edge24" class="edge">
+<g id="edge25" class="edge">
 <title>YellowFarmer4&#45;&gt;YellowFarmer5</title>
 <path fill="none" stroke="black" d="M653.29,-369.92C625.95,-360.08 591.94,-347.84 563.24,-337.51"/>
 <polygon fill="black" stroke="black" points="564.33,-334.18 553.73,-334.08 561.95,-340.76 564.33,-334.18"/>
@@ -527,7 +527,7 @@
 <text text-anchor="middle" x="503.5" y="-155.8" font-family="Times,serif" font-size="14.00">empty=true;constReward=1;variableReward=0;grayHand=false;blackHand=false</text>
 </g>
 <!-- YellowFarmer5&#45;&gt;YellowFarmer6 -->
-<g id="edge25" class="edge">
+<g id="edge26" class="edge">
 <title>YellowFarmer5&#45;&gt;YellowFarmer6</title>
 <path fill="none" stroke="black" d="M430.66,-295.9C412.92,-287.88 396.03,-276.4 385.5,-260 376.37,-245.79 376.37,-236.21 385.5,-222 394.22,-208.42 407.3,-198.21 421.61,-190.55"/>
 <polygon fill="black" stroke="black" points="423.23,-193.66 430.66,-186.1 420.14,-187.38 423.23,-193.66"/>
@@ -553,7 +553,7 @@
 <text text-anchor="middle" x="303.5" y="-81.8" font-family="Times,serif" font-size="14.00">empty=true;constReward=0;variableReward=0;grayHand=false;blackHand=false</text>
 </g>
 <!-- YellowFarmer6&#45;&gt;YellowFarmer7 -->
-<g id="edge26" class="edge">
+<g id="edge27" class="edge">
 <title>YellowFarmer6&#45;&gt;YellowFarmer7</title>
 <path fill="none" stroke="black" d="M453.29,-147.92C425.95,-138.08 391.94,-125.84 363.24,-115.51"/>
 <polygon fill="black" stroke="black" points="364.33,-112.18 353.73,-112.08 361.95,-118.76 364.33,-112.18"/>
@@ -579,7 +579,7 @@
 <text text-anchor="middle" x="303.5" y="-7.8" font-family="Times,serif" font-size="14.00">empty=true</text>
 </g>
 <!-- YellowFarmer7&#45;&gt;BuenosAiresExit1 -->
-<g id="edge27" class="edge">
+<g id="edge28" class="edge">
 <title>YellowFarmer7&#45;&gt;BuenosAiresExit1</title>
 <path fill="none" stroke="black" d="M303.5,-73.83C303.5,-66.13 303.5,-56.97 303.5,-48.42"/>
 <polygon fill="black" stroke="black" points="307,-48.41 303.5,-38.41 300,-48.41 307,-48.41"/>
@@ -592,7 +592,7 @@
 <text text-anchor="middle" x="1836.5" y="-2597.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- BasicBuilding1&#45;&gt;GrainBuilding1 -->
-<g id="edge2" class="edge">
+<g id="edge3" class="edge">
 <title>BasicBuilding1&#45;&gt;GrainBuilding1</title>
 <path fill="none" stroke="black" d="M1836.5,-2663.83C1836.5,-2656.13 1836.5,-2646.97 1836.5,-2638.42"/>
 <polygon fill="black" stroke="black" points="1840,-2638.41 1836.5,-2628.41 1833,-2638.41 1840,-2638.41"/>
@@ -612,19 +612,19 @@
 <text text-anchor="middle" x="1854.5" y="-1857.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- BasicBuilding2&#45;&gt;BasicBuilding3 -->
-<g id="edge8" class="edge">
+<g id="edge9" class="edge">
 <title>BasicBuilding2&#45;&gt;BasicBuilding3</title>
 <path fill="none" stroke="black" d="M1861.5,-1997.8C1860.14,-1972.89 1857.67,-1927.89 1856.06,-1898.49"/>
 <polygon fill="black" stroke="black" points="1859.55,-1898.22 1855.51,-1888.43 1852.56,-1898.6 1859.55,-1898.22"/>
 </g>
 <!-- BasicBuilding3&#45;&gt;NeutralBuilding3 -->
-<g id="edge9" class="edge">
+<g id="edge10" class="edge">
 <title>BasicBuilding3&#45;&gt;NeutralBuilding3</title>
 <path fill="none" stroke="black" d="M1797.51,-1849.92C1766.21,-1840 1727.21,-1827.63 1694.46,-1817.24"/>
 <polygon fill="black" stroke="black" points="1695.1,-1813.77 1684.51,-1814.08 1692.99,-1820.44 1695.1,-1813.77"/>
 </g>
 <!-- BasicBuilding4&#45;&gt;NeutralBuilding4 -->
-<g id="edge11" class="edge">
+<g id="edge12" class="edge">
 <title>BasicBuilding4&#45;&gt;NeutralBuilding4</title>
 <path fill="none" stroke="black" d="M1443.5,-1701.83C1443.5,-1694.13 1443.5,-1684.97 1443.5,-1676.42"/>
 <polygon fill="black" stroke="black" points="1447,-1676.41 1443.5,-1666.41 1440,-1676.41 1447,-1676.41"/>
@@ -637,13 +637,13 @@
 <text text-anchor="middle" x="1187.5" y="-1265.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- BasicBuilding6&#45;&gt;NeutralBuilding6 -->
-<g id="edge16" class="edge">
+<g id="edge17" class="edge">
 <title>BasicBuilding6&#45;&gt;NeutralBuilding6</title>
 <path fill="none" stroke="black" d="M1199.31,-1258C1221.56,-1225.17 1272.59,-1154.82 1329.5,-1110 1345.04,-1097.76 1363.78,-1087.12 1381.16,-1078.6"/>
 <polygon fill="black" stroke="black" points="1383.12,-1081.54 1390.65,-1074.09 1380.12,-1075.22 1383.12,-1081.54"/>
 </g>
 <!-- BasicBuilding7&#45;&gt;NeutralBuilding7 -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>BasicBuilding7&#45;&gt;NeutralBuilding7</title>
 <path fill="none" stroke="black" d="M1113.93,-961.83C1138.87,-952.07 1169.78,-939.98 1195.98,-929.72"/>
 <polygon fill="black" stroke="black" points="1197.37,-932.94 1205.4,-926.04 1194.82,-926.42 1197.37,-932.94"/>
@@ -656,13 +656,13 @@
 <text text-anchor="middle" x="1836.5" y="-2449.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- GrainBuilding1&#45;&gt;GrainBuilding2 -->
-<g id="edge3" class="edge">
+<g id="edge4" class="edge">
 <title>GrainBuilding1&#45;&gt;GrainBuilding2</title>
 <path fill="none" stroke="black" d="M1836.5,-2589.8C1836.5,-2564.89 1836.5,-2519.89 1836.5,-2490.49"/>
 <polygon fill="black" stroke="black" points="1840,-2490.43 1836.5,-2480.43 1833,-2490.43 1840,-2490.43"/>
 </g>
 <!-- GrainBuilding2&#45;&gt;NeutralBuilding2 -->
-<g id="edge4" class="edge">
+<g id="edge5" class="edge">
 <title>GrainBuilding2&#45;&gt;NeutralBuilding2</title>
 <path fill="none" stroke="black" d="M1829.49,-2441.84C1815.76,-2408.45 1782.37,-2336.79 1733.5,-2294 1718.28,-2280.68 1699.24,-2270.11 1680.83,-2261.98"/>
 <polygon fill="black" stroke="black" points="1682.15,-2258.74 1671.58,-2258.08 1679.43,-2265.19 1682.15,-2258.74"/>
@@ -675,13 +675,13 @@
 <text text-anchor="middle" x="1862.5" y="-2079.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- GrainBuilding3&#45;&gt;GrainBuilding4 -->
-<g id="edge6" class="edge">
+<g id="edge7" class="edge">
 <title>GrainBuilding3&#45;&gt;GrainBuilding4</title>
 <path fill="none" stroke="black" d="M1862.5,-2145.83C1862.5,-2138.13 1862.5,-2128.97 1862.5,-2120.42"/>
 <polygon fill="black" stroke="black" points="1866,-2120.41 1862.5,-2110.41 1859,-2120.41 1866,-2120.41"/>
 </g>
 <!-- GrainBuilding4&#45;&gt;BasicBuilding2 -->
-<g id="edge7" class="edge">
+<g id="edge8" class="edge">
 <title>GrainBuilding4&#45;&gt;BasicBuilding2</title>
 <path fill="none" stroke="black" d="M1862.5,-2071.83C1862.5,-2064.13 1862.5,-2054.97 1862.5,-2046.42"/>
 <polygon fill="black" stroke="black" points="1866,-2046.41 1862.5,-2036.41 1859,-2046.41 1866,-2046.41"/>
@@ -694,13 +694,13 @@
 <text text-anchor="middle" x="1214.5" y="-1413.8" font-family="Times,serif" font-size="14.00">empty=true;grayHand=false;blackHand=false</text>
 </g>
 <!-- GrainBuilding5&#45;&gt;GrainBuilding6 -->
-<g id="edge14" class="edge">
+<g id="edge15" class="edge">
 <title>GrainBuilding5&#45;&gt;GrainBuilding6</title>
 <path fill="none" stroke="black" d="M1220.48,-1479.83C1219.63,-1472.13 1218.61,-1462.97 1217.66,-1454.42"/>
 <polygon fill="black" stroke="black" points="1221.13,-1453.97 1216.55,-1444.41 1214.17,-1454.74 1221.13,-1453.97"/>
 </g>
 <!-- GrainBuilding6&#45;&gt;BasicBuilding6 -->
-<g id="edge15" class="edge">
+<g id="edge16" class="edge">
 <title>GrainBuilding6&#45;&gt;BasicBuilding6</title>
 <path fill="none" stroke="black" d="M1211.14,-1405.8C1206.53,-1380.89 1198.21,-1335.89 1192.77,-1306.49"/>
 <polygon fill="black" stroke="black" points="1196.17,-1305.62 1190.91,-1296.43 1189.28,-1306.89 1196.17,-1305.62"/>

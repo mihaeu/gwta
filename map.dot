@@ -56,15 +56,62 @@ digraph GreatWesternTrail {
     BuenosAiresExit6 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 6\nempty=true"];
     BuenosAiresExit7 [shape=box;style=filled;fillcolor=white;label="Buenos Aires Exit 7\nempty=true"];
 
-    NeutralBuilding1 -> BasicBuilding1 -> GrainBuilding1 -> GrainBuilding2 -> NeutralBuilding2 -> GrainBuilding3 -> GrainBuilding4 -> BasicBuilding2 -> BasicBuilding3 -> NeutralBuilding3 -> BasicBuilding4 -> NeutralBuilding4 -> NeutralBuilding5 -> GrainBuilding5 -> GrainBuilding6 -> BasicBuilding6 -> NeutralBuilding6 -> BasicBuilding7 -> NeutralBuilding7 -> YellowFarmer1 -> YellowFarmer2 -> YellowFarmer3 -> NeutralBuilding8 -> YellowFarmer4 -> YellowFarmer5 -> YellowFarmer6 -> YellowFarmer7 -> BuenosAiresExit1
-    NeutralBuilding1 -> GreenFarmer1 -> GreenFarmer2 -> GreenFarmer3 -> GreenFarmer4 -> SpecialGrainBuilding1 -> SpecialGrainBuilding2 -> NeutralBuilding2
-    NeutralBuilding2 -> BlueFarmer1 -> BlueFarmer2 -> BlueFarmer3 -> BlueFarmer4 -> SpecialBuilding1 -> NeutralBuilding3
+    NeutralBuilding1 -> BasicBuilding1;
+    NeutralBuilding1 -> GreenFarmer1
+    BasicBuilding1 -> GrainBuilding1;
+    GrainBuilding1 -> GrainBuilding2;
+    GrainBuilding2 -> NeutralBuilding2;
+    NeutralBuilding2 -> GrainBuilding3;
+    GrainBuilding3 -> GrainBuilding4
+    GrainBuilding4 -> BasicBuilding2
+    BasicBuilding2 -> BasicBuilding3
+    BasicBuilding3 -> NeutralBuilding3
+    NeutralBuilding3 -> BasicBuilding4
+    BasicBuilding4 -> NeutralBuilding4
+    NeutralBuilding4 -> NeutralBuilding5
+    NeutralBuilding5 -> GrainBuilding5
+    GrainBuilding5 -> GrainBuilding6
+    GrainBuilding6 -> BasicBuilding6
+    BasicBuilding6 -> NeutralBuilding6
+    NeutralBuilding6 -> BasicBuilding7
+    BasicBuilding7 -> NeutralBuilding7
+    NeutralBuilding7 -> YellowFarmer1
+    YellowFarmer1 -> YellowFarmer2
+    YellowFarmer2 -> YellowFarmer3
+    YellowFarmer3 -> NeutralBuilding8
+    NeutralBuilding8 -> YellowFarmer4
+    YellowFarmer4 -> YellowFarmer5
+    YellowFarmer5 -> YellowFarmer6
+    YellowFarmer6 -> YellowFarmer7
+    YellowFarmer7 -> BuenosAiresExit1
+    GreenFarmer1 -> GreenFarmer2
+    GreenFarmer2 -> GreenFarmer3
+    GreenFarmer3 -> GreenFarmer4
+    GreenFarmer4 -> SpecialGrainBuilding1
+    SpecialGrainBuilding1 -> SpecialGrainBuilding2
+    SpecialGrainBuilding2 -> NeutralBuilding2
+    NeutralBuilding2 -> BlueFarmer1
+    BlueFarmer1 -> BlueFarmer2
+    BlueFarmer2 -> BlueFarmer3
+    BlueFarmer3 -> BlueFarmer4
+    BlueFarmer4 -> SpecialBuilding1
+    SpecialBuilding1 -> NeutralBuilding3
     NeutralBuilding3 -> BasicBuilding5
-    NeutralBuilding5 -> SpecialGrainBuilding3 -> SpecialBuilding2 -> OrangeFarmer1 -> OrangeFarmer2 -> OrangeFarmer3 -> OrangeFarmer4 -> NeutralBuilding6
-    NeutralBuilding6 -> GrainBuilding7 -> NeutralBuilding7
-    YellowFarmer2 -> GrainBuilding8 -> YellowFarmer3
-    NeutralBuilding8 -> SpecialBuilding3 -> YellowFarmer4
-    YellowFarmer5 -> SpecialBuilding4 -> YellowFarmer6
+    NeutralBuilding5 -> SpecialGrainBuilding3
+    SpecialGrainBuilding3 -> SpecialBuilding2
+    SpecialBuilding2 -> OrangeFarmer1
+    OrangeFarmer1 -> OrangeFarmer2
+    OrangeFarmer2 -> OrangeFarmer3
+    OrangeFarmer3 -> OrangeFarmer4
+    OrangeFarmer4 -> NeutralBuilding6
+    NeutralBuilding6 -> GrainBuilding7
+    GrainBuilding7 -> NeutralBuilding7
+    YellowFarmer2 -> GrainBuilding8
+    GrainBuilding8 -> YellowFarmer3
+    NeutralBuilding8 -> SpecialBuilding3
+    SpecialBuilding3 -> YellowFarmer4
+    YellowFarmer5 -> SpecialBuilding4
+    SpecialBuilding4 -> YellowFarmer6
     YellowFarmer6 -> BuenosAiresExit2
     YellowFarmer4 -> BuenosAiresExit3
     NeutralBuilding8 -> BuenosAiresExit4

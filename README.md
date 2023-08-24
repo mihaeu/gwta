@@ -11,6 +11,15 @@ Is the map complete from the start with most locations empty or are locations ad
 
 ![](map.svg)
 
+#### Movement Options
+
+- from the current node
+  - do I have more moves available 
+  - for each next node
+    - is the node empty
+      - yes: add it to the options
+      - no: recurse over node children
+
 ### buenos aires map seeding
 
 ...
