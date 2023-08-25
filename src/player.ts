@@ -1,16 +1,25 @@
 import { Node } from "./nodes.js"
 
 export default class Player {
-	private name: string
-	private location?: Node
+	private readonly _name: string
+	private _location: Node
 	private turn: number = 0
 
-	constructor(name: string) {
-		this.name = name
+	constructor(name: string, location: Node) {
+		this._name = name
+		this._location = location
 	}
 
-	setLocation(location: Node) {
-		this.location = location
+	get name(): string {
+		return this._name
+	}
+
+	get location(): Node {
+		return this._location
+	}
+
+	set location(value: Node) {
+		this._location = value
 	}
 
 	nextTurn() {

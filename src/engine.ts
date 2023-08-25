@@ -8,8 +8,6 @@ export default class Engine {
 	constructor(map: Map, players: Player[]) {
 		this.map = map
 		this.players = players
-
-		players.forEach((player) => player.setLocation(map.start))
 	}
 
 	nextPlayer(): Player {

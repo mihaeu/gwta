@@ -1,7 +1,7 @@
 import { Building, NeutralBuilding, NoBuilding } from "./buildings.js"
 
 export abstract class Node {
-	private children: Node[] = []
+	private readonly children: Node[] = []
 
 	addChild(node: Node) {
 		this.children.push(node)

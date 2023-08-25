@@ -261,6 +261,13 @@ export default class Map {
 		this.yellowFarmer1.addChild(this.buenosAiresExit5)
 		this.neutralBuilding7.addChild(this.buenosAiresExit6)
 		this.neutralBuilding6.addChild(this.buenosAiresExit7)
+		this.buenosAiresExit1.addChild(this.start)
+		this.buenosAiresExit2.addChild(this.start)
+		this.buenosAiresExit3.addChild(this.start)
+		this.buenosAiresExit4.addChild(this.start)
+		this.buenosAiresExit5.addChild(this.start)
+		this.buenosAiresExit6.addChild(this.start)
+		this.buenosAiresExit7.addChild(this.start)
 
 		this.seedFarmers()
 		this.jobMarket = this.bTiles.splice(0, 5)
