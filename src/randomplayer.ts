@@ -8,7 +8,7 @@ export default class RandomPlayer extends Player {
 	}
 
 	chooseMovement(locations: Node[]): number {
-		return Math.round(Math.random() * locations.length)
+		return Math.round(Math.random() * (locations.length - 1))
 	}
 
 	chooseForesightTileA(tiles: Tile[]): number {

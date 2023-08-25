@@ -31,7 +31,6 @@ export default class Engine {
 	}
 
 	isGameOver(): boolean {
-		console.log(this.map.jobMarket)
 		return this.map.jobMarket.length >= 23
 	}
 
@@ -40,7 +39,9 @@ export default class Engine {
 		console.info(
 			`Player ${currentPlayer.name} is on ${previousLocation.constructor.name} and takes a turn`,
 		)
-		const nextLocation = currentPlayer.location.nextNonEmptyDescendants()[0]
+		const availableMoves = currentPlayer.location.nextNonEmptyDescendants()
+		const chosenMove = currentPlayer.chooseMovement(availableMoves)
+		const nextLocation = availableMoves[chosenMove]
 		if (nextLocation === undefined) {
 			throw new Error(
 				`No reachable location found for player ${currentPlayer.name}.`,
