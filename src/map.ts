@@ -1,167 +1,86 @@
 import arrayShuffle from "array-shuffle"
-
-class Building {}
-class NeutralBuilding extends Building {}
-class BuildingA extends NeutralBuilding {}
-class BuildingB extends NeutralBuilding {}
-class BuildingC extends NeutralBuilding {}
-class BuildingD extends NeutralBuilding {}
-class BuildingE extends NeutralBuilding {}
-class BuildingF extends NeutralBuilding {}
-class BuildingG extends NeutralBuilding {}
-class BuildingH extends NeutralBuilding {}
-class NoBuilding extends NeutralBuilding {}
-
-interface Tile {}
-class Farmer implements Tile {}
-class BlueFarmer extends Farmer {}
-class GreenFarmer extends Farmer {}
-class OrangeFarmer extends Farmer {}
-class YellowFarmer extends Farmer {}
-class Worker implements Tile {
-	private readonly strong: boolean = false
-
-	constructor(strong: boolean = false) {
-		this.strong = strong
-	}
-}
-
-class Herder extends Worker {}
-class Carpenter extends Worker {}
-class Machinist extends Worker {}
-class JobMarketToken {}
-
-abstract class Node {
-	private children: Node[] = []
-
-	addChild(node: Node) {
-		this.children.push(node)
-	}
-
-	isEmpty(): boolean {
-		return true
-	}
-
-	childNodes() {
-		return this.children
-	}
-
-	nextNonEmptyDescendants(): Node[] {
-		if (this.children.every((node) => !node.isEmpty())) {
-			return this.children
-		}
-
-		const nonEmptyNodes: Set<Node> = new Set()
-		for (const child of this.children) {
-			child.isEmpty()
-				? child
-						.nextNonEmptyDescendants()
-						.forEach((descendant) => nonEmptyNodes.add(descendant))
-				: nonEmptyNodes.add(child)
-		}
-		return [...nonEmptyNodes]
-	}
-}
-
-class BuildingNode extends Node {
-	private building: Building = new NoBuilding()
-
-	addOrUpgradeBuilding(building: Building) {
-		this.building = building
-	}
-
-	isEmpty(): boolean {
-		return this.building instanceof NoBuilding
-	}
-}
-
-class FarmerNode extends Node {
-	private hasFarmer = false
-	addFarmer() {
-		this.hasFarmer = true
-	}
-
-	isEmpty(): boolean {
-		return !this.hasFarmer
-	}
-}
-
-class BuenosAiresNode extends Node {
-	isEmpty(): boolean {
-		return false
-	}
-}
-
-class NeutralBuildingNode extends BuildingNode {
-	private readonly neutralBuilding: NeutralBuilding
-
-	constructor(neutralBuilding: NeutralBuilding) {
-		super()
-		this.neutralBuilding = neutralBuilding
-	}
-
-	isEmpty(): boolean {
-		return false
-	}
-}
-
-class Start extends Node {}
-class NeutralBuilding1 extends NeutralBuildingNode {}
-class NeutralBuilding2 extends NeutralBuildingNode {}
-class NeutralBuilding3 extends NeutralBuildingNode {}
-class NeutralBuilding4 extends NeutralBuildingNode {}
-class NeutralBuilding5 extends NeutralBuildingNode {}
-class NeutralBuilding6 extends NeutralBuildingNode {}
-class NeutralBuilding7 extends NeutralBuildingNode {}
-class NeutralBuilding8 extends NeutralBuildingNode {}
-class GreenFarmer1 extends FarmerNode {}
-class GreenFarmer2 extends FarmerNode {}
-class GreenFarmer3 extends FarmerNode {}
-class GreenFarmer4 extends FarmerNode {}
-class BlueFarmer1 extends FarmerNode {}
-class BlueFarmer2 extends FarmerNode {}
-class BlueFarmer3 extends FarmerNode {}
-class BlueFarmer4 extends FarmerNode {}
-class OrangeFarmer1 extends FarmerNode {}
-class OrangeFarmer2 extends FarmerNode {}
-class OrangeFarmer3 extends FarmerNode {}
-class OrangeFarmer4 extends FarmerNode {}
-class YellowFarmer1 extends FarmerNode {}
-class YellowFarmer2 extends FarmerNode {}
-class YellowFarmer3 extends FarmerNode {}
-class YellowFarmer4 extends FarmerNode {}
-class YellowFarmer5 extends FarmerNode {}
-class YellowFarmer6 extends FarmerNode {}
-class YellowFarmer7 extends FarmerNode {}
-class BasicBuilding1 extends BuildingNode {}
-class BasicBuilding2 extends BuildingNode {}
-class BasicBuilding3 extends BuildingNode {}
-class BasicBuilding4 extends BuildingNode {}
-class BasicBuilding5 extends BuildingNode {}
-class BasicBuilding6 extends BuildingNode {}
-class BasicBuilding7 extends BuildingNode {}
-class GrainBuilding1 extends BuildingNode {}
-class GrainBuilding2 extends BuildingNode {}
-class GrainBuilding3 extends BuildingNode {}
-class GrainBuilding4 extends BuildingNode {}
-class GrainBuilding5 extends BuildingNode {}
-class GrainBuilding6 extends BuildingNode {}
-class GrainBuilding7 extends BuildingNode {}
-class GrainBuilding8 extends BuildingNode {}
-class SpecialBuilding1 extends BuildingNode {}
-class SpecialBuilding2 extends BuildingNode {}
-class SpecialBuilding3 extends BuildingNode {}
-class SpecialBuilding4 extends BuildingNode {}
-class SpecialGrainBuilding1 extends BuildingNode {}
-class SpecialGrainBuilding2 extends BuildingNode {}
-class SpecialGrainBuilding3 extends BuildingNode {}
-class BuenosAiresExit1 extends BuenosAiresNode {}
-class BuenosAiresExit2 extends BuenosAiresNode {}
-class BuenosAiresExit3 extends BuenosAiresNode {}
-class BuenosAiresExit4 extends BuenosAiresNode {}
-class BuenosAiresExit5 extends BuenosAiresNode {}
-class BuenosAiresExit6 extends BuenosAiresNode {}
-class BuenosAiresExit7 extends BuenosAiresNode {}
+import {
+	BasicBuilding1,
+	BasicBuilding2,
+	BasicBuilding3,
+	BasicBuilding4,
+	BasicBuilding5,
+	BasicBuilding6,
+	BasicBuilding7,
+	BlueFarmer1,
+	BlueFarmer2,
+	BlueFarmer3,
+	BlueFarmer4,
+	BuenosAiresExit1,
+	BuenosAiresExit2,
+	BuenosAiresExit3,
+	BuenosAiresExit4,
+	BuenosAiresExit5,
+	BuenosAiresExit6,
+	BuenosAiresExit7,
+	FarmerNode,
+	GrainBuilding1,
+	GrainBuilding2,
+	GrainBuilding3,
+	GrainBuilding4,
+	GrainBuilding5,
+	GrainBuilding6,
+	GrainBuilding7,
+	GrainBuilding8,
+	GreenFarmer1,
+	GreenFarmer2,
+	GreenFarmer3,
+	GreenFarmer4,
+	NeutralBuilding1,
+	NeutralBuilding2,
+	NeutralBuilding3,
+	NeutralBuilding4,
+	NeutralBuilding5,
+	NeutralBuilding6,
+	NeutralBuilding7,
+	NeutralBuilding8,
+	OrangeFarmer1,
+	OrangeFarmer2,
+	OrangeFarmer3,
+	OrangeFarmer4,
+	SpecialBuilding1,
+	SpecialBuilding2,
+	SpecialBuilding3,
+	SpecialBuilding4,
+	SpecialGrainBuilding1,
+	SpecialGrainBuilding2,
+	SpecialGrainBuilding3,
+	Start,
+	YellowFarmer1,
+	YellowFarmer2,
+	YellowFarmer3,
+	YellowFarmer4,
+	YellowFarmer5,
+	YellowFarmer6,
+	YellowFarmer7,
+} from "./nodes.js"
+import {
+	BuildingA,
+	BuildingB,
+	BuildingC,
+	BuildingD,
+	BuildingE,
+	BuildingF,
+	BuildingG,
+	BuildingH,
+} from "./buildings.js"
+import {
+	BlueFarmer,
+	Carpenter,
+	Farmer,
+	GreenFarmer,
+	Herder,
+	JobMarketToken,
+	Machinist,
+	OrangeFarmer,
+	Tile,
+	YellowFarmer,
+} from "./tiles.js"
 
 export default class Map {
 	public readonly start = new Start()
