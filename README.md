@@ -2,6 +2,13 @@
 
 Just a "quick" warm-up exercise 😀
 
+## Design Questions
+
+### Does the player know where they are on the map or does the map know where players are?
+
+- players don't block each other
+- map already has a lot to track (although players will have to as well)
+
 ## Ideas
 
 ### basic movement (always max) and map

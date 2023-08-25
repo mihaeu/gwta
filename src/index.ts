@@ -1,20 +1,28 @@
 import Engine from "./engine.js"
 import Map from "./map.js"
+import Player from "./player.js"
 
-const engine = new Engine()
+const map = new Map()
+const one = new Player("One")
+const two = new Player("Two")
+const players: Player[] = [one, two]
+const engine = new Engine(map, players)
+
 while (!engine.isGameOver()) {
-	const move = engine.moves().pop()
-	engine.play(move!)
+	const currentPlayer = engine.nextPlayer()
+	console.info("Player takes a turn", currentPlayer)
+	currentPlayer.nextTurn()
+	console.info("Turns taken", currentPlayer.turnsTaken())
 }
 console.log("Game is over", engine.isGameOver())
 
-const map = new Map()
-console.log(map.start.childNodes().pop()!.nextNonEmptyDescendants())
-console.log({
-	greenFarmers: map.greenFarmers,
-	blueFarmers: map.blueFarmers,
-	orangeFarmers: map.orangeFarmers,
-	yellowFarmers: map.yellowFarmers,
-	jobMarket: map.jobMarket,
-	foresightSpace: map.foresightSpaces,
-})
+// console.log({
+// 	nextPlayer: engine.nextPlayer(),
+// 	nextReachableNodes: map.start.childNodes().pop()!.nextNonEmptyDescendants(),
+// 	greenFarmers: map.greenFarmers,
+// 	blueFarmers: map.blueFarmers,
+// 	orangeFarmers: map.orangeFarmers,
+// 	yellowFarmers: map.yellowFarmers,
+// 	jobMarket: map.jobMarket,
+// 	foresightSpace: map.foresightSpaces,
+// })
