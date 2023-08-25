@@ -2,6 +2,10 @@
 
 Just a "quick" warm-up exercise 😀
 
+## Map
+
+![](map.svg)
+
 ## Design Questions
 
 ### Does the player know where they are on the map or does the map know where players are?
@@ -9,30 +13,36 @@ Just a "quick" warm-up exercise 😀
 - players don't block each other
 - map already has a lot to track (although players will have to as well)
 
-## Ideas
+### Actions
 
-### basic movement (always max) and map
+Some actions are easier to implement than others. I'll try to sum them up here.
 
-Is the map a graph?
-Is the map complete from the start with most locations empty or are locations added and removed as the game progresses?
+#### Moving trains
 
-![](map.svg)
+Similar to map, should be easy to do.
 
-#### Movement Options
+#### Buying cows
 
-- from the current node
-  - do I have more moves available
-  - for each next node
-    - is the node empty
-      - yes: add it to the options
-      - no: recurse over node children
+Requires hand cards and possible coins as well.
+After that it's easy.
+Reseed during Buenos Aires events.
 
-### buenos aires map seeding
+#### Building buildings
 
-- seed map with farmers
-- fill foresight spaces
-- fill job market
+Very easy, the actions are the only hard thing, but that's not part of the task for building.
 
-### game end conditions
+#### Help a farmer
 
-- job market full
+Easy in itself, but need to think about how to validate things properly.
+
+#### Discarding for coin
+
+Easy, but requires cows.
+
+#### Hiring a worker
+
+Easy, except for the actions when hiring, those require other things to be implemented. Maybe split the task up.
+
+#### Draw bonus cards
+
+Drawing is easy, but implementing them should be done here as well.
