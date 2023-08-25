@@ -5,6 +5,7 @@ export default abstract class Player {
 	protected readonly _name: string
 	protected _location: Node
 	protected turn: number = 0
+	private _moveDistance: number = 3
 
 	protected constructor(name: string, location: Node) {
 		this._name = name
@@ -17,6 +18,10 @@ export default abstract class Player {
 
 	get location(): Node {
 		return this._location
+	}
+
+	get moveDistance(): number {
+		return this._moveDistance
 	}
 
 	set location(value: Node) {

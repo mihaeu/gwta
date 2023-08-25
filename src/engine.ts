@@ -1,6 +1,6 @@
 import Player from "./player.js"
 import Map from "./map.js"
-import { BuenosAiresNode } from "./nodes.js"
+import { BuenosAiresNode, Node } from "./nodes.js"
 import {
 	BlueFarmer,
 	GreenFarmer,
@@ -26,8 +26,28 @@ export default class Engine {
 		)
 	}
 
-	moves(): number[] {
-		return []
+	availableMoves(currentPlayer: Player): Node[] {
+		const moveDistance = currentPlayer.moveDistance
+		const availableMoves = new Set(
+			currentPlayer.location.nextNonEmptyDescendants(),
+		)
+		let lastMoves: Node[] = [...availableMoves]
+		for (let distance = 2; distance <= moveDistance; ++distance) {
+			let movesOfCurrentDistance: Node[] = lastMoves.reduce(
+				(moves, currentMove) => {
+					if (currentMove instanceof BuenosAiresNode) {
+						return moves
+					}
+					return !moves
+						? currentMove.nextNonEmptyDescendants()
+						: moves.concat(currentMove.nextNonEmptyDescendants())
+				},
+				new Array<Node>(),
+			)
+			movesOfCurrentDistance.forEach((move) => availableMoves.add(move))
+			lastMoves = movesOfCurrentDistance
+		}
+		return [...availableMoves]
 	}
 
 	isGameOver(): boolean {
@@ -39,7 +59,7 @@ export default class Engine {
 		console.info(
 			`Player ${currentPlayer.name} is on ${previousLocation.constructor.name} and takes a turn`,
 		)
-		const availableMoves = currentPlayer.location.nextNonEmptyDescendants()
+		const availableMoves = this.availableMoves(currentPlayer)
 		const chosenMove = currentPlayer.chooseMovement(availableMoves)
 		const nextLocation = availableMoves[chosenMove]
 		if (nextLocation === undefined) {

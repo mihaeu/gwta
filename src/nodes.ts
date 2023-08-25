@@ -11,10 +11,6 @@ export abstract class Node {
 		return true
 	}
 
-	childNodes() {
-		return this.children
-	}
-
 	nextNonEmptyDescendants(): Node[] {
 		if (this.children.every((node) => !node.isEmpty())) {
 			return this.children
