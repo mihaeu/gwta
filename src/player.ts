@@ -1,11 +1,12 @@
 import { Node } from "./nodes.js"
+import { Tile } from "./tiles.js"
 
-export default class Player {
-	private readonly _name: string
-	private _location: Node
-	private turn: number = 0
+export default abstract class Player {
+	protected readonly _name: string
+	protected _location: Node
+	protected turn: number = 0
 
-	constructor(name: string, location: Node) {
+	protected constructor(name: string, location: Node) {
 		this._name = name
 		this._location = location
 	}
@@ -29,4 +30,9 @@ export default class Player {
 	turnsTaken(): number {
 		return this.turn
 	}
+
+	abstract chooseMovement(locations: Node[]): number
+	abstract chooseForesightTileA(tiles: Tile[]): number
+	abstract chooseForesightTileB(tiles: Tile[]): number
+	abstract chooseForesightTileC(tiles: Tile[]): number
 }

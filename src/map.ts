@@ -194,8 +194,10 @@ export default class Map {
 	public readonly cTiles: Tile[] = arrayShuffle(
 		this.yellowFarmerTiles.concat(this.workerTiles.slice(30)),
 	)
-	public readonly jobMarket: Worker | JobMarketToken[]
-	public readonly foresightSpaces: Tile[]
+	public readonly jobMarket: Array<Worker | JobMarketToken>
+	public readonly foresightSpacesA: Tile[]
+	public readonly foresightSpacesB: Tile[]
+	public readonly foresightSpacesC: Tile[]
 
 	constructor() {
 		this.start.addChild(this.neutralBuilding1)
@@ -272,10 +274,9 @@ export default class Map {
 		this.seedFarmers()
 		this.jobMarket = this.bTiles.splice(0, 5)
 		this.jobMarket.push(new JobMarketToken())
-		this.foresightSpaces = this.aTiles
-			.splice(0, 2)
-			.concat(this.bTiles.splice(0, 2))
-			.concat(this.cTiles.splice(0, 2))
+		this.foresightSpacesA = this.aTiles.splice(0, 2)
+		this.foresightSpacesB = this.bTiles.splice(0, 2)
+		this.foresightSpacesC = this.cTiles.splice(0, 2)
 	}
 
 	private seedFarmers() {
