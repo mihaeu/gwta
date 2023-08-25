@@ -29,6 +29,7 @@ class Worker implements Tile {
 class Herder extends Worker {}
 class Carpenter extends Worker {}
 class Machinist extends Worker {}
+class JobMarketToken {}
 
 abstract class Node {
     private children: Node[] = [];
@@ -242,6 +243,7 @@ export default class Map {
     public readonly aTiles: Farmer[] = arrayShuffle(this.greenBlueAndOrangeFarmerTiles);
     public readonly bTiles: Worker[] = this.workerTiles.slice(0, 30);
     public readonly cTiles: Tile[] = arrayShuffle(this.yellowFarmerTiles.concat(this.workerTiles.slice(30)));
+    public readonly jobMarket: Worker|JobMarketToken[];
 
     constructor() {
         this.start.addChild(this.neutralBuilding1);
@@ -308,6 +310,12 @@ export default class Map {
         this.neutralBuilding7.addChild(this.buenosAiresExit6);
         this.neutralBuilding6.addChild(this.buenosAiresExit7);
 
+        this.seedFarmers();
+        this.jobMarket = this.bTiles.splice(0, 5);
+        this.jobMarket.push(new JobMarketToken());
+    }
+
+    private seedFarmers() {
         const seedFarmers = this.aTiles.splice(0, 5)
         seedFarmers.forEach(farmer => {
             let emptyFarmerTile: FarmerNode | undefined;

@@ -22,8 +22,10 @@ Is the map complete from the start with most locations empty or are locations ad
 
 ### buenos aires map seeding
 
-...
+- seed map with farmers
+- fill foresight spaces
+- fill job market
 
 ### game end conditions
 
-...
+- job market full
