@@ -1,13 +1,11 @@
 export default class Engine {
-    moves(): number[] {
-        return [];
-    }
+	moves(): number[] {
+		return []
+	}
 
-    isGameOver(): boolean {
-        return true;
-    }
+	isGameOver(): boolean {
+		return true
+	}
 
-    play(option: number) {
-
-    }
+	play(option: number) {}
 }

@@ -1,10 +1,20 @@
 {
-  "name": "gwta",
-  "type": "module",
-  "packageManager": "yarn@3.6.3",
-  "dependencies": {
-    "array-shuffle": "^3.0.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
-  }
+	"name": "gwta",
+	"type": "module",
+	"packageManager": "yarn@3.6.3",
+	"dependencies": {
+		"array-shuffle": "^3.0.0",
+		"prettier": "^3.0.2",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.1.6"
+	},
+	"prettier": {
+		"arrowParens": "always",
+		"trailingComma": "all",
+		"semi": false,
+		"useTabs": true
+	},
+	"devDependencies": {
+		"@types/node": "^20.5.6"
+	}
 }
