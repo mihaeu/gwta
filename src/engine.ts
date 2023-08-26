@@ -2,6 +2,7 @@ import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
 import { BuenosAiresNode, Node } from "./nodes.js"
 import { BlueFarmer, GreenFarmer, JobMarketToken, OrangeFarmer, YellowFarmer } from "./tiles.js"
+import { Card, CowCard } from "./cards.js"
 
 export default class Engine {
 	private map: GameBoard
@@ -59,7 +60,15 @@ export default class Engine {
 	}
 
 	determineValueOfHandCards(currentPlayer: Player) {
-		return 5
+		const uniqueCards = currentPlayer.handCards
+			.reduce((uniqueCards: Map<string, CowCard>, currentCard: Card) => {
+				if (currentCard instanceof CowCard) {
+					uniqueCards.set(currentCard.constructor.name, currentCard)
+				}
+				return uniqueCards
+			}, new Map<string, CowCard>())
+			.values()
+		return [...uniqueCards].reduce((value: number, card: CowCard) => value + card.value, 0)
 	}
 
 	phaseB(currentPlayer: Player) {

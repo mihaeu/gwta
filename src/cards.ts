@@ -1,13 +1,25 @@
 export interface Card {}
 export abstract class CowCard implements Card {
-	protected readonly value: number
-	protected readonly strength: number
-	protected readonly victoryPoints: number
+	private readonly _value: number
+	private readonly _strength: number
+	private readonly _victoryPoints: number
 
 	constructor(value: number, strength: number, victoryPoints: number) {
-		this.value = value
-		this.strength = strength
-		this.victoryPoints = victoryPoints
+		this._value = value
+		this._strength = strength
+		this._victoryPoints = victoryPoints
+	}
+
+	get value(): number {
+		return this._value
+	}
+
+	get strength(): number {
+		return this._strength
+	}
+
+	get victoryPoints(): number {
+		return this._victoryPoints
 	}
 }
 export class Niata extends CowCard {
