@@ -20,6 +20,10 @@
 		"ts-jest": "^29.1.1",
 		"typescript": "^5.1.6"
 	},
+	"scripts": {
+		"test": "node --experimental-vm-modules $(yarn bin jest)",
+		"test:watch": "node --experimental-vm-modules $(yarn bin jest) --watch"
+	},
 	"jest": {
 		"preset": "ts-jest",
 		"moduleNameMapper": {
