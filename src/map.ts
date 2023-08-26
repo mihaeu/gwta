@@ -61,6 +61,7 @@ import {
 } from "./nodes.js"
 import { BuildingA, BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, BuildingG, BuildingH } from "./buildings.js"
 import { BlueFarmer, Carpenter, Farmer, GreenFarmer, Herder, JobMarketToken, Machinist, OrangeFarmer, Tile, YellowFarmer } from "./tiles.js"
+import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Serrano } from "./cards.js"
 
 export default class Map {
 	public readonly start = new Start()
@@ -154,6 +155,8 @@ export default class Map {
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]
 	public readonly foresightSpacesC: Tile[]
+	public cowMarket: CowCard[]
+	private cowCards: CowCard[]
 
 	constructor() {
 		this.start.addChild(this.neutralBuilding1)
@@ -233,6 +236,17 @@ export default class Map {
 		this.foresightSpacesA = this.aTiles.splice(0, 2)
 		this.foresightSpacesB = this.bTiles.splice(0, 2)
 		this.foresightSpacesC = this.cTiles.splice(0, 2)
+
+		this.cowCards = arrayShuffle(
+			new Array(6)
+				.fill(new Caracu(1, 7, 2))
+				.concat(new Array(5).fill(new Chaquenyo(3, 5, 1)))
+				.concat(new Array(5).fill(new Serrano(3, 4, 2)))
+				.concat(new Array(5).fill(new BlancoOrejinegro(3, 3, 3)))
+				.concat(new Array(9).fill(new Franqueiro(4, 6, 3)))
+				.concat(new Array(6).fill(new AberdeenAngus(5, 7, 5))),
+		)
+		this.cowMarket = this.cowCards.splice(0, 9)
 	}
 
 	private seedFarmers() {
