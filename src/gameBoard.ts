@@ -63,7 +63,7 @@ import { BuildingA, BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, Build
 import { BlueFarmer, Carpenter, Farmer, GreenFarmer, Herder, JobMarketToken, Machinist, OrangeFarmer, Tile, YellowFarmer } from "./tiles.js"
 import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Serrano } from "./cards.js"
 
-export default class Map {
+export default class GameBoard {
 	public readonly start = new Start()
 	private neutralBuilding1 = new NeutralBuilding1(new BuildingA())
 	private neutralBuilding2 = new NeutralBuilding2(new BuildingB())

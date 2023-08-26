@@ -1,14 +1,14 @@
 import Player from "./player.js"
-import Map from "./map.js"
+import GameBoard from "./gameBoard.js"
 import { BuenosAiresNode, Node } from "./nodes.js"
 import { BlueFarmer, GreenFarmer, JobMarketToken, OrangeFarmer, YellowFarmer } from "./tiles.js"
 
 export default class Engine {
-	private map: Map
+	private map: GameBoard
 	private players: Player[]
 	private readonly STARTING_COINS = 7
 
-	constructor(map: Map, players: Player[]) {
+	constructor(map: GameBoard, players: Player[]) {
 		this.map = map
 		this.players = players
 
