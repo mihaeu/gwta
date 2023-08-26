@@ -5,6 +5,7 @@ export default abstract class Player {
 	protected readonly _name: string
 	protected _location: Node
 	protected turn: number = 0
+	protected coins = 0
 	private _moveDistance: number = 3
 
 	protected constructor(name: string, location: Node) {
@@ -34,6 +35,10 @@ export default abstract class Player {
 
 	turnsTaken(): number {
 		return this.turn
+	}
+
+	gainCoins(amount: number) {
+		this.coins += amount
 	}
 
 	abstract chooseMovement(locations: Node[]): number

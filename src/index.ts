@@ -17,15 +17,15 @@ while (!engine.isGameOver()) {
 }
 console.log("Game is over", engine.isGameOver())
 
-// console.log({
-// 	nextPlayer: engine.nextPlayer(),
-// 	nextReachableNodes: map.start.childNodes().pop()!.nextNonEmptyDescendants(),
-// 	greenFarmers: map.greenFarmers,
-// 	blueFarmers: map.blueFarmers,
-// 	orangeFarmers: map.orangeFarmers,
-// 	yellowFarmers: map.yellowFarmers,
-// 	jobMarket: map.jobMarket,
-// 	foresightSpacesA: map.foresightSpacesA,
-// 	foresightSpacesB: map.foresightSpacesB,
-// 	foresightSpacesC: map.foresightSpacesC,
-// })
+console.log({
+	nextPlayer: engine.nextPlayer(),
+	greenFarmers: map.greenFarmers,
+	blueFarmers: map.blueFarmers,
+	orangeFarmers: map.orangeFarmers,
+	yellowFarmers: map.yellowFarmers,
+	jobMarket: map.jobMarket,
+	foresightSpacesA: map.foresightSpacesA,
+	foresightSpacesB: map.foresightSpacesB,
+	foresightSpacesC: map.foresightSpacesC,
+	players,
+})

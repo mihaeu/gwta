@@ -12,10 +12,15 @@ import {
 export default class Engine {
 	private map: Map
 	private players: Player[]
+	private readonly STARTING_COINS = 7
 
 	constructor(map: Map, players: Player[]) {
 		this.map = map
 		this.players = players
+
+		this.players.forEach((player, index) => {
+			player.gainCoins(this.STARTING_COINS + index)
+		})
 	}
 
 	nextPlayer(): Player {
