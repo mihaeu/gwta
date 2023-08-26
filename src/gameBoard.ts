@@ -62,6 +62,7 @@ import {
 import { BuildingA, BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, BuildingG, BuildingH } from "./buildings.js"
 import { BlueFarmer, Carpenter, Farmer, GreenFarmer, Herder, JobMarketToken, Machinist, OrangeFarmer, Tile, YellowFarmer } from "./tiles.js"
 import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Serrano } from "./cards.js"
+import Player from "./player.js"
 
 export default class GameBoard {
 	public readonly start = new Start()
@@ -114,13 +115,13 @@ export default class GameBoard {
 	private specialGrainBuilding1 = new SpecialGrainBuilding1()
 	private specialGrainBuilding2 = new SpecialGrainBuilding2()
 	private specialGrainBuilding3 = new SpecialGrainBuilding3()
-	private buenosAiresExit1 = new BuenosAiresExit1()
-	private buenosAiresExit2 = new BuenosAiresExit2()
-	private buenosAiresExit3 = new BuenosAiresExit3()
-	private buenosAiresExit4 = new BuenosAiresExit4()
-	private buenosAiresExit5 = new BuenosAiresExit5()
-	private buenosAiresExit6 = new BuenosAiresExit6()
-	private buenosAiresExit7 = new BuenosAiresExit7()
+	private buenosAiresExit1 = new BuenosAiresExit1(0)
+	private buenosAiresExit2 = new BuenosAiresExit2(3)
+	private buenosAiresExit3 = new BuenosAiresExit3(6)
+	private buenosAiresExit4 = new BuenosAiresExit4(9)
+	private buenosAiresExit5 = new BuenosAiresExit5(13)
+	private buenosAiresExit6 = new BuenosAiresExit6(17)
+	private buenosAiresExit7 = new BuenosAiresExit7(23)
 
 	public readonly greenFarmers = [this.greenFarmer1, this.greenFarmer2, this.greenFarmer3, this.greenFarmer4]
 	public readonly blueFarmers = [this.blueFarmer1, this.blueFarmer2, this.blueFarmer3, this.blueFarmer4]
@@ -155,8 +156,17 @@ export default class GameBoard {
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]
 	public readonly foresightSpacesC: Tile[]
-	public cowMarket: CowCard[]
-	private cowCards: CowCard[]
+	private cowCards: CowCard[] = arrayShuffle(
+		new Array(6)
+			.fill(new Caracu(1, 7, 2))
+			.concat(new Array(5).fill(new Chaquenyo(3, 5, 1)))
+			.concat(new Array(5).fill(new Serrano(3, 4, 2)))
+			.concat(new Array(5).fill(new BlancoOrejinegro(3, 3, 3)))
+			.concat(new Array(9).fill(new Franqueiro(4, 6, 3)))
+			.concat(new Array(6).fill(new AberdeenAngus(5, 7, 5))),
+	)
+	public cowMarket: CowCard[] = this.cowCards.splice(0, 9)
+	public railroadTrackWithoutStationMasterSpaces = new Array<Player[]>(32)
 
 	constructor() {
 		this.start.addChild(this.neutralBuilding1)
@@ -216,12 +226,12 @@ export default class GameBoard {
 		this.specialBuilding3.addChild(this.yellowFarmer4)
 		this.yellowFarmer5.addChild(this.specialBuilding4)
 		this.specialBuilding4.addChild(this.yellowFarmer6)
-		// this.yellowFarmer6.addChild(this.buenosAiresExit2)
-		// this.yellowFarmer4.addChild(this.buenosAiresExit3)
-		// this.neutralBuilding8.addChild(this.buenosAiresExit4)
-		// this.yellowFarmer1.addChild(this.buenosAiresExit5)
-		// this.neutralBuilding7.addChild(this.buenosAiresExit6)
-		// this.neutralBuilding6.addChild(this.buenosAiresExit7)
+		this.yellowFarmer6.addChild(this.buenosAiresExit2)
+		this.yellowFarmer4.addChild(this.buenosAiresExit3)
+		this.neutralBuilding8.addChild(this.buenosAiresExit4)
+		this.yellowFarmer1.addChild(this.buenosAiresExit5)
+		this.neutralBuilding7.addChild(this.buenosAiresExit6)
+		this.neutralBuilding6.addChild(this.buenosAiresExit7)
 		this.buenosAiresExit1.addChild(this.start)
 		this.buenosAiresExit2.addChild(this.start)
 		this.buenosAiresExit3.addChild(this.start)
@@ -236,17 +246,6 @@ export default class GameBoard {
 		this.foresightSpacesA = this.aTiles.splice(0, 2)
 		this.foresightSpacesB = this.bTiles.splice(0, 2)
 		this.foresightSpacesC = this.cTiles.splice(0, 2)
-
-		this.cowCards = arrayShuffle(
-			new Array(6)
-				.fill(new Caracu(1, 7, 2))
-				.concat(new Array(5).fill(new Chaquenyo(3, 5, 1)))
-				.concat(new Array(5).fill(new Serrano(3, 4, 2)))
-				.concat(new Array(5).fill(new BlancoOrejinegro(3, 3, 3)))
-				.concat(new Array(9).fill(new Franqueiro(4, 6, 3)))
-				.concat(new Array(6).fill(new AberdeenAngus(5, 7, 5))),
-		)
-		this.cowMarket = this.cowCards.splice(0, 9)
 	}
 
 	private seedFarmers() {

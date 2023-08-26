@@ -11,20 +11,16 @@ export abstract class Node {
 		return true
 	}
 
-	nextNonEmptyDescendants(): Node[] {
+	nextNonEmptyDescendants(railroadDevelopment: number = 0): Node[] {
 		if (this.children.every((node) => !node.isEmpty())) {
 			return this.children
 		}
 
 		const nonEmptyNodes: Set<Node> = new Set()
 		for (const child of this.children) {
-			child.isEmpty()
-				? child
-						.nextNonEmptyDescendants()
-						.forEach((descendant) => nonEmptyNodes.add(descendant))
-				: nonEmptyNodes.add(child)
+			child.isEmpty() ? child.nextNonEmptyDescendants().forEach((descendant) => nonEmptyNodes.add(descendant)) : nonEmptyNodes.add(child)
 		}
-		return [...nonEmptyNodes]
+		return [...nonEmptyNodes].filter((node) => (node instanceof BuenosAiresNode ? node.trainRequirement <= railroadDevelopment : true))
 	}
 }
 
@@ -52,6 +48,17 @@ export class FarmerNode extends Node {
 }
 
 export class BuenosAiresNode extends Node {
+	private readonly _trainRequirement: number
+
+	constructor(trainRequirement: number) {
+		super()
+		this._trainRequirement = trainRequirement
+	}
+
+	get trainRequirement(): number {
+		return this._trainRequirement
+	}
+
 	isEmpty(): boolean {
 		return false
 	}
