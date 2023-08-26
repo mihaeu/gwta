@@ -11,7 +11,7 @@ export default abstract class Player {
 	private _moveDistance: number = 3
 	public static readonly CARD_LIMIT = 4
 	protected cards: Card[]
-	protected handCards: Card[] = []
+	private _handCards: Card[] = []
 	protected discardedCards: Card[] = []
 
 	protected constructor(name: string, location: Node, cards: Card[]) {
@@ -36,6 +36,10 @@ export default abstract class Player {
 		this._location = value
 	}
 
+	get handCards(): Card[] {
+		return this._handCards
+	}
+
 	nextTurn() {
 		++this.turn
 	}
@@ -51,23 +55,23 @@ export default abstract class Player {
 	drawCards(count: number) {
 		if (this.cards.length < count) {
 			const cardsLeft = count - this.cards.length
-			this.handCards = this.handCards.concat(this.cards.splice(0, cardsLeft))
+			this._handCards = this._handCards.concat(this.cards.splice(0, cardsLeft))
 			this.cards = arrayShuffle(this.discardedCards)
 			this.discardedCards = []
-			this.handCards = this.handCards.concat(this.cards.splice(0, count - cardsLeft))
+			this._handCards = this._handCards.concat(this.cards.splice(0, count - cardsLeft))
 		} else {
 			const cardsToDraw = this.cards.splice(0, count)
-			this.handCards = this.handCards.concat(cardsToDraw)
+			this._handCards = this._handCards.concat(cardsToDraw)
 		}
 	}
 
 	discardCardOrDrawToHandLimit(): void {
-		if (this.handCards.length < Player.CARD_LIMIT) {
-			this.drawCards(Player.CARD_LIMIT - this.handCards.length)
+		if (this._handCards.length < Player.CARD_LIMIT) {
+			this.drawCards(Player.CARD_LIMIT - this._handCards.length)
 		}
 
-		if (this.handCards.length > Player.CARD_LIMIT) {
-			this.discardCards(this.handCards.length - Player.CARD_LIMIT)
+		if (this._handCards.length > Player.CARD_LIMIT) {
+			this.discardCards(this._handCards.length - Player.CARD_LIMIT)
 		}
 	}
 
@@ -75,5 +79,5 @@ export default abstract class Player {
 	abstract chooseForesightTileA(tiles: Tile[]): number
 	abstract chooseForesightTileB(tiles: Tile[]): number
 	abstract chooseForesightTileC(tiles: Tile[]): number
-	abstract discardCards(count: number): void
+	abstract discardCards(count?: number): void
 }

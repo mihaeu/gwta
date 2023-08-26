@@ -58,9 +58,16 @@ export default class Engine {
 		console.info(`Player ${currentPlayer.name} moved from ${previousLocation.constructor.name} to ${nextLocation.constructor.name}.`)
 	}
 
+	determineValueOfHandCards(currentPlayer: Player) {
+		return 5
+	}
+
 	phaseB(currentPlayer: Player) {
 		if (currentPlayer.location instanceof BuenosAiresNode) {
 			console.log("Handling foresight spaces on Buenos Aires")
+
+			currentPlayer.gainCoins(this.determineValueOfHandCards(currentPlayer))
+			currentPlayer.discardCards()
 
 			const chosenAIndex = currentPlayer.chooseForesightTileA(this.map.foresightSpacesA)
 			const chosenATile = this.map.foresightSpacesA[chosenAIndex]
