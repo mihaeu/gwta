@@ -73,57 +73,72 @@ export default class Engine {
 
 	phaseB(currentPlayer: Player) {
 		if (currentPlayer.location instanceof BuenosAiresNode) {
-			console.log("Handling foresight spaces on Buenos Aires")
-
-			currentPlayer.gainCoins(this.determineValueOfHandCards(currentPlayer))
-			currentPlayer.discardCards()
-
-			const chosenAIndex = currentPlayer.chooseForesightTileA(this.map.foresightSpacesA)
-			const chosenATile = this.map.foresightSpacesA[chosenAIndex]
-			console.log(`Chose ${chosenAIndex} - `, chosenATile, `} from `, this.map.foresightSpacesA)
-			if (chosenATile instanceof GreenFarmer) {
-				const firstEmptyFarmer = this.map.greenFarmers.find((farmer) => farmer.isEmpty())
-				if (firstEmptyFarmer) {
-					firstEmptyFarmer.addFarmer()
-				}
-			} else if (chosenATile instanceof BlueFarmer) {
-				const firstEmptyFarmer = this.map.blueFarmers.find((farmer) => farmer.isEmpty())
-				if (firstEmptyFarmer) {
-					firstEmptyFarmer.addFarmer()
-				}
-			} else if (chosenATile instanceof OrangeFarmer) {
-				const firstEmptyFarmer = this.map.orangeFarmers.find((farmer) => farmer.isEmpty())
-				if (firstEmptyFarmer) {
-					firstEmptyFarmer.addFarmer()
-				}
-			}
-			this.map.foresightSpacesA[chosenAIndex] = this.map.aTiles.splice(0, 1)[0]
-
-			const chosenBIndex = currentPlayer.chooseForesightTileB(this.map.foresightSpacesB)
-			const chosenBTile = this.map.foresightSpacesB[chosenBIndex]
-			console.log(`Chose ${chosenBIndex} - `, chosenBTile, ` from `, this.map.foresightSpacesB)
-
-			this.map.jobMarket[this.map.jobMarket.length - 1] = chosenBTile
-			this.map.jobMarket.push(new JobMarketToken())
-			this.map.foresightSpacesB[chosenAIndex] = this.map.bTiles.splice(0, 1)[0]
-
-			const chosenCIndex = currentPlayer.chooseForesightTileC(this.map.foresightSpacesC)
-			const chosenCTile = this.map.foresightSpacesC[chosenCIndex]
-			console.log(`Chose ${chosenCIndex} - `, chosenCTile, ` from `, this.map.foresightSpacesC)
-			if (chosenCTile instanceof YellowFarmer) {
-				const firstEmptyFarmer = this.map.yellowFarmers.find((farmer) => farmer.isEmpty())
-				if (firstEmptyFarmer) {
-					firstEmptyFarmer.addFarmer()
-				}
-			} else {
-				this.map.jobMarket[this.map.jobMarket.length - 1] = chosenCTile
-				this.map.jobMarket.push(new JobMarketToken())
-			}
-			this.map.foresightSpacesC[chosenCIndex] = this.map.cTiles.splice(0, 1)[0]
+			this.buenosAiresStepTwo(currentPlayer)
+			this.buenosAiresStepFour(currentPlayer)
+			this.buenosAiresStepFive(currentPlayer)
+			this.buenosAiresStepSix(currentPlayer)
 
 			console.log(`Moving player ${currentPlayer.name} to start`)
 			currentPlayer.location = this.map.start
 		}
+	}
+
+	private buenosAiresStepSix(currentPlayer: Player) {
+		console.log("Handling Buenos Aires step 6")
+		const chosenCIndex = currentPlayer.chooseForesightTileC(this.map.foresightSpacesC)
+		const chosenCTile = this.map.foresightSpacesC[chosenCIndex]
+		console.log(`Chose ${chosenCIndex} - `, chosenCTile, ` from `, this.map.foresightSpacesC)
+		if (chosenCTile instanceof YellowFarmer) {
+			const firstEmptyFarmer = this.map.yellowFarmers.find((farmer) => farmer.isEmpty())
+			if (firstEmptyFarmer) {
+				firstEmptyFarmer.addFarmer()
+			}
+		} else {
+			this.map.jobMarket[this.map.jobMarket.length - 1] = chosenCTile
+			this.map.jobMarket.push(new JobMarketToken())
+		}
+		this.map.foresightSpacesC[chosenCIndex] = this.map.cTiles.splice(0, 1)[0]
+	}
+
+	private buenosAiresStepFive(currentPlayer: Player) {
+		console.log("Handling Buenos Aires step 5")
+		const chosenBIndex = currentPlayer.chooseForesightTileB(this.map.foresightSpacesB)
+		const chosenBTile = this.map.foresightSpacesB[chosenBIndex]
+		console.log(`Chose ${chosenBIndex} - `, chosenBTile, ` from `, this.map.foresightSpacesB)
+
+		this.map.jobMarket[this.map.jobMarket.length - 1] = chosenBTile
+		this.map.jobMarket.push(new JobMarketToken())
+		this.map.foresightSpacesB[chosenBIndex] = this.map.bTiles.splice(0, 1)[0]
+	}
+
+	private buenosAiresStepFour(currentPlayer: Player) {
+		console.log("Handling Buenos Aires step 4")
+		const chosenAIndex = currentPlayer.chooseForesightTileA(this.map.foresightSpacesA)
+		const chosenATile = this.map.foresightSpacesA[chosenAIndex]
+		console.log(`Chose ${chosenAIndex} - `, chosenATile, `} from `, this.map.foresightSpacesA)
+		if (chosenATile instanceof GreenFarmer) {
+			const firstEmptyFarmer = this.map.greenFarmers.find((farmer) => farmer.isEmpty())
+			if (firstEmptyFarmer) {
+				firstEmptyFarmer.addFarmer()
+			}
+		} else if (chosenATile instanceof BlueFarmer) {
+			const firstEmptyFarmer = this.map.blueFarmers.find((farmer) => farmer.isEmpty())
+			if (firstEmptyFarmer) {
+				firstEmptyFarmer.addFarmer()
+			}
+		} else if (chosenATile instanceof OrangeFarmer) {
+			const firstEmptyFarmer = this.map.orangeFarmers.find((farmer) => farmer.isEmpty())
+			if (firstEmptyFarmer) {
+				firstEmptyFarmer.addFarmer()
+			}
+		}
+		this.map.foresightSpacesA[chosenAIndex] = this.map.aTiles.splice(0, 1)[0]
+	}
+
+	private buenosAiresStepTwo(currentPlayer: Player) {
+		console.log("Handling Buenos Aires step 2")
+		currentPlayer.gainCoins(this.determineValueOfHandCards(currentPlayer))
+		currentPlayer.discardCards()
 	}
 
 	phaseC(currentPlayer: Player) {
