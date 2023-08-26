@@ -1,5 +1,5 @@
 import { Node } from "./nodes.js"
-import { Tile } from "./tiles.js"
+import { Carpenter, Herder, Machinist, Tile, Worker } from "./tiles.js"
 import { Card } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 
@@ -7,12 +7,16 @@ export default abstract class Player {
 	protected readonly _name: string
 	protected _location: Node
 	protected turn: number = 0
-	protected coins = 0
+	private _coins = 0
 	private _moveDistance: number = 3
 	public static readonly CARD_LIMIT = 4
 	protected cards: Card[]
 	private _handCards: Card[] = []
 	protected discardedCards: Card[] = []
+	private _herders: Worker[] = [new Herder()]
+	private _carpenters: Worker[] = [new Carpenter()]
+	private _machinists: Worker[] = [new Machinist()]
+	private _farmers: Worker[] = []
 
 	protected constructor(name: string, location: Node, cards: Card[]) {
 		this._name = name
@@ -48,8 +52,28 @@ export default abstract class Player {
 		return this.turn
 	}
 
+	get coins(): number {
+		return this._coins
+	}
+
+	get herders(): Worker[] {
+		return this._herders
+	}
+
+	get carpenters(): Worker[] {
+		return this._carpenters
+	}
+
+	get machinists(): Worker[] {
+		return this._machinists
+	}
+
+	get farmers(): Worker[] {
+		return this._farmers
+	}
+
 	gainCoins(amount: number) {
-		this.coins += amount
+		this._coins += amount
 	}
 
 	drawCards(count: number) {
@@ -80,4 +104,5 @@ export default abstract class Player {
 	abstract chooseForesightTileB(tiles: Tile[]): number
 	abstract chooseForesightTileC(tiles: Tile[]): number
 	abstract discardCards(count?: number): void
+	abstract hireWorkers(availableWorkers: Worker[]): void
 }
