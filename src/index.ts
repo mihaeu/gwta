@@ -2,10 +2,17 @@ import Engine from "./engine.js"
 import Map from "./map.js"
 import Player from "./player.js"
 import RandomPlayer from "./randomplayer.js"
+import { CowCard, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./cards.js"
+import arrayShuffle from "array-shuffle"
 
 const map = new Map()
-const one = new RandomPlayer("One", map.start)
-const two = new RandomPlayer("Two", map.start)
+const startCards = new Array<CowCard>(5)
+	.fill(new Niata(1, 1, 0))
+	.concat(new Array<CowCard>(3).fill(new Patagonico(2, 2, 0)))
+	.concat(new Array<CowCard>(3).fill(new Fronterizo(2, 2, 0)))
+	.concat(new Array<CowCard>(3).fill(new HolandoArgentino(2, 2, 0)))
+const one = new RandomPlayer("One", map.start, arrayShuffle(startCards))
+const two = new RandomPlayer("Two", map.start, arrayShuffle(startCards))
 const players: Player[] = [one, two]
 const engine = new Engine(map, players)
 
@@ -27,5 +34,6 @@ console.log({
 	foresightSpacesA: map.foresightSpacesA,
 	foresightSpacesB: map.foresightSpacesB,
 	foresightSpacesC: map.foresightSpacesC,
-	players,
+	one,
+	two,
 })

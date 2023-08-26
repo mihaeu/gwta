@@ -59,28 +59,8 @@ import {
 	YellowFarmer6,
 	YellowFarmer7,
 } from "./nodes.js"
-import {
-	BuildingA,
-	BuildingB,
-	BuildingC,
-	BuildingD,
-	BuildingE,
-	BuildingF,
-	BuildingG,
-	BuildingH,
-} from "./buildings.js"
-import {
-	BlueFarmer,
-	Carpenter,
-	Farmer,
-	GreenFarmer,
-	Herder,
-	JobMarketToken,
-	Machinist,
-	OrangeFarmer,
-	Tile,
-	YellowFarmer,
-} from "./tiles.js"
+import { BuildingA, BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, BuildingG, BuildingH } from "./buildings.js"
+import { BlueFarmer, Carpenter, Farmer, GreenFarmer, Herder, JobMarketToken, Machinist, OrangeFarmer, Tile, YellowFarmer } from "./tiles.js"
 
 export default class Map {
 	public readonly start = new Start()
@@ -141,24 +121,9 @@ export default class Map {
 	private buenosAiresExit6 = new BuenosAiresExit6()
 	private buenosAiresExit7 = new BuenosAiresExit7()
 
-	public readonly greenFarmers = [
-		this.greenFarmer1,
-		this.greenFarmer2,
-		this.greenFarmer3,
-		this.greenFarmer4,
-	]
-	public readonly blueFarmers = [
-		this.blueFarmer1,
-		this.blueFarmer2,
-		this.blueFarmer3,
-		this.blueFarmer4,
-	]
-	public readonly orangeFarmers = [
-		this.orangeFarmer1,
-		this.orangeFarmer2,
-		this.orangeFarmer3,
-		this.orangeFarmer4,
-	]
+	public readonly greenFarmers = [this.greenFarmer1, this.greenFarmer2, this.greenFarmer3, this.greenFarmer4]
+	public readonly blueFarmers = [this.blueFarmer1, this.blueFarmer2, this.blueFarmer3, this.blueFarmer4]
+	public readonly orangeFarmers = [this.orangeFarmer1, this.orangeFarmer2, this.orangeFarmer3, this.orangeFarmer4]
 	public readonly yellowFarmers = [
 		this.yellowFarmer1,
 		this.yellowFarmer2,
@@ -170,14 +135,9 @@ export default class Map {
 	]
 
 	public readonly greenBlueAndOrangeFarmerTiles: Farmer[] = arrayShuffle(
-		new Array(12)
-			.fill(new GreenFarmer())
-			.concat(new Array(12).fill(new BlueFarmer()))
-			.concat(new Array(12).fill(new OrangeFarmer())),
+		new Array(12).fill(new GreenFarmer()).concat(new Array(12).fill(new BlueFarmer())).concat(new Array(12).fill(new OrangeFarmer())),
 	)
-	public readonly yellowFarmerTiles: Farmer[] = new Array(15).fill(
-		new YellowFarmer(),
-	)
+	public readonly yellowFarmerTiles: Farmer[] = new Array(15).fill(new YellowFarmer())
 	public readonly workerTiles: Worker[] = arrayShuffle(
 		new Array(11)
 			.fill(new Herder(false))
@@ -187,13 +147,9 @@ export default class Map {
 			.concat(new Array(8).fill(new Carpenter(true)))
 			.concat(new Array(8).fill(new Machinist(true))),
 	)
-	public readonly aTiles: Farmer[] = arrayShuffle(
-		this.greenBlueAndOrangeFarmerTiles,
-	)
+	public readonly aTiles: Farmer[] = arrayShuffle(this.greenBlueAndOrangeFarmerTiles)
 	public readonly bTiles: Worker[] = this.workerTiles.slice(0, 30)
-	public readonly cTiles: Tile[] = arrayShuffle(
-		this.yellowFarmerTiles.concat(this.workerTiles.slice(30)),
-	)
+	public readonly cTiles: Tile[] = arrayShuffle(this.yellowFarmerTiles.concat(this.workerTiles.slice(30)))
 	public readonly jobMarket: Array<Worker | JobMarketToken>
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]

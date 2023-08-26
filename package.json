@@ -12,7 +12,8 @@
 		"arrowParens": "always",
 		"trailingComma": "all",
 		"semi": false,
-		"useTabs": true
+		"useTabs": true,
+		"printWidth": 140
 	},
 	"devDependencies": {
 		"@types/node": "^20.5.6"
