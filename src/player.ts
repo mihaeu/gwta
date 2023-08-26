@@ -61,11 +61,14 @@ export default abstract class Player {
 		}
 	}
 
-	discardCardToHandLimit(): void {
-		if (this.handCards.length <= Player.CARD_LIMIT) {
-			return
+	discardCardOrDrawToHandLimit(): void {
+		if (this.handCards.length < Player.CARD_LIMIT) {
+			this.drawCards(Player.CARD_LIMIT - this.handCards.length)
 		}
-		this.discardCards(this.handCards.length - Player.CARD_LIMIT)
+
+		if (this.handCards.length > Player.CARD_LIMIT) {
+			this.discardCards(this.handCards.length - Player.CARD_LIMIT)
+		}
 	}
 
 	abstract chooseMovement(locations: Node[]): number

@@ -111,7 +111,7 @@ export default class Engine {
 	}
 
 	phaseC(currentPlayer: Player) {
-		currentPlayer.discardCardToHandLimit()
+		currentPlayer.discardCardOrDrawToHandLimit()
 		currentPlayer.nextTurn()
 		console.info(`Player ${currentPlayer.name} turns taken ${currentPlayer.turnsTaken()}`)
 	}
