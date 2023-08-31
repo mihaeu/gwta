@@ -6,11 +6,11 @@ import { CowCard, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./card
 import arrayShuffle from "array-shuffle"
 
 const map = new GameBoard()
-const startCards = new Array<CowCard>(5)
-	.fill(new Niata(1, 1, 0))
-	.concat(new Array<CowCard>(3).fill(new Patagonico(2, 2, 0)))
-	.concat(new Array<CowCard>(3).fill(new Fronterizo(2, 2, 0)))
-	.concat(new Array<CowCard>(3).fill(new HolandoArgentino(2, 2, 0)))
+const startCards = new Array<CowCard>(Niata.COUNT)
+	.fill(new Niata())
+	.concat(new Array<CowCard>(Patagonico.COUNT).fill(new Patagonico()))
+	.concat(new Array<CowCard>(Fronterizo.COUNT).fill(new Fronterizo()))
+	.concat(new Array<CowCard>(HolandoArgentino.COUNT).fill(new HolandoArgentino()))
 const one = new RandomPlayer("One", map.start, arrayShuffle(startCards))
 const two = new RandomPlayer("Two", map.start, arrayShuffle(startCards))
 const players: Player[] = [one, two]

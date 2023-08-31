@@ -157,13 +157,13 @@ export default class GameBoard {
 	public readonly foresightSpacesB: Tile[]
 	public readonly foresightSpacesC: Tile[]
 	private cowCards: CowCard[] = arrayShuffle(
-		new Array(6)
+		new Array(Caracu.COUNT)
 			.fill(new Caracu(1, 7, 2))
-			.concat(new Array(5).fill(new Chaquenyo(3, 5, 1)))
-			.concat(new Array(5).fill(new Serrano(3, 4, 2)))
-			.concat(new Array(5).fill(new BlancoOrejinegro(3, 3, 3)))
-			.concat(new Array(9).fill(new Franqueiro(4, 6, 3)))
-			.concat(new Array(6).fill(new AberdeenAngus(5, 7, 5))),
+			.concat(new Array(Chaquenyo.COUNT).fill(new Chaquenyo(3, 5, 1)))
+			.concat(new Array(Serrano.COUNT).fill(new Serrano(3, 4, 2)))
+			.concat(new Array(BlancoOrejinegro.COUNT).fill(new BlancoOrejinegro(3, 3, 3)))
+			.concat(new Array(Franqueiro.COUNT).fill(new Franqueiro(4, 6, 3)))
+			.concat(new Array(AberdeenAngus.COUNT).fill(new AberdeenAngus(5, 7, 5))),
 	)
 	public cowMarket: CowCard[] = this.cowCards.splice(0, 9)
 	public railroadTrackWithoutStationMasterSpaces = new Array<Player[]>(32)

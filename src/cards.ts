@@ -23,32 +23,48 @@ export abstract class CowCard implements Card {
 	}
 }
 export class Niata extends CowCard {
-	public readonly COUNT = 5
+	public static readonly COUNT = 5
+
+	constructor() {
+		super(1, 1, 0)
+	}
 }
 export class Patagonico extends CowCard {
-	public readonly COUNT = 3
+	public static readonly COUNT = 3
+
+	constructor() {
+		super(2, 2, 0)
+	}
 }
 export class Fronterizo extends CowCard {
-	public readonly COUNT = 3
+	public static readonly COUNT = 3
+
+	constructor() {
+		super(2, 2, 0)
+	}
 }
 export class HolandoArgentino extends CowCard {
-	public readonly COUNT = 3
+	public static readonly COUNT = 3
+
+	constructor() {
+		super(2, 2, 0)
+	}
 }
 export class Caracu extends CowCard {
-	public readonly COUNT = 5
+	public static readonly COUNT = 5
 }
 export class Chaquenyo extends CowCard {
-	public readonly COUNT = 5
+	public static readonly COUNT = 5
 }
 export class Serrano extends CowCard {
-	public readonly COUNT = 5
+	public static readonly COUNT = 5
 }
 export class BlancoOrejinegro extends CowCard {
-	public readonly COUNT = 5
+	public static readonly COUNT = 5
 }
 export class Franqueiro extends CowCard {
-	public readonly COUNT = 9
+	public static readonly COUNT = 9
 }
 export class AberdeenAngus extends CowCard {
-	public readonly COUNT = 6
+	public static readonly COUNT = 6
 }
