@@ -1,5 +1,17 @@
 export interface Tile {}
-export class Farmer implements Tile {}
+export enum HandColor {
+	GREEN,
+	BLACK,
+}
+export class Farmer implements Tile {
+	constructor(
+		private readonly hand: HandColor,
+		private readonly strength: 3 | 4 | 5 | 6 | 7 | 8,
+	) {
+		this.hand = hand
+		this.strength = strength
+	}
+}
 export class BlueFarmer extends Farmer {}
 export class GreenFarmer extends Farmer {}
 export class OrangeFarmer extends Farmer {}

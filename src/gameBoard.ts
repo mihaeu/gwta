@@ -39,6 +39,7 @@ import {
 	NeutralBuilding6,
 	NeutralBuilding7,
 	NeutralBuilding8,
+	Node,
 	OrangeFarmer1,
 	OrangeFarmer2,
 	OrangeFarmer3,
@@ -59,10 +60,24 @@ import {
 	YellowFarmer6,
 	YellowFarmer7,
 } from "./nodes.js"
-import { BuildingA, BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, BuildingG, BuildingH } from "./buildings.js"
-import { BlueFarmer, Carpenter, Farmer, GreenFarmer, Herder, JobMarketToken, Machinist, OrangeFarmer, Tile, YellowFarmer } from "./tiles.js"
+import { BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, BuildingG, BuildingH } from "./buildings.js"
+import {
+	BlueFarmer,
+	Carpenter,
+	Farmer,
+	GreenFarmer,
+	HandColor,
+	Herder,
+	JobMarketToken,
+	Machinist,
+	OrangeFarmer,
+	Tile,
+	Worker,
+	YellowFarmer,
+} from "./tiles.js"
 import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Serrano } from "./cards.js"
 import Player from "./player.js"
+import { BuildingA } from "./buildings/buildingA.js"
 
 export default class GameBoard {
 	public readonly start = new Start()
@@ -136,22 +151,121 @@ export default class GameBoard {
 		this.yellowFarmer7,
 	]
 
-	public readonly greenBlueAndOrangeFarmerTiles: Farmer[] = arrayShuffle(
-		new Array(12).fill(new GreenFarmer()).concat(new Array(12).fill(new BlueFarmer())).concat(new Array(12).fill(new OrangeFarmer())),
-	)
-	public readonly yellowFarmerTiles: Farmer[] = new Array(15).fill(new YellowFarmer())
-	public readonly workerTiles: Worker[] = arrayShuffle(
-		new Array(11)
-			.fill(new Herder(false))
-			.concat(new Array(11).fill(new Carpenter(false)))
-			.concat(new Array(11).fill(new Machinist(false)))
-			.concat(new Array(8).fill(new Herder(true)))
-			.concat(new Array(8).fill(new Carpenter(true)))
-			.concat(new Array(8).fill(new Machinist(true))),
-	)
-	public readonly aTiles: Farmer[] = arrayShuffle(this.greenBlueAndOrangeFarmerTiles)
-	public readonly bTiles: Worker[] = this.workerTiles.slice(0, 30)
-	public readonly cTiles: Tile[] = arrayShuffle(this.yellowFarmerTiles.concat(this.workerTiles.slice(30)))
+	public readonly aTiles: Farmer[] = arrayShuffle([
+		new GreenFarmer(HandColor.GREEN, 3),
+		new GreenFarmer(HandColor.GREEN, 4),
+		new GreenFarmer(HandColor.GREEN, 4),
+		new GreenFarmer(HandColor.BLACK, 4),
+		new GreenFarmer(HandColor.GREEN, 5),
+		new GreenFarmer(HandColor.GREEN, 5),
+		new GreenFarmer(HandColor.BLACK, 5),
+		new GreenFarmer(HandColor.GREEN, 6),
+		new GreenFarmer(HandColor.BLACK, 6),
+		new GreenFarmer(HandColor.BLACK, 6),
+		new GreenFarmer(HandColor.BLACK, 7),
+		new GreenFarmer(HandColor.BLACK, 7),
+		new OrangeFarmer(HandColor.GREEN, 3),
+		new OrangeFarmer(HandColor.GREEN, 4),
+		new OrangeFarmer(HandColor.GREEN, 4),
+		new OrangeFarmer(HandColor.BLACK, 4),
+		new OrangeFarmer(HandColor.GREEN, 5),
+		new OrangeFarmer(HandColor.GREEN, 5),
+		new OrangeFarmer(HandColor.BLACK, 5),
+		new OrangeFarmer(HandColor.GREEN, 6),
+		new OrangeFarmer(HandColor.BLACK, 6),
+		new OrangeFarmer(HandColor.BLACK, 6),
+		new OrangeFarmer(HandColor.BLACK, 7),
+		new OrangeFarmer(HandColor.BLACK, 7),
+		new BlueFarmer(HandColor.GREEN, 3),
+		new BlueFarmer(HandColor.GREEN, 4),
+		new BlueFarmer(HandColor.GREEN, 4),
+		new BlueFarmer(HandColor.BLACK, 4),
+		new BlueFarmer(HandColor.GREEN, 5),
+		new BlueFarmer(HandColor.GREEN, 5),
+		new BlueFarmer(HandColor.BLACK, 5),
+		new BlueFarmer(HandColor.GREEN, 6),
+		new BlueFarmer(HandColor.BLACK, 6),
+		new BlueFarmer(HandColor.BLACK, 6),
+		new BlueFarmer(HandColor.BLACK, 7),
+		new BlueFarmer(HandColor.BLACK, 7),
+	])
+	public readonly bTiles: Worker[] = arrayShuffle([
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(true),
+		new Carpenter(true),
+		new Carpenter(true),
+		new Carpenter(true),
+		new Carpenter(true),
+		new Herder(false),
+		new Herder(false),
+		new Herder(false),
+		new Herder(false),
+		new Herder(false),
+		new Herder(false),
+		new Herder(false),
+		new Herder(false),
+		new Herder(true),
+		new Herder(true),
+		new Herder(true),
+		new Herder(true),
+		new Herder(true),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(true),
+		new Machinist(true),
+		new Machinist(true),
+		new Machinist(true),
+		new Machinist(true),
+	])
+	public readonly cTiles: Tile[] = arrayShuffle([
+		new YellowFarmer(HandColor.BLACK, 5),
+		new YellowFarmer(HandColor.BLACK, 5),
+		new YellowFarmer(HandColor.BLACK, 5),
+		new YellowFarmer(HandColor.BLACK, 6),
+		new YellowFarmer(HandColor.BLACK, 6),
+		new YellowFarmer(HandColor.BLACK, 6),
+		new YellowFarmer(HandColor.BLACK, 7),
+		new YellowFarmer(HandColor.BLACK, 7),
+		new YellowFarmer(HandColor.BLACK, 7),
+		new YellowFarmer(HandColor.BLACK, 7),
+		new YellowFarmer(HandColor.BLACK, 8),
+		new YellowFarmer(HandColor.BLACK, 8),
+		new YellowFarmer(HandColor.BLACK, 8),
+		new YellowFarmer(HandColor.BLACK, 8),
+		new YellowFarmer(HandColor.BLACK, 8),
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(false),
+		new Carpenter(true),
+		new Carpenter(true),
+		new Carpenter(true),
+		new Herder(false),
+		new Herder(false),
+		new Herder(false),
+		new Herder(true),
+		new Herder(true),
+		new Herder(true),
+		new Herder(true),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(false),
+		new Machinist(true),
+		new Machinist(true),
+		new Machinist(true),
+	])
 	public readonly jobMarket: Array<Worker | JobMarketToken>
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]
