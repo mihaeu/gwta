@@ -6,7 +6,10 @@ import { WorkerOption } from "../options/workerOption.js"
 import { Action } from "./action.js"
 
 export class HireWorkerAction extends Action {
-	constructor(private readonly costModifier: number) {
+	/**
+	 * TODO add cost
+	 */
+	constructor() {
 		super()
 	}
 

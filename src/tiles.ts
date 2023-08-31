@@ -1,5 +1,3 @@
-import GameBoard from "./gameBoard.js"
-import Player from "./player.js"
 import { Action } from "./actions/action.js"
 import { AuxiliaryAction } from "./actions/auxiliaryAction.js"
 
@@ -20,7 +18,7 @@ export class Farmer implements Tile {
 	/**
 	 * TODO help farmer action is missing
 	 */
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
+	actions(): Action[] {
 		return [new AuxiliaryAction()]
 	}
 }
