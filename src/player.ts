@@ -4,6 +4,7 @@ import { Card } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
 import { Action } from "./actions/action.js"
+import { PlayerBuilding } from "./buildings/buildings.js"
 
 export default abstract class Player {
 	protected readonly _name: string
@@ -19,12 +20,14 @@ export default abstract class Player {
 	private _carpenters: Worker[] = [new Carpenter()]
 	private _machinists: Worker[] = [new Machinist()]
 	private _farmers: Worker[] = []
-	public availableBuildings = []
+	public availableBuildings: PlayerBuilding[] = []
 
-	protected constructor(name: string, location: Node, cards: Card[]) {
+	protected constructor(name: string, location: Node, cards: Card[], playerBuildings: PlayerBuilding[]) {
 		this._name = name
 		this._location = location
 		this.cards = cards
+		this.availableBuildings = playerBuildings
+		this.availableBuildings.forEach((playerBuilding) => (playerBuilding.player = this))
 	}
 
 	get name(): string {

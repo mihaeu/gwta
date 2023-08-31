@@ -13,16 +13,19 @@ import { HireWorkerAction } from "../actions/hireWorkerAction.js"
  * 	- Discard a Holando Argentino for 2 gold
  *  - Hire a worker
  *  - Hire a worker for an extra cost of 2
- *
- * The order of the first two actions does matter because a worker could trigger the drawing of cards,
- * which would make the first action possible if it wasn't before. The second hiring action will never
- * be done on its own.
  */
-export class BuildingA extends NeutralBuilding {
+export class NeutralBuildingA extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		const actions: Action[] = currentPlayer.handCards.some((card) => card instanceof HolandoArgentino)
 			? [new CostBenefitCombinedAction(new DiscardCardAction(new HolandoArgentino()), new GainCoinAction(2))]
 			: []
-		return actions.concat([new HireWorkerAction(0), new HireWorkerAction(2)])
+		if (currentPlayer.coins >= 6) {
+			actions.push(new HireWorkerAction(0))
+		}
+
+		if (currentPlayer.coins >= 8) {
+			actions.push(new HireWorkerAction(2))
+		}
+		return actions
 	}
 }

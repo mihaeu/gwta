@@ -4,10 +4,11 @@ import Player from "./player.js"
 import { Card } from "./cards.js"
 import { Option } from "./options/option.js"
 import { Action } from "./actions/action.js"
+import { PlayerBuilding } from "./buildings/buildings.js"
 
 export default class RandomPlayer extends Player {
-	constructor(name: string, location: Node, cards: Card[]) {
-		super(name, location, cards)
+	constructor(name: string, location: Node, cards: Card[], playerBuildings: PlayerBuilding[]) {
+		super(name, location, cards, playerBuildings)
 	}
 
 	chooseMovement(locations: Node[]): number {

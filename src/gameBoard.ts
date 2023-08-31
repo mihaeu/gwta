@@ -18,6 +18,7 @@ import {
 	BuenosAiresExit5,
 	BuenosAiresExit6,
 	BuenosAiresExit7,
+	BuildingNode,
 	FarmerNode,
 	GrainBuilding1,
 	GrainBuilding2,
@@ -44,6 +45,7 @@ import {
 	OrangeFarmer2,
 	OrangeFarmer3,
 	OrangeFarmer4,
+	PlayerBuildingNode,
 	SpecialBuilding1,
 	SpecialBuilding2,
 	SpecialBuilding3,
@@ -60,7 +62,15 @@ import {
 	YellowFarmer6,
 	YellowFarmer7,
 } from "./nodes.js"
-import { BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, BuildingG, BuildingH } from "./buildings/buildings.js"
+import {
+	NeutralBuildingC,
+	NeutralBuildingD,
+	NeutralBuildingE,
+	NeutralBuildingF,
+	NeutralBuildingG,
+	NeutralBuildingH,
+	PlayerBuilding,
+} from "./buildings/buildings.js"
 import {
 	BlueFarmer,
 	Carpenter,
@@ -77,18 +87,19 @@ import {
 } from "./tiles.js"
 import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Serrano } from "./cards.js"
 import Player from "./player.js"
-import { BuildingA } from "./buildings/buildingA.js"
+import { NeutralBuildingA } from "./buildings/neutralBuildingA.js"
+import { NeutralBuildingB } from "./buildings/neutralBuildingB.js"
 
 export default class GameBoard {
 	public readonly start = new Start()
-	private neutralBuilding1 = new NeutralBuilding1(new BuildingA())
-	private neutralBuilding2 = new NeutralBuilding2(new BuildingB())
-	private neutralBuilding3 = new NeutralBuilding3(new BuildingC())
-	private neutralBuilding4 = new NeutralBuilding4(new BuildingD())
-	private neutralBuilding5 = new NeutralBuilding5(new BuildingE())
-	private neutralBuilding6 = new NeutralBuilding6(new BuildingF())
-	private neutralBuilding7 = new NeutralBuilding7(new BuildingG())
-	private neutralBuilding8 = new NeutralBuilding8(new BuildingH())
+	private neutralBuilding1 = new NeutralBuilding1(new NeutralBuildingA())
+	private neutralBuilding2 = new NeutralBuilding2(new NeutralBuildingB())
+	private neutralBuilding3 = new NeutralBuilding3(new NeutralBuildingC())
+	private neutralBuilding4 = new NeutralBuilding4(new NeutralBuildingD())
+	private neutralBuilding5 = new NeutralBuilding5(new NeutralBuildingE())
+	private neutralBuilding6 = new NeutralBuilding6(new NeutralBuildingF())
+	private neutralBuilding7 = new NeutralBuilding7(new NeutralBuildingG())
+	private neutralBuilding8 = new NeutralBuilding8(new NeutralBuildingH())
 	private greenFarmer1 = new GreenFarmer1()
 	private greenFarmer2 = new GreenFarmer2()
 	private greenFarmer3 = new GreenFarmer3()
@@ -376,6 +387,7 @@ export default class GameBoard {
 		this.basicBuilding3.addChild(this.neutralBuilding3)
 		this.neutralBuilding3.addChild(this.basicBuilding4)
 		this.basicBuilding4.addChild(this.neutralBuilding4)
+		this.basicBuilding5.addChild(this.neutralBuilding4)
 		this.neutralBuilding4.addChild(this.neutralBuilding5)
 		this.neutralBuilding5.addChild(this.grainBuilding5)
 		this.grainBuilding5.addChild(this.grainBuilding6)
@@ -467,5 +479,16 @@ export default class GameBoard {
 			throw new Error(`Unable to find location ${selectedLocation}`)
 		}
 		return selectedLocation.isEmpty()
+	}
+
+	emptyBuildingLocations(): BuildingNode[] {
+		return this.locations.filter((location) => location instanceof PlayerBuildingNode && location.isEmpty()) as BuildingNode[]
+	}
+
+	playerBuildings(player: Player): PlayerBuildingNode[] {
+		return this.locations.filter(
+			(location) =>
+				location instanceof PlayerBuildingNode && !location.isEmpty() && (location.building as PlayerBuilding).player?.name === player.name,
+		) as PlayerBuildingNode[]
 	}
 }

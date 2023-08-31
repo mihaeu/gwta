@@ -1,4 +1,4 @@
-import { NeutralBuilding, NoBuilding } from "./buildings/buildings.js"
+import { NeutralBuilding, NoBuilding, PlayerBuilding } from "./buildings/buildings.js"
 import { Action } from "./actions/action.js"
 import { Farmer } from "./tiles.js"
 import GameBoard from "./gameBoard.js"
@@ -43,11 +43,7 @@ export abstract class Node {
 }
 
 export class BuildingNode extends Node {
-	private building: Building = new NoBuilding()
-
-	addOrUpgradeBuilding(building: Building) {
-		this.actionable = building
-	}
+	public building: Building = new NoBuilding()
 
 	isEmpty(): boolean {
 		return this.building instanceof NoBuilding
@@ -92,6 +88,12 @@ export class NeutralBuildingNode extends BuildingNode {
 	}
 }
 
+export class PlayerBuildingNode extends BuildingNode {
+	buildOrUpgradeBuilding(building: PlayerBuilding) {
+		this.actionable = building
+	}
+}
+
 export class Start extends Node {}
 export class NeutralBuilding1 extends NeutralBuildingNode {}
 export class NeutralBuilding2 extends NeutralBuildingNode {}
@@ -120,28 +122,28 @@ export class YellowFarmer4 extends FarmerNode {}
 export class YellowFarmer5 extends FarmerNode {}
 export class YellowFarmer6 extends FarmerNode {}
 export class YellowFarmer7 extends FarmerNode {}
-export class BasicBuilding1 extends BuildingNode {}
-export class BasicBuilding2 extends BuildingNode {}
-export class BasicBuilding3 extends BuildingNode {}
-export class BasicBuilding4 extends BuildingNode {}
-export class BasicBuilding5 extends BuildingNode {}
-export class BasicBuilding6 extends BuildingNode {}
-export class BasicBuilding7 extends BuildingNode {}
-export class GrainBuilding1 extends BuildingNode {}
-export class GrainBuilding2 extends BuildingNode {}
-export class GrainBuilding3 extends BuildingNode {}
-export class GrainBuilding4 extends BuildingNode {}
-export class GrainBuilding5 extends BuildingNode {}
-export class GrainBuilding6 extends BuildingNode {}
-export class GrainBuilding7 extends BuildingNode {}
-export class GrainBuilding8 extends BuildingNode {}
-export class SpecialBuilding1 extends BuildingNode {}
-export class SpecialBuilding2 extends BuildingNode {}
-export class SpecialBuilding3 extends BuildingNode {}
-export class SpecialBuilding4 extends BuildingNode {}
-export class SpecialGrainBuilding1 extends BuildingNode {}
-export class SpecialGrainBuilding2 extends BuildingNode {}
-export class SpecialGrainBuilding3 extends BuildingNode {}
+export class BasicBuilding1 extends PlayerBuildingNode {}
+export class BasicBuilding2 extends PlayerBuildingNode {}
+export class BasicBuilding3 extends PlayerBuildingNode {}
+export class BasicBuilding4 extends PlayerBuildingNode {}
+export class BasicBuilding5 extends PlayerBuildingNode {}
+export class BasicBuilding6 extends PlayerBuildingNode {}
+export class BasicBuilding7 extends PlayerBuildingNode {}
+export class GrainBuilding1 extends PlayerBuildingNode {}
+export class GrainBuilding2 extends PlayerBuildingNode {}
+export class GrainBuilding3 extends PlayerBuildingNode {}
+export class GrainBuilding4 extends PlayerBuildingNode {}
+export class GrainBuilding5 extends PlayerBuildingNode {}
+export class GrainBuilding6 extends PlayerBuildingNode {}
+export class GrainBuilding7 extends PlayerBuildingNode {}
+export class GrainBuilding8 extends PlayerBuildingNode {}
+export class SpecialBuilding1 extends PlayerBuildingNode {}
+export class SpecialBuilding2 extends PlayerBuildingNode {}
+export class SpecialBuilding3 extends PlayerBuildingNode {}
+export class SpecialBuilding4 extends PlayerBuildingNode {}
+export class SpecialGrainBuilding1 extends PlayerBuildingNode {}
+export class SpecialGrainBuilding2 extends PlayerBuildingNode {}
+export class SpecialGrainBuilding3 extends PlayerBuildingNode {}
 export class BuenosAiresExit1 extends BuenosAiresNode {}
 export class BuenosAiresExit2 extends BuenosAiresNode {}
 export class BuenosAiresExit3 extends BuenosAiresNode {}

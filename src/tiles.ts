@@ -1,7 +1,7 @@
 export interface Tile {}
 export enum HandColor {
-	GREEN,
-	BLACK,
+	GREEN = "GREEN",
+	BLACK = "BLACK",
 }
 export class Farmer implements Tile {
 	constructor(

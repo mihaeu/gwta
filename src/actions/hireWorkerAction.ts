@@ -12,6 +12,6 @@ export class HireWorkerAction extends Action {
 
 	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const availableWorkers = gameBoard.jobMarket.filter((worker) => worker instanceof Worker) as Worker[]
-		return currentPlayer.coins >= 6 + this.costModifier ? availableWorkers.map((worker) => new WorkerOption(worker)) : []
+		return availableWorkers.map((worker) => new WorkerOption(worker))
 	}
 }

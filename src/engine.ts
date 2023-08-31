@@ -10,16 +10,15 @@ export default class Engine {
 	private readonly players: Player[]
 	private readonly STARTING_COINS = 7
 
-	constructor(map: GameBoard, players: Player[]) {
-		this.gameBoard = map
+	constructor(gameBoard: GameBoard, players: Player[]) {
+		this.gameBoard = gameBoard
 		this.players = players
 
 		this.players.forEach((player, index) => {
 			player.gainCoins(this.STARTING_COINS + index)
 			player.drawCards(Player.CARD_LIMIT + index)
 		})
-		this.gameBoard.railroadTrackWithoutStationMasterSpaces[0] = [players[1]]
-		this.gameBoard.railroadTrackWithoutStationMasterSpaces[30] = [players[0]]
+		this.gameBoard.railroadTrackWithoutStationMasterSpaces[0] = [players[0], players[1]]
 	}
 
 	nextPlayer(): Player {
@@ -62,6 +61,7 @@ export default class Engine {
 		const chosenMove = currentPlayer.chooseMovement(availableMoves)
 		const nextLocation = availableMoves[chosenMove]
 		if (nextLocation === undefined) {
+			console.error(`No reachable location found for player ${currentPlayer.name}.`, this.gameBoard)
 			throw new Error(`No reachable location found for player ${currentPlayer.name}.`)
 		}
 		currentPlayer.location = nextLocation
@@ -95,15 +95,14 @@ export default class Engine {
 			let availableActions: Action[] = []
 			let actionsTaken: Action[] = []
 			while (true) {
-				availableActions = currentPlayer.location.actions(this.gameBoard, currentPlayer).filter((action) => {
-					const some = actionsTaken.some((usedAction) => JSON.stringify(usedAction) === JSON.stringify(action))
-					return !some
-				})
+				availableActions = currentPlayer.location
+					.actions(this.gameBoard, currentPlayer)
+					.filter((action) => !actionsTaken.some((usedAction) => JSON.stringify(usedAction) === JSON.stringify(action)))
 				if (availableActions.length === 0) {
 					break
 				}
 
-				console.log(`Available actions for player `, currentPlayer.name, ` are `, availableActions, actionsTaken)
+				console.log(`Available actions for player `, currentPlayer.name, ` are `, availableActions)
 				const chosenAction = currentPlayer.chooseAction(availableActions)
 				console.log(`Player chose action `, chosenAction)
 				const availableOptions = chosenAction.options(this.gameBoard, currentPlayer)

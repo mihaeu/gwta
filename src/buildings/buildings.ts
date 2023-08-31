@@ -3,147 +3,233 @@ import Player from "../player.js"
 import { Action } from "../actions/action.js"
 import { Building } from "./building.js"
 
+export enum BuildingHand {
+	NONE = "NONE",
+	BLACK = "BLACK",
+	GREEN = "GREEN",
+}
+
 export class NeutralBuilding extends Building {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class BuildingB extends NeutralBuilding {
+export class NeutralBuildingC extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class BuildingC extends NeutralBuilding {
+export class NeutralBuildingD extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class BuildingD extends NeutralBuilding {
+export class NeutralBuildingE extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class BuildingE extends NeutralBuilding {
+export class NeutralBuildingF extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class BuildingF extends NeutralBuilding {
+export class NeutralBuildingG extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class BuildingG extends NeutralBuilding {
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		return []
-	}
-}
-export class BuildingH extends NeutralBuilding {
+export class NeutralBuildingH extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
 export class PlayerBuilding extends NeutralBuilding {
+	public player?: Player
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 0
+	public readonly victoryPoints: number = 0
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building1A extends PlayerBuilding {
+export class PlayerBuilding1A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.BLACK
+	public readonly requiredCarpenters: number = 1
+	public readonly victoryPoints: number = 1
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building2A extends PlayerBuilding {
+export class PlayerBuilding2A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 1
+	public readonly victoryPoints: number = 1
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building3A extends PlayerBuilding {
+export class PlayerBuilding3A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.BLACK
+	public readonly requiredCarpenters: number = 2
+	public readonly victoryPoints: number = 3
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building4A extends PlayerBuilding {
+export class PlayerBuilding4A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 2
+	public readonly victoryPoints: number = 3
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building5A extends PlayerBuilding {
+export class PlayerBuilding5A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 3
+	public readonly victoryPoints: number = 4
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building6A extends PlayerBuilding {
+export class PlayerBuilding6A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 3
+	public readonly victoryPoints: number = 4
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building7A extends PlayerBuilding {
+export class PlayerBuilding7A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.GREEN
+	public readonly requiredCarpenters: number = 4
+	public readonly victoryPoints: number = 5
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building8A extends PlayerBuilding {
+export class PlayerBuilding8A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 5
+	public readonly victoryPoints: number = 6
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building9A extends PlayerBuilding {
+export class PlayerBuilding9A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.BLACK
+	public readonly requiredCarpenters: number = 7
+	public readonly victoryPoints: number = 10
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building10A extends PlayerBuilding {
+export class PlayerBuilding10A extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 9
+	public readonly victoryPoints: number = 13
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building1B extends PlayerBuilding {
+export class PlayerBuilding1B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.BLACK
+	public readonly requiredCarpenters: number = 1
+	public readonly victoryPoints: number = 1
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building2B extends PlayerBuilding {
+export class PlayerBuilding2B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 1
+	public readonly victoryPoints: number = 1
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building3B extends PlayerBuilding {
+export class PlayerBuilding3B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.BLACK
+	public readonly requiredCarpenters: number = 2
+	public readonly victoryPoints: number = 3
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building4B extends PlayerBuilding {
+export class PlayerBuilding4B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 2
+	public readonly victoryPoints: number = 3
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building5B extends PlayerBuilding {
+export class PlayerBuilding5B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 3
+	public readonly victoryPoints: number = 4
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building6B extends PlayerBuilding {
+export class PlayerBuilding6B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 3
+	public readonly victoryPoints: number = 4
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building7B extends PlayerBuilding {
+export class PlayerBuilding7B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.GREEN
+	public readonly requiredCarpenters: number = 4
+	public readonly victoryPoints: number = 5
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building8B extends PlayerBuilding {
+export class PlayerBuilding8B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 5
+	public readonly victoryPoints: number = 6
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building9B extends PlayerBuilding {
+export class PlayerBuilding9B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.BLACK
+	public readonly requiredCarpenters: number = 7
+	public readonly victoryPoints: number = 9
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
 }
-export class Building10B extends PlayerBuilding {
+export class PlayerBuilding10B extends PlayerBuilding {
+	public readonly hand: BuildingHand = BuildingHand.NONE
+	public readonly requiredCarpenters: number = 9
+	public readonly victoryPoints: number = 13
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return []
 	}
