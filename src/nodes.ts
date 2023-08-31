@@ -30,11 +30,7 @@ export abstract class Node {
 	}
 
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		if (this.actionable instanceof Farmer) {
-			return []
-		}
-
-		if (this.actionable instanceof Building) {
+		if (this.actionable instanceof Farmer || this.actionable instanceof Building) {
 			return this.actionable.actions(gameBoard, currentPlayer)
 		}
 

@@ -95,6 +95,10 @@ export default abstract class Player {
 		}
 	}
 
+	peek(count: number): Card[] {
+		return []
+	}
+
 	discardCardOrDrawToHandLimit(): void {
 		if (this._handCards.length < Player.CARD_LIMIT) {
 			this.drawCards(Player.CARD_LIMIT - this._handCards.length)

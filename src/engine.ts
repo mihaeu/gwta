@@ -1,6 +1,6 @@
 import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
-import { BuenosAiresNode, BuildingNode, Node } from "./nodes.js"
+import { BuenosAiresNode, BuildingNode, FarmerNode, Node } from "./nodes.js"
 import { BlueFarmer, GreenFarmer, JobMarketToken, OrangeFarmer, YellowFarmer } from "./tiles.js"
 import { Card, CowCard } from "./cards.js"
 import { Action } from "./actions/action.js"
@@ -103,16 +103,26 @@ export default class Engine {
 				}
 
 				console.log(`Available actions for player `, currentPlayer.name, ` are `, availableActions)
-				const chosenAction = currentPlayer.chooseAction(availableActions)
-				console.log(`Player chose action `, chosenAction)
-				const availableOptions = chosenAction.options(this.gameBoard, currentPlayer)
-				console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
-				const chosenOption = currentPlayer.chooseOption(availableOptions)
-				console.log(`Player chose option `, chosenOption)
-				chosenOption.resolve(this.gameBoard, currentPlayer)
-				actionsTaken.push(chosenAction)
+				actionsTaken.push(this.chooseActionAndOption(currentPlayer, availableActions))
 			}
 		}
+
+		if (currentPlayer.location instanceof FarmerNode) {
+			const availableActions = currentPlayer.location.actions(this.gameBoard, currentPlayer)
+			console.log(`Available actions for player `, currentPlayer.name, ` are `, availableActions)
+			this.chooseActionAndOption(currentPlayer, availableActions)
+		}
+	}
+
+	private chooseActionAndOption(currentPlayer: Player, availableActions: Action[]) {
+		const chosenAction = currentPlayer.chooseAction(availableActions)
+		console.log(`Player chose action `, chosenAction)
+		const availableOptions = chosenAction.options(this.gameBoard, currentPlayer)
+		console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
+		const chosenOption = currentPlayer.chooseOption(availableOptions)
+		console.log(`Player chose option `, chosenOption)
+		chosenOption.resolve(this.gameBoard, currentPlayer)
+		return chosenAction
 	}
 
 	private buenosAiresStepSix(currentPlayer: Player) {

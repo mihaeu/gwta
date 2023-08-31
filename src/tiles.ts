@@ -1,3 +1,8 @@
+import GameBoard from "./gameBoard.js"
+import Player from "./player.js"
+import { Action } from "./actions/action.js"
+import { AuxiliaryAction } from "./actions/auxiliaryAction.js"
+
 export interface Tile {}
 export enum HandColor {
 	GREEN = "GREEN",
@@ -10,6 +15,13 @@ export class Farmer implements Tile {
 	) {
 		this.hand = hand
 		this.strength = strength
+	}
+
+	/**
+	 * TODO help farmer action is missing
+	 */
+	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
+		return [new AuxiliaryAction()]
 	}
 }
 export class BlueFarmer extends Farmer {}
