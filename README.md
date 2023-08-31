@@ -88,7 +88,7 @@ Or # produces CompoundAction, BuyCows
     # draw 8 more cowboys
     # draw 6 more cowboys and buy one Caracu
     # draw 6 more cowboys and buy one value 3 card
-    # draw 4 more cowboys and buy 2x caracu
+    # draw 4 more cowboys and buy 2x Caracu
     # draw 4 more cowboys and buy 2x value 3 card
     # draw 4 more cowboys and buy 1x Aberdeen-Angus
     # draw 4 more cowboys and buy 1x Franquiero and 1x Caracu
@@ -96,6 +96,64 @@ Or # produces CompoundAction, BuyCows
     # ...
 
 So depending on how many herders one has, what is in the market and how much coin the player has, there can be a lot of options especially since only using some cowboys and not all of them in order to save money for other things is very much valid.
+```
+
+How about actions that need to be resolved in one, like in the most complex case, discard any cow card and get any card from the cow market. That would result in up to 6 (upgraded hand) card options to discard and up to 15 different cards to get (full 4 player market) i.e. 6 x 15 = 90 options (of which probably only less than 10% make sense).
+
+=> Let's just implement it like this for now as a set of tuples of all actions.
+
+```
+Phase B
+    -> I chose a location
+    -> there are three possible actions
+    -> the location presents these as
+        1 2 3, 1 3 2, 2 1 3, 2 3 1, 3 1 2, 3 2 1, 1 2, 1 3, 2 1, 2 3, 3 1, 3 2, 1, 2, 3
+        mostly it would be as simple as
+        1 2, 2 1, 1, 2
+        in the case of e.g. H it would be because 2 and 3 are exclusive
+        1 2, 1 3, 2 1, 3 1
+        usually the order wouldn't make a difference but 3 is an auxiliary action so it would look like
+        1 2, 2 1, 1 a, 1 b, 1 c, 1 d, 1 e, 1 f
+        ⚠️ the location doesn't actually need to calculate these unless it involves further movements ⚠️
+        ⚡ Not completely true, because some options would have a very high number of options ⚡️
+    -> the engine checks which are available to the user and lets them choose
+    -> should the building just produce all possibilities and the engines then checks which are possible?
+        -> advantage is that the building could decide if it makes sense to even suggest a certain option e.g. in 10a it never makes sense to move the train before taking the coin and the grain (due to possible costs for station masters)
+```
+
+```puml
+@startuml
+
+loop until game ends
+    Engine -> GameBoard : determine current player
+    GameBoard -> Engine : player
+    group Phase A
+        Engine -> Engine : calculate move options
+        Engine -> Player : present options
+        Player -> Engine : chosen option
+    end
+
+    group Phase B
+        alt is building?
+            Engine -> Building : calculate play options
+            Building -> Engine : options
+        else is farmer?
+            Engine -> Farmer : calculate play options
+            Farmer -> Engine : options
+        end
+        Engine -> Player : present options
+        Player -> Engine : chosen option
+        Engine -> Engine : resolve option
+    end
+
+    group Phase C
+        Engine -> Player : discard/draw cards
+        Player -> Engine
+    end
+end
+
+@enduml
+
 ```
 
 ### Actions
