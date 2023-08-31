@@ -156,15 +156,44 @@ export default class GameBoard {
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]
 	public readonly foresightSpacesC: Tile[]
-	private cowCards: CowCard[] = arrayShuffle(
-		new Array(Caracu.COUNT)
-			.fill(new Caracu(1, 7, 2))
-			.concat(new Array(Chaquenyo.COUNT).fill(new Chaquenyo(3, 5, 1)))
-			.concat(new Array(Serrano.COUNT).fill(new Serrano(3, 4, 2)))
-			.concat(new Array(BlancoOrejinegro.COUNT).fill(new BlancoOrejinegro(3, 3, 3)))
-			.concat(new Array(Franqueiro.COUNT).fill(new Franqueiro(4, 6, 3)))
-			.concat(new Array(AberdeenAngus.COUNT).fill(new AberdeenAngus(5, 7, 5))),
-	)
+	private cowCards: CowCard[] = arrayShuffle([
+		new Caracu(2),
+		new Caracu(2),
+		new Caracu(2),
+		new Caracu(3),
+		new Caracu(3),
+		new Caracu(3),
+		new Chaquenyo(),
+		new Chaquenyo(),
+		new Chaquenyo(),
+		new Chaquenyo(),
+		new Chaquenyo(),
+		new Serrano(),
+		new Serrano(),
+		new Serrano(),
+		new Serrano(),
+		new Serrano(),
+		new BlancoOrejinegro(),
+		new BlancoOrejinegro(),
+		new BlancoOrejinegro(),
+		new BlancoOrejinegro(),
+		new BlancoOrejinegro(),
+		new Franqueiro(3),
+		new Franqueiro(3),
+		new Franqueiro(3),
+		new Franqueiro(4),
+		new Franqueiro(4),
+		new Franqueiro(4),
+		new Franqueiro(5),
+		new Franqueiro(5),
+		new Franqueiro(5),
+		new AberdeenAngus(5),
+		new AberdeenAngus(5),
+		new AberdeenAngus(6),
+		new AberdeenAngus(6),
+		new AberdeenAngus(7),
+		new AberdeenAngus(7),
+	])
 	public cowMarket: CowCard[] = this.cowCards.splice(0, 9)
 	public railroadTrackWithoutStationMasterSpaces = new Array<Player[]>(32)
 

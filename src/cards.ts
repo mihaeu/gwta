@@ -4,7 +4,7 @@ export abstract class CowCard implements Card {
 	private readonly _strength: number
 	private readonly _victoryPoints: number
 
-	constructor(value: number, strength: number, victoryPoints: number) {
+	protected constructor(value: number, strength: number, victoryPoints: number) {
 		this._value = value
 		this._strength = strength
 		this._victoryPoints = victoryPoints
@@ -22,49 +22,63 @@ export abstract class CowCard implements Card {
 		return this._victoryPoints
 	}
 }
-export class Niata extends CowCard {
-	public static readonly COUNT = 5
 
+export class Niata extends CowCard {
 	constructor() {
 		super(1, 1, 0)
 	}
 }
+
 export class Patagonico extends CowCard {
-	public static readonly COUNT = 3
-
 	constructor() {
 		super(2, 2, 0)
 	}
 }
+
 export class Fronterizo extends CowCard {
-	public static readonly COUNT = 3
-
 	constructor() {
 		super(2, 2, 0)
 	}
 }
+
 export class HolandoArgentino extends CowCard {
-	public static readonly COUNT = 3
-
 	constructor() {
 		super(2, 2, 0)
 	}
 }
+
 export class Caracu extends CowCard {
-	public static readonly COUNT = 5
+	constructor(victoryPoints: number) {
+		super(1, 7, victoryPoints)
+	}
 }
+
 export class Chaquenyo extends CowCard {
-	public static readonly COUNT = 5
+	constructor() {
+		super(3, 5, 1)
+	}
 }
+
 export class Serrano extends CowCard {
-	public static readonly COUNT = 5
+	constructor() {
+		super(3, 4, 2)
+	}
 }
+
 export class BlancoOrejinegro extends CowCard {
-	public static readonly COUNT = 5
+	constructor() {
+		super(3, 3, 3)
+	}
 }
+
 export class Franqueiro extends CowCard {
-	public static readonly COUNT = 9
+	constructor(victoryPoints: number) {
+		super(4, 6, victoryPoints)
+	}
 }
+
 export class AberdeenAngus extends CowCard {
-	public static readonly COUNT = 6
+	constructor(victoryPoints: number) {
+		super(5, 7, victoryPoints)
+	}
 }
