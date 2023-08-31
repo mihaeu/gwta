@@ -2,6 +2,8 @@ import { Node } from "./nodes.js"
 import { Carpenter, Herder, Machinist, Tile, Worker } from "./tiles.js"
 import { Card } from "./cards.js"
 import arrayShuffle from "array-shuffle"
+import { Option } from "./options/option.js"
+import { Action } from "./actions/action.js"
 
 export default abstract class Player {
 	protected readonly _name: string
@@ -17,6 +19,7 @@ export default abstract class Player {
 	private _carpenters: Worker[] = [new Carpenter()]
 	private _machinists: Worker[] = [new Machinist()]
 	private _farmers: Worker[] = []
+	public availableBuildings = []
 
 	protected constructor(name: string, location: Node, cards: Card[]) {
 		this._name = name
@@ -99,10 +102,20 @@ export default abstract class Player {
 		}
 	}
 
+	discardCard(card: Card) {
+		const index = this.handCards.findIndex((currentCard) => currentCard == card)
+		if (!index) {
+			throw new Error(`Player doesn't have card ${card} on their hand.`)
+		}
+		this.handCards.splice(index, 1)
+	}
+
 	abstract chooseMovement(locations: Node[]): number
 	abstract chooseForesightTileA(tiles: Tile[]): number
 	abstract chooseForesightTileB(tiles: Tile[]): number
 	abstract chooseForesightTileC(tiles: Tile[]): number
 	abstract discardCards(count?: number): void
 	abstract hireWorkers(availableWorkers: Worker[]): void
+	abstract chooseOption(options: Option[]): Option
+	abstract chooseAction(actions: Action[]): Action
 }

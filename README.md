@@ -121,6 +121,22 @@ Phase B
         -> advantage is that the building could decide if it makes sense to even suggest a certain option e.g. in 10a it never makes sense to move the train before taking the coin and the grain (due to possible costs for station masters)
 ```
 
+Still wondering 🤔 is it possible to calculate all possible options based on the state of the game before the first action?
+In theory yes, but practically speaking this would lead to a crazy amount of actions and possibilities, because of the chance of playing
+objective and trade tokens.
+
+=> So it's better to go back to doing small actions and keep doing so until the player has exhausted all possible actions.
+
+Example for neutral building A:
+
+- choose between: exchange token, objective card, action 1, action 2, action 3
+- _objective card_
+- choose between: exchange token, action 1, action 2, action 3
+- _exchange token_
+- choose between: action 1, action 2, action 3
+- _action 1_
+- ...
+
 ```puml
 @startuml
 
@@ -135,15 +151,21 @@ loop until game ends
 
     group Phase B
         alt is building?
-            Engine -> Building : calculate play options
+            Engine -> Building : calculate play actions
             Building -> Engine : options
         else is farmer?
-            Engine -> Farmer : calculate play options
+            Engine -> Farmer : calculate play actions
             Farmer -> Engine : options
         end
-        Engine -> Player : present options
-        Player -> Engine : chosen option
-        Engine -> Engine : resolve option
+        loop until no more actions are available or wanted
+            Engine -> Player : present actions
+            Player -> Engine : chosen action
+            alt if there are multiple options for the action
+            Engine -> Player : present options for the action
+            Player -> Engine : chosen option
+            end
+            Engine -> Engine : resolve option
+        end
     end
 
     group Phase C

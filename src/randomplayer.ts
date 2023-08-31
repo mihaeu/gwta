@@ -2,6 +2,8 @@ import { Node } from "./nodes.js"
 import { Carpenter, Herder, Machinist, Tile, Worker } from "./tiles.js"
 import Player from "./player.js"
 import { Card } from "./cards.js"
+import { Option } from "./options/option.js"
+import { Action } from "./actions/action.js"
 
 export default class RandomPlayer extends Player {
 	constructor(name: string, location: Node, cards: Card[]) {
@@ -43,5 +45,13 @@ export default class RandomPlayer extends Player {
 		if (chosenWorker instanceof Machinist) {
 			this.machinists.push(chosenWorker)
 		}
+	}
+
+	chooseOption(options: Option[]): Option {
+		return options[Math.round(Math.random() * (options.length - 1))]
+	}
+
+	chooseAction(actions: Action[]): Action {
+		return actions[Math.round(Math.random() * (actions.length - 1))]
 	}
 }

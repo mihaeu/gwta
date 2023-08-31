@@ -1,14 +1,20 @@
-import { Building, NeutralBuilding, NoBuilding } from "./buildings.js"
+import { NeutralBuilding, NoBuilding } from "./buildings/buildings.js"
+import { Action } from "./actions/action.js"
+import { Farmer } from "./tiles.js"
+import GameBoard from "./gameBoard.js"
+import Player from "./player.js"
+import { Building } from "./buildings/building.js"
 
 export abstract class Node {
 	private readonly children: Node[] = []
+	protected actionable?: Building | Farmer
 
 	addChild(node: Node) {
 		this.children.push(node)
 	}
 
 	isEmpty(): boolean {
-		return true
+		return this.actionable === undefined
 	}
 
 	nextNonEmptyDescendants(railroadDevelopment: number = 0): Node[] {
@@ -22,13 +28,25 @@ export abstract class Node {
 		}
 		return [...nonEmptyNodes].filter((node) => (node instanceof BuenosAiresNode ? node.trainRequirement <= railroadDevelopment : true))
 	}
+
+	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
+		if (this.actionable instanceof Farmer) {
+			return []
+		}
+
+		if (this.actionable instanceof Building) {
+			return this.actionable.actions(gameBoard, currentPlayer)
+		}
+
+		return []
+	}
 }
 
 export class BuildingNode extends Node {
 	private building: Building = new NoBuilding()
 
 	addOrUpgradeBuilding(building: Building) {
-		this.building = building
+		this.actionable = building
 	}
 
 	isEmpty(): boolean {
@@ -37,13 +55,12 @@ export class BuildingNode extends Node {
 }
 
 export class FarmerNode extends Node {
-	private hasFarmer = false
-	addFarmer() {
-		this.hasFarmer = true
+	addFarmer(farmer: Farmer) {
+		this.actionable = farmer
 	}
 
 	isEmpty(): boolean {
-		return !this.hasFarmer
+		return this.actionable === undefined
 	}
 }
 
@@ -65,11 +82,9 @@ export class BuenosAiresNode extends Node {
 }
 
 export class NeutralBuildingNode extends BuildingNode {
-	private readonly neutralBuilding: NeutralBuilding
-
 	constructor(neutralBuilding: NeutralBuilding) {
 		super()
-		this.neutralBuilding = neutralBuilding
+		this.actionable = neutralBuilding
 	}
 
 	isEmpty(): boolean {

@@ -60,7 +60,7 @@ import {
 	YellowFarmer6,
 	YellowFarmer7,
 } from "./nodes.js"
-import { BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, BuildingG, BuildingH } from "./buildings.js"
+import { BuildingB, BuildingC, BuildingD, BuildingE, BuildingF, BuildingG, BuildingH } from "./buildings/buildings.js"
 import {
 	BlueFarmer,
 	Carpenter,
@@ -137,6 +137,57 @@ export default class GameBoard {
 	private buenosAiresExit5 = new BuenosAiresExit5(13)
 	private buenosAiresExit6 = new BuenosAiresExit6(17)
 	private buenosAiresExit7 = new BuenosAiresExit7(23)
+	private locations: Node[] = [
+		this.neutralBuilding1,
+		this.neutralBuilding2,
+		this.neutralBuilding3,
+		this.neutralBuilding4,
+		this.neutralBuilding5,
+		this.neutralBuilding6,
+		this.neutralBuilding7,
+		this.neutralBuilding8,
+		this.greenFarmer1,
+		this.greenFarmer2,
+		this.greenFarmer3,
+		this.greenFarmer4,
+		this.blueFarmer1,
+		this.blueFarmer2,
+		this.blueFarmer3,
+		this.blueFarmer4,
+		this.orangeFarmer1,
+		this.orangeFarmer2,
+		this.orangeFarmer3,
+		this.orangeFarmer4,
+		this.yellowFarmer1,
+		this.yellowFarmer2,
+		this.yellowFarmer3,
+		this.yellowFarmer4,
+		this.yellowFarmer5,
+		this.yellowFarmer6,
+		this.yellowFarmer7,
+		this.basicBuilding1,
+		this.basicBuilding2,
+		this.basicBuilding3,
+		this.basicBuilding4,
+		this.basicBuilding5,
+		this.basicBuilding6,
+		this.basicBuilding7,
+		this.grainBuilding1,
+		this.grainBuilding2,
+		this.grainBuilding3,
+		this.grainBuilding4,
+		this.grainBuilding5,
+		this.grainBuilding6,
+		this.grainBuilding7,
+		this.grainBuilding8,
+		this.specialBuilding1,
+		this.specialBuilding2,
+		this.specialBuilding3,
+		this.specialBuilding4,
+		this.specialGrainBuilding1,
+		this.specialGrainBuilding2,
+		this.specialGrainBuilding3,
+	]
 
 	public readonly greenFarmers = [this.greenFarmer1, this.greenFarmer2, this.greenFarmer3, this.greenFarmer4]
 	public readonly blueFarmers = [this.blueFarmer1, this.blueFarmer2, this.blueFarmer3, this.blueFarmer4]
@@ -406,7 +457,15 @@ export default class GameBoard {
 			if (emptyFarmerTile === undefined) {
 				return
 			}
-			emptyFarmerTile.addFarmer()
+			emptyFarmerTile.addFarmer(farmer)
 		})
+	}
+
+	isEmpty(selectedLocation: Node) {
+		const location = this.locations.find((location) => typeof location === typeof selectedLocation)
+		if (location === undefined) {
+			throw new Error(`Unable to find location ${selectedLocation}`)
+		}
+		return selectedLocation.isEmpty()
 	}
 }

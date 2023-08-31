@@ -1,12 +1,13 @@
 import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
-import { BuenosAiresNode, Node } from "./nodes.js"
+import { BuenosAiresNode, BuildingNode, Node } from "./nodes.js"
 import { BlueFarmer, GreenFarmer, JobMarketToken, OrangeFarmer, YellowFarmer } from "./tiles.js"
 import { Card, CowCard } from "./cards.js"
+import { Action } from "./actions/action.js"
 
 export default class Engine {
-	private gameBoard: GameBoard
-	private players: Player[]
+	private readonly gameBoard: GameBoard
+	private readonly players: Player[]
 	private readonly STARTING_COINS = 7
 
 	constructor(map: GameBoard, players: Player[]) {
@@ -89,6 +90,30 @@ export default class Engine {
 			console.log(`Moving player ${currentPlayer.name} to start`)
 			currentPlayer.location = this.gameBoard.start
 		}
+
+		if (currentPlayer.location instanceof BuildingNode) {
+			let availableActions: Action[] = []
+			let actionsTaken: Action[] = []
+			while (true) {
+				availableActions = currentPlayer.location.actions(this.gameBoard, currentPlayer).filter((action) => {
+					const some = actionsTaken.some((usedAction) => JSON.stringify(usedAction) === JSON.stringify(action))
+					return !some
+				})
+				if (availableActions.length === 0) {
+					break
+				}
+
+				console.log(`Available actions for player `, currentPlayer.name, ` are `, availableActions, actionsTaken)
+				const chosenAction = currentPlayer.chooseAction(availableActions)
+				console.log(`Player chose action `, chosenAction)
+				const availableOptions = chosenAction.options(this.gameBoard, currentPlayer)
+				console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
+				const chosenOption = currentPlayer.chooseOption(availableOptions)
+				console.log(`Player chose option `, chosenOption)
+				chosenOption.resolve(this.gameBoard, currentPlayer)
+				actionsTaken.push(chosenAction)
+			}
+		}
 	}
 
 	private buenosAiresStepSix(currentPlayer: Player) {
@@ -99,7 +124,7 @@ export default class Engine {
 		if (chosenCTile instanceof YellowFarmer) {
 			const firstEmptyFarmer = this.gameBoard.yellowFarmers.find((farmer) => farmer.isEmpty())
 			if (firstEmptyFarmer) {
-				firstEmptyFarmer.addFarmer()
+				firstEmptyFarmer.addFarmer(chosenCTile)
 			}
 		} else {
 			this.gameBoard.jobMarket[this.gameBoard.jobMarket.length - 1] = chosenCTile
@@ -127,17 +152,17 @@ export default class Engine {
 		if (chosenATile instanceof GreenFarmer) {
 			const firstEmptyFarmer = this.gameBoard.greenFarmers.find((farmer) => farmer.isEmpty())
 			if (firstEmptyFarmer) {
-				firstEmptyFarmer.addFarmer()
+				firstEmptyFarmer.addFarmer(chosenATile)
 			}
 		} else if (chosenATile instanceof BlueFarmer) {
 			const firstEmptyFarmer = this.gameBoard.blueFarmers.find((farmer) => farmer.isEmpty())
 			if (firstEmptyFarmer) {
-				firstEmptyFarmer.addFarmer()
+				firstEmptyFarmer.addFarmer(chosenATile)
 			}
 		} else if (chosenATile instanceof OrangeFarmer) {
 			const firstEmptyFarmer = this.gameBoard.orangeFarmers.find((farmer) => farmer.isEmpty())
 			if (firstEmptyFarmer) {
-				firstEmptyFarmer.addFarmer()
+				firstEmptyFarmer.addFarmer(chosenATile)
 			}
 		}
 		this.gameBoard.foresightSpacesA[chosenAIndex] = this.gameBoard.aTiles.splice(0, 1)[0]
