@@ -24,8 +24,4 @@ export class NeutralBuildingB extends NeutralBuilding {
 		}
 		return actions
 	}
-
-	private canBuildCheapestBuilding(currentPlayer: Player) {
-		return currentPlayer.availableBuildings.some((building) => building.requiredCarpenters * 2 <= currentPlayer.coins)
-	}
 }
