@@ -78,6 +78,7 @@ import {
 	GreenFarmer,
 	HandColor,
 	Herder,
+	JobMarketItem,
 	JobMarketToken,
 	Machinist,
 	OrangeFarmer,
@@ -328,7 +329,7 @@ export default class GameBoard {
 		new Machinist(true),
 		new Machinist(true),
 	])
-	public readonly jobMarket: Array<Worker | JobMarketToken>
+	public jobMarket: Array<JobMarketItem> = []
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]
 	public readonly foresightSpacesC: Tile[]
@@ -370,10 +371,18 @@ export default class GameBoard {
 		new AberdeenAngus(7),
 		new AberdeenAngus(7),
 	])
-	public cowMarket: CowCard[] = this.cowCards.splice(0, 9)
+	public static readonly COW_COUNT_PER_PLAYER = [9, 9, 9, 12, 15]
+	public cowMarket: CowCard[] = []
 	public railroadTrackWithoutStationMasterSpaces = new Array<Player[]>(32)
+	private jobMarketCostPerPlayerCount = [
+		[6, 7, 6, 8, 5, 8, 6, 8, 9, 6, 4], // 0 players
+		[6, 7, 6, 8, 5, 8, 6, 8, 9, 6, 4], // 1 player
+		[6, 6, 7, 7, 6, 6, 8, 8, 5, 5, 8, 8, 6, 6, 8, 8, 9, 9, 6, 6, 4, 4], // 2 players
+		[6, 6, 6, 7, 7, 7, 6, 6, 6, 8, 8, 8, 5, 5, 5, 8, 8, 8, 6, 6, 6, 8, 8, 8, 9, 9, 9, 6, 6, 6, 4, 4, 4], // 3 players
+		[6, 6, 6, 6, 7, 7, 7, 7, 6, 6, 6, 6, 8, 8, 8, 8, 5, 5, 5, 5, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8, 8, 9, 9, 9, 9, 6, 6, 6, 6, 4, 4, 4, 4], // 4 players
+	]
 
-	constructor() {
+	constructor(private readonly playerCount: number = 2) {
 		this.start.addChild(this.neutralBuilding1)
 		this.neutralBuilding1.addChild(this.basicBuilding1)
 		this.neutralBuilding1.addChild(this.greenFarmer1)
@@ -446,12 +455,23 @@ export default class GameBoard {
 		this.buenosAiresExit6.addChild(this.start)
 		this.buenosAiresExit7.addChild(this.start)
 
+		this.seedCowMarket()
 		this.seedFarmers()
-		this.jobMarket = this.bTiles.splice(0, 5)
-		this.jobMarket.push(new JobMarketToken())
+		this.seedJobMarket()
 		this.foresightSpacesA = this.aTiles.splice(0, 2)
 		this.foresightSpacesB = this.bTiles.splice(0, 2)
 		this.foresightSpacesC = this.cTiles.splice(0, 2)
+	}
+
+	private seedCowMarket() {
+		this.cowMarket = this.cowCards.splice(0, GameBoard.COW_COUNT_PER_PLAYER[this.playerCount])
+	}
+
+	private seedJobMarket() {
+		for (let i = 0; i <= 2 * this.playerCount; ++i) {
+			this.jobMarket.push(this.bTiles.pop() as Worker)
+		}
+		this.jobMarket.push(new JobMarketToken())
 	}
 
 	private seedFarmers() {
@@ -490,5 +510,12 @@ export default class GameBoard {
 			(location) =>
 				location instanceof PlayerBuildingNode && !location.isEmpty() && (location.building as PlayerBuilding).player?.name === player.name,
 		) as PlayerBuildingNode[]
+	}
+
+	availableWorkersWithCost(): [JobMarketItem, number][] {
+		const lastItem = this.jobMarket.length - 1
+		return this.jobMarket.slice(0, this.playerCount * -1).map((worker, index) => {
+			return [worker, this.jobMarketCostPerPlayerCount[this.playerCount][index] + (worker instanceof Worker && worker.strong ? 1 : 0)]
+		}) as [Worker, number][]
 	}
 }

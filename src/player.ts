@@ -82,6 +82,10 @@ export default abstract class Player {
 		this._coins += amount
 	}
 
+	pay(amount: number) {
+		this._coins -= amount
+	}
+
 	drawCards(count: number) {
 		if (this.cards.length < count) {
 			const cardsLeft = count - this.cards.length
@@ -113,12 +117,25 @@ export default abstract class Player {
 		this.handCards.splice(index, 1)
 	}
 
+	hireWorker(worker: Worker): void {
+		if (worker instanceof Herder) {
+			this.herders.push(worker)
+		}
+
+		if (worker instanceof Carpenter) {
+			this.carpenters.push(worker)
+		}
+
+		if (worker instanceof Machinist) {
+			this.machinists.push(worker)
+		}
+	}
+
 	abstract chooseMovement(locations: Node[]): number
 	abstract chooseForesightTileA(tiles: Tile[]): number
 	abstract chooseForesightTileB(tiles: Tile[]): number
 	abstract chooseForesightTileC(tiles: Tile[]): number
 	abstract discardCards(count?: number): void
-	abstract hireWorkers(availableWorkers: Worker[]): void
 	abstract chooseOption(options: Option[]): Option
 	abstract chooseAction(actions: Action[]): Action
 }

@@ -28,7 +28,7 @@ import {
 	PlayerBuilding9B,
 } from "./buildings/buildings.js"
 
-const map = new GameBoard()
+const gameBoard = new GameBoard()
 const startCards = [
 	new Niata(),
 	new Niata(),
@@ -57,10 +57,10 @@ const playerBuildings = [
 	[new PlayerBuilding9A(), new PlayerBuilding9B()],
 	[new PlayerBuilding10A(), new PlayerBuilding10B()],
 ].map((playerBuildings: PlayerBuilding[]) => playerBuildings[Math.round(Math.random())])
-const one = new RandomPlayer("One", map.start, arrayShuffle(startCards), [...playerBuildings])
-const two = new RandomPlayer("Two", map.start, arrayShuffle(startCards), [...playerBuildings])
+const one = new RandomPlayer("One", gameBoard.start, arrayShuffle(startCards), [...playerBuildings])
+const two = new RandomPlayer("Two", gameBoard.start, arrayShuffle(startCards), [...playerBuildings])
 const players: Player[] = [one, two]
-const engine = new Engine(map, players)
+const engine = new Engine(gameBoard, players)
 
 while (!engine.isGameOver()) {
 	const currentPlayer = engine.nextPlayer()
@@ -72,14 +72,14 @@ console.log("Game is over", engine.isGameOver())
 
 console.log({
 	nextPlayer: engine.nextPlayer(),
-	greenFarmers: map.greenFarmers,
-	blueFarmers: map.blueFarmers,
-	orangeFarmers: map.orangeFarmers,
-	yellowFarmers: map.yellowFarmers,
-	jobMarket: map.jobMarket,
-	foresightSpacesA: map.foresightSpacesA,
-	foresightSpacesB: map.foresightSpacesB,
-	foresightSpacesC: map.foresightSpacesC,
+	greenFarmers: gameBoard.greenFarmers,
+	blueFarmers: gameBoard.blueFarmers,
+	orangeFarmers: gameBoard.orangeFarmers,
+	yellowFarmers: gameBoard.yellowFarmers,
+	jobMarket: gameBoard.jobMarket,
+	foresightSpacesA: gameBoard.foresightSpacesA,
+	foresightSpacesB: gameBoard.foresightSpacesB,
+	foresightSpacesC: gameBoard.foresightSpacesC,
 	one,
 	two,
 })

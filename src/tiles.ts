@@ -1,5 +1,6 @@
 import { Action } from "./actions/action.js"
 import { AuxiliaryAction } from "./actions/auxiliaryAction.js"
+import Player from "./player.js"
 
 export interface Tile {}
 export enum HandColor {
@@ -26,15 +27,20 @@ export class BlueFarmer extends Farmer {}
 export class GreenFarmer extends Farmer {}
 export class OrangeFarmer extends Farmer {}
 export class YellowFarmer extends Farmer {}
-export class Worker implements Tile {
-	private readonly strong: boolean = false
+export class Worker implements Tile, JobMarketItem {
+	public readonly strong: boolean = false
 
 	constructor(strong: boolean = false) {
 		this.strong = strong
 	}
 }
 
+export interface JobMarketItem {}
 export class Herder extends Worker {}
 export class Carpenter extends Worker {}
 export class Machinist extends Worker {}
-export class JobMarketToken {}
+export class JobMarketToken implements JobMarketItem {}
+export class EmptyJobMarketSlot implements JobMarketItem {}
+export class TakenJobMarketSlot implements JobMarketItem {
+	constructor(private readonly player: Player) {}
+}
