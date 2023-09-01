@@ -513,7 +513,6 @@ export default class GameBoard {
 	}
 
 	availableWorkersWithCost(): [JobMarketItem, number][] {
-		const lastItem = this.jobMarket.length - 1
 		return this.jobMarket.slice(0, this.playerCount * -1).map((worker, index) => {
 			return [worker, this.jobMarketCostPerPlayerCount[this.playerCount][index] + (worker instanceof Worker && worker.strong ? 1 : 0)]
 		}) as [Worker, number][]

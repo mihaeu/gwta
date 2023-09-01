@@ -1,11 +1,20 @@
 import GameBoard from "./gameBoard.js"
 import Engine from "./engine.js"
 import RandomPlayer from "./randomplayer.js"
+import { it } from "node:test"
+import * as assert from "assert"
 
-test("At the start of a game, all available building locations are detected", () => {
+it("Determine next player", () => {
 	const gameBoard = new GameBoard()
-	const testPlayer = new RandomPlayer("Test", gameBoard.start, [], [])
-	const players = [testPlayer]
+	const one = new RandomPlayer("One", gameBoard.start, [], [])
+	const two = new RandomPlayer("Two", gameBoard.start, [], [])
+	const players = [one, two]
 	const engine = new Engine(gameBoard, players)
-	expect(engine.nextPlayer()).toEqual(testPlayer)
+	assert.equal(engine.nextPlayer(), one)
+
+	one.nextTurn()
+	assert.equal(engine.nextPlayer(), two)
+
+	two.nextTurn()
+	assert.equal(engine.nextPlayer(), one)
 })

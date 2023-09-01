@@ -13,35 +13,12 @@
 		"printWidth": 140
 	},
 	"devDependencies": {
-		"@types/jest": "^29.5.4",
 		"@types/node": "^20.5.6",
-		"jest": "^29.6.4",
 		"prettier": "^3.0.2",
-		"ts-jest": "^29.1.1",
 		"typescript": "^5.1.6"
 	},
 	"scripts": {
-		"test": "node --experimental-vm-modules $(yarn bin jest)",
-		"test:watch": "node --experimental-vm-modules $(yarn bin jest) --watch"
-	},
-	"jest": {
-		"preset": "ts-jest",
-		"moduleNameMapper": {
-			"^(.*)\\.js$": "$1"
-		},
-		"extensionsToTreatAsEsm": [
-			".ts"
-		],
-		"testMatch": [
-			"**/?(*.)+(spec|test).ts"
-		],
-		"transform": {
-			"^.+\\.ts$": [
-				"ts-jest",
-				{
-					"useESM": true
-				}
-			]
-		}
+		"test": "yarn node --test",
+		"test:watch": "yarn node --test --watch ."
 	}
 }
