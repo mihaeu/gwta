@@ -51,6 +51,11 @@ export class PlayerBuilding extends NeutralBuilding {
 	public readonly requiredCarpenters: number = 0
 	public readonly victoryPoints: number = 0
 
+	constructor(player?: Player) {
+		super()
+		this.player = player
+	}
+
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return [new AuxiliaryAction()]
 	}
