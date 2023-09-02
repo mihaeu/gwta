@@ -1,4 +1,5 @@
 export interface Card {}
+export class Objective implements Card {}
 export abstract class CowCard implements Card {
 	private readonly _value: number
 	private readonly _strength: number

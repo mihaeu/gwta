@@ -61,14 +61,7 @@ import {
 	YellowFarmer6,
 	YellowFarmer7,
 } from "./nodes.js"
-import {
-	NeutralBuildingC,
-	NeutralBuildingD,
-	NeutralBuildingE,
-	NeutralBuildingF,
-	NeutralBuildingG,
-	NeutralBuildingH,
-} from "./buildings/buildings.js"
+import { NeutralBuildingD, NeutralBuildingE, NeutralBuildingF, NeutralBuildingG, NeutralBuildingH } from "./buildings/buildings.js"
 import {
 	BlueFarmer,
 	Carpenter,
@@ -84,10 +77,11 @@ import {
 	Worker,
 	YellowFarmer,
 } from "./tiles.js"
-import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Serrano } from "./cards.js"
+import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Objective, Serrano } from "./cards.js"
 import Player from "./player.js"
 import { NeutralBuildingA } from "./buildings/neutralBuildingA.js"
 import { NeutralBuildingB } from "./buildings/neutralBuildingB.js"
+import { NeutralBuildingC } from "./buildings/neutralBuildingC.js"
 
 export default class GameBoard {
 	public readonly start = new Start()
@@ -327,6 +321,7 @@ export default class GameBoard {
 		new Machinist(true),
 		new Machinist(true),
 	])
+	public readonly objectiveCards: Objective[] = new Array(24).fill(new Objective())
 	public jobMarket: Array<JobMarketItem> = []
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]

@@ -17,7 +17,7 @@ export default abstract class Player {
 	private _moveDistance: number = 3
 	protected cards: Card[]
 	private _handCards: Card[] = []
-	protected discardedCards: Card[] = []
+	private _discardedCards: Card[] = []
 	private _herders: Worker[] = [new Herder()]
 	private _carpenters: Worker[] = [new Carpenter()]
 	private _machinists: Worker[] = [new Machinist()]
@@ -93,8 +93,8 @@ export default abstract class Player {
 		if (this.cards.length < count) {
 			const cardsLeft = count - this.cards.length
 			this._handCards = this._handCards.concat(this.cards.splice(0, cardsLeft))
-			this.cards = arrayShuffle(this.discardedCards)
-			this.discardedCards = []
+			this.cards = arrayShuffle(this._discardedCards)
+			this._discardedCards = []
 			this._handCards = this._handCards.concat(this.cards.splice(0, count - cardsLeft))
 		} else {
 			const cardsToDraw = this.cards.splice(0, count)
@@ -156,6 +156,14 @@ export default abstract class Player {
 		}
 
 		this._grain -= amount
+	}
+
+	putCardOnDiscardPile(card: Card) {
+		this._discardedCards.push(card)
+	}
+
+	get discardedCards(): Card[] {
+		return this._discardedCards
 	}
 
 	abstract chooseMovement(locations: Node[]): number

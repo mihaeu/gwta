@@ -18,7 +18,7 @@ export default class Engine {
 			player.gainCoins(this.STARTING_COINS + index)
 			player.drawCards(Player.CARD_LIMIT + index)
 		})
-		this.gameBoard.railroadTrackWithoutStationMasterSpaces[0] = [players[0], players[1]]
+		this.gameBoard.railroadTrackWithoutStationMasterSpaces[0] = players
 	}
 
 	nextPlayer(): Player {

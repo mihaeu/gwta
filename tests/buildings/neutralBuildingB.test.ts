@@ -8,6 +8,7 @@ import { Patagonico } from "../../src/cards.js"
 import { CostBenefitCombinedAction } from "../../src/actions/costBenefitCombinedAction.js"
 import { DiscardCardAction } from "../../src/actions/discardCardAction.js"
 import { GainCoinAction } from "../../src/actions/gainCoinAction.js"
+import { gameBoardWithTwoPlayers } from "../testUtils.js"
 
 describe("Neutral Building B", () => {
 	it("should list discard Patagonico action if player has the card on their hand", () => {
@@ -24,8 +25,7 @@ describe("Neutral Building B", () => {
 
 	it("should only list one auxiliary action if player has no Patagonico on their hand and no coins", () => {
 		const neutralBuildingB = new NeutralBuildingB()
-		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", gameBoard.start, [], [])
-		deepEqual(neutralBuildingB.actions(gameBoard, player), [new AuxiliaryAction()])
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		deepEqual(neutralBuildingB.actions(gameBoard, one), [new AuxiliaryAction()])
 	})
 })
