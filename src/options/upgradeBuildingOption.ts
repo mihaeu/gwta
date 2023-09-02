@@ -2,7 +2,8 @@ import { PlayerBuildingNode } from "../nodes.js"
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Option } from "./option.js"
-import { PlayerBuilding } from "../buildings/buildings.js"
+
+import { PlayerBuilding } from "../buildings/playerBuilding.js"
 
 export class UpgradeBuildingOption extends Option {
 	public readonly building: PlayerBuilding

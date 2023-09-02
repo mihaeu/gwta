@@ -4,20 +4,18 @@ import GameBoard from "../../src/gameBoard.js"
 import RandomPlayer from "../../src/randomplayer.js"
 import { Carpenter } from "../../src/tiles.js"
 import { equal } from "node:assert/strict"
-import {
-	PlayerBuilding10A,
-	PlayerBuilding2A,
-	PlayerBuilding3A,
-	PlayerBuilding4A,
-	PlayerBuilding5A,
-	PlayerBuilding6A,
-	PlayerBuilding7A,
-	PlayerBuilding8A,
-	PlayerBuilding9A,
-} from "../../src/buildings/buildings.js"
 import { UpgradeBuildingOption } from "../../src/options/upgradeBuildingOption.js"
 import { deepEqual } from "node:assert"
 import { PlayerBuilding1A } from "../../src/buildings/playerBuilding1A.js"
+import { PlayerBuilding2A } from "../../src/buildings/playerBuilding2A.js"
+import { PlayerBuilding3A } from "../../src/buildings/playerBuilding3A.js"
+import { PlayerBuilding4A } from "../../src/buildings/playerBuilding4A.js"
+import { PlayerBuilding5A } from "../../src/buildings/playerBuilding5A.js"
+import { PlayerBuilding6A } from "../../src/buildings/playerBuilding6A.js"
+import { PlayerBuilding7A } from "../../src/buildings/playerBuilding7A.js"
+import { PlayerBuilding8A } from "../../src/buildings/playerBuilding8A.js"
+import { PlayerBuilding9A } from "../../src/buildings/playerBuilding9A.js"
+import { PlayerBuilding10A } from "../../src/buildings/playerBuilding10A.js"
 
 const playerBuildings = [
 	new PlayerBuilding1A(),

@@ -4,7 +4,8 @@ import { Card } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
 import { Action } from "./actions/action.js"
-import { PlayerBuilding } from "./buildings/buildings.js"
+
+import { PlayerBuilding } from "./buildings/playerBuilding.js"
 
 export default abstract class Player {
 	public static readonly CARD_LIMIT = 4

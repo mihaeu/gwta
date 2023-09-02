@@ -2,8 +2,9 @@ import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Action } from "../actions/action.js"
 import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
-import { BuildingHand, PlayerBuilding } from "./buildings.js"
+import { BuildingHand } from "./neutralBuilding.js"
 import { GainCoinAction } from "../actions/gainCoinAction.js"
+import { PlayerBuilding } from "./playerBuilding.js"
 
 export class PlayerBuilding1B extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.BLACK

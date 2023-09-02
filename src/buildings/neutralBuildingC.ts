@@ -1,7 +1,7 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Action } from "../actions/action.js"
-import { NeutralBuilding } from "./buildings.js"
+import { NeutralBuilding } from "./neutralBuilding.js"
 import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
 import { DrawObjectiveCardAction } from "../actions/drawObjectiveCardAction.js"
 import { MoveTrainAction } from "../actions/moveTrainAction.js"

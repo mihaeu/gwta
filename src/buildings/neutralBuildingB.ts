@@ -1,7 +1,7 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Action } from "../actions/action.js"
-import { NeutralBuilding } from "./buildings.js"
+import { NeutralBuilding } from "./neutralBuilding.js"
 import { Patagonico } from "../cards.js"
 import { CostBenefitCombinedAction } from "../actions/costBenefitCombinedAction.js"
 import { DiscardCardAction } from "../actions/discardCardAction.js"

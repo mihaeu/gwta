@@ -61,7 +61,6 @@ import {
 	YellowFarmer6,
 	YellowFarmer7,
 } from "./nodes.js"
-import { NeutralBuildingE, NeutralBuildingF, NeutralBuildingH } from "./buildings/buildings.js"
 import {
 	BlueFarmer,
 	Carpenter,
@@ -84,6 +83,9 @@ import { NeutralBuildingB } from "./buildings/neutralBuildingB.js"
 import { NeutralBuildingC } from "./buildings/neutralBuildingC.js"
 import { NeutralBuildingD } from "./buildings/neutralBuildingD.js"
 import { NeutralBuildingG } from "./buildings/neutralBuildingG.js"
+import { NeutralBuildingH } from "./buildings/neutralBuildingH.js"
+import { NeutralBuildingF } from "./buildings/neutralBuildingF.js"
+import { NeutralBuildingE } from "./buildings/neutralBuildingE.js"
 
 export default class GameBoard {
 	public readonly start = new Start()

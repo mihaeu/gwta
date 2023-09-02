@@ -4,7 +4,8 @@ import Player from "./player.js"
 import { Card } from "./cards.js"
 import { Option } from "./options/option.js"
 import { Action } from "./actions/action.js"
-import { PlayerBuilding } from "./buildings/buildings.js"
+
+import { PlayerBuilding } from "./buildings/playerBuilding.js"
 
 export default class RandomPlayer extends Player {
 	constructor(name: string, location: Node, cards: Card[], playerBuildings: PlayerBuilding[]) {

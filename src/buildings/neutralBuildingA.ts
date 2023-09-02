@@ -1,4 +1,4 @@
-import { NeutralBuilding } from "./buildings.js"
+import { NeutralBuilding } from "./neutralBuilding.js"
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { HolandoArgentino } from "../cards.js"

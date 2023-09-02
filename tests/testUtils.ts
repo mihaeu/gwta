@@ -1,7 +1,8 @@
 import GameBoard from "../src/gameBoard.js"
 import RandomPlayer from "../src/randomplayer.js"
 import { PlayerBuildingNode } from "../src/nodes.js"
-import { PlayerBuilding } from "../src/buildings/buildings.js"
+
+import { PlayerBuilding } from "../src/buildings/playerBuilding.js"
 
 export const gameBoardWithTwoPlayers = () => {
 	const gameBoard = new GameBoard()
