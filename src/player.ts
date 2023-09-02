@@ -7,12 +7,14 @@ import { Action } from "./actions/action.js"
 import { PlayerBuilding } from "./buildings/buildings.js"
 
 export default abstract class Player {
+	public static readonly CARD_LIMIT = 4
+	public static readonly MAX_GRAIN = 8
+
 	protected readonly _name: string
 	protected _location: Node
 	protected turn: number = 0
 	private _coins = 0
 	private _moveDistance: number = 3
-	public static readonly CARD_LIMIT = 4
 	protected cards: Card[]
 	private _handCards: Card[] = []
 	protected discardedCards: Card[] = []
@@ -21,6 +23,7 @@ export default abstract class Player {
 	private _machinists: Worker[] = [new Machinist()]
 	private _farmers: Worker[] = []
 	public availableBuildings: PlayerBuilding[] = []
+	private _grain = 0
 
 	protected constructor(name: string, location: Node, cards: Card[], playerBuildings: PlayerBuilding[]) {
 		this._name = name
@@ -133,6 +136,26 @@ export default abstract class Player {
 
 	hasCardOfTypeInHand(card: Card): boolean {
 		return this.handCards.some((handCard) => handCard.constructor.name === card.constructor.name)
+	}
+
+	get grain(): number {
+		return this._grain
+	}
+
+	gainGrain(amount: number) {
+		if (amount < 0) {
+			throw new Error("Cannot gain negative grain")
+		}
+
+		this._grain = this._grain + amount >= 8 ? Player.MAX_GRAIN : this._grain + amount
+	}
+
+	useGrain(amount: number) {
+		if (amount > this._grain) {
+			throw new Error(`Cannot use more grain than available (${this._grain} < ${amount})`)
+		}
+
+		this._grain -= amount
 	}
 
 	abstract chooseMovement(locations: Node[]): number

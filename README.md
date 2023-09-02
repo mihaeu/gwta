@@ -214,10 +214,10 @@ Drawing is easy, but implementing them should be done here as well.
 
 ## Roadmap
 
-- Buildings
-  - ⚠️ Neutral Building A
-  - ⚠️ Neutral Building B
-  - ❌ Neutral Building C
+- ❌ Buildings
+  - ✅️ Neutral Building A
+  - ✅ Neutral Building B
+  - ⚠️ Neutral Building C
   - ❌ Neutral Building D
   - ❌ Neutral Building E
   - ❌ Neutral Building F
@@ -243,3 +243,14 @@ Drawing is easy, but implementing them should be done here as well.
   - ❌ Player Building 8B
   - ❌ Player Building 9B
   - ❌ Player Building 10B
+- ❌ Mechanics
+  - ❌ Loading Ships
+  - ❌ Second delivery at port
+  - ❌ Train Tracks
+    - ❌ Station Masters
+  - ❌ Objective Cards
+  - ⚠️ Grain
+  - ❌ Certificates
+  - ❌ Buenos Aires
+    - ❌ Refill cow market
+    - ❌ Sail to ports
