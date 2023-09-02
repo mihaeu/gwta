@@ -6,7 +6,6 @@ import { Carpenter } from "../tiles.js"
 import { equal } from "node:assert/strict"
 import {
 	PlayerBuilding10A,
-	PlayerBuilding1A,
 	PlayerBuilding2A,
 	PlayerBuilding3A,
 	PlayerBuilding4A,
@@ -18,6 +17,7 @@ import {
 } from "../buildings/buildings.js"
 import { UpgradeBuildingOption } from "../options/upgradeBuildingOption.js"
 import { deepEqual } from "node:assert"
+import { PlayerBuilding1A } from "../buildings/playerBuilding1A.js"
 
 const playerBuildings = [
 	new PlayerBuilding1A(),

@@ -18,7 +18,6 @@ import {
 	BuenosAiresExit5,
 	BuenosAiresExit6,
 	BuenosAiresExit7,
-	BuildingNode,
 	FarmerNode,
 	GrainBuilding1,
 	GrainBuilding2,
@@ -69,7 +68,6 @@ import {
 	NeutralBuildingF,
 	NeutralBuildingG,
 	NeutralBuildingH,
-	PlayerBuilding,
 } from "./buildings/buildings.js"
 import {
 	BlueFarmer,
@@ -501,14 +499,13 @@ export default class GameBoard {
 		return selectedLocation.isEmpty()
 	}
 
-	emptyBuildingLocations(): BuildingNode[] {
-		return this.locations.filter((location) => location instanceof PlayerBuildingNode && location.isEmpty()) as BuildingNode[]
+	emptyBuildingLocations(): PlayerBuildingNode[] {
+		return this.locations.filter((location) => location instanceof PlayerBuildingNode && location.isEmpty()) as PlayerBuildingNode[]
 	}
 
 	playerBuildings(player: Player): PlayerBuildingNode[] {
 		return this.locations.filter(
-			(location) =>
-				location instanceof PlayerBuildingNode && !location.isEmpty() && (location.building as PlayerBuilding).player?.name === player.name,
+			(location) => location instanceof PlayerBuildingNode && !location.isEmpty() && location.building().player?.name === player.name,
 		) as PlayerBuildingNode[]
 	}
 

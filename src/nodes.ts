@@ -1,4 +1,4 @@
-import { NeutralBuilding, NoBuilding, PlayerBuilding } from "./buildings/buildings.js"
+import { NeutralBuilding, PlayerBuilding } from "./buildings/buildings.js"
 import { Action } from "./actions/action.js"
 import { Farmer } from "./tiles.js"
 import GameBoard from "./gameBoard.js"
@@ -38,13 +38,7 @@ export abstract class Node {
 	}
 }
 
-export class BuildingNode extends Node {
-	public building: Building = new NoBuilding()
-
-	isEmpty(): boolean {
-		return this.building instanceof NoBuilding
-	}
-}
+export class BuildingNode extends Node {}
 
 export class FarmerNode extends Node {
 	addFarmer(farmer: Farmer) {
@@ -85,8 +79,18 @@ export class NeutralBuildingNode extends BuildingNode {
 }
 
 export class PlayerBuildingNode extends BuildingNode {
+	protected _hasGrain: boolean = false
+
+	building(): PlayerBuilding {
+		return this.actionable as PlayerBuilding
+	}
+
 	buildOrUpgradeBuilding(building: PlayerBuilding) {
 		this.actionable = building
+	}
+
+	get hasGrain(): boolean {
+		return this._hasGrain
 	}
 }
 
@@ -125,21 +129,43 @@ export class BasicBuilding4 extends PlayerBuildingNode {}
 export class BasicBuilding5 extends PlayerBuildingNode {}
 export class BasicBuilding6 extends PlayerBuildingNode {}
 export class BasicBuilding7 extends PlayerBuildingNode {}
-export class GrainBuilding1 extends PlayerBuildingNode {}
-export class GrainBuilding2 extends PlayerBuildingNode {}
-export class GrainBuilding3 extends PlayerBuildingNode {}
-export class GrainBuilding4 extends PlayerBuildingNode {}
-export class GrainBuilding5 extends PlayerBuildingNode {}
-export class GrainBuilding6 extends PlayerBuildingNode {}
-export class GrainBuilding7 extends PlayerBuildingNode {}
-export class GrainBuilding8 extends PlayerBuildingNode {}
+export class GrainBuilding1 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class GrainBuilding2 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class GrainBuilding3 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class GrainBuilding4 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class GrainBuilding5 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class GrainBuilding6 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class GrainBuilding7 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class GrainBuilding8 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
 export class SpecialBuilding1 extends PlayerBuildingNode {}
 export class SpecialBuilding2 extends PlayerBuildingNode {}
 export class SpecialBuilding3 extends PlayerBuildingNode {}
 export class SpecialBuilding4 extends PlayerBuildingNode {}
-export class SpecialGrainBuilding1 extends PlayerBuildingNode {}
-export class SpecialGrainBuilding2 extends PlayerBuildingNode {}
-export class SpecialGrainBuilding3 extends PlayerBuildingNode {}
+export class SpecialGrainBuilding1 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class SpecialGrainBuilding2 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
+export class SpecialGrainBuilding3 extends PlayerBuildingNode {
+	protected _hasGrain = true
+}
 export class BuenosAiresExit1 extends BuenosAiresNode {}
 export class BuenosAiresExit2 extends BuenosAiresNode {}
 export class BuenosAiresExit3 extends BuenosAiresNode {}

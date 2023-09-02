@@ -223,7 +223,7 @@ Drawing is easy, but implementing them should be done here as well.
   - ❌ Neutral Building F
   - ❌ Neutral Building G
   - ❌ Neutral Building H
-  - ❌ Player Building 1A
+  - ✅️ Player Building 1A
   - ❌ Player Building 2A
   - ❌ Player Building 3A
   - ❌ Player Building 4A
@@ -244,12 +244,15 @@ Drawing is easy, but implementing them should be done here as well.
   - ❌ Player Building 9B
   - ❌ Player Building 10B
 - ❌ Mechanics
+  - ⚠️ Movement
+    - ❌ leave coin on farmers
+    - ❌ pay players when passing over hands
   - ❌ Loading Ships
   - ❌ Second delivery at port
   - ❌ Train Tracks
     - ❌ Station Masters
   - ❌ Objective Cards
-  - ⚠️ Grain
+  - ✅ Grain
   - ❌ Certificates
   - ❌ Buenos Aires
     - ❌ Refill cow market
