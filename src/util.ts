@@ -1,9 +1,9 @@
 import { BuenosAiresNode, Node } from "./nodes.js"
 import GameBoard from "./gameBoard.js"
 
-export const printMapAsDotDiagram = (map: GameBoard) => {
+export const printMapAsDotDiagram = () => {
 	console.log("digraph Game {")
-	new Set(nodeEdges(map.start)).forEach((line) => console.log(`\t${line}`))
+	new Set(nodeEdges(GameBoard.START)).forEach((line) => console.log(`\t${line}`))
 	console.log("}")
 }
 

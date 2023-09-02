@@ -55,8 +55,8 @@ const playerBuildings = [
 	[new PlayerBuilding9A(), new PlayerBuilding9B()],
 	[new PlayerBuilding10A(), new PlayerBuilding10B()],
 ].map((playerBuildings: PlayerBuilding[]) => playerBuildings[Math.round(Math.random())])
-const one = new RandomPlayer("One", gameBoard.start, arrayShuffle(startCards), [...playerBuildings])
-const two = new RandomPlayer("Two", gameBoard.start, arrayShuffle(startCards), [...playerBuildings])
+const one = new RandomPlayer("One", GameBoard.START, arrayShuffle(startCards), [...playerBuildings])
+const two = new RandomPlayer("Two", GameBoard.START, arrayShuffle(startCards), [...playerBuildings])
 const players: Player[] = [one, two]
 const engine = new Engine(gameBoard, players)
 
@@ -80,4 +80,5 @@ console.log({
 	foresightSpacesC: gameBoard.foresightSpacesC,
 	one,
 	two,
+	railRoadTrack: gameBoard.railroadTrackWithoutStationMasterSpaces,
 })

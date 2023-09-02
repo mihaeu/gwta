@@ -13,7 +13,8 @@ export class DiscardCardOption extends Option {
 		this.count = count
 	}
 
-	resolve(gameBoard: GameBoard, currentPlayer: Player): void {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		new Array(this.count).forEach(() => currentPlayer.discardCard(this.card))
+		return []
 	}
 }

@@ -33,7 +33,7 @@ describe("Build Action", () => {
 	it("should list a combination of all 22 free spaces and 8 buildings given 6 carpenters and enough coin", () => {
 		const buildAction = new BuildAction()
 		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", gameBoard.start, [], playerBuildings)
+		const player = new RandomPlayer("Test", GameBoard.START, [], playerBuildings)
 		player.hireWorker(new Carpenter())
 		player.hireWorker(new Carpenter())
 		player.hireWorker(new Carpenter())
@@ -47,7 +47,7 @@ describe("Build Action", () => {
 		const buildAction = new BuildAction()
 		const gameBoard = new GameBoard()
 		const expectedBuilding = new PlayerBuilding10A()
-		const player = new RandomPlayer("Test", gameBoard.start, [], [expectedBuilding])
+		const player = new RandomPlayer("Test", GameBoard.START, [], [expectedBuilding])
 		expectedBuilding.player = player
 		player.hireWorker(new Carpenter())
 		player.hireWorker(new Carpenter())

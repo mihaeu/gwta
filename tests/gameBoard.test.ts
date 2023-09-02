@@ -18,7 +18,7 @@ describe("Game Board", () => {
 
 	it("should detect if there all workers are taken", () => {
 		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", gameBoard.start, [], [])
+		const player = new RandomPlayer("Test", GameBoard.START, [], [])
 		gameBoard.jobMarket = [
 			new TakenJobMarketSlot(player),
 			new TakenJobMarketSlot(player),

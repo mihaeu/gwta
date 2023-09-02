@@ -10,6 +10,7 @@ import { PlayerBuilding } from "./buildings/playerBuilding.js"
 export default abstract class Player {
 	public static readonly CARD_LIMIT = 4
 	public static readonly MAX_GRAIN = 8
+	public static readonly STARTING_COINS = 7
 
 	protected readonly _name: string
 	protected _location: Node

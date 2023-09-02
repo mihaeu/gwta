@@ -14,7 +14,7 @@ describe("Neutral Building B", () => {
 	it("should list discard Patagonico action if player has the card on their hand", () => {
 		const neutralBuildingB = new NeutralBuildingB()
 		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", gameBoard.start, [new Patagonico()], [])
+		const player = new RandomPlayer("Test", GameBoard.START, [new Patagonico()], [])
 		player.drawCards(1)
 		const availableActions = neutralBuildingB.actions(gameBoard, player)
 		deepEqual(availableActions, [

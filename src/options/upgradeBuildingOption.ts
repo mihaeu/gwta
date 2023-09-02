@@ -15,7 +15,7 @@ export class UpgradeBuildingOption extends Option {
 		this.location = location
 	}
 
-	resolve(gameBoard: GameBoard, currentPlayer: Player): void {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const oldBuilding: PlayerBuilding = this.location.building()
 		this.location.buildOrUpgradeBuilding(this.building)
 		const index = currentPlayer.availableBuildings.findIndex(
@@ -23,5 +23,6 @@ export class UpgradeBuildingOption extends Option {
 		)
 		currentPlayer.availableBuildings.splice(index, 1)
 		currentPlayer.availableBuildings.push(oldBuilding)
+		return []
 	}
 }

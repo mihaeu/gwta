@@ -1,4 +1,5 @@
 export interface Card {}
+export class AnyCard implements Card {}
 
 export class Objective implements Card {}
 export abstract class CowCard implements Card {

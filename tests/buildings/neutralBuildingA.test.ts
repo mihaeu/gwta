@@ -14,7 +14,7 @@ describe("Neutral Building A", () => {
 	it("should list discard Holando Argentino action if player has the card on their hand", () => {
 		const neutralBuildingA = new NeutralBuildingA()
 		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", gameBoard.start, [new HolandoArgentino()], [])
+		const player = new RandomPlayer("Test", GameBoard.START, [new HolandoArgentino()], [])
 		player.drawCards(1)
 		const availableActions = neutralBuildingA.actions(gameBoard, player)
 		deepEqual(availableActions, [
@@ -26,7 +26,7 @@ describe("Neutral Building A", () => {
 	it("should list one hire worker action if player only has coins for one", () => {
 		const neutralBuildingA = new NeutralBuildingA()
 		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", gameBoard.start, [], [])
+		const player = new RandomPlayer("Test", GameBoard.START, [], [])
 		player.gainCoins(7)
 		const availableActions = neutralBuildingA.actions(gameBoard, player)
 		deepEqual(availableActions, [new AuxiliaryAction(), new HireWorkerAction()])
@@ -35,7 +35,7 @@ describe("Neutral Building A", () => {
 	it("should list two hire worker actions if player has enough coins for both", () => {
 		const neutralBuildingA = new NeutralBuildingA()
 		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", gameBoard.start, [], [])
+		const player = new RandomPlayer("Test", GameBoard.START, [], [])
 		player.gainCoins(20)
 		const availableActions = neutralBuildingA.actions(gameBoard, player)
 		deepEqual(availableActions, [new AuxiliaryAction(), new HireWorkerAction(), new HireWorkerAction(2)])
@@ -44,7 +44,7 @@ describe("Neutral Building A", () => {
 	it("should only list one auxiliary action if player has no Holando Argentino on their hand and no coins", () => {
 		const neutralBuildingA = new NeutralBuildingA()
 		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", gameBoard.start, [], [])
+		const player = new RandomPlayer("Test", GameBoard.START, [], [])
 		deepEqual(neutralBuildingA.actions(gameBoard, player), [new AuxiliaryAction()])
 	})
 })

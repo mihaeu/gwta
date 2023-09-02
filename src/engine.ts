@@ -8,14 +8,13 @@ import { Action } from "./actions/action.js"
 export default class Engine {
 	private readonly gameBoard: GameBoard
 	private readonly players: Player[]
-	private readonly STARTING_COINS = 7
 
 	constructor(gameBoard: GameBoard, players: Player[]) {
 		this.gameBoard = gameBoard
 		this.players = players
 
 		this.players.forEach((player, index) => {
-			player.gainCoins(this.STARTING_COINS + index)
+			player.gainCoins(Player.STARTING_COINS + index)
 			player.drawCards(Player.CARD_LIMIT + index)
 		})
 		this.gameBoard.railroadTrackWithoutStationMasterSpaces[0] = players
@@ -114,11 +113,13 @@ export default class Engine {
 	private chooseActionAndOption(currentPlayer: Player, availableActions: Action[]) {
 		const chosenAction = currentPlayer.chooseAction(availableActions)
 		console.log(`Player chose action `, chosenAction)
-		const availableOptions = chosenAction.options(this.gameBoard, currentPlayer)
-		console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
-		const chosenOption = currentPlayer.chooseOption(availableOptions)
-		console.log(`Player chose option `, chosenOption)
-		chosenOption.resolve(this.gameBoard, currentPlayer)
+		let availableOptions = chosenAction.options(this.gameBoard, currentPlayer)
+		while (availableOptions.length > 0) {
+			console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
+			const chosenOption = currentPlayer.chooseOption(availableOptions)
+			console.log(`Player chose option `, chosenOption)
+			availableOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
+		}
 		return chosenAction
 	}
 

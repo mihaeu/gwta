@@ -88,7 +88,7 @@ import { NeutralBuildingF } from "./buildings/neutralBuildingF.js"
 import { NeutralBuildingE } from "./buildings/neutralBuildingE.js"
 
 export default class GameBoard {
-	public readonly start = new Start()
+	public static readonly START = new Start()
 	private neutralBuilding1 = new NeutralBuilding1(new NeutralBuildingA())
 	private neutralBuilding2 = new NeutralBuilding2(new NeutralBuildingB())
 	private neutralBuilding3 = new NeutralBuilding3(new NeutralBuildingC())
@@ -380,7 +380,7 @@ export default class GameBoard {
 	]
 
 	constructor(private readonly playerCount: number = 2) {
-		this.start.addChild(this.neutralBuilding1)
+		GameBoard.START.addChild(this.neutralBuilding1)
 		this.neutralBuilding1.addChild(this.basicBuilding1)
 		this.neutralBuilding1.addChild(this.greenFarmer1)
 		this.basicBuilding1.addChild(this.grainBuilding1)
@@ -444,13 +444,13 @@ export default class GameBoard {
 		this.yellowFarmer1.addChild(this.buenosAiresExit5)
 		this.neutralBuilding7.addChild(this.buenosAiresExit6)
 		this.neutralBuilding6.addChild(this.buenosAiresExit7)
-		this.buenosAiresExit1.addChild(this.start)
-		this.buenosAiresExit2.addChild(this.start)
-		this.buenosAiresExit3.addChild(this.start)
-		this.buenosAiresExit4.addChild(this.start)
-		this.buenosAiresExit5.addChild(this.start)
-		this.buenosAiresExit6.addChild(this.start)
-		this.buenosAiresExit7.addChild(this.start)
+		this.buenosAiresExit1.addChild(GameBoard.START)
+		this.buenosAiresExit2.addChild(GameBoard.START)
+		this.buenosAiresExit3.addChild(GameBoard.START)
+		this.buenosAiresExit4.addChild(GameBoard.START)
+		this.buenosAiresExit5.addChild(GameBoard.START)
+		this.buenosAiresExit6.addChild(GameBoard.START)
+		this.buenosAiresExit7.addChild(GameBoard.START)
 
 		this.seedCowMarket()
 		this.seedFarmers()

@@ -15,11 +15,12 @@ export class BuildOption extends Option {
 		this.location = location
 	}
 
-	resolve(gameBoard: GameBoard, currentPlayer: Player): void {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		this.location.buildOrUpgradeBuilding(this.building)
 		const index = currentPlayer.availableBuildings.findIndex(
 			(playerBuilding) => playerBuilding.constructor.name === this.building.constructor.name,
 		)
 		currentPlayer.availableBuildings.splice(index, 1)
+		return []
 	}
 }

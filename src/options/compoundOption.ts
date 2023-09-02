@@ -12,8 +12,9 @@ export class CompoundOption extends Option {
 		this.right = right
 	}
 
-	resolve(gameBoard: GameBoard, currentPlayer: Player): void {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		this.left.resolve(gameBoard, currentPlayer)
 		this.right.resolve(gameBoard, currentPlayer)
+		return []
 	}
 }

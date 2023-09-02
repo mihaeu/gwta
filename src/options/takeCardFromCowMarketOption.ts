@@ -8,9 +8,10 @@ export class TakeCardFromCowMarketOption extends Option {
 		super()
 	}
 
-	resolve(gameBoard: GameBoard, currentPlayer: Player): void {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const index = gameBoard.cowMarket.findIndex((card) => this.cowCard.equals(card))
 		currentPlayer.handCards.push(gameBoard.cowMarket[index])
 		gameBoard.cowMarket.splice(index, 1)
+		return []
 	}
 }

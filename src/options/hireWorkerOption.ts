@@ -12,9 +12,10 @@ export class HireWorkerOption extends Option {
 		super()
 	}
 
-	resolve(gameBoard: GameBoard, currentPlayer: Player): void {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		currentPlayer.pay(this.cost)
 		gameBoard.jobMarket[this.jobMarketIndex] = new TakenJobMarketSlot(currentPlayer)
 		currentPlayer.hireWorker(this.worker)
+		return []
 	}
 }

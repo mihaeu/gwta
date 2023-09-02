@@ -6,8 +6,8 @@ import { PlayerBuilding } from "../src/buildings/playerBuilding.js"
 
 export const gameBoardWithTwoPlayers = () => {
 	const gameBoard = new GameBoard()
-	const one = new RandomPlayer("One", gameBoard.start, [], [])
-	const two = new RandomPlayer("Two", gameBoard.start, [], [])
+	const one = new RandomPlayer("One", GameBoard.START, [], [])
+	const two = new RandomPlayer("Two", GameBoard.START, [], [])
 
 	return { gameBoard, one, two }
 }

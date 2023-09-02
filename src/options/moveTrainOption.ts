@@ -7,7 +7,7 @@ export class MoveTrainOption extends Option {
 		super()
 	}
 
-	resolve(gameBoard: GameBoard, currentPlayer: Player): void {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const previousTrainLocation = gameBoard.railroadTrackWithoutStationMasterSpaces.findIndex(
 			(players) => players !== undefined && players.find((player) => player.name === currentPlayer.name),
 		)
@@ -20,6 +20,8 @@ export class MoveTrainOption extends Option {
 		// advance train
 		const steps = this.distance + this.occupiedStepsInBetween(gameBoard, previousTrainLocation, this.distance)
 		gameBoard.railroadTrackWithoutStationMasterSpaces[previousTrainLocation + steps] = [currentPlayer]
+
+		return []
 	}
 
 	private occupiedStepsInBetween(gameBoard: GameBoard, trainLocation: number, distance: number) {

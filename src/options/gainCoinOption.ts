@@ -10,7 +10,8 @@ export class GainCoinOption extends Option {
 		this.amount = amount
 	}
 
-	resolve(gameBoard: GameBoard, currentPlayer: Player): void {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		currentPlayer.gainCoins(this.amount)
+		return []
 	}
 }
