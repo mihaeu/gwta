@@ -218,7 +218,7 @@ Drawing is easy, but implementing them should be done here as well.
   - ✅️ Neutral Building A
   - ✅ Neutral Building B
   - ✅ Neutral Building C
-  - ❌ Neutral Building D
+  - ✅ Neutral Building D
   - ❌ Neutral Building E
   - ❌ Neutral Building F
   - ❌ Neutral Building G
