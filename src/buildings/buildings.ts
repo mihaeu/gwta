@@ -26,11 +26,6 @@ export class NeutralBuildingF extends NeutralBuilding {
 		return [new AuxiliaryAction()]
 	}
 }
-export class NeutralBuildingG extends NeutralBuilding {
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		return [new AuxiliaryAction()]
-	}
-}
 export class NeutralBuildingH extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return [new AuxiliaryAction()]

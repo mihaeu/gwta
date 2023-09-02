@@ -214,14 +214,14 @@ Drawing is easy, but implementing them should be done here as well.
 
 ## Roadmap
 
-- ❌ Buildings
+- ⚠️ Buildings
   - ✅️ Neutral Building A
   - ✅ Neutral Building B
   - ✅ Neutral Building C
   - ✅ Neutral Building D
   - ❌ Neutral Building E
   - ❌ Neutral Building F
-  - ❌ Neutral Building G
+  - ✅️ Neutral Building G
   - ❌ Neutral Building H
   - ✅️ Player Building 1A
   - ❌ Player Building 2A
@@ -243,7 +243,7 @@ Drawing is easy, but implementing them should be done here as well.
   - ❌ Player Building 8B
   - ❌ Player Building 9B
   - ❌ Player Building 10B
-- ❌ Mechanics
+- ⚠️ Mechanics
   - ⚠️ Movement
     - ❌ leave coin on farmers
     - ❌ pay players when passing over hands
@@ -258,3 +258,6 @@ Drawing is easy, but implementing them should be done here as well.
   - ❌ Buenos Aires
     - ❌ Refill cow market
     - ❌ Sail to ports
+  - ⚠️ Actions
+    - ⚠️ Auxiliary
+    - ⚠️ Double Auxiliary
