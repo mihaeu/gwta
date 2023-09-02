@@ -21,11 +21,17 @@ export class NeutralBuildingA extends NeutralBuilding {
 		if (this.playerHasHolandoArgentino(currentPlayer)) {
 			actions.push(new CostBenefitCombinedAction(new DiscardCardAction(new HolandoArgentino()), new GainCoinAction(2)))
 		}
-		if (currentPlayer.coins >= 6) {
+
+		const cheapestAvailableWorker = gameBoard.cheapestAvailableWorker()
+		if (cheapestAvailableWorker === 0) {
+			return actions
+		}
+
+		if (currentPlayer.coins >= cheapestAvailableWorker) {
 			actions.push(new HireWorkerAction(0))
 		}
 
-		if (currentPlayer.coins >= 8) {
+		if (currentPlayer.coins >= cheapestAvailableWorker + 2) {
 			actions.push(new HireWorkerAction(2))
 		}
 		return actions

@@ -513,8 +513,18 @@ export default class GameBoard {
 	}
 
 	availableWorkersWithCost(): [JobMarketItem, number][] {
-		return this.jobMarket.slice(0, this.playerCount * -1).map((worker, index) => {
+		const workersWithoutLastRow = this.jobMarket.slice(0, this.playerCount * -1)
+		return workersWithoutLastRow.map((worker, index) => {
 			return [worker, this.jobMarketCostPerPlayerCount[this.playerCount][index] + (worker instanceof Worker && worker.strong ? 1 : 0)]
 		}) as [Worker, number][]
+	}
+
+	/**
+	 * @return 0 if no workers are available, otherwise cheapest cost
+	 */
+	cheapestAvailableWorker(): number {
+		return this.availableWorkersWithCost().reduce((cheapest, [jobMarketItem, cost]) => {
+			return (jobMarketItem instanceof Worker && cost < cheapest) || cheapest === 0 ? cost : cheapest
+		}, 0)
 	}
 }
