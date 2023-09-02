@@ -17,7 +17,7 @@ export default abstract class Player {
 	private _moveDistance: number = 3
 	protected cards: Card[]
 	private _handCards: Card[] = []
-	private _discardedCards: Card[] = []
+	protected _discardedCards: Card[] = []
 	private _herders: Worker[] = [new Herder()]
 	private _carpenters: Worker[] = [new Carpenter()]
 	private _machinists: Worker[] = [new Machinist()]

@@ -28,7 +28,7 @@ export default class RandomPlayer extends Player {
 	}
 
 	discardCards(count?: number): void {
-		this.discardedCards = this.discardedCards.concat(
+		this._discardedCards = this._discardedCards.concat(
 			this.handCards.splice(0, count && count <= this.handCards.length ? count : this.handCards.length),
 		)
 	}

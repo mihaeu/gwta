@@ -4,6 +4,7 @@ import { Action } from "../actions/action.js"
 import { NeutralBuilding } from "./buildings.js"
 import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
 import { DrawObjectiveCardAction } from "../actions/drawObjectiveCardAction.js"
+import { MoveTrainAction } from "../actions/moveTrainAction.js"
 
 /**
  * Up to three available action:
@@ -13,7 +14,8 @@ import { DrawObjectiveCardAction } from "../actions/drawObjectiveCardAction.js"
  */
 export class NeutralBuildingC extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		const actions: Action[] = [new AuxiliaryAction()]
+		const actions: Action[] = [new AuxiliaryAction(), new MoveTrainAction(1)]
+
 		if (gameBoard.objectiveCards.length > 0) {
 			actions.push(new DrawObjectiveCardAction())
 		}

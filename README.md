@@ -217,7 +217,7 @@ Drawing is easy, but implementing them should be done here as well.
 - ❌ Buildings
   - ✅️ Neutral Building A
   - ✅ Neutral Building B
-  - ⚠️ Neutral Building C
+  - ✅ Neutral Building C
   - ❌ Neutral Building D
   - ❌ Neutral Building E
   - ❌ Neutral Building F
@@ -251,6 +251,7 @@ Drawing is easy, but implementing them should be done here as well.
   - ❌ Second delivery at port
   - ❌ Train Tracks
     - ❌ Station Masters
+    - ❌ End of track situations
   - ⚠️ Objective Cards
   - ✅ Grain
   - ❌ Certificates
