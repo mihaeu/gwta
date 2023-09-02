@@ -8,7 +8,6 @@ import {
 	PlayerBuilding,
 	PlayerBuilding10A,
 	PlayerBuilding10B,
-	PlayerBuilding1B,
 	PlayerBuilding2A,
 	PlayerBuilding2B,
 	PlayerBuilding3A,
@@ -27,6 +26,7 @@ import {
 	PlayerBuilding9B,
 } from "./buildings/buildings.js"
 import { PlayerBuilding1A } from "./buildings/playerBuilding1A.js"
+import { PlayerBuilding1B } from "./buildings/playerBuilding1B.js"
 
 const gameBoard = new GameBoard()
 const startCards = [

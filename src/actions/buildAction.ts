@@ -3,7 +3,6 @@ import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Option } from "../options/option.js"
 import { BuildOption } from "../options/buildOption.js"
-import { PlayerBuilding } from "../buildings/buildings.js"
 import { UpgradeBuildingOption } from "../options/upgradeBuildingOption.js"
 
 export class BuildAction extends Action {
@@ -19,7 +18,7 @@ export class BuildAction extends Action {
 			}
 		}
 		for (const playerBuildingLocation of gameBoard.playerBuildings(currentPlayer)) {
-			const existingBuilding = playerBuildingLocation.building as PlayerBuilding
+			const existingBuilding = playerBuildingLocation.building()
 			currentPlayer.availableBuildings
 				.filter(
 					(newBuilding) =>

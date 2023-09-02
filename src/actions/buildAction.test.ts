@@ -58,7 +58,7 @@ describe("Build Action", () => {
 		const existingBuilding = new PlayerBuilding8A(player)
 		equal(gameBoard.playerBuildings(player).length, 0)
 		const availableBuildingLocation = gameBoard.emptyBuildingLocations()[0]
-		availableBuildingLocation.building = existingBuilding
+		availableBuildingLocation.buildOrUpgradeBuilding(existingBuilding)
 		equal(gameBoard.playerBuildings(player).length, 1)
 
 		deepEqual(buildAction.options(gameBoard, player), [new UpgradeBuildingOption(new PlayerBuilding10A(player), availableBuildingLocation)])

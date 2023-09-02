@@ -59,6 +59,10 @@ export class PlayerBuilding extends Building {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		return [new AuxiliaryAction()]
 	}
+
+	isOwner(currentPlayer: Player): boolean {
+		return currentPlayer.name === this.player?.name
+	}
 }
 export class PlayerBuilding2A extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.NONE
@@ -176,20 +180,6 @@ export class PlayerBuilding10A extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.NONE
 	public readonly requiredCarpenters: number = 9
 	public readonly victoryPoints: number = 13
-
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		const actions = [new AuxiliaryAction()]
-		if (this.player && currentPlayer.name !== this.player.name) {
-			return actions
-		}
-
-		return actions
-	}
-}
-export class PlayerBuilding1B extends PlayerBuilding {
-	public readonly hand: BuildingHand = BuildingHand.BLACK
-	public readonly requiredCarpenters: number = 1
-	public readonly victoryPoints: number = 1
 
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		const actions = [new AuxiliaryAction()]
