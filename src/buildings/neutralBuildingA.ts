@@ -18,7 +18,7 @@ import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
 export class NeutralBuildingA extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
 		const actions: Action[] = [new AuxiliaryAction()]
-		if (this.playerHasHolandoArgentino(currentPlayer)) {
+		if (currentPlayer.hasCardOfTypeInHand(new HolandoArgentino())) {
 			actions.push(new CostBenefitCombinedAction(new DiscardCardAction(new HolandoArgentino()), new GainCoinAction(2)))
 		}
 
@@ -35,9 +35,5 @@ export class NeutralBuildingA extends NeutralBuilding {
 			actions.push(new HireWorkerAction(2))
 		}
 		return actions
-	}
-
-	private playerHasHolandoArgentino(currentPlayer: Player) {
-		return currentPlayer.handCards.some((card) => card instanceof HolandoArgentino)
 	}
 }

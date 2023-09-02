@@ -131,6 +131,10 @@ export default abstract class Player {
 		}
 	}
 
+	hasCardOfTypeInHand(card: Card): boolean {
+		return this.handCards.some((handCard) => handCard.constructor.name === card.constructor.name)
+	}
+
 	abstract chooseMovement(locations: Node[]): number
 	abstract chooseForesightTileA(tiles: Tile[]): number
 	abstract chooseForesightTileB(tiles: Tile[]): number

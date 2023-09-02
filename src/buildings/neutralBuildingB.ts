@@ -7,6 +7,7 @@ import { CostBenefitCombinedAction } from "../actions/costBenefitCombinedAction.
 import { DiscardCardAction } from "../actions/discardCardAction.js"
 import { GainCoinAction } from "../actions/gainCoinAction.js"
 import { BuildAction } from "../actions/buildAction.js"
+import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
 
 /**
  * Up to three available action:
@@ -15,13 +16,16 @@ import { BuildAction } from "../actions/buildAction.js"
  */
 export class NeutralBuildingB extends NeutralBuilding {
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		const actions: Action[] = currentPlayer.handCards.some((card) => card instanceof Patagonico)
-			? [new CostBenefitCombinedAction(new DiscardCardAction(new Patagonico()), new GainCoinAction(2))]
-			: []
+		const actions: Action[] = [new AuxiliaryAction()]
+
+		if (currentPlayer.hasCardOfTypeInHand(new Patagonico())) {
+			actions.push(new CostBenefitCombinedAction(new DiscardCardAction(new Patagonico()), new GainCoinAction(2)))
+		}
 
 		if (new BuildAction().options(gameBoard, currentPlayer).length > 0) {
 			actions.push(new BuildAction())
 		}
+
 		return actions
 	}
 }
