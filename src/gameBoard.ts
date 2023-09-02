@@ -524,7 +524,7 @@ export default class GameBoard {
 	 */
 	cheapestAvailableWorker(): number {
 		return this.availableWorkersWithCost().reduce((cheapest, [jobMarketItem, cost]) => {
-			return (jobMarketItem instanceof Worker && cost < cheapest) || cheapest === 0 ? cost : cheapest
+			return jobMarketItem instanceof Worker && (cost < cheapest || cheapest === 0) ? cost : cheapest
 		}, 0)
 	}
 }

@@ -1,20 +1,22 @@
 import GameBoard from "./gameBoard.js"
 import Engine from "./engine.js"
 import RandomPlayer from "./randomplayer.js"
-import { it } from "node:test"
+import { describe, it } from "node:test"
 import * as assert from "assert"
 
-it("Determine next player", () => {
-	const gameBoard = new GameBoard()
-	const one = new RandomPlayer("One", gameBoard.start, [], [])
-	const two = new RandomPlayer("Two", gameBoard.start, [], [])
-	const players = [one, two]
-	const engine = new Engine(gameBoard, players)
-	assert.equal(engine.nextPlayer(), one)
+describe("Engine", () => {
+	it("should determine next player", () => {
+		const gameBoard = new GameBoard()
+		const one = new RandomPlayer("One", gameBoard.start, [], [])
+		const two = new RandomPlayer("Two", gameBoard.start, [], [])
+		const players = [one, two]
+		const engine = new Engine(gameBoard, players)
+		assert.equal(engine.nextPlayer(), one)
 
-	one.nextTurn()
-	assert.equal(engine.nextPlayer(), two)
+		one.nextTurn()
+		assert.equal(engine.nextPlayer(), two)
 
-	two.nextTurn()
-	assert.equal(engine.nextPlayer(), one)
+		two.nextTurn()
+		assert.equal(engine.nextPlayer(), one)
+	})
 })

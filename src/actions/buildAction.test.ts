@@ -31,7 +31,7 @@ const playerBuildings = [
 	new PlayerBuilding9A(),
 	new PlayerBuilding10A(),
 ]
-describe("build action", () => {
+describe("Build Action", () => {
 	it("should list a combination of all 22 free spaces and 8 buildings given 6 carpenters and enough coin", () => {
 		const buildAction = new BuildAction()
 		const gameBoard = new GameBoard()

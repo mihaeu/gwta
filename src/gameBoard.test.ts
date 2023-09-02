@@ -1,15 +1,31 @@
 import GameBoard from "./gameBoard.js"
-import { it } from "node:test"
-import * as assert from "assert"
-import { Carpenter, JobMarketToken } from "./tiles.js"
+import { describe, it } from "node:test"
+import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "./tiles.js"
+import RandomPlayer from "./randomplayer.js"
+import { strictEqual } from "node:assert/strict"
 
-it("At the start of a game, all available building locations are detected", () => {
-	const gameBoard = new GameBoard()
-	assert.strictEqual(gameBoard.emptyBuildingLocations().length, 22)
-})
+describe("Game Board", () => {
+	it("should detect all 22 empty building locations at the start of the game", () => {
+		const gameBoard = new GameBoard()
+		strictEqual(gameBoard.emptyBuildingLocations().length, 22)
+	})
 
-it("At the start of a game, the cheapest worker should cost 6", () => {
-	const gameBoard = new GameBoard()
-	gameBoard.jobMarket = [new Carpenter(), new Carpenter(), new JobMarketToken()]
-	assert.strictEqual(gameBoard.cheapestAvailableWorker(), 6)
+	it("should detect the cheapest available worker if available", () => {
+		const gameBoard = new GameBoard()
+		gameBoard.jobMarket = [new Carpenter(), new Carpenter(), new JobMarketToken()]
+		strictEqual(gameBoard.cheapestAvailableWorker(), 6)
+	})
+
+	it("should detect if there all workers are taken", () => {
+		const gameBoard = new GameBoard()
+		const player = new RandomPlayer("Test", gameBoard.start, [], [])
+		gameBoard.jobMarket = [
+			new TakenJobMarketSlot(player),
+			new TakenJobMarketSlot(player),
+			new TakenJobMarketSlot(player),
+			new TakenJobMarketSlot(player),
+			new JobMarketToken(),
+		]
+		strictEqual(gameBoard.cheapestAvailableWorker(), 0)
+	})
 })

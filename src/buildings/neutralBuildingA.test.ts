@@ -27,7 +27,7 @@ describe("Neutral Building A", () => {
 		const neutralBuildingA = new NeutralBuildingA()
 		const gameBoard = new GameBoard()
 		const player = new RandomPlayer("Test", gameBoard.start, [], [])
-		player.gainCoins(6)
+		player.gainCoins(7)
 		const availableActions = neutralBuildingA.actions(gameBoard, player)
 		deepEqual(availableActions, [new AuxiliaryAction(), new HireWorkerAction()])
 	})
