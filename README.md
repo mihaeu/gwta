@@ -237,7 +237,7 @@ Drawing is easy, but implementing them should be done here as well.
   - ❌ Player Building 2B
   - ❌ Player Building 3B
   - ❌ Player Building 4B
-  - ❌ Player Building 5B
+  - ✅ Player Building 5B
   - ❌ Player Building 6B
   - ❌ Player Building 7B
   - ❌ Player Building 8B

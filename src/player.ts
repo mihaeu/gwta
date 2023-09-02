@@ -1,5 +1,5 @@
 import { Node } from "./nodes.js"
-import { Carpenter, Herder, Machinist, Tile, Worker } from "./tiles.js"
+import { Carpenter, Farmer, Herder, Machinist, Tile, Worker } from "./tiles.js"
 import { Card } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
@@ -22,7 +22,7 @@ export default abstract class Player {
 	private _herders: Worker[] = [new Herder()]
 	private _carpenters: Worker[] = [new Carpenter()]
 	private _machinists: Worker[] = [new Machinist()]
-	private _farmers: Worker[] = []
+	private _farmers: Farmer[] = []
 	public availableBuildings: PlayerBuilding[] = []
 	private _grain = 0
 
@@ -78,7 +78,7 @@ export default abstract class Player {
 		return this._machinists
 	}
 
-	get farmers(): Worker[] {
+	get farmers(): Farmer[] {
 		return this._farmers
 	}
 
