@@ -1,4 +1,5 @@
 export interface Card {}
+
 export class Objective implements Card {}
 export abstract class CowCard implements Card {
 	private readonly _value: number
@@ -11,6 +12,15 @@ export abstract class CowCard implements Card {
 		this._victoryPoints = victoryPoints
 	}
 
+	equals(other: CowCard): boolean {
+		return (
+			this.constructor.name === other.constructor.name &&
+			this._value === other._value &&
+			this._strength === other._strength &&
+			this._victoryPoints === other._victoryPoints
+		)
+	}
+
 	get value(): number {
 		return this._value
 	}
@@ -21,6 +31,12 @@ export abstract class CowCard implements Card {
 
 	get victoryPoints(): number {
 		return this._victoryPoints
+	}
+}
+
+export class AnyCowCard extends CowCard {
+	constructor() {
+		super(0, 0, 0)
 	}
 }
 

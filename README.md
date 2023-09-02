@@ -242,7 +242,7 @@ Drawing is easy, but implementing them should be done here as well.
   - ❌ Player Building 7B
   - ❌ Player Building 8B
   - ❌ Player Building 9B
-  - ❌ Player Building 10B
+  - ✅ Player Building 10B
 - ⚠️ Mechanics
   - ⚠️ Movement
     - ❌ leave coin on farmers

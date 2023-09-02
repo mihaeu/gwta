@@ -1,0 +1,11 @@
+import { describe, it } from "node:test"
+import { deepEqual } from "node:assert"
+import { gameBoardWithTwoPlayers } from "../testUtils.js"
+import { TakeCardFromCowMarketAction } from "../../src/actions/takeCardFromCowMarketAction.js"
+
+describe("Take Card From Cow Market Action", () => {
+	it("should list all available cow cards", () => {
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		deepEqual(new TakeCardFromCowMarketAction().options(gameBoard, one).length, 9)
+	})
+})
