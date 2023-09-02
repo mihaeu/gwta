@@ -1,7 +1,7 @@
-import GameBoard from "./gameBoard.js"
+import GameBoard from "../src/gameBoard.js"
 import { describe, it } from "node:test"
-import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "./tiles.js"
-import RandomPlayer from "./randomplayer.js"
+import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "../src/tiles.js"
+import RandomPlayer from "../src/randomplayer.js"
 import { strictEqual } from "node:assert/strict"
 
 describe("Game Board", () => {

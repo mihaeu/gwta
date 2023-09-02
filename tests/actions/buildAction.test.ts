@@ -1,8 +1,8 @@
 import { describe, it } from "node:test"
-import { BuildAction } from "./buildAction.js"
-import GameBoard from "../gameBoard.js"
-import RandomPlayer from "../randomplayer.js"
-import { Carpenter } from "../tiles.js"
+import { BuildAction } from "../../src/actions/buildAction.js"
+import GameBoard from "../../src/gameBoard.js"
+import RandomPlayer from "../../src/randomplayer.js"
+import { Carpenter } from "../../src/tiles.js"
 import { equal } from "node:assert/strict"
 import {
 	PlayerBuilding10A,
@@ -14,10 +14,10 @@ import {
 	PlayerBuilding7A,
 	PlayerBuilding8A,
 	PlayerBuilding9A,
-} from "../buildings/buildings.js"
-import { UpgradeBuildingOption } from "../options/upgradeBuildingOption.js"
+} from "../../src/buildings/buildings.js"
+import { UpgradeBuildingOption } from "../../src/options/upgradeBuildingOption.js"
 import { deepEqual } from "node:assert"
-import { PlayerBuilding1A } from "../buildings/playerBuilding1A.js"
+import { PlayerBuilding1A } from "../../src/buildings/playerBuilding1A.js"
 
 const playerBuildings = [
 	new PlayerBuilding1A(),

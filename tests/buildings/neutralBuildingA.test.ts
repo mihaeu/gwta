@@ -1,14 +1,14 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
-import { NeutralBuildingA } from "./neutralBuildingA.js"
-import GameBoard from "../gameBoard.js"
-import RandomPlayer from "../randomplayer.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
-import { HolandoArgentino } from "../cards.js"
-import { CostBenefitCombinedAction } from "../actions/costBenefitCombinedAction.js"
-import { HireWorkerAction } from "../actions/hireWorkerAction.js"
-import { DiscardCardAction } from "../actions/discardCardAction.js"
-import { GainCoinAction } from "../actions/gainCoinAction.js"
+import { NeutralBuildingA } from "../../src/buildings/neutralBuildingA.js"
+import GameBoard from "../../src/gameBoard.js"
+import RandomPlayer from "../../src/randomplayer.js"
+import { AuxiliaryAction } from "../../src/actions/auxiliaryAction.js"
+import { HolandoArgentino } from "../../src/cards.js"
+import { CostBenefitCombinedAction } from "../../src/actions/costBenefitCombinedAction.js"
+import { HireWorkerAction } from "../../src/actions/hireWorkerAction.js"
+import { DiscardCardAction } from "../../src/actions/discardCardAction.js"
+import { GainCoinAction } from "../../src/actions/gainCoinAction.js"
 
 describe("Neutral Building A", () => {
 	it("should list discard Holando Argentino action if player has the card on their hand", () => {

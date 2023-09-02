@@ -1,11 +1,11 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
-import GameBoard from "../gameBoard.js"
-import RandomPlayer from "../randomplayer.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
-import { PlayerBuilding1A } from "./playerBuilding1A.js"
-import { PlayerBuildingNode } from "../nodes.js"
-import { GainGrainAction } from "../actions/gainGrainAction.js"
+import GameBoard from "../../src/gameBoard.js"
+import RandomPlayer from "../../src/randomplayer.js"
+import { AuxiliaryAction } from "../../src/actions/auxiliaryAction.js"
+import { PlayerBuilding1A } from "../../src/buildings/playerBuilding1A.js"
+import { PlayerBuildingNode } from "../../src/nodes.js"
+import { GainGrainAction } from "../../src/actions/gainGrainAction.js"
 
 describe("Player Building 1A", () => {
 	const gameBoard = new GameBoard()

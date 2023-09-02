@@ -1,6 +1,6 @@
-import GameBoard from "./gameBoard.js"
-import Engine from "./engine.js"
-import RandomPlayer from "./randomplayer.js"
+import GameBoard from "../src/gameBoard.js"
+import Engine from "../src/engine.js"
+import RandomPlayer from "../src/randomplayer.js"
 import { describe, it } from "node:test"
 import * as assert from "assert"
 

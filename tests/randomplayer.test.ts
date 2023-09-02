@@ -1,9 +1,9 @@
-import RandomPlayer from "./randomplayer.js"
-import { Start } from "./nodes.js"
-import { Carpenter, Herder, Machinist } from "./tiles.js"
+import RandomPlayer from "../src/randomplayer.js"
+import { Start } from "../src/nodes.js"
+import { Carpenter, Herder, Machinist } from "../src/tiles.js"
 import { beforeEach, describe, it } from "node:test"
 import { equal, fail, ok } from "node:assert/strict"
-import Player from "./player.js"
+import Player from "../src/player.js"
 
 describe("Random Player", () => {
 	it("should assign worker to correct work type", () => {
