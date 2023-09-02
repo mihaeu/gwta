@@ -4,6 +4,9 @@ import { Action } from "../actions/action.js"
 import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
 import { BuildingHand } from "./neutralBuilding.js"
 import { PlayerBuilding } from "./playerBuilding.js"
+import { GainGrainAction } from "../actions/gainGrainAction.js"
+import { GainCoinAction } from "../actions/gainCoinAction.js"
+import { MoveTrainAction } from "../actions/moveTrainAction.js"
 
 export class PlayerBuilding10A extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.NONE
@@ -11,11 +14,10 @@ export class PlayerBuilding10A extends PlayerBuilding {
 	public readonly victoryPoints: number = 13
 
 	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		const actions = [new AuxiliaryAction()]
 		if (this.player && currentPlayer.name !== this.player.name) {
-			return actions
+			return [new AuxiliaryAction()]
 		}
 
-		return actions
+		return [new AuxiliaryAction(), new GainGrainAction(5), new GainCoinAction(5), new MoveTrainAction(3)]
 	}
 }
