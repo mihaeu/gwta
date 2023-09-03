@@ -1,7 +1,7 @@
 import { describe, it } from "node:test"
 import { BuildOptions } from "../../src/actions/buildOptions.js"
 import GameBoard from "../../src/gameBoard.js"
-import RandomPlayer from "../../src/randomplayer.js"
+import RandomPlayer from "../../src/randomPlayer.js"
 import { Carpenter } from "../../src/tiles.js"
 import { equal } from "node:assert/strict"
 import { UpgradeBuildingOption } from "../../src/options/upgradeBuildingOption.js"
@@ -16,6 +16,7 @@ import { PlayerBuilding7A } from "../../src/buildings/playerBuilding7A.js"
 import { PlayerBuilding8A } from "../../src/buildings/playerBuilding8A.js"
 import { PlayerBuilding9A } from "../../src/buildings/playerBuilding9A.js"
 import { PlayerBuilding10A } from "../../src/buildings/playerBuilding10A.js"
+import { gameBoardWithTwoPlayers } from "../testUtils.js"
 
 const playerBuildings = [
 	new PlayerBuilding1A(),
@@ -29,36 +30,35 @@ const playerBuildings = [
 	new PlayerBuilding9A(),
 	new PlayerBuilding10A(),
 ]
-describe("Build Action", () => {
+describe("Build Options", () => {
 	it("should list a combination of all 22 free spaces and 8 buildings given 6 carpenters and enough coin", () => {
 		const buildAction = new BuildOptions()
-		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", GameBoard.START, [], playerBuildings)
-		player.hireWorker(new Carpenter())
-		player.hireWorker(new Carpenter())
-		player.hireWorker(new Carpenter())
-		player.hireWorker(new Carpenter())
-		player.hireWorker(new Carpenter())
-		player.gainCoins(12)
-		equal(buildAction.resolve(gameBoard, player).length, 176)
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.hireWorker(new Carpenter())
+		one.hireWorker(new Carpenter())
+		one.hireWorker(new Carpenter())
+		one.hireWorker(new Carpenter())
+		one.hireWorker(new Carpenter())
+		one.gainCoins(12)
+		equal(buildAction.resolve(gameBoard, one).length, 176)
 	})
 
 	it("should allow upgrading from a building that requires 5 carpenters to one with 9 if the player has 4 carpenters and enough coin", () => {
-		const buildAction = new BuildOptions()
+		const buildOptions = new BuildOptions()
 		const gameBoard = new GameBoard()
-		const expectedBuilding = new PlayerBuilding10A()
-		const player = new RandomPlayer("Test", GameBoard.START, [], [expectedBuilding])
-		expectedBuilding.player = player
-		player.hireWorker(new Carpenter())
-		player.hireWorker(new Carpenter())
-		player.hireWorker(new Carpenter())
-		player.gainCoins(8)
-		const existingBuilding = new PlayerBuilding8A(player)
-		equal(gameBoard.playerBuildings(player).length, 0)
+		const one = new RandomPlayer("One")
+		one.setStartBuildings([new PlayerBuilding10A(one)])
+		one.hireWorker(new Carpenter())
+		one.hireWorker(new Carpenter())
+		one.hireWorker(new Carpenter())
+		one.gainCoins(8)
+
+		equal(gameBoard.playerBuildings(one).length, 0)
+		const existingBuilding = new PlayerBuilding8A(one)
 		const availableBuildingLocation = gameBoard.emptyBuildingLocations()[0]
 		availableBuildingLocation.buildOrUpgradeBuilding(existingBuilding)
-		equal(gameBoard.playerBuildings(player).length, 1)
+		equal(gameBoard.playerBuildings(one).length, 1)
 
-		deepEqual(buildAction.resolve(gameBoard, player), [new UpgradeBuildingOption(new PlayerBuilding10A(player), availableBuildingLocation)])
+		deepEqual(buildOptions.resolve(gameBoard, one), [new UpgradeBuildingOption(new PlayerBuilding10A(one), availableBuildingLocation)])
 	})
 })

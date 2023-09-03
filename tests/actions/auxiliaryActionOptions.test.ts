@@ -8,7 +8,7 @@ import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 
-describe("Auxiliary Action", () => {
+describe("Auxiliary Action Options", () => {
 	it("should list gain coins and draw card discard card action", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new Patagonico())

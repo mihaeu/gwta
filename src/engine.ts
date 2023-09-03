@@ -6,20 +6,64 @@ import { Option } from "./options/option.js"
 import { MoveOptions } from "./actions/moveOptions.js"
 import { TileOptions } from "./actions/tileOptions.js"
 import { DiscardCardOptions } from "./actions/discardCardOptions.js"
+import { PlayerBuilding1A } from "./buildings/playerBuilding1A.js"
+import { PlayerBuilding1B } from "./buildings/playerBuilding1B.js"
+import { PlayerBuilding2A } from "./buildings/playerBuilding2A.js"
+import { PlayerBuilding2B } from "./buildings/playerBuilding2B.js"
+import { PlayerBuilding3A } from "./buildings/playerBuilding3A.js"
+import { PlayerBuilding3B } from "./buildings/playerBuilding3B.js"
+import { PlayerBuilding4A } from "./buildings/playerBuilding4A.js"
+import { PlayerBuilding4B } from "./buildings/playerBuilding4B.js"
+import { PlayerBuilding5A } from "./buildings/playerBuilding5A.js"
+import { PlayerBuilding5B } from "./buildings/playerBuilding5B.js"
+import { PlayerBuilding6A } from "./buildings/playerBuilding6A.js"
+import { PlayerBuilding6B } from "./buildings/playerBuilding6B.js"
+import { PlayerBuilding7A } from "./buildings/playerBuilding7A.js"
+import { PlayerBuilding7B } from "./buildings/playerBuilding7B.js"
+import { PlayerBuilding8A } from "./buildings/playerBuilding8A.js"
+import { PlayerBuilding8B } from "./buildings/playerBuilding8B.js"
+import { PlayerBuilding9A } from "./buildings/playerBuilding9A.js"
+import { PlayerBuilding9B } from "./buildings/playerBuilding9B.js"
+import { PlayerBuilding10A } from "./buildings/playerBuilding10A.js"
+import { PlayerBuilding10B } from "./buildings/playerBuilding10B.js"
+import { PlayerBuilding } from "./buildings/playerBuilding.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
 	private readonly players: Player[]
 
-	constructor(gameBoard: GameBoard, players: Player[]) {
-		this.gameBoard = gameBoard
+	constructor(players: Player[]) {
+		this.gameBoard = new GameBoard()
 		this.players = players
 
+		const playerBuildings = [
+			[new PlayerBuilding1A(), new PlayerBuilding1B()],
+			[new PlayerBuilding2A(), new PlayerBuilding2B()],
+			[new PlayerBuilding3A(), new PlayerBuilding3B()],
+			[new PlayerBuilding4A(), new PlayerBuilding4B()],
+			[new PlayerBuilding5A(), new PlayerBuilding5B()],
+			[new PlayerBuilding6A(), new PlayerBuilding6B()],
+			[new PlayerBuilding7A(), new PlayerBuilding7B()],
+			[new PlayerBuilding8A(), new PlayerBuilding8B()],
+			[new PlayerBuilding9A(), new PlayerBuilding9B()],
+			[new PlayerBuilding10A(), new PlayerBuilding10B()],
+		].map((playerBuildings: PlayerBuilding[]) => playerBuildings[Math.round(Math.random())])
 		this.players.forEach((player, index) => {
 			player.gainCoins(Player.STARTING_COINS + index)
-			player.drawCards(Player.CARD_LIMIT + index)
+			player.drawCards(Player.CARD_LIMIT)
+			player.setStartBuildings([...playerBuildings])
 		})
 		this.gameBoard.railroadTrackWithoutStationMasterSpaces[0] = players
+	}
+
+	async play(): Promise<GameBoard> {
+		while (!this.isGameOver()) {
+			const currentPlayer = this.nextPlayer()
+			await this.phaseA(currentPlayer)
+			await this.phaseB(currentPlayer)
+			await this.phaseC(currentPlayer)
+		}
+		return this.gameBoard
 	}
 
 	nextPlayer(): Player {
@@ -87,7 +131,12 @@ export default class Engine {
 			currentPlayer.drawCards(Player.CARD_LIMIT - currentPlayer.handCards.length)
 		} else if (currentPlayer.handCards.length > Player.CARD_LIMIT) {
 			const cardsToDiscard = currentPlayer.handCards.length - Player.CARD_LIMIT
-			for (let i = 0; i <= cardsToDiscard; ++i) {
+			console.log(
+				`Player ${currentPlayer.name} has ${currentPlayer.handCards.length} card${
+					currentPlayer.handCards.length !== 1 ? "s" : ""
+				} and needs to discard ${cardsToDiscard} card${cardsToDiscard !== 1 ? "s" : ""}.`,
+			)
+			for (let i = 0; i < cardsToDiscard; ++i) {
 				const availableOptions: Option[] = new DiscardCardOptions(new AnyCard()).resolve(this.gameBoard, currentPlayer)
 				const chosenOption = await currentPlayer.chooseOption(availableOptions)
 				chosenOption.resolve(this.gameBoard, currentPlayer)

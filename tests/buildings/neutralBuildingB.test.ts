@@ -1,8 +1,6 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
 import { NeutralBuildingB } from "../../src/buildings/neutralBuildingB.js"
-import GameBoard from "../../src/gameBoard.js"
-import RandomPlayer from "../../src/randomplayer.js"
 import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
 import { Patagonico } from "../../src/cards.js"
 import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
@@ -13,10 +11,9 @@ import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 describe("Neutral Building B", () => {
 	it("should list discard Patagonico action if player has the card on their hand", () => {
 		const neutralBuildingB = new NeutralBuildingB()
-		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", GameBoard.START, [new Patagonico()], [])
-		player.drawCards(1)
-		const availableActions = neutralBuildingB.options(gameBoard, player)
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.handCards.push(new Patagonico())
+		const availableActions = neutralBuildingB.options(gameBoard, one)
 		deepEqual(availableActions, [
 			new AuxiliaryActionOptions(),
 			new CostBenefitCombinedOptions(new DiscardCardOptions(new Patagonico()), new GainCoinOption(2)),

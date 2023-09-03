@@ -262,3 +262,5 @@ Drawing is easy, but implementing them should be done here as well.
     - ⚠️ Auxiliary
     - ⚠️ Double Auxiliary
   - ❌ Card and movement limit
+  - ⚠️ Game seeing
+    - ❌ Discard start cards > 4

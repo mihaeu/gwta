@@ -4,14 +4,13 @@ import { AberdeenAngus, HolandoArgentino, Niata, Patagonico, Serrano } from "../
 import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
 import { DrawCardOption } from "../../src/options/drawCardOption.js"
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
-import GameBoard from "../../src/gameBoard.js"
-import RandomPlayer from "../../src/randomplayer.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
+import { gameBoardWithTwoPlayers } from "../testUtils.js"
 
 describe("First Then Second Option", () => {
 	it("should take the result of the first option into account for the second option", () => {
-		const gameBoard = new GameBoard()
-		const one = new RandomPlayer("One", GameBoard.START, [new AberdeenAngus(7)], [])
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.cards = [new AberdeenAngus(7)]
 		one.handCards.push(new Niata())
 		one.handCards.push(new HolandoArgentino())
 		one.handCards.push(new Serrano())

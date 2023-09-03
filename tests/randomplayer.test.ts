@@ -1,5 +1,4 @@
-import RandomPlayer from "../src/randomplayer.js"
-import { Start } from "../src/nodes.js"
+import RandomPlayer from "../src/randomPlayer.js"
 import { Carpenter, Herder, Machinist } from "../src/tiles.js"
 import { beforeEach, describe, it } from "node:test"
 import { equal, fail, ok } from "node:assert/strict"
@@ -7,7 +6,7 @@ import Player from "../src/player.js"
 
 describe("Random Player", () => {
 	it("should assign worker to correct work type", () => {
-		const testPlayer = new RandomPlayer("Test", new Start(), [], [])
+		const testPlayer = new RandomPlayer("Test")
 		equal(testPlayer.carpenters.length, 1)
 		testPlayer.hireWorker(new Carpenter())
 		equal(testPlayer.carpenters.length, 2)
@@ -25,7 +24,7 @@ describe("Random Player", () => {
 		let testPlayer: Player
 
 		beforeEach(() => {
-			testPlayer = new RandomPlayer("Test", new Start(), [], [])
+			testPlayer = new RandomPlayer("Test")
 		})
 
 		it("should start with 0 grain", () => {

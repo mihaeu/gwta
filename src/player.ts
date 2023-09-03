@@ -1,6 +1,6 @@
 import { Node } from "./nodes.js"
 import { Carpenter, Farmer, Herder, Machinist, Worker } from "./tiles.js"
-import { Card } from "./cards.js"
+import { Card, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
 
@@ -16,7 +16,7 @@ export default abstract class Player {
 	protected turn: number = 0
 	private _coins = 0
 	private _moveDistance: number = 3
-	protected cards: Card[]
+	public cards: Card[]
 	private _handCards: Card[] = []
 	protected _discardedCards: Card[] = []
 	private _herders: Worker[] = [new Herder()]
@@ -25,11 +25,30 @@ export default abstract class Player {
 	private _farmers: Farmer[] = []
 	public availableBuildings: PlayerBuilding[] = []
 	private _grain = 0
+	private static readonly startCards = [
+		new Niata(),
+		new Niata(),
+		new Niata(),
+		new Niata(),
+		new Niata(),
+		new Patagonico(),
+		new Patagonico(),
+		new Patagonico(),
+		new Fronterizo(),
+		new Fronterizo(),
+		new Fronterizo(),
+		new HolandoArgentino(),
+		new HolandoArgentino(),
+		new HolandoArgentino(),
+	]
 
-	protected constructor(name: string, location: Node, cards: Card[], playerBuildings: PlayerBuilding[]) {
+	protected constructor(name: string, location: Node) {
 		this._name = name
 		this._location = location
-		this.cards = cards
+		this.cards = arrayShuffle(Player.startCards)
+	}
+
+	setStartBuildings(playerBuildings: PlayerBuilding[]) {
 		this.availableBuildings = playerBuildings
 		this.availableBuildings.forEach((playerBuilding) => (playerBuilding.player = this))
 	}

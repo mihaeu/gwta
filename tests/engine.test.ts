@@ -7,7 +7,7 @@ describe("Engine", () => {
 	it("should determine next player", () => {
 		const { gameBoard, one, two } = gameBoardWithTwoPlayers()
 		const players = [one, two]
-		const engine = new Engine(gameBoard, players)
+		const engine = new Engine(players)
 		assert.equal(engine.nextPlayer(), one)
 
 		one.nextTurn()

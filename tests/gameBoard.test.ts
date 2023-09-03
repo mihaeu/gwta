@@ -1,7 +1,7 @@
 import GameBoard from "../src/gameBoard.js"
 import { describe, it } from "node:test"
 import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "../src/tiles.js"
-import RandomPlayer from "../src/randomplayer.js"
+import RandomPlayer from "../src/randomPlayer.js"
 import { strictEqual } from "node:assert/strict"
 
 describe("Game Board", () => {
@@ -18,7 +18,7 @@ describe("Game Board", () => {
 
 	it("should detect if there all workers are taken", () => {
 		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test", GameBoard.START, [], [])
+		const player = new RandomPlayer("Test")
 		gameBoard.jobMarket = [
 			new TakenJobMarketSlot(player),
 			new TakenJobMarketSlot(player),

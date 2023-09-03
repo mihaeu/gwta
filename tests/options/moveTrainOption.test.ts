@@ -2,8 +2,7 @@ import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { MoveTrainOption } from "../../src/options/moveTrainOption.js"
-import RandomPlayer from "../../src/randomplayer.js"
-import GameBoard from "../../src/gameBoard.js"
+import RandomPlayer from "../../src/randomPlayer.js"
 
 describe("Move Train Option", () => {
 	/**
@@ -39,8 +38,8 @@ describe("Move Train Option", () => {
 	 */
 	it("should skip spots with existing players", () => {
 		const { gameBoard, one, two } = gameBoardWithTwoPlayers()
-		const three = new RandomPlayer("Three", GameBoard.START, [], [])
-		const four = new RandomPlayer("Four", GameBoard.START, [], [])
+		const three = new RandomPlayer("Three")
+		const four = new RandomPlayer("Four")
 		gameBoard.railroadTrackWithoutStationMasterSpaces[0] = [one]
 		gameBoard.railroadTrackWithoutStationMasterSpaces[2] = [two]
 		gameBoard.railroadTrackWithoutStationMasterSpaces[4] = [three]
