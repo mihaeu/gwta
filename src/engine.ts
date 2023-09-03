@@ -32,10 +32,10 @@ export default class Engine {
 		return this.gameBoard.jobMarket.length >= 23
 	}
 
-	phaseA(currentPlayer: Player) {
+	async phaseA(currentPlayer: Player) {
 		const previousLocation = currentPlayer.location
 		console.info(`Player ${currentPlayer.name} is on ${previousLocation.constructor.name} and takes a turn`)
-		const chosenMove = currentPlayer.chooseOption(new MoveOptions().resolve(this.gameBoard, currentPlayer))
+		const chosenMove = await currentPlayer.chooseOption(new MoveOptions().resolve(this.gameBoard, currentPlayer))
 		chosenMove.resolve(this.gameBoard, currentPlayer)
 	}
 
@@ -51,12 +51,12 @@ export default class Engine {
 		return [...uniqueCards].reduce((value: number, card: CowCard) => value + card.value, 0)
 	}
 
-	phaseB(currentPlayer: Player) {
+	async phaseB(currentPlayer: Player) {
 		if (currentPlayer.location instanceof BuenosAiresNode) {
 			this.buenosAiresStepTwo(currentPlayer)
-			this.buenosAiresStepFour(currentPlayer)
-			this.buenosAiresStepFive(currentPlayer)
-			this.buenosAiresStepSix(currentPlayer)
+			await this.buenosAiresStepFour(currentPlayer)
+			await this.buenosAiresStepFive(currentPlayer)
+			await this.buenosAiresStepSix(currentPlayer)
 		}
 
 		if (currentPlayer.location instanceof BuildingNode) {
@@ -71,25 +71,26 @@ export default class Engine {
 				}
 
 				console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
-				actionsTaken.push(this.chooseOptions(currentPlayer, availableOptions))
+				actionsTaken.push(await this.chooseOptions(currentPlayer, availableOptions))
 			}
 		}
 
 		if (currentPlayer.location instanceof FarmerNode) {
-			const availableActions = currentPlayer.location.options(this.gameBoard, currentPlayer)
-			console.log(`Available options for player `, currentPlayer.name, ` are `, availableActions)
-			this.chooseOptions(currentPlayer, availableActions)
+			const options = currentPlayer.location.options(this.gameBoard, currentPlayer)
+			console.log(`Available options for player `, currentPlayer.name, ` are `, options)
+			await currentPlayer.chooseOption(options)
 		}
 	}
 
-	phaseC(currentPlayer: Player) {
+	async phaseC(currentPlayer: Player) {
 		if (currentPlayer.handCards.length < Player.CARD_LIMIT) {
 			currentPlayer.drawCards(Player.CARD_LIMIT - currentPlayer.handCards.length)
 		} else if (currentPlayer.handCards.length > Player.CARD_LIMIT) {
 			const cardsToDiscard = currentPlayer.handCards.length - Player.CARD_LIMIT
 			for (let i = 0; i <= cardsToDiscard; ++i) {
-				const availableOptions = new DiscardCardOptions(new AnyCard()).resolve(this.gameBoard, currentPlayer)
-				currentPlayer.chooseOption(availableOptions).resolve(this.gameBoard, currentPlayer)
+				const availableOptions: Option[] = new DiscardCardOptions(new AnyCard()).resolve(this.gameBoard, currentPlayer)
+				const chosenOption = await currentPlayer.chooseOption(availableOptions)
+				chosenOption.resolve(this.gameBoard, currentPlayer)
 			}
 		}
 
@@ -97,13 +98,13 @@ export default class Engine {
 		console.info(`Player ${currentPlayer.name} turns taken ${currentPlayer.turnsTaken()}`)
 	}
 
-	private chooseOptions(currentPlayer: Player, availableActions: Option[]) {
-		const chosenOption = currentPlayer.chooseOption(availableActions)
+	private async chooseOptions(currentPlayer: Player, availableActions: Option[]) {
+		const chosenOption = await currentPlayer.chooseOption(availableActions)
 		console.log(`Player chose action `, chosenOption)
 		let availableOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		while (availableOptions.length > 0) {
 			console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
-			const chosenOption = currentPlayer.chooseOption(availableOptions)
+			const chosenOption = await currentPlayer.chooseOption(availableOptions)
 			console.log(`Player chose option `, chosenOption)
 			availableOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		}
@@ -116,21 +117,24 @@ export default class Engine {
 		currentPlayer.discardCards()
 	}
 
-	private buenosAiresStepFour(currentPlayer: Player) {
+	private async buenosAiresStepFour(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 4")
 		const options = new TileOptions(this.gameBoard.foresightSpacesA).resolve(this.gameBoard, currentPlayer)
-		currentPlayer.chooseOption(options).resolve(this.gameBoard, currentPlayer)
+		const chosenOption = await currentPlayer.chooseOption(options)
+		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
-	private buenosAiresStepFive(currentPlayer: Player) {
+	private async buenosAiresStepFive(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 5")
 		const options = new TileOptions(this.gameBoard.foresightSpacesB).resolve(this.gameBoard, currentPlayer)
-		currentPlayer.chooseOption(options).resolve(this.gameBoard, currentPlayer)
+		const chosenOption = await currentPlayer.chooseOption(options)
+		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
-	private buenosAiresStepSix(currentPlayer: Player) {
+	private async buenosAiresStepSix(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 6")
 		const options = new TileOptions(this.gameBoard.foresightSpacesC).resolve(this.gameBoard, currentPlayer)
-		currentPlayer.chooseOption(options).resolve(this.gameBoard, currentPlayer)
+		const chosenOption = await currentPlayer.chooseOption(options)
+		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 }

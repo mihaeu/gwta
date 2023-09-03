@@ -10,7 +10,7 @@ export default class RandomPlayer extends Player {
 		super(name, location, cards, playerBuildings)
 	}
 
-	chooseOption(options: Option[]): Option {
-		return options[Math.round(Math.random() * (options.length - 1))]
+	chooseOption(options: Option[]): Promise<Option> {
+		return Promise.resolve(options[Math.round(Math.random() * (options.length - 1))])
 	}
 }

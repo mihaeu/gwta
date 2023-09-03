@@ -161,5 +161,5 @@ export default abstract class Player {
 		this._discardedCards = this._discardedCards.concat(this.handCards.splice(0, this.handCards.length))
 	}
 
-	abstract chooseOption(options: Option[]): Option
+	abstract chooseOption(options: Option[]): Promise<Option>
 }

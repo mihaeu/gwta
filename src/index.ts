@@ -62,9 +62,9 @@ const engine = new Engine(gameBoard, players)
 
 while (!engine.isGameOver()) {
 	const currentPlayer = engine.nextPlayer()
-	engine.phaseA(currentPlayer)
-	engine.phaseB(currentPlayer)
-	engine.phaseC(currentPlayer)
+	await engine.phaseA(currentPlayer)
+	await engine.phaseB(currentPlayer)
+	await engine.phaseC(currentPlayer)
 }
 console.log("Game is over", engine.isGameOver())
 
