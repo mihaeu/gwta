@@ -261,3 +261,4 @@ Drawing is easy, but implementing them should be done here as well.
   - ⚠️ Actions
     - ⚠️ Auxiliary
     - ⚠️ Double Auxiliary
+  - ❌ Card and movement limit

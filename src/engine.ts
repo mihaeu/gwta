@@ -1,10 +1,11 @@
 import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
 import { BuenosAiresNode, BuildingNode, FarmerNode } from "./nodes.js"
-import { Card, CowCard } from "./cards.js"
+import { AnyCard, Card, CowCard } from "./cards.js"
 import { Option } from "./options/option.js"
 import { MoveOptions } from "./actions/moveOptions.js"
 import { TileOptions } from "./actions/tileOptions.js"
+import { DiscardCardOptions } from "./actions/discardCardOptions.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -81,6 +82,21 @@ export default class Engine {
 		}
 	}
 
+	phaseC(currentPlayer: Player) {
+		if (currentPlayer.handCards.length < Player.CARD_LIMIT) {
+			currentPlayer.drawCards(Player.CARD_LIMIT - currentPlayer.handCards.length)
+		} else if (currentPlayer.handCards.length > Player.CARD_LIMIT) {
+			const cardsToDiscard = currentPlayer.handCards.length - Player.CARD_LIMIT
+			for (let i = 0; i <= cardsToDiscard; ++i) {
+				const availableOptions = new DiscardCardOptions(new AnyCard()).resolve(this.gameBoard, currentPlayer)
+				currentPlayer.chooseOption(availableOptions).resolve(this.gameBoard, currentPlayer)
+			}
+		}
+
+		currentPlayer.nextTurn()
+		console.info(`Player ${currentPlayer.name} turns taken ${currentPlayer.turnsTaken()}`)
+	}
+
 	private chooseOptions(currentPlayer: Player, availableActions: Option[]) {
 		const chosenOption = currentPlayer.chooseOption(availableActions)
 		console.log(`Player chose action `, chosenOption)
@@ -92,6 +108,12 @@ export default class Engine {
 			availableOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		}
 		return chosenOption
+	}
+
+	private buenosAiresStepTwo(currentPlayer: Player) {
+		console.log("Handling Buenos Aires step 2")
+		currentPlayer.gainCoins(this.determineValueOfHandCards(currentPlayer))
+		currentPlayer.discardCards()
 	}
 
 	private buenosAiresStepFour(currentPlayer: Player) {
@@ -110,17 +132,5 @@ export default class Engine {
 		console.log("Handling Buenos Aires step 6")
 		const options = new TileOptions(this.gameBoard.foresightSpacesC).resolve(this.gameBoard, currentPlayer)
 		currentPlayer.chooseOption(options).resolve(this.gameBoard, currentPlayer)
-	}
-
-	private buenosAiresStepTwo(currentPlayer: Player) {
-		console.log("Handling Buenos Aires step 2")
-		currentPlayer.gainCoins(this.determineValueOfHandCards(currentPlayer))
-		currentPlayer.discardCards()
-	}
-
-	phaseC(currentPlayer: Player) {
-		currentPlayer.discardCardOrDrawToHandLimit()
-		currentPlayer.nextTurn()
-		console.info(`Player ${currentPlayer.name} turns taken ${currentPlayer.turnsTaken()}`)
 	}
 }

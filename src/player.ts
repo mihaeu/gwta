@@ -103,16 +103,6 @@ export default abstract class Player {
 		}
 	}
 
-	discardCardOrDrawToHandLimit(): void {
-		if (this._handCards.length < Player.CARD_LIMIT) {
-			this.drawCards(Player.CARD_LIMIT - this._handCards.length)
-		}
-
-		if (this._handCards.length > Player.CARD_LIMIT) {
-			this.discardCards(this._handCards.length - Player.CARD_LIMIT)
-		}
-	}
-
 	discardCard(card: Card) {
 		const index = this.handCards.findIndex((currentCard) => currentCard == card)
 		if (!index) {
@@ -167,6 +157,9 @@ export default abstract class Player {
 		return this._discardedCards
 	}
 
-	abstract discardCards(count?: number): void
+	discardCards(): void {
+		this._discardedCards = this._discardedCards.concat(this.handCards.splice(0, this.handCards.length))
+	}
+
 	abstract chooseOption(options: Option[]): Option
 }

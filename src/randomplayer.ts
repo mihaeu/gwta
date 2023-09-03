@@ -10,12 +10,6 @@ export default class RandomPlayer extends Player {
 		super(name, location, cards, playerBuildings)
 	}
 
-	discardCards(count?: number): void {
-		this._discardedCards = this._discardedCards.concat(
-			this.handCards.splice(0, count && count <= this.handCards.length ? count : this.handCards.length),
-		)
-	}
-
 	chooseOption(options: Option[]): Option {
 		return options[Math.round(Math.random() * (options.length - 1))]
 	}
