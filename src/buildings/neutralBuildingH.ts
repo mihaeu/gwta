@@ -1,11 +1,9 @@
-import GameBoard from "../gameBoard.js"
-import Player from "../player.js"
-import { Action } from "../actions/action.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
+import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { NeutralBuilding } from "./neutralBuilding.js"
+import { Option } from "../options/option.js"
 
 export class NeutralBuildingH extends NeutralBuilding {
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		return [new AuxiliaryAction()]
+	options(): Option[] {
+		return [new AuxiliaryActionOptions()]
 	}
 }

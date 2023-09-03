@@ -1,10 +1,10 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { Action } from "../actions/action.js"
 import { NeutralBuilding } from "./neutralBuilding.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
-import { DrawObjectiveCardAction } from "../actions/drawObjectiveCardAction.js"
-import { MoveTrainAction } from "../actions/moveTrainAction.js"
+import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
+import { MoveTrainOptions } from "../actions/moveTrainOptions.js"
+import { Option } from "../options/option.js"
+import { DrawObjectiveCardOption } from "../options/drawObjectiveCardOption.js"
 
 /**
  * Up to three available action:
@@ -13,13 +13,13 @@ import { MoveTrainAction } from "../actions/moveTrainAction.js"
  *  - Move the train forward by one
  */
 export class NeutralBuildingC extends NeutralBuilding {
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		const actions: Action[] = [new AuxiliaryAction(), new MoveTrainAction(1)]
+	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		const options: Option[] = [new AuxiliaryActionOptions(), new MoveTrainOptions(1)]
 
 		if (gameBoard.objectiveCards.length > 0) {
-			actions.push(new DrawObjectiveCardAction())
+			options.push(new DrawObjectiveCardOption())
 		}
 
-		return actions
+		return options
 	}
 }

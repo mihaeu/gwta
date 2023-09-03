@@ -3,7 +3,6 @@ import { Carpenter, Farmer, Herder, Machinist, Tile, Worker } from "./tiles.js"
 import { Card } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
-import { Action } from "./actions/action.js"
 
 import { PlayerBuilding } from "./buildings/playerBuilding.js"
 
@@ -174,5 +173,4 @@ export default abstract class Player {
 	abstract chooseForesightTileC(tiles: Tile[]): number
 	abstract discardCards(count?: number): void
 	abstract chooseOption(options: Option[]): Option
-	abstract chooseAction(actions: Action[]): Action
 }

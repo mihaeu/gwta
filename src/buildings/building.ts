@@ -1,7 +1,7 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { Action } from "../actions/action.js"
+import { Option } from "../options/option.js"
 
 export abstract class Building {
-	abstract actions(gameBoard: GameBoard, currentPlayer: Player): Action[]
+	abstract options(gameBoard: GameBoard, currentPlayer: Player): Option[]
 }

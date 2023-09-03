@@ -1,9 +1,9 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
 import { AberdeenAngus, HolandoArgentino, Niata, Patagonico, Serrano } from "../../src/cards.js"
-import { FirstThanSecondsOption } from "../../src/options/firstThanSecond.js"
+import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
 import { DrawCardOption } from "../../src/options/drawCardOption.js"
-import { DiscardCardAction } from "../../src/actions/discardCardAction.js"
+import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 import GameBoard from "../../src/gameBoard.js"
 import RandomPlayer from "../../src/randomplayer.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
@@ -16,7 +16,7 @@ describe("First Then Second Option", () => {
 		one.handCards.push(new HolandoArgentino())
 		one.handCards.push(new Serrano())
 		one.handCards.push(new Patagonico())
-		const availableOptionsForSecond = new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardAction()).resolve(gameBoard, one)
+		const availableOptionsForSecond = new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()).resolve(gameBoard, one)
 		deepEqual(availableOptionsForSecond, [
 			new DiscardCardOption(new Niata()),
 			new DiscardCardOption(new HolandoArgentino()),

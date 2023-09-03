@@ -1,21 +1,21 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { Action } from "../actions/action.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
+import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { BuildingHand } from "./neutralBuilding.js"
 import { PlayerBuilding } from "./playerBuilding.js"
+import { Option } from "../options/option.js"
 
 export class PlayerBuilding9A extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.BLACK
 	public readonly requiredCarpenters: number = 7
 	public readonly victoryPoints: number = 10
 
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		const actions = [new AuxiliaryAction()]
+	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		const options = [new AuxiliaryActionOptions()]
 		if (this.player && currentPlayer.name !== this.player.name) {
-			return actions
+			return options
 		}
 
-		return actions
+		return options
 	}
 }

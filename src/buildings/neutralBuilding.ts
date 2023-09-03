@@ -1,8 +1,8 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { Action } from "../actions/action.js"
 import { Building } from "./building.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
+import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
+import { Option } from "../options/option.js"
 
 export enum BuildingHand {
 	NONE = "NONE",
@@ -11,7 +11,7 @@ export enum BuildingHand {
 }
 
 export class NeutralBuilding extends Building {
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		return [new AuxiliaryAction()]
+	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return [new AuxiliaryActionOptions()]
 	}
 }

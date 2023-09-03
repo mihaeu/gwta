@@ -3,14 +3,18 @@ import Player from "../player.js"
 import { Option } from "../options/option.js"
 import { Worker } from "../tiles.js"
 import { HireWorkerOption } from "../options/hireWorkerOption.js"
-import { Action } from "./action.js"
+import { Building } from "../buildings/building.js"
 
-export class HireWorkerAction extends Action {
-	constructor(private readonly modifier: number = 0) {
+export class HireWorkerOptions extends Option {
+	constructor(
+		private readonly modifier: number = 0,
+		building?: Building,
+	) {
 		super()
+		this._building = building
 	}
 
-	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const availableWorkers = gameBoard.availableWorkersWithCost()
 		return availableWorkers.reduce((options, [worker, cost], index) => {
 			if (cost + this.modifier <= currentPlayer.coins && worker instanceof Worker) {

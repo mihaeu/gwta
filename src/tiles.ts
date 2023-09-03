@@ -1,6 +1,6 @@
-import { Action } from "./actions/action.js"
-import { AuxiliaryAction } from "./actions/auxiliaryAction.js"
+import { AuxiliaryActionOptions } from "./actions/auxiliaryActionOptions.js"
 import Player from "./player.js"
+import { Option } from "./options/option.js"
 
 export interface Tile {}
 export enum HandColor {
@@ -19,8 +19,8 @@ export class Farmer implements Tile {
 	/**
 	 * TODO help farmer action is missing
 	 */
-	actions(): Action[] {
-		return [new AuxiliaryAction()]
+	options(): Option[] {
+		return [new AuxiliaryActionOptions()]
 	}
 }
 export class BlueFarmer extends Farmer {}

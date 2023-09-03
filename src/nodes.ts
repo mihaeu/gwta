@@ -1,10 +1,10 @@
 import { NeutralBuilding } from "./buildings/neutralBuilding.js"
-import { Action } from "./actions/action.js"
 import { Farmer } from "./tiles.js"
 import GameBoard from "./gameBoard.js"
 import Player from "./player.js"
 import { Building } from "./buildings/building.js"
 import { PlayerBuilding } from "./buildings/playerBuilding.js"
+import { Option } from "./options/option.js"
 
 export abstract class Node {
 	private readonly children: Node[] = []
@@ -30,9 +30,9 @@ export abstract class Node {
 		return [...nonEmptyNodes].filter((node) => (node instanceof BuenosAiresNode ? node.trainRequirement <= railroadDevelopment : true))
 	}
 
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
+	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		if (this.actionable instanceof Farmer || this.actionable instanceof Building) {
-			return this.actionable.actions(gameBoard, currentPlayer)
+			return this.actionable.options(gameBoard, currentPlayer)
 		}
 
 		return []

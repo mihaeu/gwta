@@ -1,12 +1,17 @@
-import { Action } from "./action.js"
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Option } from "../options/option.js"
 import { BuildOption } from "../options/buildOption.js"
 import { UpgradeBuildingOption } from "../options/upgradeBuildingOption.js"
+import { Building } from "../buildings/building.js"
 
-export class BuildAction extends Action {
-	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+export class BuildOptions extends Option {
+	constructor(building?: Building) {
+		super()
+		this._building = building
+	}
+
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const options: Option[] = []
 		const availableCarpenters = currentPlayer.carpenters.length
 		const availableBuildings = currentPlayer.availableBuildings.filter(

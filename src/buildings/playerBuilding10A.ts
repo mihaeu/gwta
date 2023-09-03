@@ -1,23 +1,23 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { Action } from "../actions/action.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
+import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { BuildingHand } from "./neutralBuilding.js"
 import { PlayerBuilding } from "./playerBuilding.js"
-import { GainGrainAction } from "../actions/gainGrainAction.js"
-import { GainCoinAction } from "../actions/gainCoinAction.js"
-import { MoveTrainAction } from "../actions/moveTrainAction.js"
+import { MoveTrainOptions } from "../actions/moveTrainOptions.js"
+import { Option } from "../options/option.js"
+import { GainGrainOption } from "../options/gainGrainOption.js"
+import { GainCoinOption } from "../options/gainCoinOption.js"
 
 export class PlayerBuilding10A extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.NONE
 	public readonly requiredCarpenters: number = 9
 	public readonly victoryPoints: number = 13
 
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
+	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		if (this.player && currentPlayer.name !== this.player.name) {
-			return [new AuxiliaryAction()]
+			return [new AuxiliaryActionOptions()]
 		}
 
-		return [new AuxiliaryAction(), new GainGrainAction(5), new GainCoinAction(5), new MoveTrainAction(3)]
+		return [new AuxiliaryActionOptions(), new GainGrainOption(5), new GainCoinOption(5), new MoveTrainOptions(3)]
 	}
 }

@@ -1,14 +1,14 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
-import { MoveTrainAction } from "../../src/actions/moveTrainAction.js"
+import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
 import { MoveTrainOption } from "../../src/options/moveTrainOption.js"
 import { Machinist } from "../../src/tiles.js"
 
 describe("Move Train Action", () => {
 	it("should always present one move train option for every possible step", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
-		deepEqual(new MoveTrainAction(5).options(gameBoard, one), [
+		deepEqual(new MoveTrainOptions(5).resolve(gameBoard, one), [
 			new MoveTrainOption(1),
 			new MoveTrainOption(2),
 			new MoveTrainOption(3),
@@ -22,7 +22,7 @@ describe("Move Train Action", () => {
 		one.hireWorker(new Machinist())
 		one.hireWorker(new Machinist())
 		one.hireWorker(new Machinist())
-		deepEqual(new MoveTrainAction().options(gameBoard, one), [
+		deepEqual(new MoveTrainOptions().resolve(gameBoard, one), [
 			new MoveTrainOption(1),
 			new MoveTrainOption(2),
 			new MoveTrainOption(3),

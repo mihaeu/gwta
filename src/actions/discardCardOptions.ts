@@ -3,14 +3,13 @@ import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Option } from "../options/option.js"
 import { DiscardCardOption } from "../options/discardCardOption.js"
-import { Action } from "./action.js"
 
-export class DiscardCardAction extends Action {
+export class DiscardCardOptions extends Option {
 	constructor(private readonly card: Card = new AnyCard()) {
 		super()
 	}
 
-	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		if (this.card instanceof AnyCowCard) {
 			return currentPlayer.handCards
 				.filter((card) => card instanceof CowCard)
@@ -26,8 +25,8 @@ export class DiscardCardAction extends Action {
 		if (this.card instanceof AnyCard) {
 			return currentPlayer.handCards
 				.reduce((uniqueCards: CowCard[], card) => {
-					if (!uniqueCards.some((uniqueCard) => uniqueCard.equals(card as CowCard))) {
-						uniqueCards.push(card as CowCard)
+					if (card instanceof CowCard && !uniqueCards.some((uniqueCard) => uniqueCard.equals(card))) {
+						uniqueCards.push(card)
 					}
 					return uniqueCards
 				}, new Array<CowCard>())

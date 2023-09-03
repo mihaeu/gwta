@@ -3,7 +3,7 @@ import GameBoard from "./gameBoard.js"
 import { BuenosAiresNode, BuildingNode, FarmerNode, Node } from "./nodes.js"
 import { BlueFarmer, EmptyJobMarketSlot, GreenFarmer, JobMarketToken, OrangeFarmer, YellowFarmer } from "./tiles.js"
 import { Card, CowCard } from "./cards.js"
-import { Action } from "./actions/action.js"
+import { Option } from "./options/option.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -88,39 +88,39 @@ export default class Engine {
 		}
 
 		if (currentPlayer.location instanceof BuildingNode) {
-			let availableActions: Action[] = []
-			let actionsTaken: Action[] = []
+			let availableOptions: Option[] = []
+			let actionsTaken: Option[] = []
 			while (true) {
-				availableActions = currentPlayer.location
-					.actions(this.gameBoard, currentPlayer)
-					.filter((action) => !actionsTaken.some((usedAction) => JSON.stringify(usedAction) === JSON.stringify(action)))
-				if (availableActions.length === 0) {
+				availableOptions = currentPlayer.location
+					.options(this.gameBoard, currentPlayer)
+					.filter((option) => !actionsTaken.some((usedAction) => JSON.stringify(usedAction) === JSON.stringify(option)))
+				if (availableOptions.length === 0) {
 					break
 				}
 
-				console.log(`Available actions for player `, currentPlayer.name, ` are `, availableActions)
-				actionsTaken.push(this.chooseActionAndOption(currentPlayer, availableActions))
+				console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
+				actionsTaken.push(this.chooseOptions(currentPlayer, availableOptions))
 			}
 		}
 
 		if (currentPlayer.location instanceof FarmerNode) {
-			const availableActions = currentPlayer.location.actions(this.gameBoard, currentPlayer)
-			console.log(`Available actions for player `, currentPlayer.name, ` are `, availableActions)
-			this.chooseActionAndOption(currentPlayer, availableActions)
+			const availableActions = currentPlayer.location.options(this.gameBoard, currentPlayer)
+			console.log(`Available options for player `, currentPlayer.name, ` are `, availableActions)
+			this.chooseOptions(currentPlayer, availableActions)
 		}
 	}
 
-	private chooseActionAndOption(currentPlayer: Player, availableActions: Action[]) {
-		const chosenAction = currentPlayer.chooseAction(availableActions)
-		console.log(`Player chose action `, chosenAction)
-		let availableOptions = chosenAction.options(this.gameBoard, currentPlayer)
+	private chooseOptions(currentPlayer: Player, availableActions: Option[]) {
+		const chosenOption = currentPlayer.chooseOption(availableActions)
+		console.log(`Player chose action `, chosenOption)
+		let availableOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		while (availableOptions.length > 0) {
 			console.log(`Available options for player `, currentPlayer.name, ` are `, availableOptions)
 			const chosenOption = currentPlayer.chooseOption(availableOptions)
 			console.log(`Player chose option `, chosenOption)
 			availableOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		}
-		return chosenAction
+		return chosenOption
 	}
 
 	private buenosAiresStepFour(currentPlayer: Player) {

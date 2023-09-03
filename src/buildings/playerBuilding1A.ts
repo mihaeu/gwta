@@ -1,10 +1,10 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { Action } from "../actions/action.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
+import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { BuildingHand } from "./neutralBuilding.js"
-import { GainGrainAction } from "../actions/gainGrainAction.js"
 import { PlayerBuilding } from "./playerBuilding.js"
+import { Option } from "../options/option.js"
+import { GainGrainOption } from "../options/gainGrainOption.js"
 
 export class PlayerBuilding1A extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.BLACK
@@ -15,15 +15,15 @@ export class PlayerBuilding1A extends PlayerBuilding {
 		return gameBoard.playerBuildings(currentPlayer).filter((location) => location.hasGrain).length
 	}
 
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		const actions = [new AuxiliaryAction()]
+	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		const actions = [new AuxiliaryActionOptions()]
 		if (!this.isOwner(currentPlayer)) {
 			return actions
 		}
 
 		const buildingsOnGrain = this.buildingsOnGrain(gameBoard, currentPlayer)
 		if (buildingsOnGrain > 0) {
-			actions.push(new GainGrainAction(buildingsOnGrain))
+			actions.push(new GainGrainOption(buildingsOnGrain))
 		}
 
 		return actions

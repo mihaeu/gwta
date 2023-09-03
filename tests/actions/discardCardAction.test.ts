@@ -3,17 +3,17 @@ import { deepEqual } from "node:assert"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AberdeenAngus, AnyCowCard, HolandoArgentino, Niata, Objective, Patagonico } from "../../src/cards.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
-import { DiscardCardAction } from "../../src/actions/discardCardAction.js"
+import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 
-describe("Discard Card Action", () => {
-	it("should all cow cards on hand if none is specified", () => {
+describe("Discard Card Options", () => {
+	it("should present all cow cards on hand if none is specified", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new HolandoArgentino())
 		one.handCards.push(new Niata())
 		one.handCards.push(new Objective())
-		deepEqual(new DiscardCardAction(new AnyCowCard()).options(gameBoard, one), [
+		deepEqual(new DiscardCardOptions(new AnyCowCard()).resolve(gameBoard, one), [
 			new DiscardCardOption(new Patagonico()),
 			new DiscardCardOption(new AberdeenAngus(7)),
 			new DiscardCardOption(new HolandoArgentino()),
@@ -27,7 +27,7 @@ describe("Discard Card Action", () => {
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new Patagonico())
-		deepEqual(new DiscardCardAction(new AberdeenAngus(5)).options(gameBoard, one), [
+		deepEqual(new DiscardCardOptions(new AberdeenAngus(5)).resolve(gameBoard, one), [
 			new DiscardCardOption(new AberdeenAngus(7)),
 			new DiscardCardOption(new AberdeenAngus(7)),
 		])

@@ -1,9 +1,9 @@
 import { Building } from "./building.js"
 import Player from "../player.js"
 import GameBoard from "../gameBoard.js"
-import { Action } from "../actions/action.js"
-import { AuxiliaryAction } from "../actions/auxiliaryAction.js"
+import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { BuildingHand } from "./neutralBuilding.js"
+import { Option } from "../options/option.js"
 
 export class PlayerBuilding extends Building {
 	public player?: Player
@@ -16,8 +16,8 @@ export class PlayerBuilding extends Building {
 		this.player = player
 	}
 
-	actions(gameBoard: GameBoard, currentPlayer: Player): Action[] {
-		return [new AuxiliaryAction()]
+	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return [new AuxiliaryActionOptions()]
 	}
 
 	isOwner(currentPlayer: Player): boolean {

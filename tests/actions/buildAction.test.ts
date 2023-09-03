@@ -1,5 +1,5 @@
 import { describe, it } from "node:test"
-import { BuildAction } from "../../src/actions/buildAction.js"
+import { BuildOptions } from "../../src/actions/buildOptions.js"
 import GameBoard from "../../src/gameBoard.js"
 import RandomPlayer from "../../src/randomplayer.js"
 import { Carpenter } from "../../src/tiles.js"
@@ -31,7 +31,7 @@ const playerBuildings = [
 ]
 describe("Build Action", () => {
 	it("should list a combination of all 22 free spaces and 8 buildings given 6 carpenters and enough coin", () => {
-		const buildAction = new BuildAction()
+		const buildAction = new BuildOptions()
 		const gameBoard = new GameBoard()
 		const player = new RandomPlayer("Test", GameBoard.START, [], playerBuildings)
 		player.hireWorker(new Carpenter())
@@ -40,11 +40,11 @@ describe("Build Action", () => {
 		player.hireWorker(new Carpenter())
 		player.hireWorker(new Carpenter())
 		player.gainCoins(12)
-		equal(buildAction.options(gameBoard, player).length, 176)
+		equal(buildAction.resolve(gameBoard, player).length, 176)
 	})
 
 	it("should allow upgrading from a building that requires 5 carpenters to one with 9 if the player has 4 carpenters and enough coin", () => {
-		const buildAction = new BuildAction()
+		const buildAction = new BuildOptions()
 		const gameBoard = new GameBoard()
 		const expectedBuilding = new PlayerBuilding10A()
 		const player = new RandomPlayer("Test", GameBoard.START, [], [expectedBuilding])
@@ -59,6 +59,6 @@ describe("Build Action", () => {
 		availableBuildingLocation.buildOrUpgradeBuilding(existingBuilding)
 		equal(gameBoard.playerBuildings(player).length, 1)
 
-		deepEqual(buildAction.options(gameBoard, player), [new UpgradeBuildingOption(new PlayerBuilding10A(player), availableBuildingLocation)])
+		deepEqual(buildAction.resolve(gameBoard, player), [new UpgradeBuildingOption(new PlayerBuilding10A(player), availableBuildingLocation)])
 	})
 })

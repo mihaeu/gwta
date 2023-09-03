@@ -1,22 +1,22 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
-import { AuxiliaryAction } from "../../src/actions/auxiliaryAction.js"
-import { GainCoinAction } from "../../src/actions/gainCoinAction.js"
+import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
 import { PlayerBuilding5B } from "../../src/buildings/playerBuilding5B.js"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
-import { DoubleAuxiliaryAction } from "../../src/actions/doubleAuxiliaryAction.js"
+import { DoubleAuxiliaryOptions } from "../../src/actions/doubleAuxiliaryOptions.js"
 import { Carpenter, HandColor, Herder, Machinist, YellowFarmer } from "../../src/tiles.js"
+import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 
 describe("Player Building 5B", () => {
 	const { gameBoard, one, two } = gameBoardWithTwoPlayersAndBuildings(new PlayerBuilding5B())
 	const playerBuildingOfPlayerOne = gameBoard.playerBuildings(one)[0]
 
 	it("should only be allowed to do auxiliary actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.actions(gameBoard, two), [new AuxiliaryAction()])
+		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [new AuxiliaryActionOptions()])
 	})
 
 	it("should get only double auxiliary option if there are no farmers on the player board", () => {
-		deepEqual(playerBuildingOfPlayerOne.actions(gameBoard, one), [new DoubleAuxiliaryAction()])
+		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new DoubleAuxiliaryOptions()])
 	})
 
 	it("should get gold action for each set of 4 different workers on the player board", () => {
@@ -28,6 +28,6 @@ describe("Player Building 5B", () => {
 		one.hireWorker(new Machinist())
 		one.farmers.push(new YellowFarmer(HandColor.GREEN, 7))
 		one.farmers.push(new YellowFarmer(HandColor.BLACK, 5))
-		deepEqual(playerBuildingOfPlayerOne.actions(gameBoard, one), [new DoubleAuxiliaryAction(), new GainCoinAction(12)])
+		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new DoubleAuxiliaryOptions(), new GainCoinOption(12)])
 	})
 })
