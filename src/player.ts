@@ -1,5 +1,5 @@
 import { Node } from "./nodes.js"
-import { Carpenter, Farmer, Herder, Machinist, Tile, Worker } from "./tiles.js"
+import { Carpenter, Farmer, Herder, Machinist, Worker } from "./tiles.js"
 import { Card } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
@@ -167,9 +167,6 @@ export default abstract class Player {
 		return this._discardedCards
 	}
 
-	abstract chooseForesightTileA(tiles: Tile[]): number
-	abstract chooseForesightTileB(tiles: Tile[]): number
-	abstract chooseForesightTileC(tiles: Tile[]): number
 	abstract discardCards(count?: number): void
 	abstract chooseOption(options: Option[]): Option
 }

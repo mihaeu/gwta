@@ -379,7 +379,7 @@ export default class GameBoard {
 		[6, 6, 6, 6, 7, 7, 7, 7, 6, 6, 6, 6, 8, 8, 8, 8, 5, 5, 5, 5, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8, 8, 9, 9, 9, 9, 6, 6, 6, 6, 4, 4, 4, 4], // 4 players
 	]
 
-	constructor(private readonly playerCount: number = 2) {
+	constructor(public readonly playerCount: number = 2) {
 		GameBoard.START.addChild(this.neutralBuilding1)
 		this.neutralBuilding1.addChild(this.basicBuilding1)
 		this.neutralBuilding1.addChild(this.greenFarmer1)

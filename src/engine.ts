@@ -1,10 +1,10 @@
 import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
 import { BuenosAiresNode, BuildingNode, FarmerNode } from "./nodes.js"
-import { BlueFarmer, EmptyJobMarketSlot, GreenFarmer, JobMarketToken, OrangeFarmer, YellowFarmer } from "./tiles.js"
 import { Card, CowCard } from "./cards.js"
 import { Option } from "./options/option.js"
 import { MoveOptions } from "./actions/moveOptions.js"
+import { TileOptions } from "./actions/tileOptions.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -96,79 +96,20 @@ export default class Engine {
 
 	private buenosAiresStepFour(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 4")
-		const chosenAIndex = currentPlayer.chooseForesightTileA(this.gameBoard.foresightSpacesA)
-		const chosenATile = this.gameBoard.foresightSpacesA[chosenAIndex]
-		console.log(`Chose ${chosenAIndex} - `, chosenATile, `} from `, this.gameBoard.foresightSpacesA)
-		if (chosenATile instanceof GreenFarmer) {
-			const firstEmptyFarmer = this.gameBoard.greenFarmers.find((farmer) => farmer.isEmpty())
-			if (firstEmptyFarmer) {
-				firstEmptyFarmer.addFarmer(chosenATile)
-			}
-		} else if (chosenATile instanceof BlueFarmer) {
-			const firstEmptyFarmer = this.gameBoard.blueFarmers.find((farmer) => farmer.isEmpty())
-			if (firstEmptyFarmer) {
-				firstEmptyFarmer.addFarmer(chosenATile)
-			}
-		} else if (chosenATile instanceof OrangeFarmer) {
-			const firstEmptyFarmer = this.gameBoard.orangeFarmers.find((farmer) => farmer.isEmpty())
-			if (firstEmptyFarmer) {
-				firstEmptyFarmer.addFarmer(chosenATile)
-			}
-		}
-		this.gameBoard.foresightSpacesA[chosenAIndex] = this.gameBoard.aTiles.splice(0, 1)[0]
+		const options = new TileOptions(this.gameBoard.foresightSpacesA).resolve(this.gameBoard, currentPlayer)
+		currentPlayer.chooseOption(options).resolve(this.gameBoard, currentPlayer)
 	}
 
 	private buenosAiresStepFive(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 5")
-		const chosenBIndex = currentPlayer.chooseForesightTileB(this.gameBoard.foresightSpacesB)
-		const chosenBTile = this.gameBoard.foresightSpacesB[chosenBIndex]
-		console.log(`Chose ${chosenBIndex} - `, chosenBTile, ` from `, this.gameBoard.foresightSpacesB)
-
-		const lastItem = this.gameBoard.jobMarket.length - 1
-		if (this.gameBoard.jobMarket.some((slot) => slot instanceof EmptyJobMarketSlot)) {
-			for (let index = Math.floor(lastItem / 2); index < lastItem; ++index) {
-				if (this.gameBoard.jobMarket[index] instanceof EmptyJobMarketSlot) {
-					this.gameBoard.jobMarket[index] = chosenBTile
-					break
-				}
-			}
-		} else {
-			this.gameBoard.jobMarket[lastItem] = chosenBTile
-			this.gameBoard.jobMarket = this.gameBoard.jobMarket.concat(
-				[...new Array(this.players.length - 1).fill(new EmptyJobMarketSlot())],
-				new JobMarketToken(),
-			)
-		}
+		const options = new TileOptions(this.gameBoard.foresightSpacesB).resolve(this.gameBoard, currentPlayer)
+		currentPlayer.chooseOption(options).resolve(this.gameBoard, currentPlayer)
 	}
 
 	private buenosAiresStepSix(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 6")
-		const chosenCIndex = currentPlayer.chooseForesightTileC(this.gameBoard.foresightSpacesC)
-		const chosenCTile = this.gameBoard.foresightSpacesC[chosenCIndex]
-		console.log(`Chose ${chosenCIndex} - `, chosenCTile, ` from `, this.gameBoard.foresightSpacesC)
-		if (chosenCTile instanceof YellowFarmer) {
-			const firstEmptyFarmer = this.gameBoard.yellowFarmers.find((farmer) => farmer.isEmpty())
-			if (firstEmptyFarmer) {
-				firstEmptyFarmer.addFarmer(chosenCTile)
-			}
-		} else {
-			const lastItem = this.gameBoard.jobMarket.length - 1
-			if (this.gameBoard.jobMarket.some((slot) => slot instanceof EmptyJobMarketSlot)) {
-				for (let index = Math.floor(lastItem / 2); index < lastItem; ++index) {
-					if (this.gameBoard.jobMarket[index] instanceof EmptyJobMarketSlot) {
-						this.gameBoard.jobMarket[index] = chosenCTile
-						break
-					}
-				}
-			} else {
-				this.gameBoard.jobMarket[lastItem] = chosenCTile
-				this.gameBoard.jobMarket = this.gameBoard.jobMarket.concat(
-					[...new Array(this.players.length - 1).fill(new EmptyJobMarketSlot())],
-					new JobMarketToken(),
-				)
-			}
-		}
-		this.gameBoard.foresightSpacesC[chosenCIndex] = this.gameBoard.cTiles.splice(0, 1)[0]
+		const options = new TileOptions(this.gameBoard.foresightSpacesC).resolve(this.gameBoard, currentPlayer)
+		currentPlayer.chooseOption(options).resolve(this.gameBoard, currentPlayer)
 	}
 
 	private buenosAiresStepTwo(currentPlayer: Player) {

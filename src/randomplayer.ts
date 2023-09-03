@@ -1,5 +1,4 @@
 import { Node } from "./nodes.js"
-import { Tile } from "./tiles.js"
 import Player from "./player.js"
 import { Card } from "./cards.js"
 import { Option } from "./options/option.js"
@@ -9,18 +8,6 @@ import { PlayerBuilding } from "./buildings/playerBuilding.js"
 export default class RandomPlayer extends Player {
 	constructor(name: string, location: Node, cards: Card[], playerBuildings: PlayerBuilding[]) {
 		super(name, location, cards, playerBuildings)
-	}
-
-	chooseForesightTileA(tiles: Tile[]): number {
-		return Math.round(Math.random())
-	}
-
-	chooseForesightTileB(tiles: Tile[]): number {
-		return Math.round(Math.random())
-	}
-
-	chooseForesightTileC(tiles: Tile[]): number {
-		return Math.round(Math.random())
 	}
 
 	discardCards(count?: number): void {
