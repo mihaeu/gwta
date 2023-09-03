@@ -11,10 +11,6 @@ export default class RandomPlayer extends Player {
 		super(name, location, cards, playerBuildings)
 	}
 
-	chooseMovement(locations: Node[]): number {
-		return Math.round(Math.random() * (locations.length - 1))
-	}
-
 	chooseForesightTileA(tiles: Tile[]): number {
 		return Math.round(Math.random())
 	}

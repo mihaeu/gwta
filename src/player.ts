@@ -167,7 +167,6 @@ export default abstract class Player {
 		return this._discardedCards
 	}
 
-	abstract chooseMovement(locations: Node[]): number
 	abstract chooseForesightTileA(tiles: Tile[]): number
 	abstract chooseForesightTileB(tiles: Tile[]): number
 	abstract chooseForesightTileC(tiles: Tile[]): number

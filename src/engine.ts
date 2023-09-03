@@ -1,9 +1,10 @@
 import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
-import { BuenosAiresNode, BuildingNode, FarmerNode, Node } from "./nodes.js"
+import { BuenosAiresNode, BuildingNode, FarmerNode } from "./nodes.js"
 import { BlueFarmer, EmptyJobMarketSlot, GreenFarmer, JobMarketToken, OrangeFarmer, YellowFarmer } from "./tiles.js"
 import { Card, CowCard } from "./cards.js"
 import { Option } from "./options/option.js"
+import { MoveOptions } from "./actions/moveOptions.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -26,29 +27,6 @@ export default class Engine {
 		)
 	}
 
-	availableMoves(currentPlayer: Player): Node[] {
-		const moveDistance = currentPlayer.moveDistance
-		const railroadDevelopment = this.gameBoard.railroadTrackWithoutStationMasterSpaces.findIndex(
-			(railroadStop) => railroadStop && railroadStop.find((player) => currentPlayer.name === player.name),
-		)
-		const availableMoves = new Set(currentPlayer.location.nextNonEmptyDescendants(railroadDevelopment))
-
-		let lastMoves: Node[] = [...availableMoves]
-		for (let distance = 2; distance <= moveDistance; ++distance) {
-			let movesOfCurrentDistance: Node[] = lastMoves.reduce((moves, currentMove) => {
-				if (currentMove instanceof BuenosAiresNode) {
-					return moves
-				}
-				return !moves
-					? currentMove.nextNonEmptyDescendants(railroadDevelopment)
-					: moves.concat(currentMove.nextNonEmptyDescendants(railroadDevelopment))
-			}, new Array<Node>())
-			movesOfCurrentDistance.forEach((move) => availableMoves.add(move))
-			lastMoves = movesOfCurrentDistance
-		}
-		return [...availableMoves]
-	}
-
 	isGameOver(): boolean {
 		return this.gameBoard.jobMarket.length >= 23
 	}
@@ -56,15 +34,8 @@ export default class Engine {
 	phaseA(currentPlayer: Player) {
 		const previousLocation = currentPlayer.location
 		console.info(`Player ${currentPlayer.name} is on ${previousLocation.constructor.name} and takes a turn`)
-		const availableMoves = this.availableMoves(currentPlayer)
-		const chosenMove = currentPlayer.chooseMovement(availableMoves)
-		const nextLocation = availableMoves[chosenMove]
-		if (nextLocation === undefined) {
-			console.error(`No reachable location found for player ${currentPlayer.name}.`, this.gameBoard)
-			throw new Error(`No reachable location found for player ${currentPlayer.name}.`)
-		}
-		currentPlayer.location = nextLocation
-		console.info(`Player ${currentPlayer.name} moved from ${previousLocation.constructor.name} to ${nextLocation.constructor.name}.`)
+		const chosenMove = currentPlayer.chooseOption(new MoveOptions().resolve(this.gameBoard, currentPlayer))
+		chosenMove.resolve(this.gameBoard, currentPlayer)
 	}
 
 	determineValueOfHandCards(currentPlayer: Player) {
