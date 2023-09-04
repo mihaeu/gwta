@@ -1,4 +1,3 @@
-import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { NeutralBuilding } from "./neutralBuilding.js"
 import { Option } from "../options/option.js"
 import { Fronterizo } from "../cards.js"
@@ -11,7 +10,7 @@ import { BuyCowOptions } from "../actions/buyCowOptions.js"
 
 export class NeutralBuildingE extends NeutralBuilding {
 	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		const options: Option[] = [new AuxiliaryActionOptions(this)]
+		const options: Option[] = []
 		if (currentPlayer.hasCardOfTypeInHand(new Fronterizo())) {
 			options.push(new CostBenefitCombinedOptions(new DiscardCardOptions(new Fronterizo()), new GainCoinOption(2), this))
 		}

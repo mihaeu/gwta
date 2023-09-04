@@ -1,6 +1,5 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { BuildingHand } from "./neutralBuilding.js"
 import { PlayerBuilding } from "./playerBuilding.js"
 import { DoubleAuxiliaryOptions } from "../actions/doubleAuxiliaryOptions.js"
@@ -14,7 +13,7 @@ export class PlayerBuilding5B extends PlayerBuilding {
 
 	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		if (this.player && currentPlayer.name !== this.player.name) {
-			return [new AuxiliaryActionOptions()]
+			return []
 		}
 
 		const actions = [new DoubleAuxiliaryOptions()]

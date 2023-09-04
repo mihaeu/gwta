@@ -5,7 +5,6 @@ import { HolandoArgentino } from "../cards.js"
 import { CostBenefitCombinedOptions } from "../actions/costBenefitCombinedOptions.js"
 import { DiscardCardOptions } from "../actions/discardCardOptions.js"
 import { HireWorkerOptions } from "../actions/hireWorkerOptions.js"
-import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { Option } from "../options/option.js"
 import { GainCoinOption } from "../options/gainCoinOption.js"
 
@@ -17,7 +16,7 @@ import { GainCoinOption } from "../options/gainCoinOption.js"
  */
 export class NeutralBuildingA extends NeutralBuilding {
 	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		const options: Option[] = [new AuxiliaryActionOptions(this)]
+		const options: Option[] = []
 		if (currentPlayer.hasCardOfTypeInHand(new HolandoArgentino())) {
 			options.push(new CostBenefitCombinedOptions(new DiscardCardOptions(new HolandoArgentino()), new GainCoinOption(2), this))
 		}

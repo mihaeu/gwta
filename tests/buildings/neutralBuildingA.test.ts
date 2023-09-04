@@ -3,7 +3,6 @@ import { deepEqual } from "node:assert"
 import { NeutralBuildingA } from "../../src/buildings/neutralBuildingA.js"
 import GameBoard from "../../src/gameBoard.js"
 import RandomPlayer from "../../src/randomPlayer.js"
-import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
 import { HolandoArgentino } from "../../src/cards.js"
 import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
 import { HireWorkerOptions } from "../../src/actions/hireWorkerOptions.js"
@@ -18,7 +17,6 @@ describe("Neutral Building A", () => {
 		one.handCards.push(new HolandoArgentino())
 		const availableActions = neutralBuildingA.options(gameBoard, one)
 		deepEqual(availableActions, [
-			new AuxiliaryActionOptions(neutralBuildingA),
 			new CostBenefitCombinedOptions(new DiscardCardOptions(new HolandoArgentino()), new GainCoinOption(2), neutralBuildingA),
 		])
 	})
@@ -29,7 +27,7 @@ describe("Neutral Building A", () => {
 		const player = new RandomPlayer("Test")
 		player.gainCoins(7)
 		const availableActions = neutralBuildingA.options(gameBoard, player)
-		deepEqual(availableActions, [new AuxiliaryActionOptions(neutralBuildingA), new HireWorkerOptions(0, neutralBuildingA)])
+		deepEqual(availableActions, [new HireWorkerOptions(0, neutralBuildingA)])
 	})
 
 	it("should list two hire worker actions if player has enough coins for both", () => {
@@ -38,17 +36,13 @@ describe("Neutral Building A", () => {
 		const player = new RandomPlayer("Test")
 		player.gainCoins(20)
 		const availableActions = neutralBuildingA.options(gameBoard, player)
-		deepEqual(availableActions, [
-			new AuxiliaryActionOptions(neutralBuildingA),
-			new HireWorkerOptions(0, neutralBuildingA),
-			new HireWorkerOptions(2, neutralBuildingA),
-		])
+		deepEqual(availableActions, [new HireWorkerOptions(0, neutralBuildingA), new HireWorkerOptions(2, neutralBuildingA)])
 	})
 
-	it("should only list one auxiliary action if player has no Holando Argentino on their hand and no coins", () => {
+	it("should have no options if player has no Holando Argentino on their hand and no coins", () => {
 		const neutralBuildingA = new NeutralBuildingA()
 		const gameBoard = new GameBoard()
 		const player = new RandomPlayer("Test")
-		deepEqual(neutralBuildingA.options(gameBoard, player), [new AuxiliaryActionOptions(neutralBuildingA)])
+		deepEqual(neutralBuildingA.options(gameBoard, player), [])
 	})
 })

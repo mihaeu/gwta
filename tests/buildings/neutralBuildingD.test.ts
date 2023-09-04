@@ -1,6 +1,5 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
-import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { NeutralBuildingD } from "../../src/buildings/neutralBuildingD.js"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
@@ -17,18 +16,17 @@ describe("Neutral Building D", () => {
 
 		const neutralBuildingD = new NeutralBuildingD()
 		deepEqual(neutralBuildingD.options(gameBoard, one), [
-			new AuxiliaryActionOptions(),
 			new MoveTrainOptions(),
 			new CostBenefitCombinedOptions(new DiscardTwoIdenticalCardsOptions(), new GainCoinOption(2)),
 		])
 	})
 
-	it("should only list auxiliary action if no identical cow cards are on the player's hand", () => {
+	it("should have no actions if no identical cow cards are on the player's hand", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new Serrano())
 		one.handCards.push(new Patagonico())
 
 		const neutralBuildingD = new NeutralBuildingD()
-		deepEqual(neutralBuildingD.options(gameBoard, one), [new AuxiliaryActionOptions(), new MoveTrainOptions()])
+		deepEqual(neutralBuildingD.options(gameBoard, one), [new MoveTrainOptions()])
 	})
 })

@@ -1,7 +1,6 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
 import { NeutralBuildingB } from "../../src/buildings/neutralBuildingB.js"
-import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
 import { Patagonico } from "../../src/cards.js"
 import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
@@ -14,15 +13,12 @@ describe("Neutral Building B", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new Patagonico())
 		const availableActions = neutralBuildingB.options(gameBoard, one)
-		deepEqual(availableActions, [
-			new AuxiliaryActionOptions(),
-			new CostBenefitCombinedOptions(new DiscardCardOptions(new Patagonico()), new GainCoinOption(2)),
-		])
+		deepEqual(availableActions, [new CostBenefitCombinedOptions(new DiscardCardOptions(new Patagonico()), new GainCoinOption(2))])
 	})
 
-	it("should only list one auxiliary action if player has no Patagonico on their hand and no coins", () => {
+	it("should not list options if player has no Patagonico on their hand and no coins", () => {
 		const neutralBuildingB = new NeutralBuildingB()
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
-		deepEqual(neutralBuildingB.options(gameBoard, one), [new AuxiliaryActionOptions()])
+		deepEqual(neutralBuildingB.options(gameBoard, one), [])
 	})
 })

@@ -1,6 +1,5 @@
 import { describe, it } from "node:test"
 import { deepEqual } from "node:assert"
-import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
 import { PlayerBuilding5B } from "../../src/buildings/playerBuilding5B.js"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import { DoubleAuxiliaryOptions } from "../../src/actions/doubleAuxiliaryOptions.js"
@@ -11,8 +10,8 @@ describe("Player Building 5B", () => {
 	const { gameBoard, one, two } = gameBoardWithTwoPlayersAndBuildings(new PlayerBuilding5B())
 	const playerBuildingOfPlayerOne = gameBoard.playerBuildings(one)[0]
 
-	it("should only be allowed to do auxiliary actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [new AuxiliaryActionOptions()])
+	it("should not list actions on buildings of other players", () => {
+		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
 	})
 
 	it("should get only double auxiliary option if there are no farmers on the player board", () => {

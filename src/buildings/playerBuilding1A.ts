@@ -1,6 +1,5 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 import { BuildingHand } from "./neutralBuilding.js"
 import { PlayerBuilding } from "./playerBuilding.js"
 import { Option } from "../options/option.js"
@@ -16,16 +15,15 @@ export class PlayerBuilding1A extends PlayerBuilding {
 	}
 
 	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		const actions = [new AuxiliaryActionOptions()]
 		if (!this.isOwner(currentPlayer)) {
-			return actions
+			return []
 		}
 
 		const buildingsOnGrain = this.buildingsOnGrain(gameBoard, currentPlayer)
-		if (buildingsOnGrain > 0) {
-			actions.push(new GainGrainOption(buildingsOnGrain))
+		if (buildingsOnGrain <= 0) {
+			return []
 		}
 
-		return actions
+		return [new GainGrainOption(buildingsOnGrain)]
 	}
 }
