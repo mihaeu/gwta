@@ -13,7 +13,10 @@ export default class CommandLinePlayer extends Player {
 	}
 
 	async chooseOption(options: Option[]): Promise<Option> {
-		console.log("Choose the index of one of the following actions: ", options)
+		console.log(
+			"Choose the index of one of the following actions: ",
+			options.map((option, index) => `${index}: ${option.toString()}`).join(", "),
+		)
 		const index = parseInt(await this.readline.question("Index: "), 10)
 		if (options[index] === undefined) {
 			throw new Error("Invalid index")

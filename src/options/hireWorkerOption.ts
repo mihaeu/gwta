@@ -18,4 +18,8 @@ export class HireWorkerOption extends Option {
 		currentPlayer.hireWorker(this.worker)
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.worker.constructor.name},${this.cost})`
+	}
 }

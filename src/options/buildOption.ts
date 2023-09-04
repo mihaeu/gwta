@@ -16,11 +16,18 @@ export class BuildOption extends Option {
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		currentPlayer.pay(this.playerBuilding.requiredCarpenters * 2)
+
 		this.location.buildOrUpgradeBuilding(this.playerBuilding)
 		const index = currentPlayer.availableBuildings.findIndex(
 			(playerBuilding) => playerBuilding.constructor.name === this.playerBuilding.constructor.name,
 		)
 		currentPlayer.availableBuildings.splice(index, 1)
 		return []
+	}
+
+	toString(): string {
+		const cost = this.playerBuilding.requiredCarpenters * 2
+		return `${super.toString()}(${this.playerBuilding.constructor.name},${cost})`
 	}
 }

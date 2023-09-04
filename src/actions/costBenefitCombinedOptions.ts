@@ -23,4 +23,8 @@ export class CostBenefitCombinedOptions extends Option {
 		}
 		return options
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.cost.toString()},${this.benefit.toString()})`
+	}
 }

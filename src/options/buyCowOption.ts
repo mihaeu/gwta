@@ -17,4 +17,8 @@ export class BuyCowOption extends Option {
 		currentPlayer.discardedCards.push(gameBoard.cowMarket.splice(index, 1)[0])
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.cow.constructor.name},${this.cost})`
+	}
 }

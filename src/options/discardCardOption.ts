@@ -17,4 +17,8 @@ export class DiscardCardOption extends Option {
 		new Array(this.count).forEach(() => currentPlayer.discardCard(this.card))
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.card.constructor.name})`
+	}
 }

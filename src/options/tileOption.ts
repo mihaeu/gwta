@@ -13,7 +13,7 @@ export class TileOption extends Option {
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const chosenTile = this.tiles[this.index]
-		console.log(`Chose`, chosenTile, `} from `, this.tiles)
+		console.log(`Chose ${chosenTile} from ${this.tiles}`)
 
 		if (chosenTile instanceof Farmer) {
 			if (chosenTile instanceof GreenFarmer) {
@@ -59,5 +59,9 @@ export class TileOption extends Option {
 		}
 
 		return []
+	}
+
+	toString(): string {
+		return `${super.toString()}(${this.tiles[this.index].constructor.name})`
 	}
 }

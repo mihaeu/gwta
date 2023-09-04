@@ -37,4 +37,8 @@ export class MoveTrainOption extends Option {
 		}
 		return occupiedStepsInBetween
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.distance})`
+	}
 }

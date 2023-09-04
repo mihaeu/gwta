@@ -4,8 +4,8 @@ import Player from "../src/player.js"
 import RandomPlayer from "../src/randomPlayer.js"
 import CommandLinePlayer from "../src/commandLinePlayer.js"
 
-const one = new RandomPlayer("Random")
-const two = new CommandLinePlayer("Human", GameBoard.START)
+const one = new CommandLinePlayer("Human", GameBoard.START)
+const two = new RandomPlayer("Random")
 const players: Player[] = [one, two]
 const engine = new Engine(players)
 

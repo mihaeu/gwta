@@ -17,4 +17,8 @@ export class CompoundOption extends Option {
 		this.right.resolve(gameBoard, currentPlayer)
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.left.toString()},${this.right.toString()})`
+	}
 }

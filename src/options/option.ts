@@ -9,4 +9,8 @@ export abstract class Option {
 	get building(): Building | undefined {
 		return this._building
 	}
+
+	toString(): string {
+		return this.constructor.name
+	}
 }

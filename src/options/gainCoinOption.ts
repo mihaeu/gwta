@@ -16,4 +16,8 @@ export class GainCoinOption extends Option {
 		currentPlayer.gainCoins(this.amount)
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.amount})`
+	}
 }

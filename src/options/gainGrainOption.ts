@@ -14,4 +14,8 @@ export class GainGrainOption extends Option {
 		currentPlayer.gainGrain(this.amount)
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.amount})`
+	}
 }

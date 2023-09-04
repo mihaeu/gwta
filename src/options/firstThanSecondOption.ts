@@ -14,4 +14,8 @@ export class FirstThanSecondsOption extends Option {
 		this.first.resolve(gameBoard, currentPlayer)
 		return this.second.resolve(gameBoard, currentPlayer)
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.first.toString()},${this.second.toString()})`
+	}
 }

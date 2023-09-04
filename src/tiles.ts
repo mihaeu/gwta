@@ -2,16 +2,19 @@ import { AuxiliaryActionOptions } from "./actions/auxiliaryActionOptions.js"
 import Player from "./player.js"
 import { Option } from "./options/option.js"
 
-export interface Tile {}
+export abstract class Tile {
+	abstract toString(): string
+}
 export enum HandColor {
 	GREEN = "GREEN",
 	BLACK = "BLACK",
 }
-export class Farmer implements Tile {
+export class Farmer extends Tile {
 	constructor(
 		private readonly hand: HandColor,
 		private readonly strength: 3 | 4 | 5 | 6 | 7 | 8,
 	) {
+		super()
 		this.hand = hand
 		this.strength = strength
 	}
@@ -21,6 +24,10 @@ export class Farmer implements Tile {
 	 */
 	options(): Option[] {
 		return [new AuxiliaryActionOptions()]
+	}
+
+	toString(): string {
+		return `${this.constructor.name}(${this.hand},${this.strength})`
 	}
 }
 export class BlueFarmer extends Farmer {}
@@ -32,6 +39,10 @@ export class Worker implements Tile, JobMarketItem {
 
 	constructor(strong: boolean = false) {
 		this.strong = strong
+	}
+
+	toString(): string {
+		return `${this.constructor.name}(${this.strong ? "strong" : "normal"})`
 	}
 }
 

@@ -14,4 +14,8 @@ export class TakeCardFromCowMarketOption extends Option {
 		gameBoard.cowMarket.splice(index, 1)
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.cowCard.constructor.name})`
+	}
 }

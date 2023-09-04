@@ -19,4 +19,8 @@ export class MoveOption extends Option {
 		console.info(`Player ${currentPlayer.name} moved from ${previousLocation.constructor.name} to ${this.location.constructor.name}.`)
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.location.constructor.name})`
+	}
 }
