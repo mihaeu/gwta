@@ -28,7 +28,7 @@ describe("Build Options", () => {
 		const gameBoard = new GameBoard()
 		const one = new RandomPlayer("One")
 		const building10a = new PlayerBuilding10A(one)
-		one.setStartBuildings([building10a])
+		one["availableBuildings"] = [building10a]
 		one.hireWorker(new Carpenter())
 		one.hireWorker(new Carpenter())
 		one.hireWorker(new Carpenter())

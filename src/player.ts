@@ -5,6 +5,26 @@ import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
 
 import { PlayerBuilding } from "./buildings/playerBuilding.js"
+import { PlayerBuilding1A } from "./buildings/playerBuilding1A.js"
+import { PlayerBuilding1B } from "./buildings/playerBuilding1B.js"
+import { PlayerBuilding10B } from "./buildings/playerBuilding10B.js"
+import { PlayerBuilding2A } from "./buildings/playerBuilding2A.js"
+import { PlayerBuilding2B } from "./buildings/playerBuilding2B.js"
+import { PlayerBuilding3A } from "./buildings/playerBuilding3A.js"
+import { PlayerBuilding3B } from "./buildings/playerBuilding3B.js"
+import { PlayerBuilding4A } from "./buildings/playerBuilding4A.js"
+import { PlayerBuilding4B } from "./buildings/playerBuilding4B.js"
+import { PlayerBuilding5A } from "./buildings/playerBuilding5A.js"
+import { PlayerBuilding5B } from "./buildings/playerBuilding5B.js"
+import { PlayerBuilding6A } from "./buildings/playerBuilding6A.js"
+import { PlayerBuilding6B } from "./buildings/playerBuilding6B.js"
+import { PlayerBuilding7A } from "./buildings/playerBuilding7A.js"
+import { PlayerBuilding7B } from "./buildings/playerBuilding7B.js"
+import { PlayerBuilding8A } from "./buildings/playerBuilding8A.js"
+import { PlayerBuilding8B } from "./buildings/playerBuilding8B.js"
+import { PlayerBuilding9A } from "./buildings/playerBuilding9A.js"
+import { PlayerBuilding9B } from "./buildings/playerBuilding9B.js"
+import { PlayerBuilding10A } from "./buildings/playerBuilding10A.js"
 
 export default abstract class Player {
 	public static readonly CARD_LIMIT = 4
@@ -48,9 +68,19 @@ export default abstract class Player {
 		this.cards = arrayShuffle(Player.startCards)
 	}
 
-	setStartBuildings(playerBuildings: PlayerBuilding[]) {
-		this.availableBuildings = playerBuildings
-		this.availableBuildings.forEach((playerBuilding) => (playerBuilding.player = this))
+	setStartBuildings(playerBuildings: number[]) {
+		this.availableBuildings = [
+			playerBuildings[0] ? new PlayerBuilding1A() : new PlayerBuilding1B(this),
+			playerBuildings[1] ? new PlayerBuilding2A() : new PlayerBuilding2B(this),
+			playerBuildings[2] ? new PlayerBuilding3A() : new PlayerBuilding3B(this),
+			playerBuildings[3] ? new PlayerBuilding4A() : new PlayerBuilding4B(this),
+			playerBuildings[4] ? new PlayerBuilding5A() : new PlayerBuilding5B(this),
+			playerBuildings[5] ? new PlayerBuilding6A() : new PlayerBuilding6B(this),
+			playerBuildings[6] ? new PlayerBuilding7A() : new PlayerBuilding7B(this),
+			playerBuildings[7] ? new PlayerBuilding8A() : new PlayerBuilding8B(this),
+			playerBuildings[8] ? new PlayerBuilding9A() : new PlayerBuilding9B(this),
+			playerBuildings[9] ? new PlayerBuilding10A() : new PlayerBuilding10B(this),
+		]
 	}
 
 	get name(): string {
