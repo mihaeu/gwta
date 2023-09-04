@@ -20,6 +20,6 @@ export class HireWorkerOption extends Option {
 	}
 
 	toString(): string {
-		return `${super.toString()}(${this.worker.constructor.name},${this.cost})`
+		return `${super.toString()}(${this.worker},${this.cost})`
 	}
 }

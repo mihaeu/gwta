@@ -22,6 +22,10 @@ export abstract class CowCard implements Card {
 		)
 	}
 
+	toString(): string {
+		return `${this.constructor.name}(value:${this.value},strength:${this.strength},victoryPoints:${this.victoryPoints})`
+	}
+
 	get value(): number {
 		return this._value
 	}

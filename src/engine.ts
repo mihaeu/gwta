@@ -1,6 +1,6 @@
 import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
-import { BuenosAiresNode, BuildingNode, FarmerNode, PlayerBuildingNode } from "./nodes.js"
+import { BuenosAiresNode, BuildingNode, FarmerNode } from "./nodes.js"
 import { AnyCard, Card, CowCard } from "./cards.js"
 import { Option } from "./options/option.js"
 import { MoveOptions } from "./actions/moveOptions.js"
@@ -28,8 +28,8 @@ import { PlayerBuilding10A } from "./buildings/playerBuilding10A.js"
 import { PlayerBuilding10B } from "./buildings/playerBuilding10B.js"
 import { PlayerBuilding } from "./buildings/playerBuilding.js"
 import { AuxiliaryActionOptions } from "./actions/auxiliaryActionOptions.js"
-import { OrOption } from "./options/orOption.js"
 import { LocationOptions } from "./actions/locationOptions.js"
+import { PassOption } from "./options/passOption.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -39,6 +39,7 @@ export default class Engine {
 		this.gameBoard = new GameBoard()
 		this.players = players
 
+		// TODO this is copying references which means all buildings will be owned by the last player
 		const playerBuildings = [
 			[new PlayerBuilding1A(), new PlayerBuilding1B()],
 			[new PlayerBuilding2A(), new PlayerBuilding2B()],
@@ -108,34 +109,43 @@ export default class Engine {
 		}
 
 		if (currentLocation instanceof BuildingNode) {
-			let availableOptions: Option[] = []
-			let optionsChosen: Option[] = []
-
-			while (true) {
-				availableOptions = [new OrOption(new AuxiliaryActionOptions(currentLocation), new LocationOptions(currentLocation))].filter(
-					(option) =>
-						!optionsChosen.some((usedOption) => {
-							return (
-								usedOption.constructor.name === option.constructor.name &&
-								usedOption.building?.constructor.name === option.building?.constructor.name
-							)
-						}),
-				)
-
-				if (availableOptions.length <= 0) {
-					break
+			const locationHasOptions = currentLocation.options(this.gameBoard, currentPlayer).length > 0
+			const initialPhaseBOptions = locationHasOptions
+				? [new LocationOptions(currentLocation), new AuxiliaryActionOptions(currentLocation)]
+				: [new AuxiliaryActionOptions(currentLocation)]
+			const chosenOption = await currentPlayer.chooseOption(initialPhaseBOptions)
+			if (chosenOption instanceof AuxiliaryActionOptions) {
+				const chosenAuxiliaryActionOption = await currentPlayer.chooseOption(chosenOption.resolve(this.gameBoard, currentPlayer))
+				let subOptions = chosenAuxiliaryActionOption.resolve(this.gameBoard, currentPlayer)
+				while (subOptions.length > 0) {
+					const chosenSubOption = await currentPlayer.chooseOption(subOptions)
+					subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
+					if (subOptions.length === 1) {
+						subOptions = subOptions[0].resolve(this.gameBoard, currentPlayer)
+					}
 				}
-
-				console.log(
-					`Available options for player ${currentPlayer} are ${availableOptions} and chosen so far are ${optionsChosen || "none"}`,
-				)
-
-				if (availableOptions.length === 1) {
-					optionsChosen.push(availableOptions[0])
-					availableOptions = availableOptions[0].resolve(this.gameBoard, currentPlayer)
+			}
+			if (chosenOption instanceof LocationOptions) {
+				let locationOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
+				const takenOptions: Option[] = []
+				while (locationOptions.length > 0) {
+					let chosenLocationOption = locationOptions.length > 1 ? await currentPlayer.chooseOption(locationOptions) : locationOptions[0]
+					takenOptions.push(chosenLocationOption)
+					if (chosenLocationOption instanceof PassOption) {
+						break
+					}
+					let subOptions = chosenLocationOption.resolve(this.gameBoard, currentPlayer)
+					while (subOptions.length > 0) {
+						const chosenSubOption = await currentPlayer.chooseOption(subOptions)
+						subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
+					}
+					locationOptions = chosenOption
+						.resolve(this.gameBoard, currentPlayer)
+						.filter((option) => !takenOptions.some((takenOption) => takenOption.toString() === option.toString()))
+					if (!locationOptions.some((option) => option instanceof PassOption) && locationOptions.length > 0) {
+						locationOptions.push(new PassOption())
+					}
 				}
-
-				optionsChosen.push(await this.chooseOptions(currentPlayer, availableOptions))
 			}
 		}
 
@@ -144,17 +154,6 @@ export default class Engine {
 			console.log(`Available options for player ${currentPlayer} are ${options}`)
 			await currentPlayer.chooseOption(options)
 		}
-	}
-
-	private onlyAuxiliaryActionsAvailable(availableBuildingOptions: Option[], currentPlayer: Player) {
-		// availableOptions = this.onlyAuxiliaryActionsAvailable(availableBuildingOptions, currentPlayer)
-		// 		? [new AuxiliaryActionOptions(currentPlayer.location)]
-		// 		: [new OrOption(new AuxiliaryActionOptions(currentPlayer.location), new LocationOptions())]
-
-		return (
-			availableBuildingOptions.length === 0 ||
-			!(currentPlayer.location instanceof PlayerBuildingNode && currentPlayer.location.building().isOwner(currentPlayer))
-		)
 	}
 
 	async phaseC(currentPlayer: Player) {

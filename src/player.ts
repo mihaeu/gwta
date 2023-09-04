@@ -117,13 +117,12 @@ export default abstract class Player {
 			this._discardedCards = []
 			this._handCards = this._handCards.concat(this.cards.splice(0, count - cardsLeft))
 		} else {
-			const cardsToDraw = this.cards.splice(0, count)
-			this._handCards = this._handCards.concat(cardsToDraw)
+			this._handCards = this._handCards.concat(this.cards.splice(0, count))
 		}
 	}
 
 	discardCard(card: Card) {
-		const index = this.handCards.findIndex((currentCard) => currentCard == card)
+		const index = this.handCards.findIndex((currentCard) => currentCard.toString() === card.toString())
 		if (!index) {
 			throw new Error(`Player doesn't have card ${card} on their hand.`)
 		}

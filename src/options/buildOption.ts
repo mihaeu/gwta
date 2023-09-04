@@ -28,6 +28,6 @@ export class BuildOption extends Option {
 
 	toString(): string {
 		const cost = this.playerBuilding.requiredCarpenters * 2
-		return `${super.toString()}(${this.playerBuilding.constructor.name},${cost})`
+		return `${super.toString()}(${this.playerBuilding.constructor.name},${cost},${this.location})`
 	}
 }

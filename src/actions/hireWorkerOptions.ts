@@ -23,4 +23,8 @@ export class HireWorkerOptions extends Option {
 			return options
 		}, new Array<Option>())
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.modifier})`
+	}
 }

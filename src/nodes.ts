@@ -93,6 +93,10 @@ export class PlayerBuildingNode extends BuildingNode {
 	get hasGrain(): boolean {
 		return this._hasGrain
 	}
+
+	toString(): string {
+		return `${this.constructor.name}(${this.actionable?.constructor.name ?? "empty"})`
+	}
 }
 
 export class Start extends Node {}
