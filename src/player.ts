@@ -1,6 +1,6 @@
 import { Node } from "./nodes.js"
 import { Carpenter, Farmer, Herder, Machinist, Worker } from "./tiles.js"
-import { Card, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./cards.js"
+import { Card, ExhaustionCard, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
 
@@ -39,6 +39,7 @@ export default abstract class Player {
 	public cards: Card[]
 	private _handCards: Card[] = []
 	protected _discardedCards: Card[] = []
+	protected _removedCards: Card[] = []
 	private _herders: Worker[] = [new Herder()]
 	private _carpenters: Worker[] = [new Carpenter()]
 	private _machinists: Worker[] = [new Machinist()]
@@ -64,6 +65,7 @@ export default abstract class Player {
 		new HolandoArgentino(),
 		new HolandoArgentino(),
 		new HolandoArgentino(),
+		new ExhaustionCard(),
 	]
 
 	protected constructor(name: string, location: Node) {
@@ -174,6 +176,14 @@ export default abstract class Player {
 			throw new Error(`Player doesn't have card ${card} on their hand.`)
 		}
 		this.discardedCards.push(this.handCards.splice(index, 1)[0])
+	}
+
+	removeCard(card: Card) {
+		const index = this.handCards.findIndex((currentCard) => currentCard.toString() === card.toString())
+		if (index < 0) {
+			throw new Error(`Player doesn't have card ${card} on their hand.`)
+		}
+		this._removedCards.push(this.handCards.splice(index, 1)[0])
 	}
 
 	hireWorker(worker: Worker): void {

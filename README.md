@@ -96,3 +96,7 @@ end
   - ⚠️ Certificates
     - ✅ player board
     - ❌ buenos aires
+  - ⚠️ Exhaustion cards
+    - ✅ buenos aires
+    - ✅ player board
+    - ❌ end game rating

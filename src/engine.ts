@@ -1,7 +1,7 @@
 import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
 import { BuenosAiresNode, BuildingNode, FarmerNode } from "./nodes.js"
-import { AnyCard, Card, CowCard } from "./cards.js"
+import { AnyCard, Card, CowCard, ExhaustionCard } from "./cards.js"
 import { Option } from "./options/option.js"
 import { MoveOptions } from "./actions/moveOptions.js"
 import { TileOptions } from "./actions/tileOptions.js"
@@ -148,6 +148,7 @@ export default class Engine {
 	private buenosAiresStepTwo(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 2")
 		currentPlayer.gainCoins(this.determineValueOfHandCards(currentPlayer))
+		currentPlayer.handCards.forEach((card) => card instanceof ExhaustionCard && currentPlayer.removeCard(card))
 		currentPlayer.discardCards()
 	}
 

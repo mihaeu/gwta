@@ -2,6 +2,7 @@ export interface Card {}
 export class AnyCard implements Card {}
 
 export class Objective implements Card {}
+export class ExhaustionCard implements Card {}
 export abstract class CowCard implements Card {
 	private readonly _value: number
 	private readonly _strength: number
