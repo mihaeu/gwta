@@ -15,7 +15,7 @@ export class HelpFarmerOptions extends Option {
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		const farmers = this.farmerLocation
+		const farmers: FarmerNode[] = this.farmerLocation
 			? [this.farmerLocation]
 			: gameBoard.yellowFarmers
 					.concat(gameBoard.blueFarmers, gameBoard.greenFarmers, gameBoard.orangeFarmers)

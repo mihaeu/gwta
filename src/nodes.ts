@@ -37,6 +37,10 @@ export abstract class Node {
 
 		return []
 	}
+
+	toString() {
+		return `${this.constructor.name}(${this.actionable})`
+	}
 }
 
 export class BuildingNode extends Node {}

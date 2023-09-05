@@ -184,10 +184,10 @@ export default class GameBoard {
 		this.specialGrainBuilding3,
 	]
 
-	public readonly greenFarmers = [this.greenFarmer1, this.greenFarmer2, this.greenFarmer3, this.greenFarmer4]
-	public readonly blueFarmers = [this.blueFarmer1, this.blueFarmer2, this.blueFarmer3, this.blueFarmer4]
-	public readonly orangeFarmers = [this.orangeFarmer1, this.orangeFarmer2, this.orangeFarmer3, this.orangeFarmer4]
-	public readonly yellowFarmers = [
+	public readonly greenFarmers: FarmerNode[] = [this.greenFarmer1, this.greenFarmer2, this.greenFarmer3, this.greenFarmer4]
+	public readonly blueFarmers: FarmerNode[] = [this.blueFarmer1, this.blueFarmer2, this.blueFarmer3, this.blueFarmer4]
+	public readonly orangeFarmers: FarmerNode[] = [this.orangeFarmer1, this.orangeFarmer2, this.orangeFarmer3, this.orangeFarmer4]
+	public readonly yellowFarmers: FarmerNode[] = [
 		this.yellowFarmer1,
 		this.yellowFarmer2,
 		this.yellowFarmer3,

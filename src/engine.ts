@@ -10,6 +10,7 @@ import { AuxiliaryActionOptions } from "./actions/auxiliaryActionOptions.js"
 import { LocationOptions } from "./actions/locationOptions.js"
 import { PassOption } from "./options/passOption.js"
 import { ordinal } from "./util.js"
+import { MoveOption } from "./options/moveOption.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -70,7 +71,9 @@ export default class Engine {
 	async phaseB(currentPlayer: Player) {
 		const currentLocation = currentPlayer.location
 		if (currentLocation instanceof BuenosAiresNode) {
+			// this.buenosAiresStepOne(currentPlayer)
 			this.buenosAiresStepTwo(currentPlayer)
+			// this.buenosAiresStepThree(currentPlayer)
 			await this.buenosAiresStepFour(currentPlayer)
 			await this.buenosAiresStepFive(currentPlayer)
 			await this.buenosAiresStepSix(currentPlayer)
@@ -99,6 +102,12 @@ export default class Engine {
 				while (locationOptions.length > 0) {
 					let chosenLocationOption = locationOptions.length > 1 ? await currentPlayer.chooseOption(locationOptions) : locationOptions[0]
 					takenOptions.push(chosenLocationOption)
+					if (chosenLocationOption instanceof MoveOption) {
+						chosenLocationOption.resolve(this.gameBoard, currentPlayer)
+						await this.phaseB(currentPlayer)
+						break
+					}
+
 					if (chosenLocationOption instanceof PassOption) {
 						break
 					}
