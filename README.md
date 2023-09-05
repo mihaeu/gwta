@@ -48,7 +48,7 @@ end
   - ️✅ Neutral Building E
   - ️✅ Neutral Building F
   - ✅️ Neutral Building G
-  - ❌ Neutral Building H
+  - ✅️ Neutral Building H
   - ✅️ Player Building 1A
   - ❌ Player Building 2A
   - ❌ Player Building 3A
@@ -100,3 +100,4 @@ end
     - ✅ buenos aires
     - ✅ player board
     - ❌ end game rating
+  - ⚠️ Exchange tokens

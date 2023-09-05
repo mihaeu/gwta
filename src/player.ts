@@ -186,7 +186,7 @@ export default abstract class Player {
 		this._removedCards.push(this.handCards.splice(index, 1)[0])
 	}
 
-	hireWorker(worker: Worker): void {
+	hireWorker(worker: Worker | Farmer): void {
 		if (worker instanceof Herder) {
 			this.herders.push(worker)
 		}
@@ -197,6 +197,10 @@ export default abstract class Player {
 
 		if (worker instanceof Machinist) {
 			this.machinists.push(worker)
+		}
+
+		if (worker instanceof Farmer) {
+			this.farmers.push(worker)
 		}
 	}
 
