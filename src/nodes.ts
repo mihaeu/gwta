@@ -46,8 +46,22 @@ export class FarmerNode extends Node {
 		this.actionable = farmer
 	}
 
+	helpFarmer(): Farmer {
+		const farmer = this.actionable
+		this.actionable = undefined
+		return farmer as Farmer
+	}
+
 	isEmpty(): boolean {
 		return this.actionable === undefined
+	}
+
+	requiredStrength(): number {
+		return this.isEmpty() ? 0 : (this.actionable as Farmer).strength
+	}
+
+	toString() {
+		return `${this.constructor.name}(${this.actionable})`
 	}
 }
 

@@ -5,24 +5,29 @@ import { equal, fail, ok } from "node:assert/strict"
 import Player from "../src/player.js"
 
 describe("Random Player", () => {
-	it("should assign worker to correct work type", () => {
-		const testPlayer = new RandomPlayer("Test")
-		equal(testPlayer.carpenters.length, 1)
-		testPlayer.hireWorker(new Carpenter())
-		equal(testPlayer.carpenters.length, 2)
+	let testPlayer: Player
 
-		equal(testPlayer.machinists.length, 1)
-		testPlayer.hireWorker(new Machinist())
-		equal(testPlayer.machinists.length, 2)
+	describe("workers", () => {
+		beforeEach(() => {
+			testPlayer = new RandomPlayer("Test")
+		})
 
-		equal(testPlayer.herders.length, 1)
-		testPlayer.hireWorker(new Herder())
-		equal(testPlayer.herders.length, 2)
+		it("should assign worker to correct work type", () => {
+			equal(testPlayer.carpenters.length, 1)
+			testPlayer.hireWorker(new Carpenter())
+			equal(testPlayer.carpenters.length, 2)
+
+			equal(testPlayer.machinists.length, 1)
+			testPlayer.hireWorker(new Machinist())
+			equal(testPlayer.machinists.length, 2)
+
+			equal(testPlayer.herders.length, 1)
+			testPlayer.hireWorker(new Herder())
+			equal(testPlayer.herders.length, 2)
+		})
 	})
 
 	describe("grain", () => {
-		let testPlayer: Player
-
 		beforeEach(() => {
 			testPlayer = new RandomPlayer("Test")
 		})
@@ -49,6 +54,38 @@ describe("Random Player", () => {
 			} catch (e) {
 				ok(e)
 			}
+		})
+	})
+
+	describe("certificates", () => {
+		beforeEach(() => {
+			testPlayer = new RandomPlayer("Test")
+		})
+
+		it("should not be able to go higher than 4", () => {
+			equal(testPlayer.certificates, 0)
+			testPlayer.certificates += 10
+			equal(testPlayer.certificates, 4)
+		})
+
+		it("should not be able to go lower than 0", () => {
+			equal(testPlayer.certificates, 0)
+			testPlayer.certificates = 3
+			equal(testPlayer.certificates, 3)
+			testPlayer.certificates -= 10
+			equal(testPlayer.certificates, 0)
+		})
+	})
+
+	describe("strength", () => {
+		it("should add strength from all workers", () => {
+			testPlayer.hireWorker(new Carpenter(true))
+			testPlayer.hireWorker(new Carpenter(true))
+			testPlayer.hireWorker(new Machinist(true))
+			testPlayer.hireWorker(new Machinist(true))
+			testPlayer.hireWorker(new Herder(true))
+			testPlayer.hireWorker(new Herder(true))
+			equal(testPlayer.strength(), 6)
 		})
 	})
 })

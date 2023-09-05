@@ -12,11 +12,15 @@ export enum HandColor {
 export class Farmer extends Tile {
 	constructor(
 		private readonly hand: HandColor,
-		private readonly strength: 3 | 4 | 5 | 6 | 7 | 8,
+		private readonly _strength: 3 | 4 | 5 | 6 | 7 | 8,
 	) {
 		super()
 		this.hand = hand
-		this.strength = strength
+		this._strength = _strength
+	}
+
+	get strength(): 3 | 4 | 5 | 6 | 7 | 8 {
+		return this._strength
 	}
 
 	/**
@@ -27,7 +31,7 @@ export class Farmer extends Tile {
 	}
 
 	toString(): string {
-		return `${this.constructor.name}(${this.hand},${this.strength})`
+		return `${this.constructor.name}(${this.hand},${this._strength})`
 	}
 }
 export class BlueFarmer extends Farmer {}

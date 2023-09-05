@@ -45,6 +45,10 @@ export default abstract class Player {
 	private _farmers: Farmer[] = []
 	public availableBuildings: PlayerBuilding[] = []
 	private _grain = 0
+	private _certificates = 0
+	private _firstStrengthUpgrade = false
+	private _secondStrengthUpgrade = false
+	private _helpedFarmers: Farmer[] = []
 	private static readonly startCards = [
 		new Niata(),
 		new Niata(),
@@ -139,6 +143,24 @@ export default abstract class Player {
 		this._coins -= amount
 	}
 
+	get certificates(): number {
+		return this._certificates
+	}
+
+	set certificates(value: number) {
+		if (this._certificates + value > 4) {
+			this._certificates = 4
+		} else if (this._certificates + value < 0) {
+			this._certificates = 0
+		} else {
+			this._certificates = value
+		}
+	}
+
+	helpFarmer(farmer: Farmer) {
+		this._helpedFarmers.push(farmer)
+	}
+
 	drawCards(count: number) {
 		if (this.cards.length < count) {
 			this.cards = this.cards.concat(arrayShuffle(this._discardedCards.splice(0, this._discardedCards.length)))
@@ -148,10 +170,10 @@ export default abstract class Player {
 
 	discardCard(card: Card) {
 		const index = this.handCards.findIndex((currentCard) => currentCard.toString() === card.toString())
-		if (!index) {
+		if (index < 0) {
 			throw new Error(`Player doesn't have card ${card} on their hand.`)
 		}
-		this.handCards.splice(index, 1)
+		this.discardedCards.push(this.handCards.splice(index, 1)[0])
 	}
 
 	hireWorker(worker: Worker): void {
@@ -202,6 +224,15 @@ export default abstract class Player {
 
 	discardCards(): void {
 		this._discardedCards = this._discardedCards.concat(this.handCards.splice(0, this.handCards.length))
+	}
+
+	strength(): number {
+		const strengthFromFirstUpgrade = this._firstStrengthUpgrade ? 1 : 0
+		const strengthFromSecondUpgrade = this._secondStrengthUpgrade ? 2 : 0
+		const strengthFromCarpenters = this._carpenters.filter((worker) => worker.strong).length
+		const strengthFromHerders = this._herders.filter((worker) => worker.strong).length
+		const strengthFromMachinists = this._machinists.filter((worker) => worker.strong).length
+		return strengthFromFirstUpgrade + strengthFromSecondUpgrade + strengthFromCarpenters + strengthFromHerders + strengthFromMachinists
 	}
 
 	toString(): string {

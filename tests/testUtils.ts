@@ -16,6 +16,13 @@ export const gameBoardWithTwoPlayers = () => {
 	return { gameBoard, one, two }
 }
 
+export const removeFarmersFromBoard = (gameBoard: GameBoard) => {
+	gameBoard.greenFarmers.forEach((farmer) => farmer.helpFarmer())
+	gameBoard.orangeFarmers.forEach((farmer) => farmer.helpFarmer())
+	gameBoard.blueFarmers.forEach((farmer) => farmer.helpFarmer())
+	gameBoard.yellowFarmers.forEach((farmer) => farmer.helpFarmer())
+}
+
 export const gameBoardWithTwoPlayersAndBuildings = (playerBuilding: PlayerBuilding) => {
 	const { gameBoard, one, two } = gameBoardWithTwoPlayers()
 

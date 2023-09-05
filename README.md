@@ -46,7 +46,7 @@ end
   - ✅ Neutral Building C
   - ✅ Neutral Building D
   - ️✅ Neutral Building E
-  - ❌ Neutral Building F
+  - ️✅ Neutral Building F
   - ✅️ Neutral Building G
   - ❌ Neutral Building H
   - ✅️ Player Building 1A
@@ -93,3 +93,6 @@ end
     - ❌ Discard start cards > 4
   - ⚠️ Game end
     - ❌ The round is finished after the job market token reaches the end
+  - ⚠️ Certificates
+    - ✅ player board
+    - ❌ buenos aires
