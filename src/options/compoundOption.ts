@@ -3,22 +3,19 @@ import Player from "../player.js"
 import { Option } from "./option.js"
 
 export class CompoundOption extends Option {
-	public readonly left: Option
-	public readonly right: Option
+	public readonly options: Option[]
 
-	constructor(left: Option, right: Option) {
+	constructor(...options: Option[]) {
 		super()
-		this.left = left
-		this.right = right
+		this.options = options
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		this.left.resolve(gameBoard, currentPlayer)
-		this.right.resolve(gameBoard, currentPlayer)
+		this.options.forEach((option) => option.resolve(gameBoard, currentPlayer))
 		return []
 	}
 
 	toString(): string {
-		return `${super.toString()}(${this.left.toString()},${this.right.toString()})`
+		return `${super.toString()}(${this.options.join()})`
 	}
 }

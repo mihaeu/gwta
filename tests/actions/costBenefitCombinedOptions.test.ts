@@ -6,7 +6,7 @@ import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombine
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 import { TakeCardFromCowMarketOptions } from "../../src/actions/takeCardFromCowMarketOptions.js"
 
-describe("Cost Benefit Combined Action", () => {
+describe("Cost Benefit Combined Options", () => {
 	it("should build all combinations of costs and benefits", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new Patagonico())

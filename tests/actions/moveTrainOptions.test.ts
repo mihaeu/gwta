@@ -5,7 +5,7 @@ import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
 import { MoveTrainOption } from "../../src/options/moveTrainOption.js"
 import { Machinist } from "../../src/tiles.js"
 
-describe("Move Train Action", () => {
+describe("Move Train Options", () => {
 	it("should always present one move train option for every possible step", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		deepEqual(new MoveTrainOptions(5).resolve(gameBoard, one), [

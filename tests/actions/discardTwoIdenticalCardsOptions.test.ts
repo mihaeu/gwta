@@ -6,7 +6,7 @@ import { CompoundOption } from "../../src/options/compoundOption.js"
 import { AberdeenAngus, Patagonico } from "../../src/cards.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
 
-describe("Discard Two Identical Cards Action", () => {
+describe("Discard Two Identical Cards Options", () => {
 	it("should present one option if player has four identical cards", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new AberdeenAngus(7))
