@@ -61,21 +61,7 @@ import {
 	YellowFarmer6,
 	YellowFarmer7,
 } from "./nodes.js"
-import {
-	BlueFarmer,
-	Carpenter,
-	Farmer,
-	GreenFarmer,
-	HandColor,
-	Herder,
-	JobMarketItem,
-	JobMarketToken,
-	Machinist,
-	OrangeFarmer,
-	Tile,
-	Worker,
-	YellowFarmer,
-} from "./tiles.js"
+import { Carpenter, Herder, JobMarketItem, JobMarketToken, Machinist, Tile, Worker } from "./tiles.js"
 import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Objective, Serrano } from "./cards.js"
 import Player from "./player.js"
 import { NeutralBuildingA } from "./buildings/neutralBuildingA.js"
@@ -86,6 +72,7 @@ import { NeutralBuildingG } from "./buildings/neutralBuildingG.js"
 import { NeutralBuildingH } from "./buildings/neutralBuildingH.js"
 import { NeutralBuildingF } from "./buildings/neutralBuildingF.js"
 import { NeutralBuildingE } from "./buildings/neutralBuildingE.js"
+import { BlueFarmer, Farmer, GreenFarmer, HandColor, OrangeFarmer, YellowFarmer } from "./farmer.js"
 
 export default class GameBoard {
 	public static readonly START = new Start()

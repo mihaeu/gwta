@@ -1,5 +1,5 @@
 import { Node } from "./nodes.js"
-import { Carpenter, Farmer, Herder, Machinist, Worker } from "./tiles.js"
+import { Carpenter, Herder, Machinist, Worker } from "./tiles.js"
 import { Card, ExhaustionCard, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
@@ -25,6 +25,7 @@ import { PlayerBuilding8B } from "./buildings/playerBuilding8B.js"
 import { PlayerBuilding9A } from "./buildings/playerBuilding9A.js"
 import { PlayerBuilding9B } from "./buildings/playerBuilding9B.js"
 import { PlayerBuilding10A } from "./buildings/playerBuilding10A.js"
+import { Farmer } from "./farmer.js"
 
 export default abstract class Player {
 	public static readonly CARD_LIMIT = 4

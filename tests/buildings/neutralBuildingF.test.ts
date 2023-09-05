@@ -5,7 +5,7 @@ import { Serrano } from "../../src/cards.js"
 import { NeutralBuildingF } from "../../src/buildings/neutralBuildingF.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
 import { HelpFarmerOptions } from "../../src/actions/helpFarmerOptions.js"
-import { BlueFarmer, HandColor } from "../../src/tiles.js"
+import { BlueFarmer, HandColor } from "../../src/farmer.js"
 
 describe("Neutral Building F", () => {
 	it("should list help farmer options if there are any", () => {

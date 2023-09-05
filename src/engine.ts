@@ -76,7 +76,7 @@ export default class Engine {
 			await this.buenosAiresStepSix(currentPlayer)
 		}
 
-		if (currentLocation instanceof BuildingNode) {
+		if (currentLocation instanceof BuildingNode || currentLocation instanceof FarmerNode) {
 			const locationHasOptions = currentLocation.options(this.gameBoard, currentPlayer).length > 0
 			const initialPhaseBOptions = locationHasOptions
 				? [new LocationOptions(currentLocation), new AuxiliaryActionOptions(currentLocation)]
@@ -115,12 +115,6 @@ export default class Engine {
 					}
 				}
 			}
-		}
-
-		if (currentLocation instanceof FarmerNode) {
-			const options = currentLocation.options(this.gameBoard, currentPlayer)
-			console.log(`Available options for player ${currentPlayer} are ${options}`)
-			await currentPlayer.chooseOption(options)
 		}
 	}
 

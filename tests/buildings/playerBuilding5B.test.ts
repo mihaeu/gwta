@@ -3,8 +3,9 @@ import { deepEqual } from "node:assert"
 import { PlayerBuilding5B } from "../../src/buildings/playerBuilding5B.js"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import { DoubleAuxiliaryOptions } from "../../src/actions/doubleAuxiliaryOptions.js"
-import { Carpenter, HandColor, Herder, Machinist, YellowFarmer } from "../../src/tiles.js"
+import { Carpenter, Herder, Machinist } from "../../src/tiles.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
+import { HandColor, YellowFarmer } from "../../src/farmer.js"
 
 describe("Player Building 5B", () => {
 	const { gameBoard, one, two } = gameBoardWithTwoPlayersAndBuildings(new PlayerBuilding5B())

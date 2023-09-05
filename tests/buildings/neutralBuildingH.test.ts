@@ -3,11 +3,11 @@ import { deepEqual } from "node:assert"
 import { NeutralBuildingH } from "../../src/buildings/neutralBuildingH.js"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
-import { BlueFarmer, HandColor } from "../../src/tiles.js"
 import { GainGrainOption } from "../../src/options/gainGrainOption.js"
 import { OrOption } from "../../src/options/orOption.js"
 import { RemoveCardOption } from "../../src/options/removeCardOption.js"
 import { ExhaustionCard } from "../../src/cards.js"
+import { BlueFarmer, HandColor } from "../../src/farmer.js"
 
 describe("Neutral Building H", () => {
 	it("should only show remove exhaustion card option if there is one on player's hand", () => {

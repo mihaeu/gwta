@@ -1,13 +1,13 @@
 import { beforeEach, describe, it } from "node:test"
 import { deepEqual } from "node:assert"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
-import { BlueFarmer, HandColor } from "../../src/tiles.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player from "../../src/player.js"
 import { PlayerBuildingNode } from "../../src/nodes.js"
 import { PlayerBuilding4B } from "../../src/buildings/playerBuilding4B.js"
 import { GainGrainOption } from "../../src/options/gainGrainOption.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
+import { BlueFarmer, HandColor } from "../../src/farmer.js"
 
 describe("Player Building 4B", () => {
 	let gameBoard: GameBoard

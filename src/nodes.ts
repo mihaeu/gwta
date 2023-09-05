@@ -1,10 +1,10 @@
 import { NeutralBuilding } from "./buildings/neutralBuilding.js"
-import { Farmer } from "./tiles.js"
 import GameBoard from "./gameBoard.js"
 import Player from "./player.js"
 import { Building } from "./buildings/building.js"
 import { PlayerBuilding } from "./buildings/playerBuilding.js"
 import { Option } from "./options/option.js"
+import { Farmer } from "./farmer.js"
 
 export abstract class Node {
 	private readonly children: Node[] = []

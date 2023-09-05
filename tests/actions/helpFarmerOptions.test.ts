@@ -4,7 +4,7 @@ import { gameBoardWithTwoPlayers, removeFarmersFromBoard } from "../testUtils.js
 import { HelpFarmerOptions } from "../../src/actions/helpFarmerOptions.js"
 import { HelpFarmerOption } from "../../src/options/helpFarmerOption.js"
 import { Caracu, Patagonico } from "../../src/cards.js"
-import { BlueFarmer, HandColor } from "../../src/tiles.js"
+import { BlueFarmer, HandColor } from "../../src/farmer.js"
 
 describe("Help Farmer Options", () => {
 	it("should present all cow cards on hand if none is specified", () => {

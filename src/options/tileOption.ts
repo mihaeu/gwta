@@ -1,7 +1,8 @@
 import { Option } from "./option.js"
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
-import { BlueFarmer, EmptyJobMarketSlot, Farmer, GreenFarmer, JobMarketToken, OrangeFarmer, Tile, Worker, YellowFarmer } from "../tiles.js"
+import { EmptyJobMarketSlot, JobMarketToken, Tile, Worker } from "../tiles.js"
+import { BlueFarmer, Farmer, GreenFarmer, OrangeFarmer, YellowFarmer } from "../farmer.js"
 
 export class TileOption extends Option {
 	constructor(
