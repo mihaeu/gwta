@@ -15,6 +15,9 @@ export class HelpFarmerOption extends Option {
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		this.farmerLocations.forEach((farmerLocation) => {
 			currentPlayer.helpFarmer(farmerLocation.helpFarmer())
+			if (farmerLocation.reward > 0) {
+				currentPlayer.gainCoins(farmerLocation.reward)
+			}
 		})
 		this.cowsUsed.forEach((cow) => currentPlayer.discardCard(cow))
 		if (this.cowsUsed.length > 0) {

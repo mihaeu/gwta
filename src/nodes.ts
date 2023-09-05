@@ -42,6 +42,12 @@ export abstract class Node {
 export class BuildingNode extends Node {}
 
 export class FarmerNode extends Node {
+	protected _reward: number = 0
+
+	get reward(): number {
+		return this._reward
+	}
+
 	addFarmer(farmer: Farmer) {
 		this.actionable = farmer
 	}
@@ -122,25 +128,63 @@ export class NeutralBuilding5 extends NeutralBuildingNode {}
 export class NeutralBuilding6 extends NeutralBuildingNode {}
 export class NeutralBuilding7 extends NeutralBuildingNode {}
 export class NeutralBuilding8 extends NeutralBuildingNode {}
-export class GreenFarmer1 extends FarmerNode {}
-export class GreenFarmer2 extends FarmerNode {}
-export class GreenFarmer3 extends FarmerNode {}
-export class GreenFarmer4 extends FarmerNode {}
-export class BlueFarmer1 extends FarmerNode {}
-export class BlueFarmer2 extends FarmerNode {}
-export class BlueFarmer3 extends FarmerNode {}
-export class BlueFarmer4 extends FarmerNode {}
-export class OrangeFarmer1 extends FarmerNode {}
-export class OrangeFarmer2 extends FarmerNode {}
-export class OrangeFarmer3 extends FarmerNode {}
-export class OrangeFarmer4 extends FarmerNode {}
-export class YellowFarmer1 extends FarmerNode {}
-export class YellowFarmer2 extends FarmerNode {}
-export class YellowFarmer3 extends FarmerNode {}
-export class YellowFarmer4 extends FarmerNode {}
-export class YellowFarmer5 extends FarmerNode {}
-export class YellowFarmer6 extends FarmerNode {}
-export class YellowFarmer7 extends FarmerNode {}
+export class GreenFarmer1 extends FarmerNode {
+	protected _reward: number = 0
+}
+export class GreenFarmer2 extends FarmerNode {
+	protected _reward: number = 1
+}
+export class GreenFarmer3 extends FarmerNode {
+	protected _reward: number = 2
+}
+export class GreenFarmer4 extends FarmerNode {
+	protected _reward: number = 3
+}
+export class BlueFarmer1 extends FarmerNode {
+	protected _reward: number = 0
+}
+export class BlueFarmer2 extends FarmerNode {
+	protected _reward: number = 1
+}
+export class BlueFarmer3 extends FarmerNode {
+	protected _reward: number = 2
+}
+export class BlueFarmer4 extends FarmerNode {
+	protected _reward: number = 3
+}
+export class OrangeFarmer1 extends FarmerNode {
+	protected _reward: number = 0
+}
+export class OrangeFarmer2 extends FarmerNode {
+	protected _reward: number = 1
+}
+export class OrangeFarmer3 extends FarmerNode {
+	protected _reward: number = 2
+}
+export class OrangeFarmer4 extends FarmerNode {
+	protected _reward: number = 3
+}
+export class YellowFarmer1 extends FarmerNode {
+	protected _reward: number = 0
+}
+export class YellowFarmer2 extends FarmerNode {
+	protected _reward: number = 1
+}
+export class YellowFarmer3 extends FarmerNode {
+	protected _reward: number = 2
+}
+export class YellowFarmer4 extends FarmerNode {
+	protected _reward: number = 3
+}
+export class YellowFarmer5 extends FarmerNode {
+	protected _reward: number = 4
+}
+export class YellowFarmer6 extends FarmerNode {
+	protected _reward: number = 5
+}
+export class YellowFarmer7 extends FarmerNode {
+	protected _reward: number = 6
+}
 export class BasicBuilding1 extends PlayerBuildingNode {}
 export class BasicBuilding2 extends PlayerBuildingNode {}
 export class BasicBuilding3 extends PlayerBuildingNode {}
