@@ -160,8 +160,16 @@ export default abstract class Player {
 		}
 	}
 
+	maxCertificates() {
+		return 4
+	}
+
 	helpFarmer(farmer: Farmer) {
 		this._helpedFarmers.push(farmer)
+	}
+
+	get helpedFarmers(): Farmer[] {
+		return this._helpedFarmers
 	}
 
 	drawCards(count: number) {

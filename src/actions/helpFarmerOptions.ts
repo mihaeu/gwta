@@ -35,6 +35,12 @@ export class HelpFarmerOptions extends Option {
 			const requiredStrength = farmerCombination.reduce((sum: number, farmer) => {
 				return sum + farmer.requiredStrength()
 			}, 0)
+			if (strengthCombinationWithCards.length === 0) {
+				if (requiredStrength <= strengthWithoutCards) {
+					const option = new HelpFarmerOption(farmerCombination, [])
+					options.set(option.toString(), option)
+				}
+			}
 			for (const cardCombination of strengthCombinationWithCards) {
 				if (requiredStrength <= cardCombination.strengthOfCards) {
 					const option = new HelpFarmerOption(farmerCombination, cardCombination.cards as CowCard[])

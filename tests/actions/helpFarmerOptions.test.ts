@@ -33,4 +33,13 @@ describe("Help Farmer Options", () => {
 
 		deepEqual(new HelpFarmerOptions(0).resolve(gameBoard, one), [])
 	})
+
+	it("should present options even if there are no cards but enough strength", () => {
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		removeFarmersFromBoard(gameBoard)
+		gameBoard.greenFarmers[0].addFarmer(new BlueFarmer(HandColor.BLACK, 4))
+
+		deepEqual(one.handCards.length, 0)
+		deepEqual(new HelpFarmerOptions(4).resolve(gameBoard, one), [new HelpFarmerOption([gameBoard.greenFarmers[0]], [])])
+	})
 })
