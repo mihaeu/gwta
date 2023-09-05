@@ -50,6 +50,7 @@ export default abstract class Player {
 	private _firstStrengthUpgrade = false
 	private _secondStrengthUpgrade = false
 	private _helpedFarmers: Farmer[] = []
+	public exchangeTokens = 1
 	private static readonly startCards = [
 		new Niata(),
 		new Niata(),

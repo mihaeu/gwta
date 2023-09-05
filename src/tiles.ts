@@ -5,6 +5,7 @@ import { Option } from "./options/option.js"
 export abstract class Tile {
 	abstract toString(): string
 }
+
 export enum HandColor {
 	GREEN = "GREEN",
 	BLACK = "BLACK",

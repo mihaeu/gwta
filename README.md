@@ -51,7 +51,7 @@ end
   - ✅️ Neutral Building H
   - ✅️ Player Building 1A
   - ❌ Player Building 2A
-  - ❌ Player Building 3A
+  - ✅️ Player Building 3A
   - ❌ Player Building 4A
   - ❌ Player Building 5A
   - ❌ Player Building 6A
@@ -101,3 +101,5 @@ end
     - ✅ player board
     - ❌ end game rating
   - ⚠️ Exchange tokens
+    - ✅ gain
+    - ❌ use as action

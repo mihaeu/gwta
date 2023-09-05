@@ -1,11 +1,10 @@
 import { describe, it } from "node:test"
-import { gameBoardWithTwoPlayers, removeFarmersFromBoard } from "../testUtils.js"
+import { gameBoardWithTwoPlayers, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
 import { HelpFarmerOption } from "../../src/options/helpFarmerOption.js"
-import { BlueFarmer, Carpenter, GreenFarmer, HandColor, Herder, OrangeFarmer } from "../../src/tiles.js"
+import { Carpenter, Herder } from "../../src/tiles.js"
 import { Caracu, ExhaustionCard, Niata } from "../../src/cards.js"
 import { deepEqual } from "node:assert"
 import { equal } from "node:assert/strict"
-import GameBoard from "../../src/gameBoard.js"
 
 describe("Help Farmer Option", () => {
 	it("should remove all farmers from the game board and add them to the player", () => {
@@ -63,18 +62,3 @@ describe("Help Farmer Option", () => {
 		deepEqual(one.discardedCards, [new Caracu(3), new Caracu(3), new Niata(), new ExhaustionCard(), new ExhaustionCard()])
 	})
 })
-
-const setUpThreeFarmersWithTotalStrengthOf9 = (gameBoard: GameBoard) => {
-	removeFarmersFromBoard(gameBoard)
-	const orangeFarmer = new OrangeFarmer(HandColor.BLACK, 3)
-	gameBoard.orangeFarmers[0].addFarmer(orangeFarmer)
-	equal(gameBoard.orangeFarmers[0].isEmpty(), false)
-	const greenFarmer = new GreenFarmer(HandColor.BLACK, 3)
-	gameBoard.greenFarmers[0].addFarmer(greenFarmer)
-	equal(gameBoard.greenFarmers[0].isEmpty(), false)
-	const blueFarmer = new BlueFarmer(HandColor.BLACK, 3)
-	gameBoard.blueFarmers[0].addFarmer(blueFarmer)
-	equal(gameBoard.blueFarmers[0].isEmpty(), false)
-	const farmerLocations = [gameBoard.orangeFarmers[0], gameBoard.greenFarmers[0], gameBoard.blueFarmers[0]]
-	return { orangeFarmer, greenFarmer, blueFarmer, farmerLocations }
-}
