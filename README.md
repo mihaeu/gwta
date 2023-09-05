@@ -61,7 +61,7 @@ end
   - ✅ Player Building 10A
   - ✅ Player Building 1B
   - ❌ Player Building 2B
-  - ❌ Player Building 3B
+  - ✅️ Player Building 3B
   - ❌ Player Building 4B
   - ✅ Player Building 5B
   - ❌ Player Building 6B
