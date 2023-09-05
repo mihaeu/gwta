@@ -9,7 +9,7 @@ import { HandColor, YellowFarmer } from "../../src/farmer.js"
 
 describe("Help Farmer Option", () => {
 	it("should remove all farmers from the game board and add them to the player", () => {
-		const { gameBoard, one, two } = gameBoardWithTwoPlayers()
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		const { orangeFarmer, greenFarmer, blueFarmer, farmerLocations } = setUpThreeFarmersWithTotalStrengthOf9(gameBoard)
 
 		one.hireWorker(new Carpenter(true))
@@ -32,7 +32,7 @@ describe("Help Farmer Option", () => {
 	})
 
 	it("should add one exhaustion card if two cows were used", () => {
-		const { gameBoard, one, two } = gameBoardWithTwoPlayers()
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		const { orangeFarmer, greenFarmer, blueFarmer, farmerLocations } = setUpThreeFarmersWithTotalStrengthOf9(gameBoard)
 
 		one["_handCards"] = [new Caracu(3), new Caracu(3)]
@@ -48,7 +48,7 @@ describe("Help Farmer Option", () => {
 	})
 
 	it("should add two exhaustion cards if three cows were used", () => {
-		const { gameBoard, one, two } = gameBoardWithTwoPlayers()
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		const { orangeFarmer, greenFarmer, blueFarmer, farmerLocations } = setUpThreeFarmersWithTotalStrengthOf9(gameBoard)
 
 		one["_handCards"] = [new Caracu(3), new Caracu(3), new Niata()]
@@ -64,7 +64,7 @@ describe("Help Farmer Option", () => {
 	})
 
 	it("should receive gold from helping farmers", () => {
-		const { gameBoard, one, two } = gameBoardWithTwoPlayers()
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		removeFarmersFromBoard(gameBoard)
 		const yellowFarmer1 = new YellowFarmer(HandColor.BLACK, 3)
 		const yellowFarmer2 = new YellowFarmer(HandColor.BLACK, 3)

@@ -20,10 +20,10 @@ describe("Game Board", () => {
 		const gameBoard = new GameBoard()
 		const player = new RandomPlayer("Test")
 		gameBoard.jobMarket = [
-			new TakenJobMarketSlot(player),
-			new TakenJobMarketSlot(player),
-			new TakenJobMarketSlot(player),
-			new TakenJobMarketSlot(player),
+			new TakenJobMarketSlot(),
+			new TakenJobMarketSlot(),
+			new TakenJobMarketSlot(),
+			new TakenJobMarketSlot(),
 			new JobMarketToken(),
 		]
 		strictEqual(gameBoard.cheapestAvailableWorker(), 0)

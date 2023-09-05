@@ -14,7 +14,7 @@ export class HireWorkerOption extends Option {
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		currentPlayer.pay(this.cost)
-		gameBoard.jobMarket[this.jobMarketIndex] = new TakenJobMarketSlot(currentPlayer)
+		gameBoard.jobMarket[this.jobMarketIndex] = new TakenJobMarketSlot()
 		currentPlayer.hireWorker(this.worker)
 		console.log(`Player ${currentPlayer} hired ${this.worker} for ${this.cost} coins.`)
 		return []

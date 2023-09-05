@@ -1,5 +1,3 @@
-import Player from "./player.js"
-
 export abstract class Tile {
 	abstract toString(): string
 }
@@ -22,6 +20,4 @@ export class Carpenter extends Worker {}
 export class Machinist extends Worker {}
 export class JobMarketToken implements JobMarketItem {}
 export class EmptyJobMarketSlot implements JobMarketItem {}
-export class TakenJobMarketSlot implements JobMarketItem {
-	constructor(private readonly player: Player) {}
-}
+export class TakenJobMarketSlot implements JobMarketItem {}
