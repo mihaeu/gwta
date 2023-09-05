@@ -22,7 +22,8 @@ export class BuildOption extends Option {
 		const index = currentPlayer.availableBuildings.findIndex(
 			(playerBuilding) => playerBuilding.constructor.name === this.playerBuilding.constructor.name,
 		)
-		currentPlayer.availableBuildings.splice(index, 1)
+		const removedBuilding = currentPlayer.availableBuildings.splice(index, 1)
+		console.log(`Removed ${removedBuilding} from player and built ${this.playerBuilding} on ${this.location}`)
 		return []
 	}
 

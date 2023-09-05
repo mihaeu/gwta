@@ -14,7 +14,10 @@ export class DiscardCardOption extends Option {
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		new Array(this.count).forEach(() => currentPlayer.discardCard(this.card))
+		for (let i = 0; i < this.count; ++i) {
+			currentPlayer.discardCard(this.card)
+			console.log(`Player ${currentPlayer} discarded ${this.card} and now has ${currentPlayer.handCards.length} on their hand.`)
+		}
 		return []
 	}
 

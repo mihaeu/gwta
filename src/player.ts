@@ -141,14 +141,9 @@ export default abstract class Player {
 
 	drawCards(count: number) {
 		if (this.cards.length < count) {
-			const cardsLeft = count - this.cards.length
-			this._handCards = this._handCards.concat(this.cards.splice(0, cardsLeft))
-			this.cards = arrayShuffle(this._discardedCards)
-			this._discardedCards = []
-			this._handCards = this._handCards.concat(this.cards.splice(0, count - cardsLeft))
-		} else {
-			this._handCards = this._handCards.concat(this.cards.splice(0, count))
+			this.cards = this.cards.concat(arrayShuffle(this._discardedCards.splice(0, this._discardedCards.length)))
 		}
+		this._handCards = this._handCards.concat(this.cards.splice(0, count))
 	}
 
 	discardCard(card: Card) {

@@ -4,4 +4,8 @@ import { Option } from "../options/option.js"
 
 export abstract class Building {
 	abstract options(gameBoard: GameBoard, currentPlayer: Player): Option[]
+
+	toString() {
+		return `${this.constructor.name}`
+	}
 }

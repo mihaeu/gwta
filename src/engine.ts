@@ -9,6 +9,7 @@ import { DiscardCardOptions } from "./actions/discardCardOptions.js"
 import { AuxiliaryActionOptions } from "./actions/auxiliaryActionOptions.js"
 import { LocationOptions } from "./actions/locationOptions.js"
 import { PassOption } from "./options/passOption.js"
+import { ordinal } from "./util.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -141,24 +142,7 @@ export default class Engine {
 		}
 
 		currentPlayer.nextTurn()
-		console.info(`Player ${currentPlayer} turns taken ${currentPlayer.turnsTaken()}`)
-	}
-
-	private async chooseOptions(currentPlayer: Player, availableActions: Option[]) {
-		const chosenOption = await currentPlayer.chooseOption(availableActions)
-		console.log(`Player chose action ${chosenOption}`)
-		let availableOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
-		while (availableOptions.length > 0) {
-			console.log(`Available options for player ${currentPlayer} are ${availableOptions}`)
-			if (availableOptions.length > 1) {
-				const chosenOption = await currentPlayer.chooseOption(availableOptions)
-				console.log(`Player chose option ${chosenOption}`)
-				availableOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
-			} else {
-				availableOptions = availableOptions[0].resolve(this.gameBoard, currentPlayer)
-			}
-		}
-		return chosenOption
+		console.info(`Player ${currentPlayer} took their ${ordinal(currentPlayer.turnsTaken())} turn.`)
 	}
 
 	private buenosAiresStepTwo(currentPlayer: Player) {

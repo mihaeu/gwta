@@ -14,6 +14,7 @@ export class GainCoinOption extends Option {
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		currentPlayer.gainCoins(this.amount)
+		console.log(`Player ${currentPlayer} gained ${this.amount} coins.`)
 		return []
 	}
 
