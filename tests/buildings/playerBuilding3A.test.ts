@@ -1,6 +1,11 @@
 import { beforeEach, describe, it } from "node:test"
 import { deepEqual } from "node:assert"
-import { gameBoardWithTwoPlayers, gameBoardWithTwoPlayersAndBuildings, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
+import {
+	gameBoardWithTwoPlayers,
+	gameBoardWithTwoPlayersAndBuildings,
+	removeFarmersFromBoard,
+	setUpThreeFarmersWithTotalStrengthOf9,
+} from "../testUtils.js"
 import { PlayerBuilding3A } from "../../src/buildings/playerBuilding3A.js"
 import { GainExchangeTokenOption } from "../../src/options/gainExchangeTokenOption.js"
 import { Caracu } from "../../src/cards.js"
@@ -8,6 +13,7 @@ import { HelpFarmerOptions } from "../../src/actions/helpFarmerOptions.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player from "../../src/player.js"
 import { PlayerBuildingNode } from "../../src/nodes.js"
+import { HandColor, OrangeFarmer } from "../../src/farmer.js"
 
 describe("Player Building 3A", () => {
 	let gameBoard: GameBoard
@@ -28,6 +34,9 @@ describe("Player Building 3A", () => {
 	})
 
 	it("should be be able to get exchange token option", () => {
+		removeFarmersFromBoard(gameBoard)
+		const orangeFarmer = new OrangeFarmer(HandColor.BLACK, 8)
+		gameBoard.orangeFarmers[0].addFarmer(orangeFarmer)
 		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainExchangeTokenOption()])
 	})
 
