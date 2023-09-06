@@ -64,10 +64,10 @@ end
   - ✅️ Player Building 3B
   - ✅ Player Building 4B
   - ✅ Player Building 5B
-  - ❌ Player Building 6B
-  - ❌ Player Building 7B
+  - ❌ Player Building 6B (requires buenos aires step 1)
+  - ❌ Player Building 7B (requires access to other players)
   - ✅ Player Building 8B
-  - ❌ Player Building 9B
+  - ✅ Player Building 9B
   - ✅ Player Building 10B
 - ⚠️ Mechanics
   - ⚠️ Movement
@@ -103,3 +103,5 @@ end
   - ⚠️ Exchange tokens
     - ✅ gain
     - ❌ use as action
+  - ⚠️ Hiring workers
+    - ❌ should not be possible if player already has 6 of a type
