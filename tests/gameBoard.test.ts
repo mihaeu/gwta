@@ -5,6 +5,7 @@ import RandomPlayer from "../src/randomPlayer.js"
 import { strictEqual } from "node:assert/strict"
 import { gameBoardWithTwoPlayers } from "./testUtils.js"
 import assert from "assert"
+import { deepEqual } from "node:assert"
 
 describe("Game Board", () => {
 	it("should detect all 22 empty building locations at the start of the game", () => {
@@ -39,5 +40,12 @@ describe("Game Board", () => {
 
 		two.nextTurn()
 		assert.equal(gameBoard.nextPlayer(), one)
+	})
+
+	describe("ports", () => {
+		it("should have every player on the first port of Le Havre at the start of the game", () => {
+			const { gameBoard, one, two } = gameBoardWithTwoPlayers()
+			deepEqual(gameBoard["leHavre"].portOne, [one, two])
+		})
 	})
 })

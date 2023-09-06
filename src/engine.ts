@@ -11,6 +11,7 @@ import { LocationOptions } from "./actions/locationOptions.js"
 import { PassOption } from "./options/passOption.js"
 import { ordinal } from "./util.js"
 import { MoveOption } from "./options/moveOption.js"
+import { BuenosAiresStepOneOptions } from "./actions/buenosAiresStepOneOptions.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -65,7 +66,7 @@ export default class Engine {
 	async phaseB(currentPlayer: Player) {
 		const currentLocation = currentPlayer.location
 		if (currentLocation instanceof BuenosAiresNode) {
-			// this.buenosAiresStepOne(currentPlayer)
+			this.buenosAiresStepOne(currentPlayer)
 			this.buenosAiresStepTwo(currentPlayer)
 			// this.buenosAiresStepThree(currentPlayer)
 			await this.buenosAiresStepFour(currentPlayer)
@@ -140,6 +141,17 @@ export default class Engine {
 
 		currentPlayer.nextTurn()
 		console.info(`Player ${currentPlayer} took their ${ordinal(currentPlayer.turnsTaken())} turn.`)
+	}
+
+	private async buenosAiresStepOne(currentPlayer: Player) {
+		console.log("Handling Buenos Aires step 2")
+		const options: Option[] = new BuenosAiresStepOneOptions().resolve(this.gameBoard, currentPlayer)
+		const chosenOption = await currentPlayer.chooseOption(options)
+		let subOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
+		while (subOptions.length > 0) {
+			const chosenOption = await currentPlayer.chooseOption(options)
+			subOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
+		}
 	}
 
 	private buenosAiresStepTwo(currentPlayer: Player) {

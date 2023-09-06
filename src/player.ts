@@ -27,6 +27,11 @@ import { PlayerBuilding9B } from "./buildings/playerBuilding9B.js"
 import { PlayerBuilding10A } from "./buildings/playerBuilding10A.js"
 import { Farmer } from "./farmer.js"
 
+enum UpgradeType {
+	BLACK = "BLACK",
+	WHITE = "WHITE",
+}
+
 export default abstract class Player {
 	public static readonly CARD_LIMIT = 4
 	public static readonly MAX_GRAIN = 8
@@ -69,6 +74,26 @@ export default abstract class Player {
 		new HolandoArgentino(),
 		new ExhaustionCard(),
 	]
+
+	private upgrades = {
+		gainCoinDouble: UpgradeType.WHITE,
+		drawAndDiscardCardDouble: UpgradeType.WHITE,
+		grainForCertificateAndGoldSingle: UpgradeType.WHITE,
+		grainForCertificateAndGoldDouble: UpgradeType.WHITE,
+		goldForGrainSingle: UpgradeType.WHITE,
+		goldForGrainDouble: UpgradeType.WHITE,
+		goldForTrainSingle: UpgradeType.WHITE,
+		goldForTrainDouble: UpgradeType.WHITE,
+		revertTrainForCardRemovalSingle: UpgradeType.WHITE,
+		revertTrainForCardRemovalDouble: UpgradeType.WHITE,
+		movementUpgradeOne: UpgradeType.BLACK,
+		movementUpgradeTwo: UpgradeType.BLACK,
+		handLimitUpgradeOne: UpgradeType.BLACK,
+		handLimitUpgradeTwo: UpgradeType.BLACK,
+		certificateUpgrade: UpgradeType.WHITE,
+		strengthUpgradeOne: UpgradeType.WHITE,
+		strengthUpgradeTwo: UpgradeType.BLACK,
+	}
 
 	protected constructor(name: string, location: Node) {
 		this._name = name
@@ -261,6 +286,10 @@ export default abstract class Player {
 
 	toString(): string {
 		return this._name
+	}
+
+	equals(other: Player): boolean {
+		return this._name === other._name
 	}
 
 	abstract chooseOption(options: Option[]): Promise<Option>

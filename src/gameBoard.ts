@@ -73,6 +73,11 @@ import { NeutralBuildingH } from "./buildings/neutralBuildingH.js"
 import { NeutralBuildingF } from "./buildings/neutralBuildingF.js"
 import { NeutralBuildingE } from "./buildings/neutralBuildingE.js"
 import { BlueFarmer, Farmer, GreenFarmer, HandColor, OrangeFarmer, YellowFarmer } from "./farmer.js"
+import { GainCoinOption } from "./options/gainCoinOption.js"
+import { DrawObjectiveCardOption } from "./options/drawObjectiveCardOption.js"
+import { FreeFranqueiroOptions } from "./actions/freeFranqueiroOptions.js"
+import { MoveTrainOptions } from "./actions/moveTrainOptions.js"
+import { Port } from "./port/port.js"
 
 export default class GameBoard {
 	public static readonly START = new Start()
@@ -366,6 +371,113 @@ export default class GameBoard {
 		[6, 6, 6, 6, 7, 7, 7, 7, 6, 6, 6, 6, 8, 8, 8, 8, 5, 5, 5, 5, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8, 8, 9, 9, 9, 9, 6, 6, 6, 6, 4, 4, 4, 4], // 4 players
 	]
 
+	public readonly leHavre: Port = {
+		portOne: [],
+		portTwo: [],
+		portTwoDiscount: 2,
+		west: {
+			cost: 1,
+			spaces: [
+				{ reward: new GainCoinOption(3), victoryPoints: 0 },
+				{ reward: new GainCoinOption(4), victoryPoints: 0 },
+				{ reward: new GainCoinOption(4), victoryPoints: 0 },
+				{ reward: new GainCoinOption(4), victoryPoints: 0 },
+			],
+		},
+		north: {
+			cost: 3,
+			spaces: [
+				{ reward: new GainCoinOption(5), victoryPoints: 1 },
+				{ reward: new GainCoinOption(5), victoryPoints: 2 },
+				{ reward: new GainCoinOption(6), victoryPoints: 2 },
+			],
+		},
+		east: {
+			cost: 5,
+			spaces: [
+				{ reward: undefined, victoryPoints: 5 },
+				{ reward: undefined, victoryPoints: 6 },
+				{ reward: undefined, victoryPoints: 7 },
+			],
+		},
+		south: {
+			cost: 6,
+			spaces: [
+				{ reward: new GainCoinOption(9), victoryPoints: 3 },
+				{ reward: new GainCoinOption(12), victoryPoints: 3 },
+			],
+		},
+	}
+
+	public readonly rotterdam: Port = {
+		portOne: [],
+		west: {
+			cost: 1,
+			spaces: [
+				{ reward: new GainCoinOption(6), victoryPoints: 1 },
+				{ reward: new GainCoinOption(6), victoryPoints: 0 },
+				{ reward: new GainCoinOption(6), victoryPoints: 0 },
+			],
+		},
+		north: {
+			cost: 2,
+			spaces: [
+				{ reward: undefined, victoryPoints: 6 },
+				{ reward: undefined, victoryPoints: 5 },
+				{ reward: undefined, victoryPoints: 4 },
+			],
+		},
+		east: {
+			cost: 4,
+			spaces: [
+				{ reward: new GainCoinOption(8), victoryPoints: 4 },
+				{ reward: new GainCoinOption(6), victoryPoints: 4 },
+			],
+		},
+		south: {
+			cost: 7,
+			spaces: [
+				{ reward: undefined, victoryPoints: 9 },
+				{ reward: undefined, victoryPoints: 12 },
+			],
+		},
+	}
+
+	public readonly liverpool: Port = {
+		portOne: [],
+		portTwo: [],
+		portTwoDiscount: 3,
+		west: {
+			cost: 1,
+			spaces: [
+				{ reward: new DrawObjectiveCardOption(), victoryPoints: 4 },
+				{ reward: new GainCoinOption(6), victoryPoints: 4 },
+			],
+		},
+		north: {
+			cost: 4,
+			spaces: [
+				{ reward: new FreeFranqueiroOptions(), victoryPoints: 4 },
+				{ reward: new MoveTrainOptions(4), victoryPoints: 4 },
+				{ reward: new GainCoinOption(6), victoryPoints: 7 },
+			],
+		},
+		east: {
+			cost: 7,
+			spaces: [
+				{ reward: undefined, victoryPoints: 12 },
+				{ reward: undefined, victoryPoints: 15 },
+			],
+		},
+		south: {
+			cost: 9,
+			spaces: [
+				{ reward: undefined, victoryPoints: 15 },
+				{ reward: undefined, victoryPoints: 20 },
+			],
+		},
+	}
+
 	constructor(private readonly _players: Player[]) {
 		GameBoard.START.addChild(this.neutralBuilding1)
 		this.neutralBuilding1.addChild(this.basicBuilding1)
@@ -439,6 +551,7 @@ export default class GameBoard {
 		this.buenosAiresExit6.addChild(GameBoard.START)
 		this.buenosAiresExit7.addChild(GameBoard.START)
 
+		this.leHavre.portOne = _players
 		this.seedCowMarket()
 		this.seedFarmers()
 		this.seedJobMarket()

@@ -11,8 +11,8 @@ export class GainGrainOption extends Option {
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		currentPlayer.gainGrain(this.amount)
-		console.log(`Player ${currentPlayer} gained ${this.amount} grain.`)
+		this.amount > 0 ? currentPlayer.gainGrain(this.amount) : currentPlayer.useGrain(this.amount)
+		console.log(`Player ${currentPlayer} ${this.amount > 0 ? "gained" : "used"} ${Math.abs(this.amount)} grain.`)
 		return []
 	}
 
