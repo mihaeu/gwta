@@ -27,7 +27,7 @@ describe("Player Building 6A", () => {
 		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
 	})
 
-	it("should get see move train option based on machinists if job market is empty", () => {
+	it("should see move train option based on machinists if job market is empty", () => {
 		gameBoard.jobMarket.splice(0, gameBoard.jobMarket.length)
 		one.hireWorker(new Machinist())
 		one.hireWorker(new Machinist())

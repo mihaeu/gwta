@@ -55,7 +55,7 @@ end
   - ✅ Player Building 4A
   - ❌ Player Building 5A (requires ports)
   - ✅ Player Building 6A
-  - ❌ Player Building 7A
+  - ✅ Player Building 7A
   - ❌ Player Building 8A (requires ports)
   - ✅ Player Building 9A
   - ✅ Player Building 10A
