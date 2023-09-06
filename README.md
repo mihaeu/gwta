@@ -53,11 +53,11 @@ end
   - ✅️ Player Building 2A
   - ✅️ Player Building 3A
   - ✅ Player Building 4A
-  - ❌ Player Building 5A
+  - ❌ Player Building 5A (requires ports)
   - ✅ Player Building 6A
   - ❌ Player Building 7A
-  - ❌ Player Building 8A
-  - ❌ Player Building 9A
+  - ❌ Player Building 8A (requires ports)
+  - ✅ Player Building 9A
   - ✅ Player Building 10A
   - ✅ Player Building 1B
   - ✅️ Player Building 2B

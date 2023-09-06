@@ -1,19 +1,30 @@
-import { describe, it } from "node:test"
+import { beforeEach, describe, it } from "node:test"
 import { deepEqual } from "node:assert"
 import { gameBoardWithTwoPlayers, gameBoardWithTwoPlayersAndBuildings, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
 import { PlayerBuilding3A } from "../../src/buildings/playerBuilding3A.js"
 import { GainExchangeTokenOption } from "../../src/options/gainExchangeTokenOption.js"
 import { Caracu } from "../../src/cards.js"
 import { HelpFarmerOptions } from "../../src/actions/helpFarmerOptions.js"
+import GameBoard from "../../src/gameBoard.js"
+import Player from "../../src/player.js"
+import { PlayerBuildingNode } from "../../src/nodes.js"
 
 describe("Player Building 3A", () => {
-	const { gameBoard, one, two } = gameBoardWithTwoPlayersAndBuildings(new PlayerBuilding3A())
-	const playerBuildingOfPlayerOne = gameBoard.playerBuildings(one)[0]
-	const playerBuildingOfPlayerTwo = gameBoard.playerBuildings(two)[0]
+	let gameBoard: GameBoard
+	let one: Player
+	let two: Player
+	let playerBuildingOfPlayerOne: PlayerBuildingNode
 
-	it("should not have options on buildings of other players", () => {
+	beforeEach(() => {
+		const setUp = gameBoardWithTwoPlayersAndBuildings(new PlayerBuilding3A())
+		gameBoard = setUp.gameBoard
+		one = setUp.one
+		two = setUp.two
+		playerBuildingOfPlayerOne = gameBoard.playerBuildings(one)[0]
+	})
+
+	it("should not list actions on buildings of other players", () => {
 		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
-		deepEqual(playerBuildingOfPlayerTwo.options(gameBoard, one), [])
 	})
 
 	it("should be be able to get exchange token option", () => {
