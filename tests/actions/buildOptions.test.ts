@@ -25,8 +25,8 @@ describe("Build Options", () => {
 
 	it("should allow upgrading from a building that requires 5 carpenters to one with 9 if the player has 4 carpenters and enough coin", () => {
 		const buildOptions = new BuildOptions()
-		const gameBoard = new GameBoard()
 		const one = new RandomPlayer("One")
+		const gameBoard = new GameBoard([one])
 		const building10a = new PlayerBuilding10A(one)
 		one["availableBuildings"] = [building10a]
 		one.hireWorker(new Carpenter())

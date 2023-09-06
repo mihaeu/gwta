@@ -366,7 +366,7 @@ export default class GameBoard {
 		[6, 6, 6, 6, 7, 7, 7, 7, 6, 6, 6, 6, 8, 8, 8, 8, 5, 5, 5, 5, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8, 8, 9, 9, 9, 9, 6, 6, 6, 6, 4, 4, 4, 4], // 4 players
 	]
 
-	constructor(public readonly playerCount: number = 2) {
+	constructor(private readonly _players: Player[]) {
 		GameBoard.START.addChild(this.neutralBuilding1)
 		this.neutralBuilding1.addChild(this.basicBuilding1)
 		this.neutralBuilding1.addChild(this.greenFarmer1)
@@ -448,11 +448,11 @@ export default class GameBoard {
 	}
 
 	private seedCowMarket() {
-		this.cowMarket = this.cowCards.splice(0, GameBoard.COW_COUNT_PER_PLAYER[this.playerCount])
+		this.cowMarket = this.cowCards.splice(0, GameBoard.COW_COUNT_PER_PLAYER[this._players.length])
 	}
 
 	private seedJobMarket() {
-		for (let i = 0; i <= 2 * this.playerCount; ++i) {
+		for (let i = 0; i <= 2 * this._players.length; ++i) {
 			this.jobMarket.push(this.bTiles.pop() as Worker)
 		}
 		this.jobMarket.push(new JobMarketToken())
@@ -496,9 +496,9 @@ export default class GameBoard {
 	}
 
 	availableWorkersWithCost(): [JobMarketItem, number][] {
-		const workersWithoutLastRow = this.jobMarket.slice(0, this.playerCount * -1)
+		const workersWithoutLastRow = this.jobMarket.slice(0, this._players.length * -1)
 		return workersWithoutLastRow.map((worker, index) => {
-			return [worker, this.jobMarketCostPerPlayerCount[this.playerCount][index] + (worker instanceof Worker && worker.strong ? 1 : 0)]
+			return [worker, this.jobMarketCostPerPlayerCount[this._players.length][index] + (worker instanceof Worker && worker.strong ? 1 : 0)]
 		}) as [Worker, number][]
 	}
 
@@ -509,5 +509,9 @@ export default class GameBoard {
 		return this.availableWorkersWithCost().reduce((cheapest, [jobMarketItem, cost]) => {
 			return jobMarketItem instanceof Worker && (cost < cheapest || cheapest === 0) ? cost : cheapest
 		}, 0)
+	}
+
+	get players(): Player[] {
+		return this._players
 	}
 }

@@ -6,19 +6,18 @@ import { strictEqual } from "node:assert/strict"
 
 describe("Game Board", () => {
 	it("should detect all 22 empty building locations at the start of the game", () => {
-		const gameBoard = new GameBoard()
+		const gameBoard = new GameBoard([new RandomPlayer("Test")])
 		strictEqual(gameBoard.emptyBuildingLocations().length, 22)
 	})
 
 	it("should detect the cheapest available worker if available", () => {
-		const gameBoard = new GameBoard()
+		const gameBoard = new GameBoard([new RandomPlayer("Test")])
 		gameBoard.jobMarket = [new Carpenter(), new Carpenter(), new JobMarketToken()]
 		strictEqual(gameBoard.cheapestAvailableWorker(), 6)
 	})
 
 	it("should detect if there all workers are taken", () => {
-		const gameBoard = new GameBoard()
-		const player = new RandomPlayer("Test")
+		const gameBoard = new GameBoard([new RandomPlayer("Test")])
 		gameBoard.jobMarket = [
 			new TakenJobMarketSlot(),
 			new TakenJobMarketSlot(),

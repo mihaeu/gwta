@@ -23,8 +23,8 @@ describe("Neutral Building A", () => {
 
 	it("should list one hire worker action if player only has coins for one", () => {
 		const neutralBuildingA = new NeutralBuildingA()
-		const gameBoard = new GameBoard()
 		const player = new RandomPlayer("Test")
+		const gameBoard = new GameBoard([player])
 		player.gainCoins(7)
 		const availableActions = neutralBuildingA.options(gameBoard, player)
 		deepEqual(availableActions, [new HireWorkerOptions(0, neutralBuildingA)])
@@ -32,8 +32,8 @@ describe("Neutral Building A", () => {
 
 	it("should list two hire worker actions if player has enough coins for both", () => {
 		const neutralBuildingA = new NeutralBuildingA()
-		const gameBoard = new GameBoard()
 		const player = new RandomPlayer("Test")
+		const gameBoard = new GameBoard([player])
 		player.gainCoins(20)
 		const availableActions = neutralBuildingA.options(gameBoard, player)
 		deepEqual(availableActions, [new HireWorkerOptions(0, neutralBuildingA), new HireWorkerOptions(2, neutralBuildingA)])
@@ -41,8 +41,8 @@ describe("Neutral Building A", () => {
 
 	it("should have no options if player has no Holando Argentino on their hand and no coins", () => {
 		const neutralBuildingA = new NeutralBuildingA()
-		const gameBoard = new GameBoard()
 		const player = new RandomPlayer("Test")
+		const gameBoard = new GameBoard([player])
 		deepEqual(neutralBuildingA.options(gameBoard, player), [])
 	})
 })

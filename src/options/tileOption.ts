@@ -53,7 +53,7 @@ export class TileOption extends Option {
 			} else {
 				gameBoard.jobMarket[lastItem] = chosenTile
 				gameBoard.jobMarket = gameBoard.jobMarket.concat(
-					[...new Array(gameBoard.playerCount - 1).fill(new EmptyJobMarketSlot())],
+					[...new Array(gameBoard.players.length - 1).fill(new EmptyJobMarketSlot())],
 					new JobMarketToken(),
 				)
 			}

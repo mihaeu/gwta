@@ -9,9 +9,9 @@ import { BlueFarmer, GreenFarmer, HandColor, OrangeFarmer } from "../src/farmer.
 const playerBuildings = new Array(10).fill(0)
 
 export const gameBoardWithTwoPlayers = () => {
-	const gameBoard = new GameBoard()
 	const one = new RandomPlayer("One")
 	const two = new RandomPlayer("Two")
+	const gameBoard = new GameBoard([one, two])
 	one.setStartBuildings(playerBuildings)
 	two.setStartBuildings(playerBuildings)
 

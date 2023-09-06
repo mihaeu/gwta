@@ -17,7 +17,7 @@ export default class Engine {
 	private readonly players: Player[]
 
 	constructor(players: Player[]) {
-		this.gameBoard = new GameBoard()
+		this.gameBoard = new GameBoard(players)
 		this.players = players
 
 		const playerBuildings = new Array(10).fill(null).map((_) => Math.round(Math.random()))
