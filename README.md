@@ -50,7 +50,7 @@ end
   - ✅️ Neutral Building G
   - ✅️ Neutral Building H
   - ✅️ Player Building 1A
-  - ❌ Player Building 2A
+  - ✅️ Player Building 2A
   - ✅️ Player Building 3A
   - ✅ Player Building 4A
   - ❌ Player Building 5A
@@ -60,7 +60,7 @@ end
   - ❌ Player Building 9A
   - ✅ Player Building 10A
   - ✅ Player Building 1B
-  - ❌ Player Building 2B
+  - ✅️ Player Building 2B
   - ✅️ Player Building 3B
   - ✅ Player Building 4B
   - ✅ Player Building 5B
