@@ -31,18 +31,12 @@ export default class Engine {
 
 	async play(): Promise<GameBoard> {
 		while (!this.isGameOver()) {
-			const currentPlayer = this.nextPlayer()
+			const currentPlayer = this.gameBoard.nextPlayer()
 			await this.phaseA(currentPlayer)
 			await this.phaseB(currentPlayer)
 			await this.phaseC(currentPlayer)
 		}
 		return this.gameBoard
-	}
-
-	nextPlayer(): Player {
-		return this.players.reduce((previousPlayer, currentPlayer) =>
-			previousPlayer.turnsTaken() > currentPlayer.turnsTaken() ? currentPlayer : previousPlayer,
-		)
 	}
 
 	isGameOver(): boolean {

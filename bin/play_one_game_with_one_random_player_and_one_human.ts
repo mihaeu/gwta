@@ -12,7 +12,7 @@ const engine = new Engine(players)
 const gameBoard = await engine.play()
 
 console.log({
-	nextPlayer: engine.nextPlayer(),
+	nextPlayer: gameBoard.nextPlayer(),
 	jobMarket: gameBoard.jobMarket,
 	cowMarket: gameBoard.cowMarket,
 	one,

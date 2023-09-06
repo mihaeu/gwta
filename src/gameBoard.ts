@@ -477,12 +477,10 @@ export default class GameBoard {
 		})
 	}
 
-	isEmpty(selectedLocation: Node) {
-		const location = this.locations.find((location) => typeof location === typeof selectedLocation)
-		if (location === undefined) {
-			throw new Error(`Unable to find location ${selectedLocation}`)
-		}
-		return selectedLocation.isEmpty()
+	nextPlayer(): Player {
+		return this.players.reduce((previousPlayer, currentPlayer) =>
+			previousPlayer.turnsTaken() > currentPlayer.turnsTaken() ? currentPlayer : previousPlayer,
+		)
 	}
 
 	emptyBuildingLocations(): PlayerBuildingNode[] {
