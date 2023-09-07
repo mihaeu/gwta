@@ -53,10 +53,10 @@ end
   - ✅️ Player Building 2A
   - ✅️ Player Building 3A
   - ✅ Player Building 4A
-  - ❌ Player Building 5A (requires ports)
+  - ✅ Player Building 5A
   - ✅ Player Building 6A
   - ✅ Player Building 7A
-  - ❌ Player Building 8A (requires ports)
+  - ✅ Player Building 8A
   - ✅ Player Building 9A
   - ✅ Player Building 10A
   - ✅ Player Building 1B
@@ -64,7 +64,7 @@ end
   - ✅️ Player Building 3B
   - ✅ Player Building 4B
   - ✅ Player Building 5B
-  - ✅ Player Building 6B (requires buenos aires step 1)
+  - ✅ Player Building 6B
   - ✅ Player Building 7B
   - ✅ Player Building 8B
   - ✅ Player Building 9B

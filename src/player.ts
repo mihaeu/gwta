@@ -27,9 +27,30 @@ import { PlayerBuilding9B } from "./buildings/playerBuilding9B.js"
 import { PlayerBuilding10A } from "./buildings/playerBuilding10A.js"
 import { Farmer } from "./farmer.js"
 
-enum UpgradeType {
+export enum UpgradeType {
 	BLACK = "BLACK",
 	WHITE = "WHITE",
+	UPGRADED = "UPGRADED",
+}
+
+export type Upgrades = {
+	gainCoinDouble: UpgradeType
+	drawAndDiscardCardDouble: UpgradeType
+	grainForCertificateAndGoldSingle: UpgradeType
+	grainForCertificateAndGoldDouble: UpgradeType
+	goldForGrainSingle: UpgradeType
+	goldForGrainDouble: UpgradeType
+	goldForTrainSingle: UpgradeType
+	goldForTrainDouble: UpgradeType
+	revertTrainForCardRemovalSingle: UpgradeType
+	revertTrainForCardRemovalDouble: UpgradeType
+	movementUpgradeOne: UpgradeType
+	movementUpgradeTwo: UpgradeType
+	handLimitUpgradeOne: UpgradeType
+	handLimitUpgradeTwo: UpgradeType
+	certificateUpgrade: UpgradeType
+	strengthUpgradeOne: UpgradeType
+	strengthUpgradeTwo: UpgradeType
 }
 
 export default abstract class Player {
@@ -75,7 +96,7 @@ export default abstract class Player {
 		new ExhaustionCard(),
 	]
 
-	private upgrades = {
+	public readonly upgrades: Upgrades = {
 		gainCoinDouble: UpgradeType.WHITE,
 		drawAndDiscardCardDouble: UpgradeType.WHITE,
 		grainForCertificateAndGoldSingle: UpgradeType.WHITE,
