@@ -64,7 +64,7 @@ end
   - ✅️ Player Building 3B
   - ✅ Player Building 4B
   - ✅ Player Building 5B
-  - ❌ Player Building 6B (requires buenos aires step 1)
+  - ✅ Player Building 6B (requires buenos aires step 1)
   - ✅ Player Building 7B
   - ✅ Player Building 8B
   - ✅ Player Building 9B
@@ -83,6 +83,7 @@ end
   - ✅ Grain
   - ❌ Certificates
   - ❌ Buenos Aires
+    - ✅ Extra delivery
     - ❌ Refill cow market
     - ❌ Sail to ports
   - ⚠️ Actions
