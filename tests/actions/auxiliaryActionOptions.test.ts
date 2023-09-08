@@ -12,6 +12,7 @@ import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
 import { RemoveCardOption } from "../../src/options/removeCardOption.js"
 import { CompoundOption } from "../../src/options/compoundOption.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
+import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
 
 describe("Auxiliary Action Options", () => {
 	it("should list gain coins and draw card discard card action", () => {
@@ -34,7 +35,6 @@ describe("Auxiliary Action Options", () => {
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
 			new FirstThanSecondsOption(new GainCoinOption(-1), new GainGrainOption(1)),
 			new FirstThanSecondsOption(new GainCoinOption(-1), new MoveTrainOptions(1)),
-			new FirstThanSecondsOption(new GainCoinOption(-1), new RemoveCardOption(new AnyCard())),
 		])
 	})
 
@@ -47,6 +47,17 @@ describe("Auxiliary Action Options", () => {
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
 			new CompoundOption(new GainGrainOption(-1), new CertificateOption(1), new GainCoinOption(1)),
+		])
+	})
+
+	it("should show revert train in order to remove a card action if train has advanced", () => {
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		gameBoard.railroadTrackWithoutStationMasterSpaces[0] = []
+		gameBoard.railroadTrackWithoutStationMasterSpaces[1] = [one]
+		deepEqual(new AuxiliaryActionOptions().resolve(gameBoard, one), [
+			new GainCoinOption(1),
+			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
+			new CostBenefitCombinedOptions(new MoveTrainOptions(-1), new RemoveCardOption(new AnyCard())),
 		])
 	})
 })
