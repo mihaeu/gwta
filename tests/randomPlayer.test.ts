@@ -2,7 +2,7 @@ import RandomPlayer from "../src/randomPlayer.js"
 import { Carpenter, Herder, Machinist } from "../src/tiles.js"
 import { beforeEach, describe, it } from "node:test"
 import { equal, fail, ok } from "node:assert/strict"
-import Player from "../src/player.js"
+import Player, { UpgradeType } from "../src/player.js"
 
 describe("Random Player", () => {
 	let testPlayer: Player
@@ -78,6 +78,10 @@ describe("Random Player", () => {
 	})
 
 	describe("strength", () => {
+		beforeEach(() => {
+			testPlayer = new RandomPlayer("Test")
+		})
+
 		it("should add strength from all workers", () => {
 			testPlayer.hireWorker(new Carpenter(true))
 			testPlayer.hireWorker(new Carpenter(true))
@@ -86,6 +90,12 @@ describe("Random Player", () => {
 			testPlayer.hireWorker(new Herder(true))
 			testPlayer.hireWorker(new Herder(true))
 			equal(testPlayer.strength(), 6)
+		})
+
+		it("should have 3 base strength with fully upgraded player board", () => {
+			testPlayer.upgrades.strengthUpgradeOne = UpgradeType.UPGRADED
+			testPlayer.upgrades.strengthUpgradeTwo = UpgradeType.UPGRADED
+			equal(testPlayer.strength(), 3)
 		})
 	})
 })

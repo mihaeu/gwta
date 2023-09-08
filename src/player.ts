@@ -74,8 +74,6 @@ export default abstract class Player {
 	public availableBuildings: PlayerBuilding[] = []
 	private _grain = 0
 	private _certificates = 0
-	private _firstStrengthUpgrade = false
-	private _secondStrengthUpgrade = false
 	private _helpedFarmers: Farmer[] = []
 	public exchangeTokens = 1
 	private static readonly startCards = [
@@ -297,8 +295,8 @@ export default abstract class Player {
 	}
 
 	strength(): number {
-		const strengthFromFirstUpgrade = this._firstStrengthUpgrade ? 1 : 0
-		const strengthFromSecondUpgrade = this._secondStrengthUpgrade ? 2 : 0
+		const strengthFromFirstUpgrade = this.upgrades.strengthUpgradeOne === UpgradeType.UPGRADED ? 1 : 0
+		const strengthFromSecondUpgrade = this.upgrades.strengthUpgradeTwo === UpgradeType.UPGRADED ? 2 : 0
 		const strengthFromCarpenters = this._carpenters.filter((worker) => worker.strong).length
 		const strengthFromHerders = this._herders.filter((worker) => worker.strong).length
 		const strengthFromMachinists = this._machinists.filter((worker) => worker.strong).length
