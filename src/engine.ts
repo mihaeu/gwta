@@ -1,4 +1,4 @@
-import Player from "./player.js"
+import Player, { UpgradeType } from "./player.js"
 import GameBoard from "./gameBoard.js"
 import { BuenosAiresNode, BuildingNode, FarmerNode } from "./nodes.js"
 import { AnyCard, Card, CowCard, ExhaustionCard } from "./cards.js"
@@ -12,6 +12,7 @@ import { PassOption } from "./options/passOption.js"
 import { ordinal } from "./util.js"
 import { MoveOption } from "./options/moveOption.js"
 import { BuenosAiresStepOneOptions } from "./actions/buenosAiresStepOneOptions.js"
+import { PortSpace } from "./port/port.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -66,7 +67,7 @@ export default class Engine {
 	async phaseB(currentPlayer: Player) {
 		const currentLocation = currentPlayer.location
 		if (currentLocation instanceof BuenosAiresNode) {
-			this.buenosAiresStepOne(currentPlayer)
+			await this.buenosAiresStepOne(currentPlayer)
 			this.buenosAiresStepTwo(currentPlayer)
 			// this.buenosAiresStepThree(currentPlayer)
 			await this.buenosAiresStepFour(currentPlayer)
@@ -146,6 +147,10 @@ export default class Engine {
 	private async buenosAiresStepOne(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 2")
 		const options: Option[] = new BuenosAiresStepOneOptions().resolve(this.gameBoard, currentPlayer)
+		if (options.length === 0) {
+			return
+		}
+
 		const chosenOption = await currentPlayer.chooseOption(options)
 		let subOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		while (subOptions.length > 0) {
@@ -180,5 +185,58 @@ export default class Engine {
 		const options = new TileOptions(this.gameBoard.foresightSpacesC).resolve(this.gameBoard, currentPlayer)
 		const chosenOption = await currentPlayer.chooseOption(options)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
+	}
+
+	endgameScoring() {
+		const score: any[] = []
+		this.players.forEach((player) => {
+			const buildings = this.gameBoard.playerBuildings(player).reduce((sum, playerLocation) => {
+				return sum + playerLocation.building().victoryPoints
+			}, 0)
+			const tokenEqualsPlayer = (token: Player) => token.equals(player)
+			const playerOnSpace = (space: PortSpace) => space.player === player
+			let ports =
+				(this.gameBoard.leHavre.portTwo?.filter(tokenEqualsPlayer).length ?? 0) +
+				this.gameBoard.rotterdam.portOne.filter(tokenEqualsPlayer).length * 2 +
+				this.gameBoard.liverpool.portOne.filter(tokenEqualsPlayer).length * 5 +
+				(this.gameBoard.liverpool.portTwo?.filter(tokenEqualsPlayer).length ?? 0) * 8 +
+				this.gameBoard.leHavre.west.spaces
+					.filter(playerOnSpace)
+					.concat(this.gameBoard.leHavre.north.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.leHavre.south.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.leHavre.east.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.rotterdam.west.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.rotterdam.north.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.rotterdam.south.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.rotterdam.east.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.liverpool.west.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.liverpool.north.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.liverpool.south.spaces.filter(playerOnSpace))
+					.concat(this.gameBoard.liverpool.east.spaces.filter(playerOnSpace))
+					.reduce((sum, portSpace) => sum + portSpace.victoryPoints, 0)
+
+			const playerScore = {
+				coins: Math.floor(player.coins / 5),
+				buildings,
+				ports,
+				trainStations: 0,
+				helpedFarmers: 0,
+				cowCards: player.handCards
+					.concat(player.discardedCards)
+					.concat(player.cards)
+					.reduce((sum: number, card) => (card instanceof CowCard ? sum + card.victoryPoints : sum), 0),
+				fulfilledObjectiveCards: 0,
+				stationMasters: 0,
+				fifthAndSixthWorkers:
+					(player.carpenters.length > 4 ? (player.carpenters.length - 4) * 4 : 0) +
+					(player.machinists.length > 4 ? (player.machinists.length - 4) * 4 : 0) +
+					(player.herders.length > 4 ? (player.herders.length - 4) * 4 : 0) +
+					(player.farmers.length > 4 ? (player.farmers.length - 4) * 4 : 0),
+				secondMovementUpgrade: player.upgrades.movementUpgradeTwo === UpgradeType.UPGRADED ? 2 : 0,
+				jobMarketToken: 0,
+			}
+			score.push(playerScore)
+		})
+		return score
 	}
 }

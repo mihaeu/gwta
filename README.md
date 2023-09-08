@@ -73,15 +73,14 @@ end
   - ⚠️ Movement
     - ❌ leave coin on farmers
     - ❌ pay players when passing over hands
-  - ❌ Loading Ships
-  - ❌ Second delivery at port
+    - ❌ 3 for 2 players, 4 for 3 players, 5 for 4 players
   - ❌ Train Tracks
     - ❌ Station Masters
     - ❌ End of track situations
+    - ❌ Move backward
   - ⚠️ Objective Cards
   - ⚠️ Buying cow combinations
   - ✅ Grain
-  - ❌ Certificates
   - ❌ Buenos Aires
     - ✅ Extra delivery
     - ❌ Refill cow market
@@ -93,7 +92,8 @@ end
   - ⚠️ Game seeing
     - ❌ Discard start cards > 4
   - ⚠️ Game end
-    - ❌ The round is finished after the job market token reaches the end
+    - ✅ The round is finished after the job market token reaches the end
+    - ❌ End game scoring
   - ⚠️ Certificates
     - ✅ player board
     - ❌ buenos aires

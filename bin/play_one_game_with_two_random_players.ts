@@ -10,10 +10,5 @@ const engine = new Engine(players)
 const gameBoard = await engine.play()
 
 console.log({
-	nextPlayer: gameBoard.nextPlayer(),
-	jobMarket: gameBoard.jobMarket,
-	cowMarket: gameBoard.cowMarket,
-	one,
-	two,
-	railRoadTrack: gameBoard.railroadTrackWithoutStationMasterSpaces,
+	score: engine.endgameScoring(),
 })
