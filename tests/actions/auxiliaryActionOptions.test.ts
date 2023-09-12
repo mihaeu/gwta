@@ -17,6 +17,8 @@ import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombine
 describe("Auxiliary Action Options", () => {
 	it("should list gain coins and draw card discard card action", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
+		one.pay(7)
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new HolandoArgentino())
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
@@ -25,11 +27,11 @@ describe("Auxiliary Action Options", () => {
 		])
 	})
 
-	it("should contain options that require coins if player has at least one coin", () => {
+	it("should contain options that require coins if player has enough coin", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new HolandoArgentino())
-		one.gainCoins(1)
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
@@ -40,9 +42,11 @@ describe("Auxiliary Action Options", () => {
 
 	it("should contain options that require grain if player has at least one grain", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new HolandoArgentino())
 		one.gainGrain(1)
+		one.pay(7)
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
@@ -54,6 +58,7 @@ describe("Auxiliary Action Options", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		gameBoard.railroadTrackWithoutStationMasterSpaces[0] = []
 		gameBoard.railroadTrackWithoutStationMasterSpaces[1] = [one]
+		one.pay(7)
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),

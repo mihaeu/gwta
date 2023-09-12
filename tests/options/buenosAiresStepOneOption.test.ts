@@ -9,12 +9,11 @@ describe("Buenos Aires Step One Option", () => {
 	it("should move token down and receive reward", () => {
 		const { gameBoard, one, two } = gameBoardWithTwoPlayers()
 		one.gainGrain(1)
-		expect(one.coins).toBe(0)
 		expect(gameBoard.leHavre.portOne).toEqual([one, two])
 
 		new BuenosAiresStepOneOption(gameBoard.leHavre.portOne, gameBoard.leHavre.west.spaces[0], 1).resolve(gameBoard, one)
 
-		expect(one.coins).toBe(3)
+		expect(one.coins).toBe(10)
 		expect(gameBoard.leHavre.west.spaces[0].player).toEqual(one)
 		expect(gameBoard.leHavre.portOne).toEqual([two])
 	})
@@ -26,7 +25,6 @@ describe("Buenos Aires Step One Option", () => {
 		one.gainGrain(1)
 		gameBoard.cowMarket = [new Franqueiro(4), new Franqueiro(5)]
 
-		expect(one.coins).toBe(0)
 		expect(gameBoard.liverpool.portTwo).toEqual([one])
 
 		const options = new BuenosAiresStepOneOption(gameBoard.liverpool.portTwo, gameBoard.liverpool.north.spaces[0], 1).resolve(
@@ -34,7 +32,6 @@ describe("Buenos Aires Step One Option", () => {
 			one,
 		)
 
-		expect(one.coins).toBe(0)
 		expect(gameBoard.liverpool.north.spaces[0].player).toEqual(one)
 		expect(gameBoard.liverpool.portTwo).toHaveLength(0)
 		expect(options).toEqual([new BuyCowOption(new Franqueiro(4), 0), new BuyCowOption(new Franqueiro(5), 0)])

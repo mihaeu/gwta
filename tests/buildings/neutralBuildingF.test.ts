@@ -19,6 +19,7 @@ describe("Neutral Building F", () => {
 
 	it("should list only increase certificate option if there are no help farmer options", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 
 		const neutralBuildingF = new NeutralBuildingF()
 		expect(neutralBuildingF.options(gameBoard, one)).toEqual([new CertificateOption(1)])

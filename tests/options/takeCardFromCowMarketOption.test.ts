@@ -13,6 +13,7 @@ describe("Take Card From Cow Market Option", () => {
 		gameBoard.cowMarket.push(new AberdeenAngus(7))
 
 		expect(gameBoard.cowMarket).toEqual([new Patagonico(), new AberdeenAngus(5), new AberdeenAngus(7)])
+		one.discardCards()
 		expect(one.handCards).toHaveLength(0)
 
 		new TakeCardFromCowMarketOption(new AberdeenAngus(7)).resolve(gameBoard, one)

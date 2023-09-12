@@ -9,6 +9,7 @@ import { DiscardCardOption } from "../../src/options/discardCardOption.js"
 describe("Discard Two Identical Cards Options", () => {
 	it("should present one option if player has four identical cards", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new AberdeenAngus(7))
@@ -20,6 +21,7 @@ describe("Discard Two Identical Cards Options", () => {
 
 	it("should present two options if player has two sets of duplicate cards", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new Patagonico())

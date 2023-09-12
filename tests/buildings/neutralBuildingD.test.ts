@@ -23,6 +23,7 @@ describe("Neutral Building D", () => {
 
 	it("should have no actions if no identical cow cards are on the player's hand", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new Serrano())
 		one.handCards.push(new Patagonico())
 

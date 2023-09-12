@@ -27,13 +27,13 @@ describe("Player Building 9B", () => {
 	})
 
 	it("should present a move 5 action if player does not have gold to hire workers", () => {
-		expect(one.coins).toBe(0)
+		one.pay(7)
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new MoveOptions(5)])
 	})
 
 	it("should present hire workers options with discount of 4 if player has enough gold", () => {
 		one.gainCoins(3)
-		expect(one.coins).toBe(3)
+		expect(one.coins).toBe(10)
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new HireWorkerOptions(-4), new MoveOptions(5)])
 	})
 })

@@ -10,6 +10,7 @@ import { gameBoardWithTwoPlayers } from "../testUtils.js"
 describe("First Then Second Option", () => {
 	it("should take the result of the first option into account for the second option", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.cards = [new AberdeenAngus(7)]
 		one.handCards.push(new Niata())
 		one.handCards.push(new HolandoArgentino())

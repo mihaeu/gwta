@@ -63,7 +63,7 @@ import {
 } from "./nodes.js"
 import { Carpenter, Herder, JobMarketItem, JobMarketToken, Machinist, Tile, Worker } from "./tiles.js"
 import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Objective, Serrano } from "./cards.js"
-import Player from "./player.js"
+import Player, { UpgradeType } from "./player.js"
 import { NeutralBuildingA } from "./buildings/neutralBuildingA.js"
 import { NeutralBuildingB } from "./buildings/neutralBuildingB.js"
 import { NeutralBuildingC } from "./buildings/neutralBuildingC.js"
@@ -77,7 +77,7 @@ import { GainCoinOption } from "./options/gainCoinOption.js"
 import { DrawObjectiveCardOption } from "./options/drawObjectiveCardOption.js"
 import { FreeFranqueiroOptions } from "./actions/freeFranqueiroOptions.js"
 import { MoveTrainOptions } from "./actions/moveTrainOptions.js"
-import { Port } from "./port/port.js"
+import { Port, PortSpace } from "./port/port.js"
 
 export default class GameBoard {
 	public static readonly START = new Start()
@@ -551,13 +551,32 @@ export default class GameBoard {
 		this.buenosAiresExit6.addChild(GameBoard.START)
 		this.buenosAiresExit7.addChild(GameBoard.START)
 
-		this.leHavre.portOne = [..._players]
+		this.seedPlayers()
+		this.seedRailroad()
+		this.seedPorts()
 		this.seedCowMarket()
 		this.seedFarmers()
 		this.seedJobMarket()
 		this.foresightSpacesA = this.aTiles.splice(0, 2)
 		this.foresightSpacesB = this.bTiles.splice(0, 2)
 		this.foresightSpacesC = this.cTiles.splice(0, 2)
+	}
+
+	private seedPorts() {
+		this.leHavre.portOne = [...this._players]
+	}
+
+	private seedRailroad() {
+		this.railroadTrackWithoutStationMasterSpaces[0] = this.players
+	}
+
+	private seedPlayers() {
+		const playerBuildings = new Array(10).fill(null).map((_) => Math.round(Math.random()))
+		this.players.forEach((player, index) => {
+			player.gainCoins(Player.STARTING_COINS + index)
+			player.drawCards(Player.STARTING_CARD_LIMIT)
+			player.setStartBuildings(playerBuildings)
+		})
 	}
 
 	private seedCowMarket() {
@@ -624,5 +643,58 @@ export default class GameBoard {
 
 	get players(): Player[] {
 		return this._players
+	}
+
+	endgameScoring() {
+		const score: any[] = []
+		this.players.forEach((player) => {
+			const buildings = this.playerBuildings(player).reduce((sum, playerLocation) => {
+				return sum + playerLocation.building().victoryPoints
+			}, 0)
+			const tokenEqualsPlayer = (token: Player) => token.equals(player)
+			const playerOnSpace = (space: PortSpace) => space.player === player
+			let ports =
+				(this.leHavre.portTwo?.filter(tokenEqualsPlayer).length ?? 0) +
+				this.rotterdam.portOne.filter(tokenEqualsPlayer).length * 2 +
+				this.liverpool.portOne.filter(tokenEqualsPlayer).length * 5 +
+				(this.liverpool.portTwo?.filter(tokenEqualsPlayer).length ?? 0) * 8 +
+				this.leHavre.west.spaces
+					.filter(playerOnSpace)
+					.concat(this.leHavre.north.spaces.filter(playerOnSpace))
+					.concat(this.leHavre.south.spaces.filter(playerOnSpace))
+					.concat(this.leHavre.east.spaces.filter(playerOnSpace))
+					.concat(this.rotterdam.west.spaces.filter(playerOnSpace))
+					.concat(this.rotterdam.north.spaces.filter(playerOnSpace))
+					.concat(this.rotterdam.south.spaces.filter(playerOnSpace))
+					.concat(this.rotterdam.east.spaces.filter(playerOnSpace))
+					.concat(this.liverpool.west.spaces.filter(playerOnSpace))
+					.concat(this.liverpool.north.spaces.filter(playerOnSpace))
+					.concat(this.liverpool.south.spaces.filter(playerOnSpace))
+					.concat(this.liverpool.east.spaces.filter(playerOnSpace))
+					.reduce((sum, portSpace) => sum + portSpace.victoryPoints, 0)
+
+			const playerScore = {
+				coins: Math.floor(player.coins / 5),
+				buildings,
+				ports,
+				trainStations: 0,
+				helpedFarmers: 0,
+				cowCards: player.handCards
+					.concat(player.discardedCards)
+					.concat(player.cards)
+					.reduce((sum: number, card) => (card instanceof CowCard ? sum + card.victoryPoints : sum), 0),
+				fulfilledObjectiveCards: 0,
+				stationMasters: 0,
+				fifthAndSixthWorkers:
+					(player.carpenters.length > 4 ? (player.carpenters.length - 4) * 4 : 0) +
+					(player.machinists.length > 4 ? (player.machinists.length - 4) * 4 : 0) +
+					(player.herders.length > 4 ? (player.herders.length - 4) * 4 : 0) +
+					(player.farmers.length > 4 ? (player.farmers.length - 4) * 4 : 0),
+				secondMovementUpgrade: player.upgrades.movementUpgradeTwo === UpgradeType.UPGRADED ? 2 : 0,
+				jobMarketToken: 0,
+			}
+			score.push(playerScore)
+		})
+		return score
 	}
 }

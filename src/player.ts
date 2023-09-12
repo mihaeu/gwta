@@ -54,7 +54,7 @@ export type Upgrades = {
 }
 
 export default abstract class Player {
-	public static readonly CARD_LIMIT = 4
+	public static readonly STARTING_CARD_LIMIT = 4
 	public static readonly MAX_GRAIN = 8
 	public static readonly STARTING_COINS = 7
 

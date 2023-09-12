@@ -9,6 +9,7 @@ import { BlueFarmer, HandColor } from "../../src/farmer.js"
 describe("Help Farmer Options", () => {
 	it("should present all cow cards on hand if none is specified", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new Patagonico())
@@ -26,6 +27,7 @@ describe("Help Farmer Options", () => {
 
 	it("should not present options if there are no farmers", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new Caracu(3))
 		one.handCards.push(new Caracu(3))
 		one.handCards.push(new Caracu(3))
@@ -36,6 +38,7 @@ describe("Help Farmer Options", () => {
 
 	it("should present options even if there are no cards but enough strength", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		removeFarmersFromBoard(gameBoard)
 		gameBoard.greenFarmers[0].addFarmer(new BlueFarmer(HandColor.BLACK, 4))
 

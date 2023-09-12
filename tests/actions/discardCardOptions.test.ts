@@ -9,6 +9,7 @@ import { CompoundOption } from "../../src/options/compoundOption.js"
 describe("Discard Card Options", () => {
 	it("should present all cow cards on hand if none is specified", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new HolandoArgentino())
@@ -24,6 +25,7 @@ describe("Discard Card Options", () => {
 
 	it("should present all hand cards that were specified", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new Patagonico())
@@ -33,6 +35,7 @@ describe("Discard Card Options", () => {
 
 	it("should present options for discarding multiple cards", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new Patagonico())

@@ -7,15 +7,11 @@ import CommandLinePlayer from "../src/commandLinePlayer.js"
 const one = new CommandLinePlayer("Human", GameBoard.START)
 const two = new RandomPlayer("Random")
 const players: Player[] = [one, two]
-const engine = new Engine(players)
+const gameBoard = new GameBoard(players)
+const engine = new Engine(gameBoard)
 
-const gameBoard = await engine.play()
+await engine.play()
 
 console.log({
-	nextPlayer: gameBoard.nextPlayer(),
-	jobMarket: gameBoard.jobMarket,
-	cowMarket: gameBoard.cowMarket,
-	one,
-	two,
-	railRoadTrack: gameBoard.railroadTrackWithoutStationMasterSpaces,
+	score: gameBoard.endgameScoring(),
 })

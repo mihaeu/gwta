@@ -9,6 +9,7 @@ import { TakeCardFromCowMarketOptions } from "../../src/actions/takeCardFromCowM
 describe("Cost Benefit Combined Options", () => {
 	it("should build all combinations of costs and benefits", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new HolandoArgentino())
 		one.handCards.push(new Niata())

@@ -9,6 +9,7 @@ describe("Farmer", () => {
 	it("should present no options if farmer cannot be helped", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		removeFarmersFromBoard(gameBoard)
+		one.discardCards()
 		const farmer = new BlueFarmer(HandColor.BLACK, 7)
 		gameBoard.blueFarmers[0].addFarmer(farmer)
 		one.location = gameBoard.blueFarmers[0]

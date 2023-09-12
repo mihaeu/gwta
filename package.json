@@ -1,26 +1,28 @@
 {
-  "name": "gwta",
-  "type": "module",
-  "packageManager": "yarn@3.6.3",
-  "dependencies": {
-    "array-shuffle": "^3.0.0"
-  },
-  "prettier": {
-    "arrowParens": "always",
-    "trailingComma": "all",
-    "semi": false,
-    "useTabs": true,
-    "printWidth": 140
-  },
-  "devDependencies": {
-    "bun": "^1.0.0",
-    "@types/node": "^20.5.6",
-    "prettier": "^3.0.2",
-    "typescript": "^5.1.6",
-    "bun-types": "^1.0.1"
-  },
-  "scripts": {
-    "test": "bun test",
-    "test:watch": "bun test --watch"
-  }
+	"name": "gwta",
+	"type": "module",
+	"packageManager": "yarn@3.6.3",
+	"dependencies": {
+		"array-shuffle": "^3.0.0"
+	},
+	"prettier": {
+		"arrowParens": "always",
+		"trailingComma": "all",
+		"semi": false,
+		"useTabs": true,
+		"printWidth": 140
+	},
+	"devDependencies": {
+		"bun": "^1.0.0",
+		"@types/node": "^20.5.6",
+		"prettier": "^3.0.2",
+		"typescript": "^5.1.6",
+		"bun-types": "^1.0.1"
+	},
+	"scripts": {
+		"two_random_players": "bun bin/play_one_game_with_two_random_players.ts",
+		"one_random_player_one_human_player": "bun bin/play_one_game_with_one_random_player_and_one_human.ts",
+		"test": "bun test",
+		"test:watch": "bun test --watch"
+	}
 }

@@ -14,8 +14,6 @@ export const gameBoardWithTwoPlayers = () => {
 	const two = new RandomPlayer("Two")
 	const gameBoard = new GameBoard([one, two])
 	gameBoard.railroadTrackWithoutStationMasterSpaces[0] = [one, two]
-	one.setStartBuildings(playerBuildings)
-	two.setStartBuildings(playerBuildings)
 
 	return { gameBoard, one, two }
 }

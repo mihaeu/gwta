@@ -13,11 +13,13 @@ describe("Neutral Building H", () => {
 	it("should only show remove exhaustion card option if there is one on player's hand", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		const neutralBuildingG = new NeutralBuildingH()
+		one.discardCards()
 		expect(neutralBuildingG.options(gameBoard, one)).toEqual([new AuxiliaryActionOptions()])
 	})
 
 	it("should show gain grain action if player hired farmers", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
 		const neutralBuildingG = new NeutralBuildingH()
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))

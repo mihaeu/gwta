@@ -37,6 +37,7 @@ describe("Player Building 3A", () => {
 		removeFarmersFromBoard(gameBoard)
 		const orangeFarmer = new OrangeFarmer(HandColor.BLACK, 8)
 		gameBoard.orangeFarmers[0].addFarmer(orangeFarmer)
+		one.discardCards()
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainExchangeTokenOption()])
 	})
 

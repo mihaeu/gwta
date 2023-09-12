@@ -14,6 +14,8 @@ describe("Neutral Building A", () => {
 	it("should list discard Holando Argentino action if player has the card on their hand", () => {
 		const neutralBuildingA = new NeutralBuildingA()
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.discardCards()
+		one.pay(7)
 		one.handCards.push(new HolandoArgentino())
 		const availableActions = neutralBuildingA.options(gameBoard, one)
 		expect(availableActions).toEqual([
@@ -23,26 +25,29 @@ describe("Neutral Building A", () => {
 
 	it("should list one hire worker action if player only has coins for one", () => {
 		const neutralBuildingA = new NeutralBuildingA()
-		const player = new RandomPlayer("Test")
-		const gameBoard = new GameBoard([player])
-		player.gainCoins(7)
-		const availableActions = neutralBuildingA.options(gameBoard, player)
+		const one = new RandomPlayer("Test")
+		const gameBoard = new GameBoard([one])
+		one.discardCards()
+		const availableActions = neutralBuildingA.options(gameBoard, one)
 		expect(availableActions).toEqual([new HireWorkerOptions(0, neutralBuildingA)])
 	})
 
 	it("should list two hire worker actions if player has enough coins for both", () => {
 		const neutralBuildingA = new NeutralBuildingA()
-		const player = new RandomPlayer("Test")
-		const gameBoard = new GameBoard([player])
-		player.gainCoins(20)
-		const availableActions = neutralBuildingA.options(gameBoard, player)
+		const one = new RandomPlayer("Test")
+		const gameBoard = new GameBoard([one])
+		one.gainCoins(20)
+		one.discardCards()
+		const availableActions = neutralBuildingA.options(gameBoard, one)
 		expect(availableActions).toEqual([new HireWorkerOptions(0, neutralBuildingA), new HireWorkerOptions(2, neutralBuildingA)])
 	})
 
 	it("should have no options if player has no Holando Argentino on their hand and no coins", () => {
 		const neutralBuildingA = new NeutralBuildingA()
-		const player = new RandomPlayer("Test")
-		const gameBoard = new GameBoard([player])
-		expect(neutralBuildingA.options(gameBoard, player)).toHaveLength(0)
+		const one = new RandomPlayer("Test")
+		const gameBoard = new GameBoard([one])
+		one.discardCards()
+		one.pay(7)
+		expect(neutralBuildingA.options(gameBoard, one)).toHaveLength(0)
 	})
 })
