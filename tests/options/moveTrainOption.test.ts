@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { MoveTrainOption } from "../../src/options/moveTrainOption.js"
 import RandomPlayer from "../../src/randomPlayer.js"
@@ -21,8 +20,8 @@ describe("Move Train Option", () => {
 		gameBoard.railroadTrackWithoutStationMasterSpaces[0] = [one, two]
 
 		new MoveTrainOption(3).resolve(gameBoard, one)
-		deepEqual(gameBoard.railroadTrackWithoutStationMasterSpaces[0], [two])
-		deepEqual(gameBoard.railroadTrackWithoutStationMasterSpaces[3], [one])
+		expect(gameBoard.railroadTrackWithoutStationMasterSpaces[0]).toEqual([two])
+		expect(gameBoard.railroadTrackWithoutStationMasterSpaces[3]).toEqual([one])
 	})
 
 	/**
@@ -46,6 +45,6 @@ describe("Move Train Option", () => {
 		gameBoard.railroadTrackWithoutStationMasterSpaces[6] = [four]
 
 		new MoveTrainOption(4).resolve(gameBoard, one)
-		deepEqual(gameBoard.railroadTrackWithoutStationMasterSpaces[7], [one])
+		expect(gameBoard.railroadTrackWithoutStationMasterSpaces[7]).toEqual([one])
 	})
 })

@@ -1,11 +1,9 @@
-import { describe, it } from "bun:test"
+import { describe, expect, it } from "bun:test"
 import { BuildOptions } from "../../src/actions/buildOptions.js"
 import GameBoard from "../../src/gameBoard.js"
 import RandomPlayer from "../../src/randomPlayer.js"
 import { Carpenter } from "../../src/tiles.js"
-import { equal } from "node:assert/strict"
 import { UpgradeBuildingOption } from "../../src/options/upgradeBuildingOption.js"
-import { deepEqual } from "node:assert"
 import { PlayerBuilding8A } from "../../src/buildings/playerBuilding8A.js"
 import { PlayerBuilding10A } from "../../src/buildings/playerBuilding10A.js"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
@@ -20,7 +18,7 @@ describe("Build Options", () => {
 		one.hireWorker(new Carpenter())
 		one.hireWorker(new Carpenter())
 		one.gainCoins(12)
-		equal(buildAction.resolve(gameBoard, one).length, 176)
+		expect(buildAction.resolve(gameBoard, one)).toHaveLength(176)
 	})
 
 	it("should allow upgrading from a building that requires 5 carpenters to one with 9 if the player has 4 carpenters and enough coin", () => {
@@ -34,12 +32,12 @@ describe("Build Options", () => {
 		one.hireWorker(new Carpenter())
 		one.gainCoins(8)
 
-		equal(gameBoard.playerBuildings(one).length, 0)
+		expect(gameBoard.playerBuildings(one)).toHaveLength(0)
 		const existingBuilding = new PlayerBuilding8A(one)
 		const availableBuildingLocation = gameBoard.emptyBuildingLocations()[0]
 		availableBuildingLocation.buildOrUpgradeBuilding(existingBuilding)
-		equal(gameBoard.playerBuildings(one).length, 1)
+		expect(gameBoard.playerBuildings(one)).toHaveLength(1)
 
-		deepEqual(buildOptions.resolve(gameBoard, one), [new UpgradeBuildingOption(building10a, availableBuildingLocation)])
+		expect(buildOptions.resolve(gameBoard, one)).toEqual([new UpgradeBuildingOption(building10a, availableBuildingLocation)])
 	})
 })

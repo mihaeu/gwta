@@ -1,5 +1,4 @@
-import { beforeEach, describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { beforeEach, describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player from "../../src/player.js"
@@ -23,10 +22,10 @@ describe("Player Building 7B", () => {
 	})
 
 	it("should not list actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
 	it("should see add exhaustion cards to other player's discard piles and move 3 options", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new AddExhaustionCardsToOtherPlayersOption(), new MoveOptions(3)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new AddExhaustionCardsToOtherPlayersOption(), new MoveOptions(3)])
 	})
 })

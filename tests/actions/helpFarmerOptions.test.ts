@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers, removeFarmersFromBoard } from "../testUtils.js"
 import { HelpFarmerOptions } from "../../src/actions/helpFarmerOptions.js"
 import { HelpFarmerOption } from "../../src/options/helpFarmerOption.js"
@@ -17,7 +16,7 @@ describe("Help Farmer Options", () => {
 		gameBoard.greenFarmers[0].addFarmer(new BlueFarmer(HandColor.BLACK, 4))
 
 		const options = new HelpFarmerOptions(0).resolve(gameBoard, one)
-		deepEqual(options, [
+		expect(options).toEqual([
 			new HelpFarmerOption([gameBoard.greenFarmers[0]], [new Patagonico(), new Patagonico()]),
 			new HelpFarmerOption([gameBoard.greenFarmers[0]], [new Patagonico(), new Patagonico(), new Patagonico()]),
 			new HelpFarmerOption([gameBoard.greenFarmers[0]], [new Patagonico(), new Patagonico(), new Patagonico(), new Patagonico()]),
@@ -31,7 +30,7 @@ describe("Help Farmer Options", () => {
 		one.handCards.push(new Caracu(3))
 		removeFarmersFromBoard(gameBoard)
 
-		deepEqual(new HelpFarmerOptions(0).resolve(gameBoard, one), [])
+		expect(new HelpFarmerOptions(0).resolve(gameBoard, one)).toHaveLength(0)
 	})
 
 	it("should present options even if there are no cards but enough strength", () => {
@@ -39,7 +38,7 @@ describe("Help Farmer Options", () => {
 		removeFarmersFromBoard(gameBoard)
 		gameBoard.greenFarmers[0].addFarmer(new BlueFarmer(HandColor.BLACK, 4))
 
-		deepEqual(one.handCards.length, 0)
-		deepEqual(new HelpFarmerOptions(4).resolve(gameBoard, one), [new HelpFarmerOption([gameBoard.greenFarmers[0]], [])])
+		expect(one.handCards).toHaveLength(0)
+		expect(new HelpFarmerOptions(4).resolve(gameBoard, one)).toEqual([new HelpFarmerOption([gameBoard.greenFarmers[0]], [])])
 	})
 })

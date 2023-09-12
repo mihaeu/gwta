@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { AberdeenAngus, HolandoArgentino, Niata, Patagonico, Serrano } from "../../src/cards.js"
 import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
 import { DrawCardOption } from "../../src/options/drawCardOption.js"
@@ -16,7 +15,7 @@ describe("First Then Second Option", () => {
 		one.handCards.push(new Serrano())
 		one.handCards.push(new Patagonico())
 		const availableOptionsForSecond = new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()).resolve(gameBoard, one)
-		deepEqual(availableOptionsForSecond, [
+		expect(availableOptionsForSecond).toEqual([
 			new DiscardCardOption(new Niata()),
 			new DiscardCardOption(new HolandoArgentino()),
 			new DiscardCardOption(new Serrano()),

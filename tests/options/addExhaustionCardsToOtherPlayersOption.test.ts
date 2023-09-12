@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import RandomPlayer from "../../src/randomPlayer.js"
 import GameBoard from "../../src/gameBoard.js"
 import { AddExhaustionCardsToOtherPlayersOption } from "../../src/options/addExhaustionCardsToOtherPlayersOption.js"
@@ -13,9 +12,9 @@ describe("Add Exhaustion Cards to Other Players Option", () => {
 		const four = new RandomPlayer("Fours")
 		const gameBoard = new GameBoard([one, two, three, four])
 		new AddExhaustionCardsToOtherPlayersOption().resolve(gameBoard, one)
-		deepEqual(one.discardedCards, [])
-		deepEqual(two.discardedCards, [new ExhaustionCard()])
-		deepEqual(three.discardedCards, [new ExhaustionCard()])
-		deepEqual(four.discardedCards, [new ExhaustionCard()])
+		expect(one.discardedCards).toHaveLength(0)
+		expect(two.discardedCards).toEqual([new ExhaustionCard()])
+		expect(three.discardedCards).toEqual([new ExhaustionCard()])
+		expect(four.discardedCards).toEqual([new ExhaustionCard()])
 	})
 })

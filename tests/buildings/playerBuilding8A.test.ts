@@ -1,5 +1,4 @@
-import { beforeEach, describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { beforeEach, describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player, { UpgradeType } from "../../src/player.js"
@@ -23,7 +22,7 @@ describe("Player Building 8A", () => {
 	})
 
 	it("should not list actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
 	it("should only see grain if there are no upgrades available", () => {
@@ -44,11 +43,11 @@ describe("Player Building 8A", () => {
 		one.upgrades.certificateUpgrade = UpgradeType.UPGRADED
 		one.upgrades.strengthUpgradeOne = UpgradeType.UPGRADED
 		one.upgrades.strengthUpgradeTwo = UpgradeType.UPGRADED
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainGrainOption(1)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainGrainOption(1)])
 	})
 
 	it("should see move token to liverpool port one option", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
 			new GainGrainOption(1),
 			new TokenToPortOptions(UpgradeType.BLACK, gameBoard.liverpool.portOne),
 		])

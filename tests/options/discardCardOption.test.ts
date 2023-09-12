@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
 
@@ -9,7 +8,7 @@ describe("Discard Card Option", () => {
 		one.drawCards(4)
 		const cardToRemove = one.handCards[0]
 		new DiscardCardOption(cardToRemove, 1).resolve(gameBoard, one)
-		deepEqual(one.handCards.length, 3)
-		deepEqual(one.discardedCards, [cardToRemove])
+		expect(one.handCards).toHaveLength(3)
+		expect(one.discardedCards).toEqual([cardToRemove])
 	})
 })

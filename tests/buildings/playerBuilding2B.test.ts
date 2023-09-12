@@ -1,5 +1,4 @@
-import { beforeEach, describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { beforeEach, describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player from "../../src/player.js"
@@ -24,11 +23,11 @@ describe("Player Building 2B", () => {
 	})
 
 	it("should not list actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
 	it("should present a move action", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new MoveOptions(1)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new MoveOptions(1)])
 	})
 
 	it("should present a grain per farmer action if there are hired farmers", () => {
@@ -37,6 +36,6 @@ describe("Player Building 2B", () => {
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainCoinOption(5), new MoveOptions(1)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainCoinOption(5), new MoveOptions(1)])
 	})
 })

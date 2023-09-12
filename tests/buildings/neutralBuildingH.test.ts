@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { NeutralBuildingH } from "../../src/buildings/neutralBuildingH.js"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
@@ -13,7 +12,7 @@ describe("Neutral Building H", () => {
 	it("should only show remove exhaustion card option if there is one on player's hand", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		const neutralBuildingG = new NeutralBuildingH()
-		deepEqual(neutralBuildingG.options(gameBoard, one), [new AuxiliaryActionOptions()])
+		expect(neutralBuildingG.options(gameBoard, one)).toEqual([new AuxiliaryActionOptions()])
 	})
 
 	it("should show gain grain action if player hired farmers", () => {
@@ -22,7 +21,7 @@ describe("Neutral Building H", () => {
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
-		deepEqual(neutralBuildingG.options(gameBoard, one), [new GainGrainOption(3), new AuxiliaryActionOptions()])
+		expect(neutralBuildingG.options(gameBoard, one)).toEqual([new GainGrainOption(3), new AuxiliaryActionOptions()])
 	})
 
 	it("should show gain grain action and remove exhaustion card options if all conditions are met", () => {
@@ -32,7 +31,7 @@ describe("Neutral Building H", () => {
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.handCards.push(new ExhaustionCard())
-		deepEqual(neutralBuildingG.options(gameBoard, one), [
+		expect(neutralBuildingG.options(gameBoard, one)).toEqual([
 			new GainGrainOption(3),
 			new OrOption(new RemoveCardOption(new ExhaustionCard()), new AuxiliaryActionOptions()),
 		])

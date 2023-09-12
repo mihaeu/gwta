@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers, removeFarmersFromBoard } from "../testUtils.js"
 import { MoveOption } from "../../src/options/moveOption.js"
 import { NeutralBuilding1, NeutralBuilding2, NeutralBuilding3 } from "../../src/nodes.js"
@@ -14,8 +13,8 @@ describe("Move Options", () => {
 		removeFarmersFromBoard(gameBoard)
 
 		const options = new MoveOptions().resolve(gameBoard, one)
-		deepEqual(
-			options.toString(),
+		expect(
+			options.toString()).toEqual(
 			[
 				new MoveOption(new NeutralBuilding1(new NeutralBuildingA())),
 				new MoveOption(new NeutralBuilding2(new NeutralBuildingB())),
@@ -28,6 +27,6 @@ describe("Move Options", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 
 		const options = new MoveOptions(1).resolve(gameBoard, one)
-		deepEqual(options.toString(), [new MoveOption(new NeutralBuilding1(new NeutralBuildingA()))].toString())
+		expect(options.toString()).toEqual([new MoveOption(new NeutralBuilding1(new NeutralBuildingA()))].toString())
 	})
 })

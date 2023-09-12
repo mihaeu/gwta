@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AberdeenAngus, Patagonico } from "../../src/cards.js"
 import { TakeCardFromCowMarketOption } from "../../src/options/takeCardFromCowMarketOption.js"
@@ -12,12 +11,12 @@ describe("Take Card From Cow Market Option", () => {
 		gameBoard.cowMarket.push(new AberdeenAngus(5))
 		gameBoard.cowMarket.push(new AberdeenAngus(7))
 
-		deepEqual(gameBoard.cowMarket, [new Patagonico(), new AberdeenAngus(5), new AberdeenAngus(7)])
-		deepEqual(one.handCards, [])
+		expect(gameBoard.cowMarket).toEqual([new Patagonico(), new AberdeenAngus(5), new AberdeenAngus(7)])
+		expect(one.handCards).toHaveLength(0)
 
 		new TakeCardFromCowMarketOption(new AberdeenAngus(7)).resolve(gameBoard, one)
 
-		deepEqual(gameBoard.cowMarket, [new Patagonico(), new AberdeenAngus(5)])
-		deepEqual(one.handCards, [new AberdeenAngus(7)])
+		expect(gameBoard.cowMarket).toEqual([new Patagonico(), new AberdeenAngus(5)])
+		expect(one.handCards).toEqual([new AberdeenAngus(7)])
 	})
 })

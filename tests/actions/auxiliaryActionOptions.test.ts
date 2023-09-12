@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions.js"
 import { AnyCard, HolandoArgentino, Patagonico } from "../../src/cards.js"
@@ -19,7 +18,7 @@ describe("Auxiliary Action Options", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new HolandoArgentino())
-		deepEqual(new AuxiliaryActionOptions().resolve(gameBoard, one), [
+		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
 		])
@@ -30,7 +29,7 @@ describe("Auxiliary Action Options", () => {
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new HolandoArgentino())
 		one.gainCoins(1)
-		deepEqual(new AuxiliaryActionOptions().resolve(gameBoard, one), [
+		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
 			new FirstThanSecondsOption(new GainCoinOption(-1), new GainGrainOption(1)),
@@ -43,7 +42,7 @@ describe("Auxiliary Action Options", () => {
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new HolandoArgentino())
 		one.gainGrain(1)
-		deepEqual(new AuxiliaryActionOptions().resolve(gameBoard, one), [
+		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
 			new CompoundOption(new GainGrainOption(-1), new CertificateOption(1), new GainCoinOption(1)),
@@ -54,7 +53,7 @@ describe("Auxiliary Action Options", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		gameBoard.railroadTrackWithoutStationMasterSpaces[0] = []
 		gameBoard.railroadTrackWithoutStationMasterSpaces[1] = [one]
-		deepEqual(new AuxiliaryActionOptions().resolve(gameBoard, one), [
+		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
 			new CostBenefitCombinedOptions(new MoveTrainOptions(-1), new RemoveCardOption(new AnyCard())),

@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { Serrano } from "../../src/cards.js"
 import { NeutralBuildingF } from "../../src/buildings/neutralBuildingF.js"
@@ -14,13 +13,13 @@ describe("Neutral Building F", () => {
 		gameBoard.blueFarmers[0].addFarmer(new BlueFarmer(HandColor.BLACK, 3))
 
 		const neutralBuildingF = new NeutralBuildingF()
-		deepEqual(neutralBuildingF.options(gameBoard, one), [new CertificateOption(1), new HelpFarmerOptions(0)])
+		expect(neutralBuildingF.options(gameBoard, one)).toEqual([new CertificateOption(1), new HelpFarmerOptions(0)])
 	})
 
 	it("should list only increase certificate option if there are no help farmer options", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 
 		const neutralBuildingF = new NeutralBuildingF()
-		deepEqual(neutralBuildingF.options(gameBoard, one), [new CertificateOption(1)])
+		expect(neutralBuildingF.options(gameBoard, one)).toEqual([new CertificateOption(1)])
 	})
 })

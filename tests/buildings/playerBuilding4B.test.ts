@@ -1,5 +1,4 @@
-import { beforeEach, describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { beforeEach, describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player from "../../src/player.js"
@@ -24,11 +23,11 @@ describe("Player Building 4B", () => {
 	})
 
 	it("should not list actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
 	it("should show gain 2 grain option if not enough helped farmers exist", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainGrainOption(2)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainGrainOption(2)])
 	})
 
 	it("should show gain 2 certificate markers for every 2 helped farmers", () => {
@@ -37,13 +36,13 @@ describe("Player Building 4B", () => {
 		one.helpFarmer(new BlueFarmer(HandColor.GREEN, 3))
 		one.helpFarmer(new BlueFarmer(HandColor.GREEN, 3))
 		one.helpFarmer(new BlueFarmer(HandColor.GREEN, 3))
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new CertificateOption(2), new GainGrainOption(2)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new CertificateOption(2), new GainGrainOption(2)])
 	})
 
 	it("should not show certificate option if player is already maxed out on certificates", () => {
 		one.certificates = 4
 		one.helpFarmer(new BlueFarmer(HandColor.GREEN, 3))
 		one.helpFarmer(new BlueFarmer(HandColor.GREEN, 3))
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainGrainOption(2)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainGrainOption(2)])
 	})
 })

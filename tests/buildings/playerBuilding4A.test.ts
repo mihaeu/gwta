@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import { PlayerBuilding4A } from "../../src/buildings/playerBuilding4A.js"
 import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
@@ -14,14 +13,14 @@ describe("Player Building 4A", () => {
 	const playerBuildingOfPlayerTwo = gameBoard.playerBuildings(two)[0]
 
 	it("should not have options on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
-		deepEqual(playerBuildingOfPlayerTwo.options(gameBoard, one), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
+		expect(playerBuildingOfPlayerTwo.options(gameBoard, one)).toHaveLength(0)
 	})
 
 	it("should be be able to draw and discard cards based on herder count and increase certificates by 2", () => {
 		one.hireWorker(new Herder())
 		one.hireWorker(new Herder())
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
 			new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)),
 			new CertificateOption(2),
 		])

@@ -1,5 +1,4 @@
-import { beforeEach, describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { beforeEach, describe, expect, it } from "bun:test"
 import {
 	gameBoardWithTwoPlayersAndBuildings,
 	removeFarmersFromBoard,
@@ -27,16 +26,16 @@ describe("Player Building 8B", () => {
 	})
 
 	it("should not list actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
 	it("should show gain 2 grain option if no farmer can be helped", () => {
 		removeFarmersFromBoard(gameBoard)
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainGrainOption(2)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainGrainOption(2)])
 	})
 
 	it("should help farmer action with 6 extra strength if options exist", () => {
 		setUpThreeFarmersWithTotalStrengthOf9(gameBoard)
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainGrainOption(2), new HelpFarmerOptions(6)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainGrainOption(2), new HelpFarmerOptions(6)])
 	})
 })

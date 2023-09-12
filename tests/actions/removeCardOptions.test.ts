@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AberdeenAngus, AnyCard, AnyCowCard, HolandoArgentino, Niata, Objective, Patagonico } from "../../src/cards.js"
 import { CompoundOption } from "../../src/options/compoundOption.js"
@@ -14,7 +13,7 @@ describe("Remove Card Options", () => {
 		one.handCards.push(new HolandoArgentino())
 		one.handCards.push(new Niata())
 		one.handCards.push(new Objective())
-		deepEqual(new RemoveCardOptions(new AnyCowCard()).resolve(gameBoard, one), [
+		expect(new RemoveCardOptions(new AnyCowCard()).resolve(gameBoard, one)).toEqual([
 			new RemoveCardOption(new Patagonico()),
 			new RemoveCardOption(new AberdeenAngus(7)),
 			new RemoveCardOption(new HolandoArgentino()),
@@ -28,7 +27,7 @@ describe("Remove Card Options", () => {
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new Patagonico())
-		deepEqual(new RemoveCardOptions(new AberdeenAngus(5)).resolve(gameBoard, one), [new RemoveCardOption(new AberdeenAngus(7))])
+		expect(new RemoveCardOptions(new AberdeenAngus(5)).resolve(gameBoard, one)).toEqual([new RemoveCardOption(new AberdeenAngus(7))])
 	})
 
 	it("should present options for removing multiple cards", () => {
@@ -37,7 +36,7 @@ describe("Remove Card Options", () => {
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new Patagonico())
-		deepEqual(new RemoveCardOptions(new AnyCard(), 2).resolve(gameBoard, one), [
+		expect(new RemoveCardOptions(new AnyCard(), 2).resolve(gameBoard, one)).toEqual([
 			new CompoundOption(new RemoveCardOption(new AberdeenAngus(7)), new RemoveCardOption(new AberdeenAngus(7))),
 			new CompoundOption(new RemoveCardOption(new AberdeenAngus(7)), new RemoveCardOption(new Patagonico())),
 			new CompoundOption(new RemoveCardOption(new Patagonico()), new RemoveCardOption(new Patagonico())),

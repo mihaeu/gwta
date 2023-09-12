@@ -1,7 +1,5 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
-import { equal } from "node:assert/strict"
 import { BuenosAiresStepOneOptions } from "../../src/actions/buenosAiresStepOneOptions.js"
 import { BuenosAiresStepOneOption } from "../../src/options/buenosAiresStepOneOption.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
@@ -9,9 +7,9 @@ import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 describe("Buenos Aires Step One Options", () => {
 	it("should not have any options at the beginning of the game without grain", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
-		equal(one.grain, 0)
+		expect(one.grain).toBe(0)
 		const expectedOptions = new BuenosAiresStepOneOptions().resolve(gameBoard, one)
-		deepEqual(expectedOptions, [])
+		expect(expectedOptions).toHaveLength(0)
 	})
 
 	it("should have 4 options with a token on Le Havre I and 1 grain", () => {
@@ -28,7 +26,7 @@ describe("Buenos Aires Step One Options", () => {
 				1,
 			)
 		})
-		deepEqual(actual.toString(), expected.toString())
+		expect(actual.toString()).toEqual(expected.toString())
 	})
 
 	it("should be able to afford a port space costing 4 with 1 grain if discount is 3", () => {
@@ -43,7 +41,7 @@ describe("Buenos Aires Step One Options", () => {
 
 		const actual = new BuenosAiresStepOneOptions().resolve(gameBoard, one)
 		const expected = new BuenosAiresStepOneOption(gameBoard.liverpool.portTwo, gameBoard.liverpool.north.spaces[0], 1)
-		deepEqual(actual.length, 1)
-		deepEqual((actual.pop() as BuenosAiresStepOneOption).equals(expected), true)
+		expect(actual).toHaveLength(1)
+		expect(actual.pop()).toEqual(expected)
 	})
 })

@@ -1,22 +1,19 @@
 import GameBoard from "../src/gameBoard.js"
-import { describe, it } from "bun:test"
+import { describe, expect, it } from "bun:test"
 import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "../src/tiles.js"
 import RandomPlayer from "../src/randomPlayer.js"
-import { strictEqual } from "node:assert/strict"
 import { gameBoardWithTwoPlayers } from "./testUtils.js"
-import assert from "assert"
-import { deepEqual } from "node:assert"
 
 describe("Game Board", () => {
 	it("should detect all 22 empty building locations at the start of the game", () => {
 		const gameBoard = new GameBoard([new RandomPlayer("Test")])
-		strictEqual(gameBoard.emptyBuildingLocations().length, 22)
+		expect(gameBoard.emptyBuildingLocations()).toHaveLength(22)
 	})
 
 	it("should detect the cheapest available worker if available", () => {
 		const gameBoard = new GameBoard([new RandomPlayer("Test")])
 		gameBoard.jobMarket = [new Carpenter(), new Carpenter(), new JobMarketToken()]
-		strictEqual(gameBoard.cheapestAvailableWorker(), 6)
+		expect(gameBoard.cheapestAvailableWorker()).toBe(6)
 	})
 
 	it("should detect if there all workers are taken", () => {
@@ -28,24 +25,24 @@ describe("Game Board", () => {
 			new TakenJobMarketSlot(),
 			new JobMarketToken(),
 		]
-		strictEqual(gameBoard.cheapestAvailableWorker(), 0)
+		expect(gameBoard.cheapestAvailableWorker()).toBe(0)
 	})
 
 	it("should determine next player", () => {
 		const { gameBoard, one, two } = gameBoardWithTwoPlayers()
-		assert.equal(gameBoard.nextPlayer(), one)
+		expect(gameBoard.nextPlayer()).toBe(one)
 
 		one.nextTurn()
-		assert.equal(gameBoard.nextPlayer(), two)
+		expect(gameBoard.nextPlayer()).toBe(two)
 
 		two.nextTurn()
-		assert.equal(gameBoard.nextPlayer(), one)
+		expect(gameBoard.nextPlayer()).toBe(one)
 	})
 
 	describe("ports", () => {
 		it("should have every player on the first port of Le Havre at the start of the game", () => {
 			const { gameBoard, one, two } = gameBoardWithTwoPlayers()
-			deepEqual(gameBoard["leHavre"].portOne, [one, two])
+			expect(gameBoard["leHavre"].portOne).toEqual([one, two])
 		})
 	})
 })

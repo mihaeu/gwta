@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { NeutralBuildingA } from "../../src/buildings/neutralBuildingA.js"
 import GameBoard from "../../src/gameBoard.js"
 import RandomPlayer from "../../src/randomPlayer.js"
@@ -16,7 +15,7 @@ describe("Neutral Building A", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new HolandoArgentino())
 		const availableActions = neutralBuildingA.options(gameBoard, one)
-		deepEqual(availableActions, [
+		expect(availableActions).toEqual([
 			new CostBenefitCombinedOptions(new DiscardCardOptions(new HolandoArgentino()), new GainCoinOption(2), neutralBuildingA),
 		])
 	})
@@ -27,7 +26,7 @@ describe("Neutral Building A", () => {
 		const gameBoard = new GameBoard([player])
 		player.gainCoins(7)
 		const availableActions = neutralBuildingA.options(gameBoard, player)
-		deepEqual(availableActions, [new HireWorkerOptions(0, neutralBuildingA)])
+		expect(availableActions).toEqual([new HireWorkerOptions(0, neutralBuildingA)])
 	})
 
 	it("should list two hire worker actions if player has enough coins for both", () => {
@@ -36,13 +35,13 @@ describe("Neutral Building A", () => {
 		const gameBoard = new GameBoard([player])
 		player.gainCoins(20)
 		const availableActions = neutralBuildingA.options(gameBoard, player)
-		deepEqual(availableActions, [new HireWorkerOptions(0, neutralBuildingA), new HireWorkerOptions(2, neutralBuildingA)])
+		expect(availableActions).toEqual([new HireWorkerOptions(0, neutralBuildingA), new HireWorkerOptions(2, neutralBuildingA)])
 	})
 
 	it("should have no options if player has no Holando Argentino on their hand and no coins", () => {
 		const neutralBuildingA = new NeutralBuildingA()
 		const player = new RandomPlayer("Test")
 		const gameBoard = new GameBoard([player])
-		deepEqual(neutralBuildingA.options(gameBoard, player), [])
+		expect(neutralBuildingA.options(gameBoard, player)).toHaveLength(0)
 	})
 })

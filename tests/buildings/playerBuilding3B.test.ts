@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import {
 	gameBoardWithTwoPlayers,
 	gameBoardWithTwoPlayersAndBuildings,
@@ -17,12 +16,12 @@ describe("Player Building 3B", () => {
 	const playerBuildingOfPlayerTwo = gameBoard.playerBuildings(two)[0]
 
 	it("should not have options on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
-		deepEqual(playerBuildingOfPlayerTwo.options(gameBoard, one), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
+		expect(playerBuildingOfPlayerTwo.options(gameBoard, one)).toHaveLength(0)
 	})
 
 	it("should be be able to get +2 certificate option", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new CertificateOption(2)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new CertificateOption(2)])
 	})
 
 	it("should be be able to get +3 certificate options if objective cards are on player's hand", () => {
@@ -30,7 +29,7 @@ describe("Player Building 3B", () => {
 		setUpThreeFarmersWithTotalStrengthOf9(gameBoard)
 		one.handCards.push(new Objective())
 		one.handCards.push(new Objective())
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
 			new CertificateOption(2),
 			new CostBenefitCombinedOptions(new DiscardCardOption(new Objective()), new CertificateOption(3)),
 			new CostBenefitCombinedOptions(new DiscardCardOption(new Objective()), new CertificateOption(3)),

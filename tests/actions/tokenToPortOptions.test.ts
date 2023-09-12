@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { TokenToPortOptions } from "../../src/actions/tokenToPortOptions.js"
 import { UpgradeType } from "../../src/player.js"
@@ -8,7 +7,7 @@ import { TokenToPortOption } from "../../src/options/tokenToPortOption.js"
 describe("Token To Port Options", () => {
 	it("should present all available upgrades when choosing to upgrade a black token", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
-		deepEqual(new TokenToPortOptions(UpgradeType.BLACK, gameBoard.liverpool.portOne).resolve(gameBoard, one), [
+		expect(new TokenToPortOptions(UpgradeType.BLACK, gameBoard.liverpool.portOne).resolve(gameBoard, one)).toEqual([
 			new TokenToPortOption("gainCoinDouble", gameBoard.liverpool.portOne),
 			new TokenToPortOption("drawAndDiscardCardDouble", gameBoard.liverpool.portOne),
 			new TokenToPortOption("grainForCertificateAndGoldSingle", gameBoard.liverpool.portOne),
@@ -43,7 +42,7 @@ describe("Token To Port Options", () => {
 		one.upgrades.revertTrainForCardRemovalDouble = UpgradeType.UPGRADED
 		one.upgrades.certificateUpgrade = UpgradeType.UPGRADED
 		one.upgrades.strengthUpgradeOne = UpgradeType.UPGRADED
-		deepEqual(new TokenToPortOptions(UpgradeType.BLACK, gameBoard.liverpool.portOne).resolve(gameBoard, one), [
+		expect(new TokenToPortOptions(UpgradeType.BLACK, gameBoard.liverpool.portOne).resolve(gameBoard, one)).toEqual([
 			new TokenToPortOption("movementUpgradeOne", gameBoard.liverpool.portOne),
 			new TokenToPortOption("movementUpgradeTwo", gameBoard.liverpool.portOne),
 			new TokenToPortOption("handLimitUpgradeOne", gameBoard.liverpool.portOne),
@@ -54,7 +53,7 @@ describe("Token To Port Options", () => {
 
 	it("should present available white upgrades when choosing to upgrade a white token", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
-		deepEqual(new TokenToPortOptions(UpgradeType.WHITE, gameBoard.liverpool.portOne).resolve(gameBoard, one), [
+		expect(new TokenToPortOptions(UpgradeType.WHITE, gameBoard.liverpool.portOne).resolve(gameBoard, one)).toEqual([
 			new TokenToPortOption("gainCoinDouble", gameBoard.liverpool.portOne),
 			new TokenToPortOption("drawAndDiscardCardDouble", gameBoard.liverpool.portOne),
 			new TokenToPortOption("grainForCertificateAndGoldSingle", gameBoard.liverpool.portOne),

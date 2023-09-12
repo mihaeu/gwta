@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { NeutralBuildingC } from "../../src/buildings/neutralBuildingC.js"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
@@ -10,7 +9,7 @@ describe("Neutral Building C", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		const neutralBuildingC = new NeutralBuildingC()
 		const availableActions = neutralBuildingC.options(gameBoard, one)
-		deepEqual(availableActions, [new MoveTrainOptions(1), new DrawObjectiveCardOption()])
+		expect(availableActions).toEqual([new MoveTrainOptions(1), new DrawObjectiveCardOption()])
 	})
 
 	it("should have only move train action if no objective cards are available", () => {
@@ -18,6 +17,6 @@ describe("Neutral Building C", () => {
 		gameBoard.objectiveCards.splice(0, gameBoard.objectiveCards.length)
 
 		const neutralBuildingC = new NeutralBuildingC()
-		deepEqual(neutralBuildingC.options(gameBoard, one), [new MoveTrainOptions(1)])
+		expect(neutralBuildingC.options(gameBoard, one)).toEqual([new MoveTrainOptions(1)])
 	})
 })

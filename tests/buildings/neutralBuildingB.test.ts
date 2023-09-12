@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { NeutralBuildingB } from "../../src/buildings/neutralBuildingB.js"
 import { Patagonico } from "../../src/cards.js"
 import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
@@ -13,12 +12,12 @@ describe("Neutral Building B", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.handCards.push(new Patagonico())
 		const availableActions = neutralBuildingB.options(gameBoard, one)
-		deepEqual(availableActions, [new CostBenefitCombinedOptions(new DiscardCardOptions(new Patagonico()), new GainCoinOption(2))])
+		expect(availableActions).toEqual([new CostBenefitCombinedOptions(new DiscardCardOptions(new Patagonico()), new GainCoinOption(2))])
 	})
 
 	it("should not list options if player has no Patagonico on their hand and no coins", () => {
 		const neutralBuildingB = new NeutralBuildingB()
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
-		deepEqual(neutralBuildingB.options(gameBoard, one), [])
+		expect(neutralBuildingB.options(gameBoard, one)).toHaveLength(0)
 	})
 })

@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { NeutralBuildingD } from "../../src/buildings/neutralBuildingD.js"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
@@ -15,7 +14,7 @@ describe("Neutral Building D", () => {
 		one.handCards.push(new Serrano())
 
 		const neutralBuildingD = new NeutralBuildingD()
-		deepEqual(neutralBuildingD.options(gameBoard, one), [
+		expect(neutralBuildingD.options(gameBoard, one)).toEqual([
 			new MoveTrainOptions(),
 			new CostBenefitCombinedOptions(new DiscardTwoIdenticalCardsOptions(), new GainCoinOption(2)),
 		])
@@ -27,6 +26,6 @@ describe("Neutral Building D", () => {
 		one.handCards.push(new Patagonico())
 
 		const neutralBuildingD = new NeutralBuildingD()
-		deepEqual(neutralBuildingD.options(gameBoard, one), [new MoveTrainOptions()])
+		expect(neutralBuildingD.options(gameBoard, one)).toEqual([new MoveTrainOptions()])
 	})
 })

@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { DiscardTwoIdenticalCardsOptions } from "../../src/actions/discardTwoIdenticalCardsOptions.js"
 import { CompoundOption } from "../../src/options/compoundOption.js"
@@ -13,7 +12,7 @@ describe("Discard Two Identical Cards Options", () => {
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new AberdeenAngus(7))
-		deepEqual(new DiscardTwoIdenticalCardsOptions().resolve(gameBoard, one), [
+		expect(new DiscardTwoIdenticalCardsOptions().resolve(gameBoard, one)).toEqual([
 			new CompoundOption(new DiscardCardOption(new AberdeenAngus(7)), new DiscardCardOption(new AberdeenAngus(7))),
 		])
 	})
@@ -24,7 +23,7 @@ describe("Discard Two Identical Cards Options", () => {
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new Patagonico())
-		deepEqual(new DiscardTwoIdenticalCardsOptions().resolve(gameBoard, one), [
+		expect(new DiscardTwoIdenticalCardsOptions().resolve(gameBoard, one)).toEqual([
 			new CompoundOption(new DiscardCardOption(new AberdeenAngus(7)), new DiscardCardOption(new AberdeenAngus(7))),
 			new CompoundOption(new DiscardCardOption(new Patagonico()), new DiscardCardOption(new Patagonico())),
 		])

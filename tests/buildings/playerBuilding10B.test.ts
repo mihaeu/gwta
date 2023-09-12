@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import { PlayerBuilding10B } from "../../src/buildings/playerBuilding10B.js"
 import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
@@ -13,12 +12,12 @@ describe("Player Building 10B", () => {
 	const playerBuildingOfPlayerOne = gameBoard.playerBuildings(one)[0]
 
 	it("should not list options on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
 	it("should be allowed to get all actions if player is owner", () => {
 		one.handCards.push(new Niata())
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
 			new GainCoinOption(3),
 			new CostBenefitCombinedOptions(new DiscardCardOptions(new AnyCowCard()), new TakeCardFromCowMarketOptions()),
 		])

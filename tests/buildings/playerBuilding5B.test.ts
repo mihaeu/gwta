@@ -1,5 +1,4 @@
-import { describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { describe, expect, it } from "bun:test"
 import { PlayerBuilding5B } from "../../src/buildings/playerBuilding5B.js"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import { DoubleAuxiliaryOptions } from "../../src/actions/doubleAuxiliaryOptions.js"
@@ -12,11 +11,11 @@ describe("Player Building 5B", () => {
 	const playerBuildingOfPlayerOne = gameBoard.playerBuildings(one)[0]
 
 	it("should not list actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
 	it("should get only double auxiliary option if there are no farmers on the player board", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new DoubleAuxiliaryOptions()])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new DoubleAuxiliaryOptions()])
 	})
 
 	it("should get gold action for each set of 4 different workers on the player board", () => {
@@ -28,6 +27,6 @@ describe("Player Building 5B", () => {
 		one.hireWorker(new Machinist())
 		one.farmers.push(new YellowFarmer(HandColor.GREEN, 7))
 		one.farmers.push(new YellowFarmer(HandColor.BLACK, 5))
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new DoubleAuxiliaryOptions(), new GainCoinOption(12)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new DoubleAuxiliaryOptions(), new GainCoinOption(12)])
 	})
 })

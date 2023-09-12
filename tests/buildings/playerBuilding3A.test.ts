@@ -1,5 +1,4 @@
-import { beforeEach, describe, it } from "bun:test"
-import { deepEqual } from "node:assert"
+import { beforeEach, describe, expect, it } from "bun:test"
 import {
 	gameBoardWithTwoPlayers,
 	gameBoardWithTwoPlayersAndBuildings,
@@ -30,14 +29,14 @@ describe("Player Building 3A", () => {
 	})
 
 	it("should not list actions on buildings of other players", () => {
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, two), [])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
 	it("should be be able to get exchange token option", () => {
 		removeFarmersFromBoard(gameBoard)
 		const orangeFarmer = new OrangeFarmer(HandColor.BLACK, 8)
 		gameBoard.orangeFarmers[0].addFarmer(orangeFarmer)
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainExchangeTokenOption()])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainExchangeTokenOption()])
 	})
 
 	it("should be be able to a help farmer option if options for that exist", () => {
@@ -45,6 +44,6 @@ describe("Player Building 3A", () => {
 		setUpThreeFarmersWithTotalStrengthOf9(gameBoard)
 		one.handCards.push(new Caracu(3))
 		one.handCards.push(new Caracu(3))
-		deepEqual(playerBuildingOfPlayerOne.options(gameBoard, one), [new GainExchangeTokenOption(), new HelpFarmerOptions(3)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainExchangeTokenOption(), new HelpFarmerOptions(3)])
 	})
 })

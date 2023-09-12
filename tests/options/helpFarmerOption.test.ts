@@ -1,10 +1,8 @@
-import { describe, it } from "bun:test"
+import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers, removeFarmersFromBoard, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
 import { HelpFarmerOption } from "../../src/options/helpFarmerOption.js"
 import { Carpenter, Herder } from "../../src/tiles.js"
 import { Caracu, ExhaustionCard, Niata } from "../../src/cards.js"
-import { deepEqual } from "node:assert"
-import { equal } from "node:assert/strict"
 import { HandColor, YellowFarmer } from "../../src/farmer.js"
 
 describe("Help Farmer Option", () => {
@@ -24,11 +22,11 @@ describe("Help Farmer Option", () => {
 		const option = new HelpFarmerOption(farmerLocations, [])
 		option.resolve(gameBoard, one)
 
-		equal(gameBoard.orangeFarmers[0].isEmpty(), true)
-		equal(gameBoard.blueFarmers[0].isEmpty(), true)
-		equal(gameBoard.greenFarmers[0].isEmpty(), true)
-		deepEqual(one["_helpedFarmers"], [orangeFarmer, blueFarmer, greenFarmer])
-		deepEqual(one.discardedCards, [])
+		expect(gameBoard.orangeFarmers[0].isEmpty()).toBeTruthy()
+		expect(gameBoard.blueFarmers[0].isEmpty()).toBeTruthy()
+		expect(gameBoard.greenFarmers[0].isEmpty()).toBeTruthy()
+		expect(one["_helpedFarmers"]).toEqual([orangeFarmer, blueFarmer, greenFarmer])
+		expect(one.discardedCards).toHaveLength(0)
 	})
 
 	it("should add one exhaustion card if two cows were used", () => {
@@ -40,11 +38,11 @@ describe("Help Farmer Option", () => {
 		const option = new HelpFarmerOption(farmerLocations, [new Caracu(3), new Caracu(3)])
 		option.resolve(gameBoard, one)
 
-		equal(gameBoard.orangeFarmers[0].isEmpty(), true)
-		equal(gameBoard.blueFarmers[0].isEmpty(), true)
-		equal(gameBoard.greenFarmers[0].isEmpty(), true)
-		deepEqual(one["_helpedFarmers"], [orangeFarmer, blueFarmer, greenFarmer])
-		deepEqual(one.discardedCards, [new Caracu(3), new Caracu(3), new ExhaustionCard()])
+		expect(gameBoard.orangeFarmers[0].isEmpty()).toBeTruthy()
+		expect(gameBoard.blueFarmers[0].isEmpty()).toBeTruthy()
+		expect(gameBoard.greenFarmers[0].isEmpty()).toBeTruthy()
+		expect(one["_helpedFarmers"]).toEqual([orangeFarmer, blueFarmer, greenFarmer])
+		expect(one.discardedCards).toEqual([new Caracu(3), new Caracu(3), new ExhaustionCard()])
 	})
 
 	it("should add two exhaustion cards if three cows were used", () => {
@@ -56,11 +54,11 @@ describe("Help Farmer Option", () => {
 		const option = new HelpFarmerOption(farmerLocations, [new Caracu(3), new Caracu(3), new Niata()])
 		option.resolve(gameBoard, one)
 
-		equal(gameBoard.orangeFarmers[0].isEmpty(), true)
-		equal(gameBoard.blueFarmers[0].isEmpty(), true)
-		equal(gameBoard.greenFarmers[0].isEmpty(), true)
-		deepEqual(one["_helpedFarmers"], [orangeFarmer, blueFarmer, greenFarmer])
-		deepEqual(one.discardedCards, [new Caracu(3), new Caracu(3), new Niata(), new ExhaustionCard(), new ExhaustionCard()])
+		expect(gameBoard.orangeFarmers[0].isEmpty()).toBeTruthy()
+		expect(gameBoard.blueFarmers[0].isEmpty()).toBeTruthy()
+		expect(gameBoard.greenFarmers[0].isEmpty()).toBeTruthy()
+		expect(one["_helpedFarmers"]).toEqual([orangeFarmer, blueFarmer, greenFarmer])
+		expect(one.discardedCards).toEqual([new Caracu(3), new Caracu(3), new Niata(), new ExhaustionCard(), new ExhaustionCard()])
 	})
 
 	it("should receive gold from helping farmers", () => {
@@ -77,8 +75,8 @@ describe("Help Farmer Option", () => {
 		const option = new HelpFarmerOption(farmerLocations, [new Caracu(3), new Caracu(3), new Niata()])
 		option.resolve(gameBoard, one)
 
-		deepEqual(one["_helpedFarmers"], [yellowFarmer1, yellowFarmer2])
-		deepEqual(one.coins, 11)
-		deepEqual(one.discardedCards, [new Caracu(3), new Caracu(3), new Niata(), new ExhaustionCard(), new ExhaustionCard()])
+		expect(one["_helpedFarmers"]).toEqual([yellowFarmer1, yellowFarmer2])
+		expect(one.coins).toBe(11)
+		expect(one.discardedCards).toEqual([new Caracu(3), new Caracu(3), new Niata(), new ExhaustionCard(), new ExhaustionCard()])
 	})
 })
