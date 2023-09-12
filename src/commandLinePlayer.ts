@@ -1,4 +1,3 @@
-import { Node } from "./nodes.js"
 import Player from "./player.js"
 import { Option } from "./options/option.js"
 import * as readline from "node:readline/promises"
@@ -7,8 +6,8 @@ import { stdin as input, stdout as output } from "node:process"
 export default class CommandLinePlayer extends Player {
 	private readonly readline: readline.Interface
 
-	constructor(name: string, location: Node) {
-		super(name, location)
+	constructor(name: string) {
+		super(name)
 		this.readline = readline.createInterface({ input, output })
 	}
 

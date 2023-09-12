@@ -1,4 +1,4 @@
-import { Node } from "./nodes.js"
+import { Node, Start } from "./nodes.js"
 import { Carpenter, Herder, Machinist, Worker } from "./tiles.js"
 import { Card, ExhaustionCard, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./cards.js"
 import arrayShuffle from "array-shuffle"
@@ -59,7 +59,7 @@ export default abstract class Player {
 	public static readonly STARTING_COINS = 7
 
 	protected readonly _name: string
-	protected _location: Node
+	protected _location: Node = new Start()
 	protected turn: number = 0
 	private _coins = 0
 	private _moveDistance: number = 3
@@ -114,9 +114,8 @@ export default abstract class Player {
 		strengthUpgradeTwo: UpgradeType.BLACK,
 	}
 
-	protected constructor(name: string, location: Node) {
+	protected constructor(name: string) {
 		this._name = name
-		this._location = location
 		this.cards = arrayShuffle(Player.startCards)
 	}
 

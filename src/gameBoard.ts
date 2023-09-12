@@ -80,7 +80,7 @@ import { MoveTrainOptions } from "./actions/moveTrainOptions.js"
 import { Port, PortSpace } from "./port/port.js"
 
 export default class GameBoard {
-	public static readonly START = new Start()
+	private readonly startLocation = new Start()
 	private neutralBuilding1 = new NeutralBuilding1(new NeutralBuildingA())
 	private neutralBuilding2 = new NeutralBuilding2(new NeutralBuildingB())
 	private neutralBuilding3 = new NeutralBuilding3(new NeutralBuildingC())
@@ -137,6 +137,16 @@ export default class GameBoard {
 	private buenosAiresExit5 = new BuenosAiresExit5(13)
 	private buenosAiresExit6 = new BuenosAiresExit6(17)
 	private buenosAiresExit7 = new BuenosAiresExit7(23)
+	public readonly neutralBuildings = [
+		this.neutralBuilding1,
+		this.neutralBuilding2,
+		this.neutralBuilding3,
+		this.neutralBuilding4,
+		this.neutralBuilding5,
+		this.neutralBuilding6,
+		this.neutralBuilding7,
+		this.neutralBuilding8,
+	]
 	private locations: Node[] = [
 		this.neutralBuilding1,
 		this.neutralBuilding2,
@@ -479,7 +489,7 @@ export default class GameBoard {
 	}
 
 	constructor(private readonly _players: Player[]) {
-		GameBoard.START.addChild(this.neutralBuilding1)
+		this.startLocation.addChild(this.neutralBuilding1)
 		this.neutralBuilding1.addChild(this.basicBuilding1)
 		this.neutralBuilding1.addChild(this.greenFarmer1)
 		this.basicBuilding1.addChild(this.grainBuilding1)
@@ -543,13 +553,13 @@ export default class GameBoard {
 		this.yellowFarmer1.addChild(this.buenosAiresExit5)
 		this.neutralBuilding7.addChild(this.buenosAiresExit6)
 		this.neutralBuilding6.addChild(this.buenosAiresExit7)
-		this.buenosAiresExit1.addChild(GameBoard.START)
-		this.buenosAiresExit2.addChild(GameBoard.START)
-		this.buenosAiresExit3.addChild(GameBoard.START)
-		this.buenosAiresExit4.addChild(GameBoard.START)
-		this.buenosAiresExit5.addChild(GameBoard.START)
-		this.buenosAiresExit6.addChild(GameBoard.START)
-		this.buenosAiresExit7.addChild(GameBoard.START)
+		this.buenosAiresExit1.addChild(this.startLocation)
+		this.buenosAiresExit2.addChild(this.startLocation)
+		this.buenosAiresExit3.addChild(this.startLocation)
+		this.buenosAiresExit4.addChild(this.startLocation)
+		this.buenosAiresExit5.addChild(this.startLocation)
+		this.buenosAiresExit6.addChild(this.startLocation)
+		this.buenosAiresExit7.addChild(this.startLocation)
 
 		this.seedPlayers()
 		this.seedRailroad()
@@ -562,32 +572,25 @@ export default class GameBoard {
 		this.foresightSpacesC = this.cTiles.splice(0, 2)
 	}
 
-	private seedPorts() {
-		this.leHavre.portOne = [...this._players]
-	}
-
-	private seedRailroad() {
-		this.railroadTrackWithoutStationMasterSpaces[0] = this.players
-	}
-
 	private seedPlayers() {
 		const playerBuildings = new Array(10).fill(null).map((_) => Math.round(Math.random()))
-		this.players.forEach((player, index) => {
+		this._players.forEach((player, index) => {
 			player.gainCoins(Player.STARTING_COINS + index)
 			player.drawCards(player.cardLimit())
 			player.setStartBuildings(playerBuildings)
 		})
 	}
 
-	private seedCowMarket() {
-		this.cowMarket = this.cowCards.splice(0, GameBoard.COW_COUNT_PER_PLAYER[this._players.length])
+	private seedRailroad() {
+		this.railroadTrackWithoutStationMasterSpaces[0] = this.players
 	}
 
-	private seedJobMarket() {
-		for (let i = 0; i <= 2 * this._players.length; ++i) {
-			this.jobMarket.push(this.bTiles.pop() as Worker)
-		}
-		this.jobMarket.push(new JobMarketToken())
+	private seedPorts() {
+		this.leHavre.portOne = [...this._players]
+	}
+
+	private seedCowMarket() {
+		this.cowMarket = this.cowCards.splice(0, GameBoard.COW_COUNT_PER_PLAYER[this._players.length])
 	}
 
 	private seedFarmers() {
@@ -607,6 +610,13 @@ export default class GameBoard {
 			}
 			emptyFarmerTile.addFarmer(farmer)
 		})
+	}
+
+	private seedJobMarket() {
+		for (let i = 0; i <= 2 * this._players.length; ++i) {
+			this.jobMarket.push(this.bTiles.pop() as Worker)
+		}
+		this.jobMarket.push(new JobMarketToken())
 	}
 
 	nextPlayer(): Player {

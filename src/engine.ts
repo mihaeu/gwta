@@ -21,9 +21,20 @@ export default class Engine {
 	}
 
 	async play() {
+		await this.firstRound()
 		while (!this.isGameOver()) {
 			const currentPlayer = this.gameBoard.nextPlayer()
 			await this.phaseA(currentPlayer)
+			await this.phaseB(currentPlayer)
+			await this.phaseC(currentPlayer)
+		}
+	}
+
+	private async firstRound() {
+		for (const currentPlayer of this.gameBoard.players) {
+			const options = this.gameBoard.neutralBuildings.map((neutralBuildingLocation) => new MoveOption(neutralBuildingLocation))
+			const chosenOption = await currentPlayer.chooseOption(options)
+			chosenOption.resolve(this.gameBoard, currentPlayer)
 			await this.phaseB(currentPlayer)
 			await this.phaseC(currentPlayer)
 		}

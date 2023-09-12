@@ -1,10 +1,9 @@
 import Player from "./player.js"
 import { Option } from "./options/option.js"
-import GameBoard from "./gameBoard.js"
 
 export default class RandomPlayer extends Player {
 	constructor(name: string) {
-		super(name, GameBoard.START)
+		super(name)
 	}
 
 	chooseOption(options: Option[]): Promise<Option> {

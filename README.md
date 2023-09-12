@@ -93,7 +93,7 @@ end
     - ❌ Discard start cards > 4
   - ⚠️ Game end
     - ✅ The round is finished after the job market token reaches the end
-    - ❌ End game scoring
+    - ⚠️ End game scoring
   - ⚠️ Certificates
     - ✅ player board
     - ❌ buenos aires
