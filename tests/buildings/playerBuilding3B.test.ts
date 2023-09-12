@@ -1,6 +1,10 @@
-import { describe, it } from "node:test"
+import { describe, it } from "bun:test"
 import { deepEqual } from "node:assert"
-import { gameBoardWithTwoPlayers, gameBoardWithTwoPlayersAndBuildings, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
+import {
+	gameBoardWithTwoPlayers,
+	gameBoardWithTwoPlayersAndBuildings,
+	setUpThreeFarmersWithTotalStrengthOf9,
+} from "../testUtils.js"
 import { Objective } from "../../src/cards.js"
 import { PlayerBuilding3B } from "../../src/buildings/playerBuilding3B.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"

@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { describe, it } from "bun:test"
 import { gameBoardWithTwoPlayers, removeFarmersFromBoard, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
 import { HelpFarmerOption } from "../../src/options/helpFarmerOption.js"
 import { Carpenter, Herder } from "../../src/tiles.js"

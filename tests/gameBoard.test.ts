@@ -1,5 +1,5 @@
 import GameBoard from "../src/gameBoard.js"
-import { describe, it } from "node:test"
+import { describe, it } from "bun:test"
 import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "../src/tiles.js"
 import RandomPlayer from "../src/randomPlayer.js"
 import { strictEqual } from "node:assert/strict"

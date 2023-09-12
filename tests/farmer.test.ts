@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { describe, it } from "bun:test"
 import { gameBoardWithTwoPlayers, removeFarmersFromBoard } from "./testUtils.js"
 import { BlueFarmer, HandColor } from "../src/farmer.js"
 import { deepEqual } from "node:assert"

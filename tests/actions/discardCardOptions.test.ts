@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { describe, it } from "bun:test"
 import { deepEqual } from "node:assert"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AberdeenAngus, AnyCard, AnyCowCard, HolandoArgentino, Niata, Objective, Patagonico } from "../../src/cards.js"

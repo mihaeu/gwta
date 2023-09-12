@@ -1,4 +1,4 @@
-import { beforeEach, describe, it } from "node:test"
+import { beforeEach, describe, it } from "bun:test"
 import { deepEqual } from "node:assert"
 import {
 	gameBoardWithTwoPlayers,

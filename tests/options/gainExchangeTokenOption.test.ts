@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { describe, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { equal } from "node:assert/strict"
 import { GainExchangeTokenOption } from "../../src/options/gainExchangeTokenOption.js"

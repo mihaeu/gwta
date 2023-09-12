@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { describe, it } from "bun:test"
 import { deepEqual } from "node:assert"
 import { AberdeenAngus, HolandoArgentino, Niata, Patagonico, Serrano } from "../../src/cards.js"
 import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"

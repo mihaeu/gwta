@@ -1,4 +1,4 @@
-import { describe, it } from "node:test"
+import { describe, it } from "bun:test"
 import { BuildOptions } from "../../src/actions/buildOptions.js"
 import GameBoard from "../../src/gameBoard.js"
 import RandomPlayer from "../../src/randomPlayer.js"

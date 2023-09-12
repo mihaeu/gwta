@@ -1,6 +1,10 @@
-import { beforeEach, describe, it } from "node:test"
+import { beforeEach, describe, it } from "bun:test"
 import { deepEqual } from "node:assert"
-import { gameBoardWithTwoPlayersAndBuildings, removeFarmersFromBoard, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
+import {
+	gameBoardWithTwoPlayersAndBuildings,
+	removeFarmersFromBoard,
+	setUpThreeFarmersWithTotalStrengthOf9,
+} from "../testUtils.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player from "../../src/player.js"
 import { PlayerBuildingNode } from "../../src/nodes.js"

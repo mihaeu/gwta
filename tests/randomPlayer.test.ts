@@ -1,6 +1,6 @@
 import RandomPlayer from "../src/randomPlayer.js"
 import { Carpenter, Herder, Machinist } from "../src/tiles.js"
-import { beforeEach, describe, it } from "node:test"
+import { beforeEach, describe, it } from "bun:test"
 import { equal, fail, ok } from "node:assert/strict"
 import Player, { UpgradeType } from "../src/player.js"
 
