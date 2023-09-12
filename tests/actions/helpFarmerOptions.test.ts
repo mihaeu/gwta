@@ -1,3 +1,4 @@
+// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers, removeFarmersFromBoard } from "../testUtils.js"
 import { HelpFarmerOptions } from "../../src/actions/helpFarmerOptions.js"

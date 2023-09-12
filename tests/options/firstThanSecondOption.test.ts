@@ -1,3 +1,4 @@
+// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { AberdeenAngus, HolandoArgentino, Niata, Patagonico, Serrano } from "../../src/cards.js"
 import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"

@@ -4,6 +4,7 @@ import { PlayerBuildingNode } from "../src/nodes.js"
 
 import { PlayerBuilding } from "../src/buildings/playerBuilding.js"
 import { BlueFarmer, GreenFarmer, HandColor, OrangeFarmer } from "../src/farmer.js"
+// @ts-ignore
 import { expect } from "bun:test"
 
 const playerBuildings = new Array(10).fill(0)

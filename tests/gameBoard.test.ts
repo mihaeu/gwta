@@ -1,4 +1,5 @@
 import GameBoard from "../src/gameBoard.js"
+// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "../src/tiles.js"
 import RandomPlayer from "../src/randomPlayer.js"

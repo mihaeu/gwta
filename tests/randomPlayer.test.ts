@@ -1,5 +1,6 @@
 import RandomPlayer from "../src/randomPlayer.js"
 import { Carpenter, Herder, Machinist } from "../src/tiles.js"
+// @ts-ignore
 import { beforeEach, describe, expect, it } from "bun:test"
 import Player, { UpgradeType } from "../src/player.js"
 
