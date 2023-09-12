@@ -11,21 +11,22 @@ import { NeutralBuildingC } from "../../src/buildings/neutralBuildingC.js"
 describe("Move Options", () => {
 	it("should present all location for player", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.location = gameBoard.startLocation
 		removeFarmersFromBoard(gameBoard)
 
 		const options = new MoveOptions().resolve(gameBoard, one)
-		expect(
-			options.toString()).toEqual(
-			[
-				new MoveOption(new NeutralBuilding1(new NeutralBuildingA())),
-				new MoveOption(new NeutralBuilding2(new NeutralBuildingB())),
-				new MoveOption(new NeutralBuilding3(new NeutralBuildingC())),
-			].toString(),
-		)
+		const actual = options.toString()
+		const expected = [
+			new MoveOption(new NeutralBuilding1(new NeutralBuildingA())),
+			new MoveOption(new NeutralBuilding2(new NeutralBuildingB())),
+			new MoveOption(new NeutralBuilding3(new NeutralBuildingC())),
+		].toString()
+		expect(actual).toEqual(expected)
 	})
 
 	it("should present all location for player within a certain distance", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.location = gameBoard.startLocation
 
 		const options = new MoveOptions(1).resolve(gameBoard, one)
 		expect(options.toString()).toEqual([new MoveOption(new NeutralBuilding1(new NeutralBuildingA()))].toString())

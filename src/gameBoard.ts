@@ -80,7 +80,7 @@ import { MoveTrainOptions } from "./actions/moveTrainOptions.js"
 import { Port, PortSpace } from "./port/port.js"
 
 export default class GameBoard {
-	private readonly startLocation = new Start()
+	public readonly startLocation = new Start()
 	private neutralBuilding1 = new NeutralBuilding1(new NeutralBuildingA())
 	private neutralBuilding2 = new NeutralBuilding2(new NeutralBuildingB())
 	private neutralBuilding3 = new NeutralBuilding3(new NeutralBuildingC())
