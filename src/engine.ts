@@ -112,10 +112,11 @@ export default class Engine {
 	}
 
 	async phaseC(currentPlayer: Player) {
-		if (currentPlayer.handCards.length < Player.STARTING_CARD_LIMIT) {
-			currentPlayer.drawCards(Player.STARTING_CARD_LIMIT - currentPlayer.handCards.length)
-		} else if (currentPlayer.handCards.length > Player.STARTING_CARD_LIMIT) {
-			const cardsToDiscard = currentPlayer.handCards.length - Player.STARTING_CARD_LIMIT
+		const cardLimit = currentPlayer.cardLimit()
+		if (currentPlayer.handCards.length < cardLimit) {
+			currentPlayer.drawCards(cardLimit - currentPlayer.handCards.length)
+		} else if (currentPlayer.handCards.length > cardLimit) {
+			const cardsToDiscard = currentPlayer.handCards.length - cardLimit
 			console.log(
 				`Player ${currentPlayer} has ${currentPlayer.handCards.length} card${
 					currentPlayer.handCards.length !== 1 ? "s" : ""

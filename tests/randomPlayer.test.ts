@@ -48,7 +48,9 @@ describe("Random Player", () => {
 		})
 
 		it("should not be able to pay more grain than available", () => {
-			expect(() => {testPlayer.useGrain(1)}).toThrow()
+			expect(() => {
+				testPlayer.useGrain(1)
+			}).toThrow()
 		})
 	})
 
@@ -91,6 +93,23 @@ describe("Random Player", () => {
 			testPlayer.upgrades.strengthUpgradeOne = UpgradeType.UPGRADED
 			testPlayer.upgrades.strengthUpgradeTwo = UpgradeType.UPGRADED
 			expect(testPlayer.strength()).toBe(3)
+		})
+	})
+
+	describe("card limit", () => {
+		it("should have card limit of 4 after start", () => {
+			expect(testPlayer.cardLimit()).toBe(4)
+		})
+
+		it("should have card limit of 5 after first upgrade", () => {
+			testPlayer.upgrades.handLimitUpgradeOne = UpgradeType.UPGRADED
+			expect(testPlayer.cardLimit()).toBe(5)
+		})
+
+		it("should have card limit of 6 after first and second upgrade", () => {
+			testPlayer.upgrades.handLimitUpgradeOne = UpgradeType.UPGRADED
+			testPlayer.upgrades.handLimitUpgradeTwo = UpgradeType.UPGRADED
+			expect(testPlayer.cardLimit()).toBe(6)
 		})
 	})
 })

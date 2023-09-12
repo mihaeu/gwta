@@ -40,7 +40,7 @@ end
 
 ## Roadmap
 
-- ⚠️ Buildings
+- ✅️ Buildings
   - ✅️ Neutral Building A
   - ✅ Neutral Building B
   - ✅ Neutral Building C

@@ -54,7 +54,7 @@ export type Upgrades = {
 }
 
 export default abstract class Player {
-	public static readonly STARTING_CARD_LIMIT = 4
+	private static readonly STARTING_CARD_LIMIT = 4
 	public static readonly MAX_GRAIN = 8
 	public static readonly STARTING_COINS = 7
 
@@ -309,6 +309,18 @@ export default abstract class Player {
 
 	equals(other: Player): boolean {
 		return this._name === other._name
+	}
+
+	cardLimit(): number {
+		if (this.upgrades.handLimitUpgradeOne === UpgradeType.UPGRADED && this.upgrades.handLimitUpgradeTwo === UpgradeType.UPGRADED) {
+			return Player.STARTING_CARD_LIMIT + 2
+		}
+
+		if (this.upgrades.handLimitUpgradeOne === UpgradeType.UPGRADED || this.upgrades.handLimitUpgradeTwo === UpgradeType.UPGRADED) {
+			return Player.STARTING_CARD_LIMIT + 1
+		}
+
+		return Player.STARTING_CARD_LIMIT
 	}
 
 	abstract chooseOption(options: Option[]): Promise<Option>
