@@ -7,8 +7,6 @@ import { BlueFarmer, GreenFarmer, HandColor, OrangeFarmer } from "../src/farmer.
 // @ts-ignore
 import { expect } from "bun:test"
 
-const playerBuildings = new Array(10).fill(0)
-
 export const gameBoardWithTwoPlayers = () => {
 	const one = new RandomPlayer("One")
 	const two = new RandomPlayer("Two")
