@@ -551,7 +551,7 @@ export default class GameBoard {
 		this.buenosAiresExit6.addChild(GameBoard.START)
 		this.buenosAiresExit7.addChild(GameBoard.START)
 
-		this.leHavre.portOne = _players
+		this.leHavre.portOne = [..._players]
 		this.seedCowMarket()
 		this.seedFarmers()
 		this.seedJobMarket()
