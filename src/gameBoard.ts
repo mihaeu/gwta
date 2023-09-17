@@ -372,7 +372,7 @@ export default class GameBoard {
 	])
 	public static readonly COW_COUNT_PER_PLAYER = [9, 9, 9, 12, 15]
 	public cowMarket: CowCard[] = []
-	public railroadTrackWithoutStationMasterSpaces = new Array<Player[]>(32)
+	public railroadTrackWithoutStationMasterSpaces = new Array<Player[]>(32).fill([])
 	private jobMarketCostPerPlayerCount = [
 		[6, 7, 6, 8, 5, 8, 6, 8, 9, 6, 4], // 0 players
 		[6, 7, 6, 8, 5, 8, 6, 8, 9, 6, 4], // 1 player

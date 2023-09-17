@@ -70,4 +70,15 @@ describe("Auxiliary Action Options", () => {
 			new CostBenefitCombinedOptions(new MoveTrainOptions(-1), new RemoveCardOption(new AnyCard())),
 		])
 	})
+
+	it("should not be able to revert train if train has not advanced enough", () => {
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		gameBoard.railroadTrackWithoutStationMasterSpaces[0] = [one]
+		one.pay(7)
+		one.upgrades.revertTrainForCardRemovalSingle = UpgradeType.UPGRADED
+		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
+			new GainCoinOption(1),
+			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
+		])
+	})
 })

@@ -85,9 +85,9 @@ end
     - ✅ Extra delivery
     - ❌ Refill cow market
     - ❌ Sail to ports
-  - ⚠️ Actions
-    - ⚠️ Auxiliary
-    - ⚠️ Double Auxiliary
+  - ✅ Actions
+    - ✅ Auxiliary
+    - ✅ Double Auxiliary
   - ❌ Card and movement limit
   - ⚠️ Game seeing
     - ❌ Discard start cards > 4

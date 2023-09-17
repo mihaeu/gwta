@@ -16,4 +16,18 @@ export class MoveTrainOptions extends Option {
 		}
 		return options
 	}
+
+	static trainHasSpaceToRevert(stepsRequired: number, railroadTrack: Player[][], currentPlayer: Player) {
+		const trainPosition = railroadTrack.findIndex((players) => (players ?? []).some((player) => player.equals(currentPlayer)))
+		let stepsTaken = 0
+		for (let currentTrainPosition = trainPosition - 1; currentTrainPosition >= 0; --currentTrainPosition) {
+			if (railroadTrack[currentTrainPosition].length === 0) {
+				++stepsTaken
+			}
+			if (stepsTaken >= stepsRequired) {
+				return true
+			}
+		}
+		return false
+	}
 }

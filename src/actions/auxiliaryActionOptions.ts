@@ -36,10 +36,10 @@ export class AuxiliaryActionOptions extends Option {
 			upgrades.goldForTrainSingle && options.push(new FirstThanSecondsOption(new GainCoinOption(-1), new MoveTrainOptions(1)))
 		}
 
-		const trainHasSpaceToRevert = !(gameBoard.railroadTrackWithoutStationMasterSpaces[0] ?? []).some((player) =>
-			player.equals(currentPlayer),
-		)
-		if (upgrades.revertTrainForCardRemovalSingle === UpgradeType.UPGRADED && trainHasSpaceToRevert) {
+		if (
+			upgrades.revertTrainForCardRemovalSingle === UpgradeType.UPGRADED &&
+			MoveTrainOptions.trainHasSpaceToRevert(1, gameBoard.railroadTrackWithoutStationMasterSpaces, currentPlayer)
+		) {
 			options.push(new CostBenefitCombinedOptions(new MoveTrainOptions(-1), new RemoveCardOption(new AnyCard())))
 		}
 

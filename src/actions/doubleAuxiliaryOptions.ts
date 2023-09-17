@@ -34,7 +34,10 @@ export class DoubleAuxiliaryOptions extends Option {
 			options.push(new FirstThanSecondsOption(new GainCoinOption(-2), new MoveTrainOptions(2)))
 		}
 
-		if (this.isRevertTrainForCardRemovalFullyUpgraded(upgrades) && this.trainHasSpaceToRevert(gameBoard, currentPlayer)) {
+		if (
+			this.isRevertTrainForCardRemovalFullyUpgraded(upgrades) &&
+			MoveTrainOptions.trainHasSpaceToRevert(2, gameBoard.railroadTrackWithoutStationMasterSpaces, currentPlayer)
+		) {
 			options.push(new CostBenefitCombinedOptions(new MoveTrainOptions(-2), new RemoveCardOptions(new AnyCard(), 2)))
 		}
 
@@ -64,11 +67,5 @@ export class DoubleAuxiliaryOptions extends Option {
 
 	private isGoldForGrainFullyUpgraded(upgrades: Upgrades) {
 		return upgrades.goldForGrainDouble === UpgradeType.UPGRADED && upgrades.goldForGrainSingle === UpgradeType.UPGRADED
-	}
-
-	private trainHasSpaceToRevert(gameBoard: GameBoard, currentPlayer: Player) {
-		return (
-			gameBoard.railroadTrackWithoutStationMasterSpaces.findIndex((players) => players.some((player) => player.equals(currentPlayer))) >= 2
-		)
 	}
 }
