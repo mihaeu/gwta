@@ -13,6 +13,7 @@ import { RemoveCardOption } from "../../src/options/removeCardOption.js"
 import { CompoundOption } from "../../src/options/compoundOption.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
 import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
+import { UpgradeType } from "../../src/player.js"
 
 describe("Auxiliary Action Options", () => {
 	it("should list gain coins and draw card discard card action", () => {
@@ -32,6 +33,8 @@ describe("Auxiliary Action Options", () => {
 		one.discardCards()
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new HolandoArgentino())
+		one.upgrades.goldForTrainSingle = UpgradeType.UPGRADED
+		one.upgrades.goldForGrainSingle = UpgradeType.UPGRADED
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
@@ -47,6 +50,7 @@ describe("Auxiliary Action Options", () => {
 		one.handCards.push(new HolandoArgentino())
 		one.gainGrain(1)
 		one.pay(7)
+		one.upgrades.grainForCertificateAndGoldSingle = UpgradeType.UPGRADED
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
@@ -59,6 +63,7 @@ describe("Auxiliary Action Options", () => {
 		gameBoard.railroadTrackWithoutStationMasterSpaces[0] = []
 		gameBoard.railroadTrackWithoutStationMasterSpaces[1] = [one]
 		one.pay(7)
+		one.upgrades.revertTrainForCardRemovalSingle = UpgradeType.UPGRADED
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
