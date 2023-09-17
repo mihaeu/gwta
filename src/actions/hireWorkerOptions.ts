@@ -16,6 +16,12 @@ export class HireWorkerOptions extends Option {
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const availableWorkers = gameBoard.availableWorkersWithCost()
+		const currentWorkers = {
+			herders: currentPlayer.herders.length,
+			machinists: currentPlayer.machinists.length,
+			carpenters: currentPlayer.carpenters.length,
+			farmers: currentPlayer.farmers.length,
+		}
 		return availableWorkers.reduce((options, [worker, cost], index) => {
 			if (cost + this.modifier <= currentPlayer.coins && worker instanceof Worker) {
 				options.push(new HireWorkerOption(worker, index, cost + this.modifier))
