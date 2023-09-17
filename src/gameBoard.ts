@@ -62,7 +62,7 @@ import {
 	YellowFarmer7,
 } from "./nodes.js"
 import { Carpenter, Herder, JobMarketItem, JobMarketToken, Machinist, Tile, Worker } from "./tiles.js"
-import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, Franqueiro, Objective, Serrano } from "./cards.js"
+import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, ExhaustionCard, Franqueiro, Objective, Serrano } from "./cards.js"
 import Player, { UpgradeType } from "./player.js"
 import { NeutralBuildingA } from "./buildings/neutralBuildingA.js"
 import { NeutralBuildingB } from "./buildings/neutralBuildingB.js"
@@ -655,7 +655,7 @@ export default class GameBoard {
 		return this._players
 	}
 
-	endgameScoring() {
+	endgameScoring(): ScoreCard[] {
 		const score: any[] = []
 		this.players.forEach((player) => {
 			const buildings = this.playerBuildings(player).reduce((sum, playerLocation) => {
@@ -689,10 +689,7 @@ export default class GameBoard {
 				ports,
 				trainStations: 0,
 				helpedFarmers: 0,
-				cowCards: player.handCards
-					.concat(player.discardedCards)
-					.concat(player.cards)
-					.reduce((sum: number, card) => (card instanceof CowCard ? sum + card.victoryPoints : sum), 0),
+				cowCards: this.scoreCowAndExhaustionCards(player),
 				fulfilledObjectiveCards: 0,
 				stationMasters: 0,
 				fifthAndSixthWorkers:
@@ -707,4 +704,26 @@ export default class GameBoard {
 		})
 		return score
 	}
+
+	private scoreCowAndExhaustionCards(player: Player) {
+		const allCards = player.handCards.concat(player.discardedCards).concat(player.cards)
+		return (
+			allCards.reduce((sum: number, card) => (card instanceof CowCard ? sum + card.victoryPoints : sum), 0) -
+			allCards.filter((card) => card instanceof ExhaustionCard).length * 2
+		)
+	}
+}
+
+type ScoreCard = {
+	coins: number
+	buildings: number
+	ports: number
+	trainStations: number
+	helpedFarmers: number
+	cowCards: number
+	fulfilledObjectiveCards: number
+	stationMasters: number
+	fifthAndSixthWorkers: number
+	secondMovementUpgrade: number
+	jobMarketToken: number
 }
