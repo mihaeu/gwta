@@ -576,7 +576,7 @@ export default class GameBoard {
 		const playerBuildings = new Array(10).fill(null).map((_) => Math.round(Math.random()))
 		this._players.forEach((player, index) => {
 			player.gainCoins(Player.STARTING_COINS + index)
-			player.drawCards(player.cardLimit())
+			player.drawCards(player.cardLimit() + index)
 			player.setStartBuildings(playerBuildings)
 		})
 	}

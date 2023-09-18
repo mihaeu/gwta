@@ -35,6 +35,7 @@ export default class Engine {
 			const options = this.gameBoard.neutralBuildings.map((neutralBuildingLocation) => new MoveOption(neutralBuildingLocation))
 			const chosenOption = await currentPlayer.chooseOption(options)
 			chosenOption.resolve(this.gameBoard, currentPlayer)
+			await this.discardExcessCards(currentPlayer, Player.STARTING_CARD_LIMIT)
 			await this.phaseB(currentPlayer)
 			await this.phaseC(currentPlayer)
 		}
@@ -127,21 +128,26 @@ export default class Engine {
 		if (currentPlayer.handCards.length < cardLimit) {
 			currentPlayer.drawCards(cardLimit - currentPlayer.handCards.length)
 		} else if (currentPlayer.handCards.length > cardLimit) {
-			const cardsToDiscard = currentPlayer.handCards.length - cardLimit
-			console.log(
-				`Player ${currentPlayer} has ${currentPlayer.handCards.length} card${
-					currentPlayer.handCards.length !== 1 ? "s" : ""
-				} and needs to discard ${cardsToDiscard} card${cardsToDiscard !== 1 ? "s" : ""}.`,
-			)
-			for (let i = 0; i < cardsToDiscard; ++i) {
-				const availableOptions: Option[] = new DiscardCardOptions(new AnyCard()).resolve(this.gameBoard, currentPlayer)
-				const chosenOption = await currentPlayer.chooseOption(availableOptions)
-				chosenOption.resolve(this.gameBoard, currentPlayer)
-			}
+			await this.discardExcessCards(currentPlayer, cardLimit)
 		}
 
 		currentPlayer.nextTurn()
 		console.info(`Player ${currentPlayer} took their ${ordinal(currentPlayer.turnsTaken())} turn.`)
+	}
+
+	private async discardExcessCards(currentPlayer: Player, cardLimit: number) {
+		const cardsToDiscard = currentPlayer.handCards.length - cardLimit
+		if (cardsToDiscard <= 0) {
+			return
+		}
+		console.log(
+			`Player ${currentPlayer} has ${currentPlayer.handCards.length} card${
+				currentPlayer.handCards.length !== 1 ? "s" : ""
+			} and needs to discard ${cardsToDiscard} card${cardsToDiscard !== 1 ? "s" : ""}.`,
+		)
+		const availableOptions: Option[] = new DiscardCardOptions(new AnyCard(), cardsToDiscard).resolve(this.gameBoard, currentPlayer)
+		const chosenOption = await currentPlayer.chooseOption(availableOptions)
+		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
 	private async buenosAiresStepOne(currentPlayer: Player) {

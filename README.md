@@ -89,8 +89,8 @@ end
     - ✅ Auxiliary
     - ✅ Double Auxiliary
   - ❌ Card and movement limit
-  - ⚠️ Game seeing
-    - ❌ Discard start cards > 4
+  - ✅ Game seeding
+    - ✅ Discard start cards > 4
   - ⚠️ Game end
     - ✅ The round is finished after the job market token reaches the end
     - ⚠️ End game scoring
