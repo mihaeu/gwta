@@ -3,31 +3,53 @@ import GameBoard from "../src/gameBoard.js"
 import { describe, expect, it } from "bun:test"
 import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "../src/tiles.js"
 import RandomPlayer from "../src/randomPlayer.js"
-import { gameBoardWithTwoPlayers } from "./testUtils.js"
+import { gameBoardWithFourPlayers, gameBoardWithThreePlayers, gameBoardWithTwoPlayers } from "./testUtils.js"
 import { AberdeenAngus, ExhaustionCard, Franqueiro, Serrano } from "../src/cards.js"
 
 describe("Game Board", () => {
-	it("should detect all 22 empty building locations at the start of the game", () => {
-		const gameBoard = new GameBoard([new RandomPlayer("Test")])
-		expect(gameBoard.emptyBuildingLocations()).toHaveLength(22)
+	describe("buildings", () => {
+		it("should detect all 22 empty building locations at the start of the game", () => {
+			const gameBoard = new GameBoard([new RandomPlayer("Test")])
+			expect(gameBoard.emptyBuildingLocations()).toHaveLength(22)
+		})
 	})
 
-	it("should detect the cheapest available worker if available", () => {
-		const gameBoard = new GameBoard([new RandomPlayer("Test")])
-		gameBoard.jobMarket = [new Carpenter(), new Carpenter(), new JobMarketToken()]
-		expect(gameBoard.cheapestAvailableWorker()).toBe(6)
-	})
+	describe("workers", () => {
+		it("should detect the cheapest available worker if available", () => {
+			const gameBoard = new GameBoard([new RandomPlayer("Test")])
+			gameBoard.jobMarket = [new Carpenter(), new Carpenter(), new JobMarketToken()]
+			expect(gameBoard.cheapestAvailableWorker()).toBe(6)
+		})
 
-	it("should detect if there all workers are taken", () => {
-		const gameBoard = new GameBoard([new RandomPlayer("Test")])
-		gameBoard.jobMarket = [
-			new TakenJobMarketSlot(),
-			new TakenJobMarketSlot(),
-			new TakenJobMarketSlot(),
-			new TakenJobMarketSlot(),
-			new JobMarketToken(),
-		]
-		expect(gameBoard.cheapestAvailableWorker()).toBe(0)
+		it("should detect if there all workers are taken", () => {
+			const gameBoard = new GameBoard([new RandomPlayer("Test")])
+			gameBoard.jobMarket = [
+				new TakenJobMarketSlot(),
+				new TakenJobMarketSlot(),
+				new TakenJobMarketSlot(),
+				new TakenJobMarketSlot(),
+				new JobMarketToken(),
+			]
+			expect(gameBoard.cheapestAvailableWorker()).toBe(0)
+		})
+
+		it("should seed workers correctly for 2 players", () => {
+			const { gameBoard } = gameBoardWithTwoPlayers()
+			expect(gameBoard.jobMarket).toHaveLength(6)
+			expect(gameBoard.jobMarket[5]).toBeInstanceOf(JobMarketToken)
+		})
+
+		it("should seed workers correctly for 3 players", () => {
+			const { gameBoard } = gameBoardWithThreePlayers()
+			expect(gameBoard.jobMarket).toHaveLength(9)
+			expect(gameBoard.jobMarket[8]).toBeInstanceOf(JobMarketToken)
+		})
+
+		it("should seed workers correctly for 4 players", () => {
+			const { gameBoard } = gameBoardWithFourPlayers()
+			expect(gameBoard.jobMarket).toHaveLength(12)
+			expect(gameBoard.jobMarket[11]).toBeInstanceOf(JobMarketToken)
+		})
 	})
 
 	it("should determine next player", () => {

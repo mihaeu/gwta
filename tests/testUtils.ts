@@ -15,6 +15,25 @@ export const gameBoardWithTwoPlayers = () => {
 	return { gameBoard, one, two }
 }
 
+export const gameBoardWithThreePlayers = () => {
+	const one = new RandomPlayer("One")
+	const two = new RandomPlayer("Two")
+	const three = new RandomPlayer("Three")
+	const gameBoard = new GameBoard([one, two, three])
+
+	return { gameBoard, one, two, three }
+}
+
+export const gameBoardWithFourPlayers = () => {
+	const one = new RandomPlayer("One")
+	const two = new RandomPlayer("Two")
+	const three = new RandomPlayer("Three")
+	const four = new RandomPlayer("Four")
+	const gameBoard = new GameBoard([one, two, three, four])
+
+	return { gameBoard, one, two, three, four }
+}
+
 export const removeFarmersFromBoard = (gameBoard: GameBoard) => {
 	gameBoard.greenFarmers.forEach((farmer) => farmer.helpFarmer())
 	gameBoard.orangeFarmers.forEach((farmer) => farmer.helpFarmer())

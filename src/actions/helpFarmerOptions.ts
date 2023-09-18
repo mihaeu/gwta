@@ -15,6 +15,10 @@ export class HelpFarmerOptions extends Option {
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		if (currentPlayer.helpedFarmers.length >= 6) {
+			return []
+		}
+
 		const farmers: FarmerNode[] = this.farmerLocation
 			? [this.farmerLocation]
 			: gameBoard.yellowFarmers

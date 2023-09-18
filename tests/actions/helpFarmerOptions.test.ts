@@ -45,4 +45,15 @@ describe("Help Farmer Options", () => {
 		expect(one.handCards).toHaveLength(0)
 		expect(new HelpFarmerOptions(4).resolve(gameBoard, one)).toEqual([new HelpFarmerOption([gameBoard.greenFarmers[0]], [])])
 	})
+
+	it("should not present options if player already helped 6 farmers", () => {
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		one.helpFarmer(new BlueFarmer(HandColor.BLACK, 3))
+		one.helpFarmer(new BlueFarmer(HandColor.BLACK, 3))
+		one.helpFarmer(new BlueFarmer(HandColor.BLACK, 3))
+		one.helpFarmer(new BlueFarmer(HandColor.BLACK, 3))
+		one.helpFarmer(new BlueFarmer(HandColor.BLACK, 3))
+		one.helpFarmer(new BlueFarmer(HandColor.BLACK, 3))
+		expect(new HelpFarmerOptions(4).resolve(gameBoard, one)).toBeEmpty()
+	})
 })

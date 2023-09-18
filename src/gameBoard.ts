@@ -613,7 +613,7 @@ export default class GameBoard {
 	}
 
 	private seedJobMarket() {
-		for (let i = 0; i <= 2 * this._players.length; ++i) {
+		for (let i = 0; i < 3 * this._players.length - 1; ++i) {
 			this.jobMarket.push(this.bTiles.pop() as Worker)
 		}
 		this.jobMarket.push(new JobMarketToken())

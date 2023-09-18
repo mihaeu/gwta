@@ -14,10 +14,14 @@ export class Worker implements Tile, JobMarketItem {
 	}
 }
 
-export interface JobMarketItem {}
+export class JobMarketItem {
+	toString(): string {
+		return `${this.constructor.name}`
+	}
+}
 export class Herder extends Worker {}
 export class Carpenter extends Worker {}
 export class Machinist extends Worker {}
-export class JobMarketToken implements JobMarketItem {}
-export class EmptyJobMarketSlot implements JobMarketItem {}
-export class TakenJobMarketSlot implements JobMarketItem {}
+export class JobMarketToken extends JobMarketItem {}
+export class EmptyJobMarketSlot extends JobMarketItem {}
+export class TakenJobMarketSlot extends JobMarketItem {}

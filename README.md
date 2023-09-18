@@ -104,5 +104,5 @@ end
   - ⚠️ Exchange tokens
     - ✅ gain
     - ❌ use as action
-  - ⚠️ Hiring workers
-    - ❌ should not be possible if player already has 6 of a type
+  - ✅ Hiring workers
+    - ✅ should not be possible if player already has 6 of a type
