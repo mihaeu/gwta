@@ -83,7 +83,7 @@ end
   - ✅ Grain
   - ❌ Buenos Aires
     - ✅ Extra delivery
-    - ❌ Refill cow market
+    - ✅ Refill cow market
     - ❌ Sail to ports
   - ✅ Actions
     - ✅ Auxiliary

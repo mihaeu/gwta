@@ -12,6 +12,7 @@ import { PassOption } from "./options/passOption.js"
 import { ordinal } from "./util.js"
 import { MoveOption } from "./options/moveOption.js"
 import { BuenosAiresStepOneOptions } from "./actions/buenosAiresStepOneOptions.js"
+import { TileOption } from "./options/tileOption.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -175,21 +176,46 @@ export default class Engine {
 	private async buenosAiresStepFour(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 4")
 		const options = new TileOptions(this.gameBoard.foresightSpacesA).resolve(this.gameBoard, currentPlayer)
-		const chosenOption = await currentPlayer.chooseOption(options)
+		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
+		this.handleWorkerEvents(chosenOption)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
 	private async buenosAiresStepFive(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 5")
 		const options = new TileOptions(this.gameBoard.foresightSpacesB).resolve(this.gameBoard, currentPlayer)
-		const chosenOption = await currentPlayer.chooseOption(options)
+		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
+		this.handleWorkerEvents(chosenOption)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
 	private async buenosAiresStepSix(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 6")
 		const options = new TileOptions(this.gameBoard.foresightSpacesC).resolve(this.gameBoard, currentPlayer)
-		const chosenOption = await currentPlayer.chooseOption(options)
+		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
+		this.handleWorkerEvents(chosenOption)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
+	}
+
+	private handleWorkerEvents(chosenOption: TileOption) {
+		if (chosenOption.isWorker()) {
+			switch (this.gameBoard.jobMarket.length) {
+				case 5 * this.gameBoard.players.length - 1:
+					// sail yellow
+					break
+				case 6 * this.gameBoard.players.length - 1:
+					this.gameBoard.refillCowMarket()
+					break
+				case 7 * this.gameBoard.players.length - 1:
+					// sail turquoise
+					break
+				case 8 * this.gameBoard.players.length - 1:
+					this.gameBoard.refillCowMarket()
+					break
+				case 9 * this.gameBoard.players.length - 1:
+					// sail purple
+					break
+			}
+		}
 	}
 }

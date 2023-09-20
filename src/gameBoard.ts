@@ -712,6 +712,11 @@ export default class GameBoard {
 			allCards.filter((card) => card instanceof ExhaustionCard).length * 2
 		)
 	}
+
+	refillCowMarket() {
+		const cowsToRefill = GameBoard.COW_COUNT_PER_PLAYER[this._players.length] - this.cowMarket.length
+		this.cowMarket = this.cowMarket.concat(this.cowCards.splice(0, cowsToRefill))
+	}
 }
 
 type ScoreCard = {

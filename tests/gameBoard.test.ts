@@ -86,4 +86,23 @@ describe("Game Board", () => {
 			expect(gameBoard.endgameScoring()[0].cowCards).toBe(10)
 		})
 	})
+
+	describe("cow market", () => {
+		it("should not add anything to full cow market", () => {
+			const { gameBoard } = gameBoardWithTwoPlayers()
+
+			expect(gameBoard.cowMarket).toHaveLength(9)
+			gameBoard.refillCowMarket()
+			expect(gameBoard.cowMarket).toHaveLength(9)
+		})
+
+		it("should refill cow market to maximum for player size", () => {
+			const { gameBoard } = gameBoardWithThreePlayers()
+			gameBoard.cowMarket = new Array(3).fill(new AberdeenAngus(6))
+
+			expect(gameBoard.cowMarket).toHaveLength(3)
+			gameBoard.refillCowMarket()
+			expect(gameBoard.cowMarket).toHaveLength(12)
+		})
+	})
 })

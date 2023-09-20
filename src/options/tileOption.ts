@@ -41,7 +41,7 @@ export class TileOption extends Option {
 			gameBoard.foresightSpacesA[this.index] = gameBoard.aTiles.splice(0, 1)[0]
 		}
 
-		if (chosenTile instanceof Worker) {
+		if (this.isWorker()) {
 			const lastItem = gameBoard.jobMarket.length - 1
 			if (gameBoard.jobMarket.some((slot) => slot instanceof EmptyJobMarketSlot)) {
 				for (let index = Math.floor(lastItem / 2); index < lastItem; ++index) {
@@ -60,6 +60,10 @@ export class TileOption extends Option {
 		}
 
 		return []
+	}
+
+	isWorker(): boolean {
+		return this.tiles[this.index] instanceof Worker
 	}
 
 	toString(): string {
