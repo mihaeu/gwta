@@ -4,7 +4,7 @@ import { Option } from "./option.js"
 import { Ship } from "../ship.js"
 
 export class ShipOption extends Option {
-	constructor(private readonly ship: Ship) {
+	constructor(public readonly ship: Ship) {
 		super()
 	}
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {

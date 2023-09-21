@@ -85,8 +85,8 @@ end
     - ✅ Extra delivery
     - ✅ Refill cow market
     - ⚠️ Sail to ports
-      - ❌ choose ship from available ships
-      - ❌ choose token to upgrade
+      - ✅ choose ship from available ships
+      - ✅ choose token to upgrade
       - ✅ refill ships when triggered
       - ✅ sail ships
       - ❌ score ships

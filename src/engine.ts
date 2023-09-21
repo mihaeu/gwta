@@ -14,6 +14,9 @@ import { MoveOption } from "./options/moveOption.js"
 import { BuenosAiresStepOneOptions } from "./actions/buenosAiresStepOneOptions.js"
 import { TileOption } from "./options/tileOption.js"
 import { ShipColor } from "./ship.js"
+import { ShipOptions } from "./actions/shipOptions.js"
+import { UpgradeOptions } from "./actions/upgradeOptions.js"
+import { ShipOption } from "./options/shipOption.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -178,7 +181,13 @@ export default class Engine {
 
 	private async buenosAiresStepThree(currentPlayer: Player, valueOfDelivery: number) {
 		console.log("Handling Buenos Aires step 3")
-		return Promise.resolve()
+		const chosenShipOption = (await currentPlayer.chooseOption(
+			new ShipOptions(valueOfDelivery).resolve(this.gameBoard, currentPlayer),
+		)) as ShipOption
+		const chosenUpgrade = await currentPlayer.chooseOption(
+			new UpgradeOptions(chosenShipOption.ship.tokenColor).resolve(this.gameBoard, currentPlayer),
+		)
+		chosenUpgrade.resolve(this.gameBoard, currentPlayer)
 	}
 
 	private async buenosAiresStepFour(currentPlayer: Player) {
