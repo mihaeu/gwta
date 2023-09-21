@@ -13,6 +13,7 @@ import { ordinal } from "./util.js"
 import { MoveOption } from "./options/moveOption.js"
 import { BuenosAiresStepOneOptions } from "./actions/buenosAiresStepOneOptions.js"
 import { TileOption } from "./options/tileOption.js"
+import { ShipColor } from "./ship.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -69,8 +70,8 @@ export default class Engine {
 		const currentLocation = currentPlayer.location
 		if (currentLocation instanceof BuenosAiresNode) {
 			await this.buenosAiresStepOne(currentPlayer)
-			this.buenosAiresStepTwo(currentPlayer)
-			// this.buenosAiresStepThree(currentPlayer)
+			const valueOfDelivery = await this.buenosAiresStepTwo(currentPlayer)
+			await this.buenosAiresStepThree(currentPlayer, valueOfDelivery)
 			await this.buenosAiresStepFour(currentPlayer)
 			await this.buenosAiresStepFive(currentPlayer)
 			await this.buenosAiresStepSix(currentPlayer)
@@ -166,11 +167,18 @@ export default class Engine {
 		}
 	}
 
-	private buenosAiresStepTwo(currentPlayer: Player) {
+	private async buenosAiresStepTwo(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 2")
-		currentPlayer.gainCoins(this.determineValueOfHandCards(currentPlayer))
+		const valueOfHandCards = this.determineValueOfHandCards(currentPlayer)
+		currentPlayer.gainCoins(valueOfHandCards)
 		currentPlayer.handCards.forEach((card) => card instanceof ExhaustionCard && currentPlayer.removeCard(card))
 		currentPlayer.discardCards()
+		return valueOfHandCards
+	}
+
+	private async buenosAiresStepThree(currentPlayer: Player, valueOfDelivery: number) {
+		console.log("Handling Buenos Aires step 3")
+		return Promise.resolve()
 	}
 
 	private async buenosAiresStepFour(currentPlayer: Player) {
@@ -198,24 +206,36 @@ export default class Engine {
 	}
 
 	private handleWorkerEvents(chosenOption: TileOption) {
-		if (chosenOption.isWorker()) {
-			switch (this.gameBoard.jobMarket.length) {
-				case 5 * this.gameBoard.players.length - 1:
-					// sail yellow
-					break
-				case 6 * this.gameBoard.players.length - 1:
-					this.gameBoard.refillCowMarket()
-					break
-				case 7 * this.gameBoard.players.length - 1:
-					// sail turquoise
-					break
-				case 8 * this.gameBoard.players.length - 1:
-					this.gameBoard.refillCowMarket()
-					break
-				case 9 * this.gameBoard.players.length - 1:
-					// sail purple
-					break
-			}
+		if (!chosenOption.isWorker()) {
+			return
 		}
+
+		switch (this.gameBoard.jobMarket.length) {
+			case 5 * this.gameBoard.players.length - 1:
+				this.sailShipsOfColor(ShipColor.YELLOW)
+				this.gameBoard.refillShips()
+				break
+			case 6 * this.gameBoard.players.length - 1:
+				this.gameBoard.refillCowMarket()
+				break
+			case 7 * this.gameBoard.players.length - 1:
+				this.sailShipsOfColor(ShipColor.TURQUOISE)
+				this.gameBoard.refillShips()
+				break
+			case 8 * this.gameBoard.players.length - 1:
+				this.gameBoard.refillCowMarket()
+				break
+			case 9 * this.gameBoard.players.length - 1:
+				this.sailShipsOfColor(ShipColor.YELLOW)
+				this.gameBoard.refillShips()
+				break
+		}
+	}
+
+	private sailShipsOfColor(color: ShipColor) {
+		this.gameBoard.availableShips
+			.filter((ship) => ship.color === color)
+			.forEach((ship) => ship.players.forEach((player) => ship.destinationPort?.push(player)))
+		this.gameBoard.availableShips = this.gameBoard.availableShips.filter((ship) => ship.color !== color)
 	}
 }

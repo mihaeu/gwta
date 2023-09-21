@@ -78,6 +78,7 @@ import { DrawObjectiveCardOption } from "./options/drawObjectiveCardOption.js"
 import { FreeFranqueiroOptions } from "./actions/freeFranqueiroOptions.js"
 import { MoveTrainOptions } from "./actions/moveTrainOptions.js"
 import { Port, PortSpace } from "./port/port.js"
+import { Ship, ShipColor } from "./ship.js"
 
 export default class GameBoard {
 	public readonly startLocation = new Start()
@@ -488,6 +489,29 @@ export default class GameBoard {
 		},
 	}
 
+	public availableShips = [
+		new Ship(0, 0, -2, ShipColor.NONE, undefined, UpgradeType.WHITE, 99),
+		new Ship(1, 0, 0, ShipColor.YELLOW, this.leHavre.portOne),
+		new Ship(3, 1, 0, ShipColor.TURQUOISE, this.leHavre.portTwo),
+		new Ship(5, 1, 0, ShipColor.YELLOW, this.leHavre.portTwo),
+		new Ship(6, 2, 0, ShipColor.TURQUOISE, this.rotterdam.portOne, UpgradeType.WHITE, 1, new DrawObjectiveCardOption()),
+		new Ship(7, 2, 0, ShipColor.YELLOW, this.rotterdam.portOne, UpgradeType.WHITE, 1, new DrawObjectiveCardOption()),
+		new Ship(8, 1, 0, ShipColor.PURPLE, this.rotterdam.portOne, UpgradeType.WHITE, 1, new DrawObjectiveCardOption()),
+		new Ship(9, 4, 0, ShipColor.PURPLE, this.liverpool.portOne, UpgradeType.BLACK),
+		new Ship(11, 4, 0, ShipColor.TURQUOISE, this.liverpool.portOne, UpgradeType.BLACK),
+		new Ship(15, 4, 0, ShipColor.PURPLE, this.liverpool.portTwo, UpgradeType.BLACK),
+		new Ship(18, 6, 12, ShipColor.NONE, undefined, UpgradeType.BLACK, 99),
+	]
+	private readonly remainingShips = arrayShuffle([
+		new Ship(4, 2, 1),
+		new Ship(7, 1, 3),
+		new Ship(8, 3, 3, ShipColor.NONE, undefined, UpgradeType.BLACK),
+		new Ship(12, 2, 5, ShipColor.NONE, undefined, UpgradeType.BLACK),
+		new Ship(13, 3, 7),
+		new Ship(14, 4, 7, ShipColor.NONE, undefined, UpgradeType.BLACK),
+		new Ship(16, 5, 9, ShipColor.NONE, undefined, UpgradeType.BLACK),
+	])
+
 	constructor(private readonly _players: Player[]) {
 		this.startLocation.addChild(this.neutralBuilding1)
 		this.neutralBuilding1.addChild(this.basicBuilding1)
@@ -716,6 +740,10 @@ export default class GameBoard {
 	refillCowMarket() {
 		const cowsToRefill = GameBoard.COW_COUNT_PER_PLAYER[this._players.length] - this.cowMarket.length
 		this.cowMarket = this.cowMarket.concat(this.cowCards.splice(0, cowsToRefill))
+	}
+
+	public refillShips() {
+		this.availableShips = this.availableShips.concat(this.remainingShips.splice(0, 3))
 	}
 }
 
