@@ -174,6 +174,7 @@ export default class Engine {
 		console.log("Handling Buenos Aires step 2")
 		const valueOfHandCards = this.determineValueOfHandCards(currentPlayer)
 		currentPlayer.gainCoins(valueOfHandCards)
+		console.log(`Sold cows for ${valueOfHandCards} coins.`)
 		currentPlayer.handCards.forEach((card) => card instanceof ExhaustionCard && currentPlayer.removeCard(card))
 		currentPlayer.discardCards()
 		return valueOfHandCards

@@ -8,7 +8,6 @@ export class UpgradeOptions extends Option {
 		super()
 	}
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		console.log(currentPlayer.upgrades, this.upgradeType)
 		return Object.entries(currentPlayer.upgrades)
 			.filter((entry) => entry[1] === this.upgradeType)
 			.map((entry) => new UpgradeOption(entry[0] as keyof Upgrades))

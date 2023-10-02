@@ -11,4 +11,8 @@ export class UpgradeOption extends Option {
 		currentPlayer.upgrades[this.upgrade] = UpgradeType.UPGRADED
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.upgrade})`
+	}
 }

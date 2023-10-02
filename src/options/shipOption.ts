@@ -21,4 +21,8 @@ export class ShipOption extends Option {
 
 		return []
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.ship.valueRequirement})`
+	}
 }
