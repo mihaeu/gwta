@@ -9,7 +9,7 @@ import { DiscardCardOptions } from "./actions/discardCardOptions.js"
 import { AuxiliaryActionOptions } from "./actions/auxiliaryActionOptions.js"
 import { LocationOptions } from "./actions/locationOptions.js"
 import { PassOption } from "./options/passOption.js"
-import { ordinal } from "./util.js"
+import { ordinal, pluralize } from "./util.js"
 import { MoveOption } from "./options/moveOption.js"
 import { BuenosAiresStepOneOptions } from "./actions/buenosAiresStepOneOptions.js"
 import { TileOption } from "./options/tileOption.js"
@@ -146,9 +146,10 @@ export default class Engine {
 			return
 		}
 		console.log(
-			`Player ${currentPlayer} has ${currentPlayer.handCards.length} card${
-				currentPlayer.handCards.length !== 1 ? "s" : ""
-			} and needs to discard ${cardsToDiscard} card${cardsToDiscard !== 1 ? "s" : ""}.`,
+			`Player ${currentPlayer} has ${pluralize("card", currentPlayer.handCards.length)} and needs to discard ${pluralize(
+				"card",
+				cardsToDiscard,
+			)}.`,
 		)
 		const availableOptions: Option[] = new DiscardCardOptions(new AnyCard(), cardsToDiscard).resolve(this.gameBoard, currentPlayer)
 		const chosenOption = await currentPlayer.chooseOption(availableOptions)
