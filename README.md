@@ -90,18 +90,19 @@ end
       - ✅ refill ships when triggered
       - ✅ sail ships
       - ❌ score ships
-  - ✅ Actions
+  - ⚠️ Actions
     - ✅ Auxiliary
     - ✅ Double Auxiliary
+    - ❌ Special location options
   - ❌ Card and movement limit
   - ✅ Game seeding
     - ✅ Discard start cards > 4
   - ⚠️ Game end
     - ✅ The round is finished after the job market token reaches the end
     - ⚠️ End game scoring
-  - ⚠️ Certificates
+  - ✅ Certificates
     - ✅ player board
-    - ❌ buenos aires
+    - ✅ buenos aires
   - ✅ Exhaustion cards
     - ✅ buenos aires
     - ✅ player board

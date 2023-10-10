@@ -1,10 +1,9 @@
 import RandomPlayer from "../src/randomPlayer.js"
 import { Carpenter, Herder, Machinist } from "../src/tiles.js"
-// @ts-ignore
 import { beforeEach, describe, expect, it } from "bun:test"
 import Player, { UpgradeType } from "../src/player.js"
 
-describe("Random Player", () => {
+describe("Player", () => {
 	let testPlayer: Player
 
 	describe("workers", () => {
@@ -78,8 +77,6 @@ describe("Random Player", () => {
 			expect(testPlayer.certificates).toBe(4)
 
 			testPlayer.upgrades.certificateUpgrade = UpgradeType.UPGRADED
-			testPlayer.certificates += 1
-			expect(testPlayer.certificates).toBe(5)
 
 			testPlayer.certificates += 1
 			expect(testPlayer.certificates).toBe(6)

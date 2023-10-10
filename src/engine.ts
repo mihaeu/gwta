@@ -18,6 +18,8 @@ import { ShipOptions } from "./actions/shipOptions.js"
 import { UpgradeOptions } from "./actions/upgradeOptions.js"
 import { ShipOption } from "./options/shipOption.js"
 import { JobMarketToken } from "./tiles.js"
+import { CertificateOptions } from "./actions/certificateOptions.js"
+import { CertificateOption } from "./options/certificateOption.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -174,7 +176,15 @@ export default class Engine {
 
 	private async buenosAiresStepTwo(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 2")
-		const valueOfHandCards = this.determineValueOfHandCards(currentPlayer)
+		let valueOfHandCards = this.determineValueOfHandCards(currentPlayer)
+
+		if (currentPlayer.certificates > 0) {
+			const certificateOptions = new CertificateOptions().resolve(this.gameBoard, currentPlayer)
+			const certificateOption = (await currentPlayer.chooseOption(certificateOptions)) as CertificateOption
+			certificateOption.resolve(this.gameBoard, currentPlayer)
+			valueOfHandCards += Math.abs(certificateOption.count)
+		}
+
 		currentPlayer.gainCoins(valueOfHandCards)
 		console.log(`Sold cows for ${valueOfHandCards} coins.`)
 		currentPlayer.handCards.forEach((card) => card instanceof ExhaustionCard && currentPlayer.removeCard(card))
