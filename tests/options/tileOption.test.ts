@@ -46,4 +46,14 @@ describe("Tile Option", () => {
 		gameBoard.foresightSpacesA[1] = new YellowFarmer(HandColor.GREEN, 4)
 		expect(new TileOption(1, gameBoard.foresightSpacesA).isWorker()).toBeFalse()
 	})
+
+	it("should detect if chose tile is a farmer", () => {
+		const { gameBoard } = gameBoardWithTwoPlayers()
+
+		gameBoard.foresightSpacesA[0] = new Carpenter(true)
+		expect(new TileOption(0, gameBoard.foresightSpacesA).isFarmer()).toBeFalse()
+
+		gameBoard.foresightSpacesA[1] = new YellowFarmer(HandColor.GREEN, 4)
+		expect(new TileOption(1, gameBoard.foresightSpacesA).isFarmer()).toBeTrue()
+	})
 })

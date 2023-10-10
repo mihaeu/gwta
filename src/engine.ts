@@ -17,6 +17,7 @@ import { ShipColor } from "./ship.js"
 import { ShipOptions } from "./actions/shipOptions.js"
 import { UpgradeOptions } from "./actions/upgradeOptions.js"
 import { ShipOption } from "./options/shipOption.js"
+import { JobMarketToken } from "./tiles.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -47,7 +48,7 @@ export default class Engine {
 	}
 
 	isGameOver(): boolean {
-		return this.gameBoard.jobMarket.length >= this.gameBoard.players.length * 11 + 1
+		return this.gameBoard.jobMarket.length >= this.gameBoard.players.length * 11 + 1 && this.allPlayersTookSameAmountOfTurns()
 	}
 
 	async phaseA(currentPlayer: Player) {
@@ -194,30 +195,39 @@ export default class Engine {
 
 	private async buenosAiresStepFour(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 4")
-		const options = new TileOptions(this.gameBoard.foresightSpacesA).resolve(this.gameBoard, currentPlayer)
+		const options = new TileOptions(this.gameBoard.foresightSpacesA, this.isGameOver()).resolve(this.gameBoard, currentPlayer)
+		if (options.length === 0) {
+			return
+		}
 		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
-		this.handleWorkerEvents(chosenOption)
+		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
 	private async buenosAiresStepFive(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 5")
-		const options = new TileOptions(this.gameBoard.foresightSpacesB).resolve(this.gameBoard, currentPlayer)
+		const options = new TileOptions(this.gameBoard.foresightSpacesB, this.isGameOver()).resolve(this.gameBoard, currentPlayer)
+		if (options.length === 0) {
+			return
+		}
 		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
-		this.handleWorkerEvents(chosenOption)
+		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
 	private async buenosAiresStepSix(currentPlayer: Player) {
 		console.log("Handling Buenos Aires step 6")
-		const options = new TileOptions(this.gameBoard.foresightSpacesC).resolve(this.gameBoard, currentPlayer)
+		const options = new TileOptions(this.gameBoard.foresightSpacesC, this.isGameOver()).resolve(this.gameBoard, currentPlayer)
+		if (options.length === 0) {
+			return
+		}
 		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
-		this.handleWorkerEvents(chosenOption)
+		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
-	private handleWorkerEvents(chosenOption: TileOption) {
-		if (!chosenOption.isWorker()) {
+	private handleWorkerEvents(chosenOption: TileOption, currentPlayer: Player) {
+		if (chosenOption.isFarmer()) {
 			return
 		}
 
@@ -240,6 +250,11 @@ export default class Engine {
 				this.sailShipsOfColor(ShipColor.YELLOW)
 				this.gameBoard.refillShips()
 				break
+			case this.gameBoard.players.length * 11:
+				if (!this.gameBoard.players.some((player) => player.jobMarketToken instanceof JobMarketToken)) {
+					currentPlayer.jobMarketToken = new JobMarketToken()
+				}
+				break
 		}
 	}
 
@@ -248,5 +263,14 @@ export default class Engine {
 			.filter((ship) => ship.color === color)
 			.forEach((ship) => ship.players.forEach((player) => ship.destinationPort?.push(player)))
 		this.gameBoard.availableShips = this.gameBoard.availableShips.filter((ship) => ship.color !== color)
+	}
+
+	private allPlayersTookSameAmountOfTurns() {
+		for (let i = 1; i < this.gameBoard.players.length; ++i) {
+			if (this.gameBoard.players[i].turnsTaken() !== this.gameBoard.players[0].turnsTaken()) {
+				return false
+			}
+		}
+		return true
 	}
 }

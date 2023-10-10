@@ -66,6 +66,10 @@ export class TileOption extends Option {
 		return this.tiles[this.index] instanceof Worker
 	}
 
+	isFarmer(): boolean {
+		return this.tiles[this.index] instanceof Farmer
+	}
+
 	toString(): string {
 		return `${super.toString()}(${this.tiles[this.index].constructor.name})`
 	}

@@ -722,7 +722,7 @@ export default class GameBoard {
 					(player.herders.length > 4 ? (player.herders.length - 4) * 4 : 0) +
 					(player.farmers.length > 4 ? (player.farmers.length - 4) * 4 : 0),
 				secondMovementUpgrade: player.upgrades.movementUpgradeTwo === UpgradeType.UPGRADED ? 2 : 0,
-				jobMarketToken: 0,
+				jobMarketToken: player.jobMarketToken instanceof JobMarketToken ? 2 : 0,
 			}
 			score.push(playerScore)
 		})
