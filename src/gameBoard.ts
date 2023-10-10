@@ -712,7 +712,7 @@ export default class GameBoard {
 				buildings,
 				ports,
 				trainStations: 0,
-				helpedFarmers: 0,
+				helpedFarmers: player.helpedFarmers.length * 2,
 				cowCards: this.scoreCowAndExhaustionCards(player),
 				fulfilledObjectiveCards: 0,
 				stationMasters: 0,

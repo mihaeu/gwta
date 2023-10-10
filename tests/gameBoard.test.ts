@@ -5,6 +5,7 @@ import { Carpenter, JobMarketToken, TakenJobMarketSlot } from "../src/tiles.js"
 import RandomPlayer from "../src/randomPlayer.js"
 import { gameBoardWithFourPlayers, gameBoardWithThreePlayers, gameBoardWithTwoPlayers } from "./testUtils.js"
 import { AberdeenAngus, ExhaustionCard, Franqueiro, Serrano } from "../src/cards.js"
+import { BlueFarmer, HandColor } from "../src/farmer.js"
 
 describe("Game Board", () => {
 	describe("buildings", () => {
@@ -84,6 +85,17 @@ describe("Game Board", () => {
 
 			one.handCards.push(new ExhaustionCard())
 			expect(gameBoard.endgameScoring()[0].cowCards).toBe(10)
+		})
+
+		it("should score 2 VP for each helped farmer", () => {
+			const { gameBoard, one } = gameBoardWithTwoPlayers()
+
+			expect(gameBoard.endgameScoring()[0].helpedFarmers).toBe(0)
+			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
+			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
+			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
+			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
+			expect(gameBoard.endgameScoring()[0].helpedFarmers).toBe(8)
 		})
 	})
 
