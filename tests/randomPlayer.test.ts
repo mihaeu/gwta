@@ -72,6 +72,21 @@ describe("Random Player", () => {
 			testPlayer.certificates -= 10
 			expect(testPlayer.certificates).toBe(0)
 		})
+
+		it("should be able to upgrade to 6 once upgraded", () => {
+			testPlayer.certificates = 6
+			expect(testPlayer.certificates).toBe(4)
+
+			testPlayer.upgrades.certificateUpgrade = UpgradeType.UPGRADED
+			testPlayer.certificates += 1
+			expect(testPlayer.certificates).toBe(5)
+
+			testPlayer.certificates += 1
+			expect(testPlayer.certificates).toBe(6)
+
+			testPlayer.certificates += 1
+			expect(testPlayer.certificates).toBe(6)
+		})
 	})
 
 	describe("strength", () => {

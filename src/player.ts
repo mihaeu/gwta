@@ -197,7 +197,7 @@ export default abstract class Player {
 
 	set certificates(value: number) {
 		if (this._certificates + value > 4) {
-			this._certificates = 4
+			this._certificates = this.upgrades.certificateUpgrade === UpgradeType.UPGRADED ? Math.min(value, 6) : 4
 		} else if (this._certificates + value < 0) {
 			this._certificates = 0
 		} else {
