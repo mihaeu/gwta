@@ -12,4 +12,11 @@ describe("Ship Options", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		expect(new ShipOptions(18).resolve(gameBoard, one)).toHaveLength(11)
 	})
+
+	it("should allow to put multiple tokens on the first and last ship", () => {
+		const { gameBoard, one } = gameBoardWithTwoPlayers()
+		gameBoard.availableShips.forEach((ship) => ship.players.push(one))
+
+		expect(new ShipOptions(18).resolve(gameBoard, one)).toHaveLength(2)
+	})
 })

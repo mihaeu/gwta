@@ -97,6 +97,17 @@ describe("Game Board", () => {
 			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
 			expect(gameBoard.endgameScoring()[0].helpedFarmers).toBe(8)
 		})
+
+		it("should score all victory points on ships of player", () => {
+			const { gameBoard, one, two } = gameBoardWithTwoPlayers()
+
+			gameBoard.availableShips[0].players.push(one)
+			gameBoard.availableShips[0].players.push(two)
+			gameBoard.availableShips[gameBoard.availableShips.length - 1].players.push(one)
+
+			expect(gameBoard.endgameScoring()[0].ships).toBe(10)
+			expect(gameBoard.endgameScoring()[1].ships).toBe(-2)
+		})
 	})
 
 	describe("cow market", () => {
@@ -116,6 +127,7 @@ describe("Game Board", () => {
 			expect(gameBoard.cowMarket).toHaveLength(12)
 		})
 	})
+
 	describe("ships", () => {
 		it("should refill 3 ships", () => {
 			const { gameBoard } = gameBoardWithTwoPlayers()

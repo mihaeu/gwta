@@ -707,9 +707,12 @@ export default class GameBoard {
 					.concat(this.liverpool.east.spaces.filter(playerOnSpace))
 					.reduce((sum, portSpace) => sum + portSpace.victoryPoints, 0)
 
-			const playerScore = {
+			const playerScore: ScoreCard = {
 				coins: Math.floor(player.coins / 5),
 				buildings,
+				ships: this.availableShips.reduce((total, ship) => {
+					return ship.players.some((playerOnShip) => player.equals(playerOnShip)) ? total + ship.victoryPoints : total
+				}, 0),
 				ports,
 				trainStations: 0,
 				helpedFarmers: player.helpedFarmers.length * 2,
@@ -750,6 +753,7 @@ export default class GameBoard {
 type ScoreCard = {
 	coins: number
 	buildings: number
+	ships: number
 	ports: number
 	trainStations: number
 	helpedFarmers: number

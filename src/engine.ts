@@ -197,6 +197,7 @@ export default class Engine {
 		const chosenShipOption = (await currentPlayer.chooseOption(
 			new ShipOptions(valueOfDelivery).resolve(this.gameBoard, currentPlayer),
 		)) as ShipOption
+		chosenShipOption.resolve(this.gameBoard, currentPlayer)
 		const chosenUpgrade = await currentPlayer.chooseOption(
 			new UpgradeOptions(chosenShipOption.ship.tokenColor).resolve(this.gameBoard, currentPlayer),
 		)

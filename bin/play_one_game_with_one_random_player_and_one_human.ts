@@ -8,6 +8,7 @@ const one = new RandomPlayer("Random")
 const two = new CommandLinePlayer("Human")
 const players: Player[] = [one, two]
 const gameBoard = new GameBoard(players)
+two.gameBoard = gameBoard
 const engine = new Engine(gameBoard)
 
 await engine.play()
