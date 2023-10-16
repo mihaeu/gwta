@@ -90,10 +90,10 @@ end
       - ✅ refill ships when triggered
       - ✅ sail ships
       - ✅ score ships
-  - ⚠️ Actions
+  - ✅ Actions
     - ✅ Auxiliary
     - ✅ Double Auxiliary
-    - ❌ Special location options
+    - ✅ Risk location options
   - ❌ Card and movement limit
   - ✅ Game seeding
     - ✅ Discard start cards > 4

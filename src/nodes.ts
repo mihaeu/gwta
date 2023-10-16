@@ -5,6 +5,12 @@ import { Building } from "./buildings/building.js"
 import { PlayerBuilding } from "./buildings/playerBuilding.js"
 import { Option } from "./options/option.js"
 import { Farmer } from "./farmer.js"
+import { AnyCowCard } from "./cards.js"
+import { GainCoinOption } from "./options/gainCoinOption.js"
+import { FirstThanSecondsOption } from "./options/firstThanSecondOption.js"
+import { CertificateOption } from "./options/certificateOption.js"
+import { GainGrainOption } from "./options/gainGrainOption.js"
+import { DiscardCardOptions } from "./actions/discardCardOptions.js"
 
 export abstract class Node {
 	private readonly children: Node[] = []
@@ -16,6 +22,26 @@ export abstract class Node {
 
 	isEmpty(): boolean {
 		return this.actionable === undefined
+	}
+
+	protected riskAction(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return []
+	}
+
+	protected riskActionForBenefit(benefit: Option, gameBoard: GameBoard, currentPlayer: Player) {
+		const discardOptions = new DiscardCardOptions(new AnyCowCard())
+		return this.isOwnedByCurrentPlayer(currentPlayer) && discardOptions.resolve(gameBoard, currentPlayer).length > 0
+			? [new FirstThanSecondsOption(benefit, discardOptions)]
+			: []
+	}
+
+	isOwnedByCurrentPlayer(currentPlayer: Player): boolean {
+		return (
+			this.actionable !== undefined &&
+			this.actionable instanceof PlayerBuilding &&
+			this.actionable.player !== undefined &&
+			this.actionable.player.equals(currentPlayer)
+		)
 	}
 
 	nextNonEmptyDescendants(railroadDevelopment: number = 0): Node[] {
@@ -31,11 +57,12 @@ export abstract class Node {
 	}
 
 	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		const options = this.riskAction(gameBoard, currentPlayer)
 		if (this.actionable instanceof Farmer || this.actionable instanceof Building) {
-			return this.actionable.options(gameBoard, currentPlayer)
+			return options.concat(this.actionable.options(gameBoard, currentPlayer))
 		}
 
-		return []
+		return options
 	}
 
 	toString() {
@@ -220,18 +247,46 @@ export class GrainBuilding7 extends PlayerBuildingNode {
 export class GrainBuilding8 extends PlayerBuildingNode {
 	protected _hasGrain = true
 }
-export class SpecialBuilding1 extends PlayerBuildingNode {}
-export class SpecialBuilding2 extends PlayerBuildingNode {}
-export class SpecialBuilding3 extends PlayerBuildingNode {}
-export class SpecialBuilding4 extends PlayerBuildingNode {}
+export class SpecialBuilding1 extends PlayerBuildingNode {
+	protected riskAction(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return this.riskActionForBenefit(new CertificateOption(1), gameBoard, currentPlayer)
+	}
+}
+export class SpecialBuilding2 extends PlayerBuildingNode {
+	protected riskAction(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return this.riskActionForBenefit(new GainCoinOption(1), gameBoard, currentPlayer)
+	}
+}
+export class SpecialBuilding3 extends PlayerBuildingNode {
+	protected riskAction(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return this.riskActionForBenefit(new GainGrainOption(1), gameBoard, currentPlayer)
+	}
+}
+export class SpecialBuilding4 extends PlayerBuildingNode {
+	protected riskAction(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return this.riskActionForBenefit(new GainGrainOption(1), gameBoard, currentPlayer)
+	}
+}
 export class SpecialGrainBuilding1 extends PlayerBuildingNode {
 	protected _hasGrain = true
+
+	protected riskAction(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return this.riskActionForBenefit(new GainCoinOption(2), gameBoard, currentPlayer)
+	}
 }
 export class SpecialGrainBuilding2 extends PlayerBuildingNode {
 	protected _hasGrain = true
+
+	protected riskAction(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return this.riskActionForBenefit(new CertificateOption(1), gameBoard, currentPlayer)
+	}
 }
 export class SpecialGrainBuilding3 extends PlayerBuildingNode {
 	protected _hasGrain = true
+
+	protected riskAction(gameBoard: GameBoard, currentPlayer: Player): Option[] {
+		return this.riskActionForBenefit(new GainGrainOption(1), gameBoard, currentPlayer)
+	}
 }
 export class BuenosAiresExit1 extends BuenosAiresNode {}
 export class BuenosAiresExit2 extends BuenosAiresNode {}
