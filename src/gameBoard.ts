@@ -79,6 +79,11 @@ import { FreeFranqueiroOptions } from "./actions/freeFranqueiroOptions.js"
 import { MoveTrainOptions } from "./actions/moveTrainOptions.js"
 import { Port, PortSpace } from "./port/port.js"
 import { Ship, ShipColor } from "./ship.js"
+import { CertificateOption } from "./options/certificateOption.js"
+import { FirstThanSecondsOption } from "./options/firstThanSecondOption.js"
+import { DrawCardOption } from "./options/drawCardOption.js"
+import { DiscardCardOptions } from "./actions/discardCardOptions.js"
+import { GainGrainOption } from "./options/gainGrainOption.js"
 
 export default class GameBoard {
 	public readonly startLocation = new Start()
@@ -328,7 +333,32 @@ export default class GameBoard {
 		new Machinist(true),
 		new Machinist(true),
 	])
-	public readonly objectiveCards: Objective[] = new Array(24).fill(new Objective())
+	public readonly objectiveCards: Objective[] = [
+		new Objective(new CertificateOption(1), 4, -2),
+		new Objective(new CertificateOption(1), 3, -2),
+		new Objective(new CertificateOption(1), 4, -2),
+		new Objective(new CertificateOption(3), 5, -2),
+		new Objective(new MoveTrainOptions(1), 4, -2),
+		new Objective(new MoveTrainOptions(1), 3, -2),
+		new Objective(new MoveTrainOptions(1), 3, -2),
+		new Objective(new MoveTrainOptions(1), 3, -2),
+		new Objective(new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 4, -2),
+		new Objective(new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 4, -2),
+		new Objective(new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 3, -2),
+		new Objective(new GainCoinOption(3), 2, -2),
+		new Objective(new GainCoinOption(2), 5, -2),
+		new Objective(new GainCoinOption(3), 4, -2),
+		new Objective(new GainCoinOption(3), 3, -2),
+		new Objective(new GainCoinOption(4), 5, -2),
+		new Objective(new GainCoinOption(2), 3, -2),
+		new Objective(new GainGrainOption(1), 3, -2),
+		new Objective(new GainGrainOption(1), 4, -2),
+		new Objective(new GainGrainOption(1), 3, -2),
+		new Objective(new GainGrainOption(1), 4, -2),
+		new Objective(new GainGrainOption(1), 4, -2),
+		new Objective(new GainGrainOption(1), 5, -2),
+		new Objective(new GainGrainOption(1), 4, -2),
+	]
 	public jobMarket: Array<JobMarketItem> = []
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]

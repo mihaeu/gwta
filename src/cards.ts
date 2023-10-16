@@ -1,7 +1,19 @@
+import { Option } from "./options/option.js"
+
 export interface Card {}
 export class AnyCard implements Card {}
 
-export class Objective implements Card {}
+export class Objective implements Card {
+	constructor(
+		private readonly benefit: Option,
+		private readonly victoryPointsFulfilled: number,
+		private readonly victoryPointsUnfulfilled: number, // private readonly condition: (gameBoard: GameBoard, currentPlayer: Player) => boolean,
+	) {}
+
+	toString(): string {
+		return `${this.constructor.name}(${this.benefit},${this.victoryPointsFulfilled},${this.victoryPointsUnfulfilled})`
+	}
+}
 export class ExhaustionCard implements Card {}
 export abstract class CowCard implements Card {
 	private readonly _value: number
