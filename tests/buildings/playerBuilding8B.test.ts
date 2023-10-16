@@ -1,10 +1,5 @@
-// @ts-ignore
 import { beforeEach, describe, expect, it } from "bun:test"
-import {
-	gameBoardWithTwoPlayersAndBuildings,
-	removeFarmersFromBoard,
-	setUpThreeFarmersWithTotalStrengthOf9,
-} from "../testUtils.js"
+import { gameBoardWithTwoPlayersAndBuildings, removeFarmersFromBoard, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player from "../../src/player.js"
 import { PlayerBuildingNode } from "../../src/nodes.js"

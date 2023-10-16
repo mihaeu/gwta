@@ -1,4 +1,3 @@
-// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
@@ -14,6 +13,10 @@ describe("Player Building 10A", () => {
 	})
 
 	it("should be allowed to get all actions if player is owner", () => {
-		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainCoinOption(5), new GainCoinOption(5), new MoveTrainOptions(3)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
+			new GainCoinOption(5),
+			new GainCoinOption(5),
+			new MoveTrainOptions(3),
+		])
 	})
 })

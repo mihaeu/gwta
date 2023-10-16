@@ -1,4 +1,3 @@
-// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { GainExchangeTokenOption } from "../../src/options/gainExchangeTokenOption.js"

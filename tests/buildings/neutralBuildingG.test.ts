@@ -1,4 +1,3 @@
-// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
 import { NeutralBuildingG } from "../../src/buildings/neutralBuildingG.js"

@@ -1,4 +1,3 @@
-// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { BuildOptions } from "../../src/actions/buildOptions.js"
 import GameBoard from "../../src/gameBoard.js"

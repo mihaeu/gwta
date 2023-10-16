@@ -1,4 +1,3 @@
-// @ts-ignore
 import { beforeEach, describe, expect, it } from "bun:test"
 import {
 	gameBoardWithTwoPlayers,

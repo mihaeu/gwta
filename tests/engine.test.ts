@@ -1,4 +1,3 @@
-// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import Engine from "../src/engine.js"
 import { JobMarketToken, TakenJobMarketSlot } from "../src/tiles.js"

@@ -1,4 +1,3 @@
-// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { PlayerBuilding1B } from "../../src/buildings/playerBuilding1B.js"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"

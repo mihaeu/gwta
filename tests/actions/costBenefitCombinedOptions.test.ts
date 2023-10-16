@@ -1,4 +1,3 @@
-// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AnyCowCard, HolandoArgentino, Niata, Patagonico } from "../../src/cards.js"

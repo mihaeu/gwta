@@ -1,4 +1,3 @@
-// @ts-ignore
 import { describe, expect, it } from "bun:test"
 import { NeutralBuildingB } from "../../src/buildings/neutralBuildingB.js"
 import { Patagonico } from "../../src/cards.js"
