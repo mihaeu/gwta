@@ -10,9 +10,9 @@ import { GainGrainOption } from "../options/gainGrainOption.js"
 import { CompoundOption } from "../options/compoundOption.js"
 import { CertificateOption } from "../options/certificateOption.js"
 import { MoveTrainOptions } from "./moveTrainOptions.js"
-import { RemoveCardOption } from "../options/removeCardOption.js"
 import { AnyCard } from "../cards.js"
 import { CostBenefitCombinedOptions } from "./costBenefitCombinedOptions.js"
+import { RemoveCardOptions } from "./removeCardOptions.js"
 
 export class AuxiliaryActionOptions extends Option {
 	constructor(building?: Building) {
@@ -40,7 +40,7 @@ export class AuxiliaryActionOptions extends Option {
 			upgrades.revertTrainForCardRemovalSingle === UpgradeType.UPGRADED &&
 			MoveTrainOptions.trainHasSpaceToRevert(1, gameBoard.railroadTrackWithoutStationMasterSpaces, currentPlayer)
 		) {
-			options.push(new CostBenefitCombinedOptions(new MoveTrainOptions(-1), new RemoveCardOption(new AnyCard())))
+			options.push(new CostBenefitCombinedOptions(new MoveTrainOptions(-1), new RemoveCardOptions(new AnyCard())))
 		}
 
 		if (upgrades.grainForCertificateAndGoldSingle === UpgradeType.UPGRADED && currentPlayer.grain > 0) {
