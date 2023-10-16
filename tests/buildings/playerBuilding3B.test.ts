@@ -1,15 +1,11 @@
 // @ts-ignore
 import { describe, expect, it } from "bun:test"
-import {
-	gameBoardWithTwoPlayers,
-	gameBoardWithTwoPlayersAndBuildings,
-	setUpThreeFarmersWithTotalStrengthOf9,
-} from "../testUtils.js"
+import { gameBoardWithTwoPlayers, gameBoardWithTwoPlayersAndBuildings, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
 import { Objective } from "../../src/cards.js"
 import { PlayerBuilding3B } from "../../src/buildings/playerBuilding3B.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
-import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
+import { CompoundOption } from "../../src/options/compoundOption.js"
 
 describe("Player Building 3B", () => {
 	const { gameBoard, one, two } = gameBoardWithTwoPlayersAndBuildings(new PlayerBuilding3B())
@@ -32,8 +28,8 @@ describe("Player Building 3B", () => {
 		one.handCards.push(new Objective())
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
 			new CertificateOption(2),
-			new CostBenefitCombinedOptions(new DiscardCardOption(new Objective()), new CertificateOption(3)),
-			new CostBenefitCombinedOptions(new DiscardCardOption(new Objective()), new CertificateOption(3)),
+			new CompoundOption(new DiscardCardOption(new Objective()), new CertificateOption(3)),
+			new CompoundOption(new DiscardCardOption(new Objective()), new CertificateOption(3)),
 		])
 	})
 })
