@@ -20,6 +20,7 @@ import { ShipOption } from "./options/shipOption.js"
 import { JobMarketToken } from "./tiles.js"
 import { CertificateOptions } from "./actions/certificateOptions.js"
 import { CertificateOption } from "./options/certificateOption.js"
+import { UseExchangeTokenOption } from "./options/useExchangeTokenOption.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -38,10 +39,24 @@ export default class Engine {
 		}
 	}
 
+	private async chooseOption(currentPlayer: Player, options: Option[]): Promise<Option> {
+		while (currentPlayer.exchangeTokens > 0) {
+			const chosenOption = await currentPlayer.chooseOption([...options, new UseExchangeTokenOption()])
+			if (chosenOption instanceof UseExchangeTokenOption) {
+				const discardOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
+				const chosenDiscardOption = await this.chooseOption(currentPlayer, discardOptions)
+				chosenDiscardOption.resolve(this.gameBoard, currentPlayer)
+			} else {
+				return chosenOption
+			}
+		}
+		return await currentPlayer.chooseOption(options)
+	}
+
 	private async firstRound() {
 		for (const currentPlayer of this.gameBoard.players) {
 			const options = this.gameBoard.neutralBuildings.map((neutralBuildingLocation) => new MoveOption(neutralBuildingLocation))
-			const chosenOption = await currentPlayer.chooseOption(options)
+			const chosenOption = await this.chooseOption(currentPlayer, options)
 			chosenOption.resolve(this.gameBoard, currentPlayer)
 			await this.discardExcessCards(currentPlayer, Player.STARTING_CARD_LIMIT)
 			await this.phaseB(currentPlayer)
@@ -54,9 +69,10 @@ export default class Engine {
 	}
 
 	async phaseA(currentPlayer: Player) {
+		// TODO: objective options
 		const previousLocation = currentPlayer.location
 		console.info(`Player ${currentPlayer.name} is on ${previousLocation.constructor.name} and takes a turn.`)
-		const chosenMove = await currentPlayer.chooseOption(new MoveOptions().resolve(this.gameBoard, currentPlayer))
+		const chosenMove = await this.chooseOption(currentPlayer, new MoveOptions().resolve(this.gameBoard, currentPlayer))
 		chosenMove.resolve(this.gameBoard, currentPlayer)
 	}
 
@@ -88,23 +104,21 @@ export default class Engine {
 			const initialPhaseBOptions = locationHasOptions
 				? [new LocationOptions(currentLocation), new AuxiliaryActionOptions(currentLocation)]
 				: [new AuxiliaryActionOptions(currentLocation)]
-			const chosenOption = await currentPlayer.chooseOption(initialPhaseBOptions)
+			const chosenOption = await this.chooseOption(currentPlayer, initialPhaseBOptions)
 			if (chosenOption instanceof AuxiliaryActionOptions) {
-				const chosenAuxiliaryActionOption = await currentPlayer.chooseOption(chosenOption.resolve(this.gameBoard, currentPlayer))
+				const chosenAuxiliaryActionOption = await this.chooseOption(currentPlayer, chosenOption.resolve(this.gameBoard, currentPlayer))
 				let subOptions = chosenAuxiliaryActionOption.resolve(this.gameBoard, currentPlayer)
 				while (subOptions.length > 0) {
-					const chosenSubOption = await currentPlayer.chooseOption(subOptions)
+					const chosenSubOption = await this.chooseOption(currentPlayer, subOptions)
 					subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
-					if (subOptions.length === 1) {
-						subOptions = subOptions[0].resolve(this.gameBoard, currentPlayer)
-					}
 				}
+				// TODO: add objective options after aux
 			}
 			if (chosenOption instanceof LocationOptions) {
 				let locationOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 				const takenOptions: Option[] = []
 				while (locationOptions.length > 0) {
-					let chosenLocationOption = locationOptions.length > 1 ? await currentPlayer.chooseOption(locationOptions) : locationOptions[0]
+					let chosenLocationOption = await this.chooseOption(currentPlayer, locationOptions)
 					takenOptions.push(chosenLocationOption)
 					if (chosenLocationOption instanceof MoveOption) {
 						chosenLocationOption.resolve(this.gameBoard, currentPlayer)
@@ -115,9 +129,10 @@ export default class Engine {
 					if (chosenLocationOption instanceof PassOption) {
 						break
 					}
+
 					let subOptions = chosenLocationOption.resolve(this.gameBoard, currentPlayer)
 					while (subOptions.length > 0) {
-						const chosenSubOption = await currentPlayer.chooseOption(subOptions)
+						const chosenSubOption = await this.chooseOption(currentPlayer, subOptions)
 						subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
 					}
 					locationOptions = chosenOption
@@ -155,7 +170,7 @@ export default class Engine {
 			)}.`,
 		)
 		const availableOptions: Option[] = new DiscardCardOptions(new AnyCard(), cardsToDiscard).resolve(this.gameBoard, currentPlayer)
-		const chosenOption = await currentPlayer.chooseOption(availableOptions)
+		const chosenOption = await this.chooseOption(currentPlayer, availableOptions)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
 
@@ -166,10 +181,10 @@ export default class Engine {
 			return
 		}
 
-		const chosenOption = await currentPlayer.chooseOption(options)
+		const chosenOption = await this.chooseOption(currentPlayer, options)
 		let subOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		while (subOptions.length > 0) {
-			const chosenOption = await currentPlayer.chooseOption(options)
+			const chosenOption = await this.chooseOption(currentPlayer, options)
 			subOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		}
 	}
@@ -180,7 +195,7 @@ export default class Engine {
 
 		if (currentPlayer.certificates > 0) {
 			const certificateOptions = new CertificateOptions().resolve(this.gameBoard, currentPlayer)
-			const certificateOption = (await currentPlayer.chooseOption(certificateOptions)) as CertificateOption
+			const certificateOption = (await this.chooseOption(currentPlayer, certificateOptions)) as CertificateOption
 			certificateOption.resolve(this.gameBoard, currentPlayer)
 			valueOfHandCards += Math.abs(certificateOption.count)
 		}
@@ -194,11 +209,13 @@ export default class Engine {
 
 	private async buenosAiresStepThree(currentPlayer: Player, valueOfDelivery: number) {
 		console.log("Handling Buenos Aires step 3")
-		const chosenShipOption = (await currentPlayer.chooseOption(
+		const chosenShipOption = (await this.chooseOption(
+			currentPlayer,
 			new ShipOptions(valueOfDelivery).resolve(this.gameBoard, currentPlayer),
 		)) as ShipOption
 		chosenShipOption.resolve(this.gameBoard, currentPlayer)
-		const chosenUpgrade = await currentPlayer.chooseOption(
+		const chosenUpgrade = await this.chooseOption(
+			currentPlayer,
 			new UpgradeOptions(chosenShipOption.ship.tokenColor).resolve(this.gameBoard, currentPlayer),
 		)
 		chosenUpgrade.resolve(this.gameBoard, currentPlayer)
@@ -210,7 +227,7 @@ export default class Engine {
 		if (options.length === 0) {
 			return
 		}
-		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
+		const chosenOption = (await this.chooseOption(currentPlayer, options)) as TileOption
 		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
@@ -221,7 +238,7 @@ export default class Engine {
 		if (options.length === 0) {
 			return
 		}
-		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
+		const chosenOption = (await this.chooseOption(currentPlayer, options)) as TileOption
 		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
@@ -232,7 +249,7 @@ export default class Engine {
 		if (options.length === 0) {
 			return
 		}
-		const chosenOption = (await currentPlayer.chooseOption(options)) as TileOption
+		const chosenOption = (await this.chooseOption(currentPlayer, options)) as TileOption
 		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}

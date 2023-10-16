@@ -70,7 +70,11 @@ export abstract class Node {
 	}
 }
 
-export class BuildingNode extends Node {}
+export class BuildingNode extends Node {
+	toString(): string {
+		return `${this.constructor.name}(${this.actionable?.constructor.name ?? "empty"})`
+	}
+}
 
 export class FarmerNode extends Node {
 	protected _reward: number = 0
@@ -117,6 +121,10 @@ export class BuenosAiresNode extends Node {
 	isEmpty(): boolean {
 		return false
 	}
+
+	toString(): string {
+		return this.constructor.name
+	}
 }
 
 export class NeutralBuildingNode extends BuildingNode {
@@ -143,10 +151,6 @@ export class PlayerBuildingNode extends BuildingNode {
 
 	get hasGrain(): boolean {
 		return this._hasGrain
-	}
-
-	toString(): string {
-		return `${this.constructor.name}(${this.actionable?.constructor.name ?? "empty"})`
 	}
 }
 

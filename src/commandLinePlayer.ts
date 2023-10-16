@@ -15,22 +15,20 @@ export default class CommandLinePlayer extends Player {
 
 	async chooseOption(options: Option[]): Promise<Option> {
 		console.log(
-			"Choose the index of one of the following actions: ",
-			options.map((option, index) => `${index}: ${option.toString()}`).join(", "),
+			`Choose the index of one of the following actions:
+${options.map((option, index) => `${index}: ${option.toString()}`).join("\n")}`,
 		)
 
 		let index = -1
-		let response = await this.readline.question("Index: ")
-		if (response === ".score" && this.gameBoard !== undefined) {
-			console.log(this.gameBoard.endgameScoring())
-		}
-		do {
-			index = parseInt(response, 10)
-			if (options[index] === undefined) {
-				response = await this.readline.question("Index: ")
+		while (options[index] === undefined) {
+			let response = await this.readline.question("Index: ")
+			if (response === ".score" && this.gameBoard !== undefined) {
+				console.log(this.gameBoard.endgameScoring())
 			}
-		} while (options[index] === undefined)
+			index = parseInt(response, 10)
+		}
 
+		console.log(`Player ${this} chose ${options[index]}.`)
 		return Promise.resolve(options[index])
 	}
 }

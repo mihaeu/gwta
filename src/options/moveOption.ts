@@ -21,6 +21,6 @@ export class MoveOption extends Option {
 	}
 
 	toString(): string {
-		return `${super.toString()}(${this.location.constructor.name})`
+		return `${super.toString()}(${this.location})`
 	}
 }

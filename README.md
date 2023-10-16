@@ -109,9 +109,9 @@ end
     - ✅ buenos aires
     - ✅ player board
     - ✅ end game rating
-  - ⚠️ Exchange tokens
+  - ✅️ Exchange tokens
     - ✅ gain
-    - ❌ use as action (💡 add option to [`Player`](src/player.ts))
+    - ✅ use as action
   - ⚠️ Hiring workers
     - ✅ should not be possible if player already has 6 of a type
     - ❌ hiring effects

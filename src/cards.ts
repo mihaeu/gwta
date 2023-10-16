@@ -14,7 +14,12 @@ export class Objective implements Card {
 		return `${this.constructor.name}(${this.benefit},${this.victoryPointsFulfilled},${this.victoryPointsUnfulfilled})`
 	}
 }
-export class ExhaustionCard implements Card {}
+export class ExhaustionCard implements Card {
+	toString() {
+		return this.constructor.name
+	}
+}
+
 export abstract class CowCard implements Card {
 	private readonly _value: number
 	private readonly _strength: number
