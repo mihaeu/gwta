@@ -122,16 +122,16 @@ export default abstract class Player {
 
 	setStartBuildings(playerBuildings: number[]) {
 		this.availableBuildings = [
-			playerBuildings[0] ? new PlayerBuilding1A() : new PlayerBuilding1B(this),
-			playerBuildings[1] ? new PlayerBuilding2A() : new PlayerBuilding2B(this),
-			playerBuildings[2] ? new PlayerBuilding3A() : new PlayerBuilding3B(this),
-			playerBuildings[3] ? new PlayerBuilding4A() : new PlayerBuilding4B(this),
-			playerBuildings[4] ? new PlayerBuilding5A() : new PlayerBuilding5B(this),
-			playerBuildings[5] ? new PlayerBuilding6A() : new PlayerBuilding6B(this),
-			playerBuildings[6] ? new PlayerBuilding7A() : new PlayerBuilding7B(this),
-			playerBuildings[7] ? new PlayerBuilding8A() : new PlayerBuilding8B(this),
-			playerBuildings[8] ? new PlayerBuilding9A() : new PlayerBuilding9B(this),
-			playerBuildings[9] ? new PlayerBuilding10A() : new PlayerBuilding10B(this),
+			playerBuildings[0] ? new PlayerBuilding1A(this) : new PlayerBuilding1B(this),
+			playerBuildings[1] ? new PlayerBuilding2A(this) : new PlayerBuilding2B(this),
+			playerBuildings[2] ? new PlayerBuilding3A(this) : new PlayerBuilding3B(this),
+			playerBuildings[3] ? new PlayerBuilding4A(this) : new PlayerBuilding4B(this),
+			playerBuildings[4] ? new PlayerBuilding5A(this) : new PlayerBuilding5B(this),
+			playerBuildings[5] ? new PlayerBuilding6A(this) : new PlayerBuilding6B(this),
+			playerBuildings[6] ? new PlayerBuilding7A(this) : new PlayerBuilding7B(this),
+			playerBuildings[7] ? new PlayerBuilding8A(this) : new PlayerBuilding8B(this),
+			playerBuildings[8] ? new PlayerBuilding9A(this) : new PlayerBuilding9B(this),
+			playerBuildings[9] ? new PlayerBuilding10A(this) : new PlayerBuilding10B(this),
 		]
 	}
 
