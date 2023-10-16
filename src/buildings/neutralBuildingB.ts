@@ -2,11 +2,11 @@ import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { NeutralBuilding } from "./neutralBuilding.js"
 import { Patagonico } from "../cards.js"
-import { CostBenefitCombinedOptions } from "../actions/costBenefitCombinedOptions.js"
 import { BuildOptions } from "../actions/buildOptions.js"
 import { Option } from "../options/option.js"
 import { DiscardCardOptions } from "../actions/discardCardOptions.js"
 import { GainCoinOption } from "../options/gainCoinOption.js"
+import { FirstThanSecondsOption } from "../options/firstThanSecondOption.js"
 
 /**
  * Up to three available action:
@@ -18,7 +18,7 @@ export class NeutralBuildingB extends NeutralBuilding {
 		const actions: Option[] = []
 
 		if (currentPlayer.hasCardOfTypeInHand(new Patagonico())) {
-			actions.push(new CostBenefitCombinedOptions(new DiscardCardOptions(new Patagonico()), new GainCoinOption(2)))
+			actions.push(new FirstThanSecondsOption(new GainCoinOption(2), new DiscardCardOptions(new Patagonico())))
 		}
 
 		if (new BuildOptions().resolve(gameBoard, currentPlayer).length > 0) {
