@@ -2,11 +2,11 @@ import { NeutralBuilding } from "./neutralBuilding.js"
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { HolandoArgentino } from "../cards.js"
-import { CostBenefitCombinedOptions } from "../actions/costBenefitCombinedOptions.js"
 import { DiscardCardOptions } from "../actions/discardCardOptions.js"
 import { HireWorkerOptions } from "../actions/hireWorkerOptions.js"
 import { Option } from "../options/option.js"
 import { GainCoinOption } from "../options/gainCoinOption.js"
+import { FirstThanSecondsOption } from "../options/firstThanSecondOption.js"
 
 /**
  * Up to three available action:
@@ -18,7 +18,7 @@ export class NeutralBuildingA extends NeutralBuilding {
 	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const options: Option[] = []
 		if (currentPlayer.hasCardOfTypeInHand(new HolandoArgentino())) {
-			options.push(new CostBenefitCombinedOptions(new DiscardCardOptions(new HolandoArgentino()), new GainCoinOption(2), this))
+			options.push(new FirstThanSecondsOption(new GainCoinOption(2), new DiscardCardOptions(new HolandoArgentino())))
 		}
 
 		const cheapestAvailableWorker = gameBoard.cheapestAvailableWorker()
