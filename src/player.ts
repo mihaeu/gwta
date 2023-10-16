@@ -62,7 +62,6 @@ export default abstract class Player {
 	protected _location: Node = new Start()
 	protected turn: number = 0
 	private _coins = 0
-	private _moveDistance: number = 3
 	public cards: Card[]
 	private _handCards: Card[] = []
 	protected _discardedCards: Card[] = []
@@ -141,10 +140,6 @@ export default abstract class Player {
 
 	get location(): Node {
 		return this._location
-	}
-
-	get moveDistance(): number {
-		return this._moveDistance
 	}
 
 	set location(value: Node) {

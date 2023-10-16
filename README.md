@@ -94,7 +94,7 @@ end
     - ✅ Auxiliary
     - ✅ Double Auxiliary
     - ✅ Risk location options
-  - ❌ Card and movement limit
+  - ✅ Card and movement limit
   - ✅ Game seeding
     - ✅ Discard start cards > 4
   - ⚠️ Game end
@@ -109,6 +109,6 @@ end
     - ✅ end game rating
   - ⚠️ Exchange tokens
     - ✅ gain
-    - ❌ use as action
+    - ❌ use as action (💡 add option to [`Player`](src/player.ts))
   - ✅ Hiring workers
     - ✅ should not be possible if player already has 6 of a type

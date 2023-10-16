@@ -1,6 +1,6 @@
 import { Option } from "../options/option.js"
 import GameBoard from "../gameBoard.js"
-import Player from "../player.js"
+import Player, { UpgradeType } from "../player.js"
 import { BuenosAiresNode, Node } from "../nodes.js"
 import { MoveOption } from "../options/moveOption.js"
 
@@ -10,7 +10,7 @@ export class MoveOptions extends Option {
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		const moveDistance = this.distance ? this.distance : currentPlayer.moveDistance
+		const moveDistance = this.getMoveDistance(gameBoard, currentPlayer)
 		const railroadDevelopment = gameBoard.railroadTrackWithoutStationMasterSpaces.findIndex(
 			(railroadStop) => railroadStop && railroadStop.find((player) => currentPlayer.name === player.name),
 		)
@@ -31,5 +31,12 @@ export class MoveOptions extends Option {
 			lastMoves = movesOfCurrentDistance
 		}
 		return [...availableMoves.values()].map((location) => new MoveOption(location))
+	}
+
+	private getMoveDistance(gameBoard: GameBoard, currentPlayer: Player) {
+		let moveDistance = gameBoard.players.length === 1 ? 3 : gameBoard.players.length + 1
+		moveDistance += currentPlayer.upgrades.movementUpgradeOne === UpgradeType.UPGRADED ? 2 : 0
+		moveDistance += currentPlayer.upgrades.movementUpgradeTwo === UpgradeType.UPGRADED ? 1 : 0
+		return this.distance ? this.distance : moveDistance
 	}
 }
