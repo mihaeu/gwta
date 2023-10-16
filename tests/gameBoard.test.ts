@@ -75,27 +75,27 @@ describe("Game Board", () => {
 		it("should add victory points from cow cards and subtract the ones from exhaustion cards", () => {
 			const { gameBoard, one } = gameBoardWithTwoPlayers()
 			one.handCards.push(new AberdeenAngus(7))
-			expect(gameBoard.endgameScoring()[0].cowCards).toBe(5)
+			expect(gameBoard.endgameScoring()[one.name].cowCards).toBe(5)
 
 			one.discardedCards.push(new Franqueiro(5))
-			expect(gameBoard.endgameScoring()[0].cowCards).toBe(10)
+			expect(gameBoard.endgameScoring()[one.name].cowCards).toBe(10)
 
 			one.cards.push(new Serrano())
-			expect(gameBoard.endgameScoring()[0].cowCards).toBe(12)
+			expect(gameBoard.endgameScoring()[one.name].cowCards).toBe(12)
 
 			one.handCards.push(new ExhaustionCard())
-			expect(gameBoard.endgameScoring()[0].cowCards).toBe(10)
+			expect(gameBoard.endgameScoring()[one.name].cowCards).toBe(10)
 		})
 
 		it("should score 2 VP for each helped farmer", () => {
 			const { gameBoard, one } = gameBoardWithTwoPlayers()
 
-			expect(gameBoard.endgameScoring()[0].helpedFarmers).toBe(0)
+			expect(gameBoard.endgameScoring()[one.name].helpedFarmers).toBe(0)
 			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
 			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
 			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
 			one.helpedFarmers.push(new BlueFarmer(HandColor.BLACK, 3))
-			expect(gameBoard.endgameScoring()[0].helpedFarmers).toBe(8)
+			expect(gameBoard.endgameScoring()[one.name].helpedFarmers).toBe(8)
 		})
 
 		it("should score all victory points on ships of player", () => {
@@ -105,8 +105,8 @@ describe("Game Board", () => {
 			gameBoard.availableShips[0].players.push(two)
 			gameBoard.availableShips[gameBoard.availableShips.length - 1].players.push(one)
 
-			expect(gameBoard.endgameScoring()[0].ships).toBe(10)
-			expect(gameBoard.endgameScoring()[1].ships).toBe(-2)
+			expect(gameBoard.endgameScoring()[one.name].ships).toBe(10)
+			expect(gameBoard.endgameScoring()[two.name].ships).toBe(-2)
 		})
 	})
 

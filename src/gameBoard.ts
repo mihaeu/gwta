@@ -679,8 +679,8 @@ export default class GameBoard {
 		return this._players
 	}
 
-	endgameScoring(): ScoreCard[] {
-		const score: any[] = []
+	endgameScoring(): { [key: string]: ScoreCard } {
+		const score: { [key: string]: ScoreCard } = {}
 		this.players.forEach((player) => {
 			const buildings = this.playerBuildings(player).reduce((sum, playerLocation) => {
 				return sum + playerLocation.building().victoryPoints
@@ -707,27 +707,49 @@ export default class GameBoard {
 					.concat(this.liverpool.east.spaces.filter(playerOnSpace))
 					.reduce((sum, portSpace) => sum + portSpace.victoryPoints, 0)
 
-			const playerScore: ScoreCard = {
-				coins: Math.floor(player.coins / 5),
+			const coins = Math.floor(player.coins / 5)
+			const ships = this.availableShips.reduce((total, ship) => {
+				return ship.players.some((playerOnShip) => player.equals(playerOnShip)) ? total + ship.victoryPoints : total
+			}, 0)
+			const trainStations = 0
+			const fulfilledObjectiveCards = 0
+			const stationMasters = 0
+			const helpedFarmers = player.helpedFarmers.length * 2
+			const cowCards = this.scoreCowAndExhaustionCards(player)
+			const fifthAndSixthWorkers =
+				(player.carpenters.length > 4 ? (player.carpenters.length - 4) * 4 : 0) +
+				(player.machinists.length > 4 ? (player.machinists.length - 4) * 4 : 0) +
+				(player.herders.length > 4 ? (player.herders.length - 4) * 4 : 0) +
+				(player.farmers.length > 4 ? (player.farmers.length - 4) * 4 : 0)
+			const secondMovementUpgrade = player.upgrades.movementUpgradeTwo === UpgradeType.UPGRADED ? 2 : 0
+			const jobMarketToken = player.jobMarketToken instanceof JobMarketToken ? 2 : 0
+			score[player.name] = {
+				coins,
 				buildings,
-				ships: this.availableShips.reduce((total, ship) => {
-					return ship.players.some((playerOnShip) => player.equals(playerOnShip)) ? total + ship.victoryPoints : total
-				}, 0),
+				ships,
 				ports,
-				trainStations: 0,
-				helpedFarmers: player.helpedFarmers.length * 2,
-				cowCards: this.scoreCowAndExhaustionCards(player),
-				fulfilledObjectiveCards: 0,
-				stationMasters: 0,
-				fifthAndSixthWorkers:
-					(player.carpenters.length > 4 ? (player.carpenters.length - 4) * 4 : 0) +
-					(player.machinists.length > 4 ? (player.machinists.length - 4) * 4 : 0) +
-					(player.herders.length > 4 ? (player.herders.length - 4) * 4 : 0) +
-					(player.farmers.length > 4 ? (player.farmers.length - 4) * 4 : 0),
-				secondMovementUpgrade: player.upgrades.movementUpgradeTwo === UpgradeType.UPGRADED ? 2 : 0,
-				jobMarketToken: player.jobMarketToken instanceof JobMarketToken ? 2 : 0,
+				trainStations,
+				helpedFarmers,
+				cowCards,
+				fulfilledObjectiveCards,
+				stationMasters,
+				fifthAndSixthWorkers,
+				secondMovementUpgrade,
+				jobMarketToken,
+				total:
+					coins +
+					buildings +
+					ships +
+					ports +
+					trainStations +
+					helpedFarmers +
+					cowCards +
+					fulfilledObjectiveCards +
+					stationMasters +
+					fifthAndSixthWorkers +
+					secondMovementUpgrade +
+					jobMarketToken,
 			}
-			score.push(playerScore)
 		})
 		return score
 	}
@@ -763,4 +785,5 @@ type ScoreCard = {
 	fifthAndSixthWorkers: number
 	secondMovementUpgrade: number
 	jobMarketToken: number
+	total: number
 }
