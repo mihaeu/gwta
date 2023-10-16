@@ -73,13 +73,12 @@ end
   - ⚠️ Movement
     - ❌ leave coin on farmers
     - ❌ pay players when passing over hands
-    - ❌ 3 for 2 players, 4 for 3 players, 5 for 4 players
   - ❌ Train Tracks
     - ❌ Station Masters
     - ❌ End of track situations
     - ❌ Move backward
   - ⚠️ Objective Cards
-  - ⚠️ Buying cow combinations
+  - ⚠️ Buying cow combinations (allow buying of multiple cows and filling cow market)
   - ✅ Grain
   - ✅ Buenos Aires
     - ✅ Extra delivery
@@ -110,5 +109,6 @@ end
   - ⚠️ Exchange tokens
     - ✅ gain
     - ❌ use as action (💡 add option to [`Player`](src/player.ts))
-  - ✅ Hiring workers
+  - ⚠️ Hiring workers
     - ✅ should not be possible if player already has 6 of a type
+    - ❌ hiring effects

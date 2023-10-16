@@ -6,7 +6,7 @@ import { Building } from "../buildings/building.js"
 
 export class MoveOption extends Option {
 	constructor(
-		private readonly location: Node,
+		readonly location: Node,
 		building?: Building,
 	) {
 		super()
