@@ -14,7 +14,7 @@ describe("Remove Card Options", () => {
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new HolandoArgentino())
 		one.handCards.push(new Niata())
-		one.handCards.push(new Objective(1, new GainCoinOption(1), 5, -2))
+		one.handCards.push(new Objective(1, new GainCoinOption(1), 5, -2, {}))
 		expect(new RemoveCardOptions(new AnyCowCard()).resolve(gameBoard, one)).toEqual([
 			new RemoveCardOption(new Patagonico()),
 			new RemoveCardOption(new AberdeenAngus(7)),

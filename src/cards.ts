@@ -3,12 +3,31 @@ import { Option } from "./options/option.js"
 export interface Card {}
 export class AnyCard implements Card {}
 
+export type Objectives = {
+	northPort?: number
+	eastPort?: number
+	southPort?: number
+	westPort?: number
+	caracu?: number
+	franqueiro?: number
+	aberdeenAngus?: number
+	value3Cow?: number
+	blueFarmer?: number
+	yellowFarmer?: number
+	orangeFarmer?: number
+	greenFarmer?: number
+	building?: number
+	value18Ship?: number
+	trainStation?: number
+}
+
 export class Objective implements Card {
 	constructor(
 		public readonly id: number,
 		public readonly benefit: Option,
-		private readonly victoryPointsFulfilled: number, // private readonly condition: (gameBoard: GameBoard, currentPlayer: Player) => boolean,
+		private readonly victoryPointsFulfilled: number,
 		private readonly victoryPointsUnfulfilled: number,
+		private readonly objectives: Objectives,
 	) {}
 
 	toString(): string {

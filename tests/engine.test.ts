@@ -45,7 +45,7 @@ describe("Engine", () => {
 		})
 
 		it("should allow playing objective cards before choosing a move", async () => {
-			const objective = new Objective(1, new GainCoinOption(1), 5, -2)
+			const objective = new Objective(1, new GainCoinOption(1), 5, -2, {})
 			one.handCards.push(objective)
 			one.selectOptionMock = (options) => options[options.length - 1]
 
@@ -61,9 +61,9 @@ describe("Engine", () => {
 		})
 
 		it("should allow playing objective cards before and after a location action during phase B", async () => {
-			const objective1 = new Objective(1, new GainCoinOption(1), 5, -2)
-			const objective2 = new Objective(2, new GainCoinOption(1), 5, -2)
-			const objective3 = new Objective(2, new GainCoinOption(1), 5, -2)
+			const objective1 = new Objective(1, new GainCoinOption(1), 5, -2, {})
+			const objective2 = new Objective(2, new GainCoinOption(1), 5, -2, {})
+			const objective3 = new Objective(2, new GainCoinOption(1), 5, -2, {})
 			one.discardCards()
 			one.handCards.push(objective1, objective2, objective3, new Fronterizo())
 			one.location = gameBoard["neutralBuilding5"]
@@ -108,8 +108,8 @@ describe("Engine", () => {
 		})
 
 		it("should allow playing objective cards before and after auxiliary actions", async () => {
-			const objective1 = new Objective(1, new GainCoinOption(1), 5, -2)
-			const objective2 = new Objective(2, new GainCoinOption(1), 5, -2)
+			const objective1 = new Objective(1, new GainCoinOption(1), 5, -2, {})
+			const objective2 = new Objective(2, new GainCoinOption(1), 5, -2, {})
 			one.discardCards()
 			one.handCards.push(objective1, objective2)
 			one.location = gameBoard["neutralBuilding5"]

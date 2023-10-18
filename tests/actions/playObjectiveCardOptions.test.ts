@@ -11,8 +11,8 @@ describe("Play Objective Card Options", () => {
 
 		expect(new PlayObjectiveCardOptions().resolve(gameBoard, one)).toBeEmpty()
 
-		const objective1 = new Objective(100, new CertificateOption(1), 4, -2)
-		const objective2 = new Objective(101, new CertificateOption(1), 3, -2)
+		const objective1 = new Objective(100, new CertificateOption(1), 4, -2, {})
+		const objective2 = new Objective(101, new CertificateOption(1), 3, -2, {})
 		one.handCards.push(objective1, objective2)
 		expect(new PlayObjectiveCardOptions().resolve(gameBoard, one)).toEqual([
 			new PlayObjectiveCardOption(objective1),

@@ -8,7 +8,7 @@ describe("Play Objective Card Option", () => {
 	it("should show options for each objective card on hand", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 
-		const objective = new Objective(100, new CertificateOption(1), 4, -2)
+		const objective = new Objective(100, new CertificateOption(1), 4, -2, {})
 		one.handCards.push(objective)
 
 		expect(one.handCards).toContain(objective)
