@@ -136,6 +136,9 @@ export default class Engine {
 
 				let objectiveCardOptions = new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)
 				while (objectiveCardOptions.length > 0) {
+					if (!objectiveCardOptions.some((option) => option instanceof PassOption)) {
+						objectiveCardOptions.push(new PassOption())
+					}
 					const objectiveCardOption = await this.chooseOption(currentPlayer, objectiveCardOptions)
 					objectiveCardOption.resolve(this.gameBoard, currentPlayer)
 					objectiveCardOptions = new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)

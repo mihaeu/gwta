@@ -8,6 +8,10 @@ import { MoveOption } from "../src/options/moveOption.js"
 import { PlayObjectiveCardOption } from "../src/options/playObjectiveCardOption.js"
 import { Caracu, Fronterizo, Objective } from "../src/cards.js"
 import { GainCoinOption } from "../src/options/gainCoinOption.js"
+import { LocationOptions } from "../src/actions/locationOptions.js"
+import { CompoundOption } from "../src/options/compoundOption.js"
+import { BuyCowOption } from "../src/options/buyCowOption.js"
+import { AuxiliaryActionOptions } from "../src/actions/auxiliaryActionOptions.js"
 
 describe("Engine", () => {
 	let gameBoard: GameBoard
@@ -67,7 +71,22 @@ describe("Engine", () => {
 
 			let numberOfCall = 0
 			one.selectOptionMock = (options) => {
-				return [2, 4, 6].includes(++numberOfCall) ? options.find((option) => option instanceof PlayObjectiveCardOption)! : options[0]
+				switch (++numberOfCall) {
+					case 1:
+						return options.find((option) => option instanceof LocationOptions)!
+					case 2:
+						return options.find((option) => option instanceof PlayObjectiveCardOption)!
+					case 3:
+						return options.find((option) => option instanceof CompoundOption)!
+					case 4:
+						return options.find((option) => option instanceof PlayObjectiveCardOption)!
+					case 5:
+						return options.find((option) => option instanceof BuyCowOption)!
+					case 6:
+						return options.find((option) => option instanceof PlayObjectiveCardOption)!
+					default:
+						return options.find((option) => option instanceof PlayObjectiveCardOption)!
+				}
 			}
 
 			await engine.phaseB(one)
@@ -86,6 +105,41 @@ describe("Engine", () => {
 				"BuyCowOption(Caracu,4), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PassOption",
 			)
 			expect(one.callArgs[6].join(", ")).toBe("PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PassOption")
+		})
+
+		it("should allow playing objective cards before and after auxiliary actions", async () => {
+			const objective1 = new Objective(1, new GainCoinOption(1), 5, -2)
+			const objective2 = new Objective(2, new GainCoinOption(1), 5, -2)
+			one.discardCards()
+			one.handCards.push(objective1, objective2)
+			one.location = gameBoard["neutralBuilding5"]
+
+			let numberOfCall = 0
+			one.selectOptionMock = (options) => {
+				switch (++numberOfCall) {
+					case 1:
+						return options.find((option) => option instanceof AuxiliaryActionOptions)!
+					case 2:
+						return options.find((option) => option instanceof PlayObjectiveCardOption)!
+					case 3:
+						return options.find((option) => option instanceof GainCoinOption)!
+					case 4:
+						return options.find((option) => option instanceof PlayObjectiveCardOption)!
+					default:
+						return options.find((option) => option instanceof PlayObjectiveCardOption)!
+				}
+			}
+
+			await engine.phaseB(one)
+
+			expect(one.callArgs[1].join(", ")).toBe("LocationOptions(NeutralBuilding5(NeutralBuildingE)), AuxiliaryActionOptions")
+			expect(one.callArgs[2].join(", ")).toBe(
+				"GainCoinOption(1), FirstThanSecondsOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2))",
+			)
+			expect(one.callArgs[3].join(", ")).toBe(
+				"GainCoinOption(1), FirstThanSecondsOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2))",
+			)
+			expect(one.callArgs[4].join(", ")).toBe("PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PassOption")
 		})
 	})
 
