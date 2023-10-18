@@ -62,7 +62,18 @@ import {
 	YellowFarmer7,
 } from "./nodes.js"
 import { Carpenter, Herder, JobMarketItem, JobMarketToken, Machinist, Tile, Worker } from "./tiles.js"
-import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, CowCard, ExhaustionCard, Franqueiro, Objective, Serrano } from "./cards.js"
+import {
+	AberdeenAngus,
+	BlancoOrejinegro,
+	Caracu,
+	Card,
+	Chaquenyo,
+	CowCard,
+	ExhaustionCard,
+	Franqueiro,
+	Objective,
+	Serrano,
+} from "./cards.js"
 import Player, { UpgradeType } from "./player.js"
 import { NeutralBuildingA } from "./buildings/neutralBuildingA.js"
 import { NeutralBuildingB } from "./buildings/neutralBuildingB.js"
@@ -333,32 +344,32 @@ export default class GameBoard {
 		new Machinist(true),
 		new Machinist(true),
 	])
-	public readonly objectiveCards: Objective[] = [
-		new Objective(new CertificateOption(1), 4, -2),
-		new Objective(new CertificateOption(1), 3, -2),
-		new Objective(new CertificateOption(1), 4, -2),
-		new Objective(new CertificateOption(3), 5, -2),
-		new Objective(new MoveTrainOptions(1), 4, -2),
-		new Objective(new MoveTrainOptions(1), 3, -2),
-		new Objective(new MoveTrainOptions(1), 3, -2),
-		new Objective(new MoveTrainOptions(1), 3, -2),
-		new Objective(new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 4, -2),
-		new Objective(new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 4, -2),
-		new Objective(new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 3, -2),
-		new Objective(new GainCoinOption(3), 2, -2),
-		new Objective(new GainCoinOption(2), 5, -2),
-		new Objective(new GainCoinOption(3), 4, -2),
-		new Objective(new GainCoinOption(3), 3, -2),
-		new Objective(new GainCoinOption(4), 5, -2),
-		new Objective(new GainCoinOption(2), 3, -2),
-		new Objective(new GainGrainOption(1), 3, -2),
-		new Objective(new GainGrainOption(1), 4, -2),
-		new Objective(new GainGrainOption(1), 3, -2),
-		new Objective(new GainGrainOption(1), 4, -2),
-		new Objective(new GainGrainOption(1), 4, -2),
-		new Objective(new GainGrainOption(1), 5, -2),
-		new Objective(new GainGrainOption(1), 4, -2),
-	]
+	public readonly objectiveCards: Card[] = arrayShuffle([
+		new Objective(100, new CertificateOption(1), 4, -2),
+		new Objective(101, new CertificateOption(1), 3, -2),
+		new Objective(102, new CertificateOption(1), 4, -2),
+		new Objective(103, new CertificateOption(3), 5, -2),
+		new Objective(104, new MoveTrainOptions(1), 4, -2),
+		new Objective(105, new MoveTrainOptions(1), 3, -2),
+		new Objective(106, new MoveTrainOptions(1), 3, -2),
+		new Objective(107, new MoveTrainOptions(1), 3, -2),
+		new Objective(108, new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 4, -2),
+		new Objective(109, new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 4, -2),
+		new Objective(110, new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 3, -2),
+		new Objective(111, new GainCoinOption(3), 2, -2),
+		new Objective(112, new GainCoinOption(2), 5, -2),
+		new Objective(113, new GainCoinOption(3), 4, -2),
+		new Objective(114, new GainCoinOption(3), 3, -2),
+		new Objective(115, new GainCoinOption(4), 5, -2),
+		new Objective(116, new GainCoinOption(2), 3, -2),
+		new Objective(117, new GainGrainOption(1), 3, -2),
+		new Objective(118, new GainGrainOption(1), 4, -2),
+		new Objective(119, new GainGrainOption(1), 3, -2),
+		new Objective(120, new GainGrainOption(1), 4, -2),
+		new Objective(121, new GainGrainOption(1), 4, -2),
+		new Objective(122, new GainGrainOption(1), 5, -2),
+		new Objective(123, new GainGrainOption(1), 4, -2),
+	])
 	public jobMarket: Array<JobMarketItem> = []
 	public readonly foresightSpacesA: Tile[]
 	public readonly foresightSpacesB: Tile[]

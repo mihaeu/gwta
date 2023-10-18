@@ -1,6 +1,6 @@
 import { Node, Start } from "./nodes.js"
 import { Carpenter, Herder, JobMarketToken, Machinist, Worker } from "./tiles.js"
-import { Card, ExhaustionCard, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./cards.js"
+import { Card, ExhaustionCard, Fronterizo, HolandoArgentino, Niata, Objective, Patagonico } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
 
@@ -76,6 +76,7 @@ export default abstract class Player {
 	private _helpedFarmers: Farmer[] = []
 	public exchangeTokens = 1
 	public jobMarketToken?: JobMarketToken
+	public readonly playedObjectives: Objective[] = []
 	private static readonly startCards = [
 		new Niata(),
 		new Niata(),

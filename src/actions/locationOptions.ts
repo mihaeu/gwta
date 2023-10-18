@@ -14,6 +14,6 @@ export class LocationOptions extends Option {
 	}
 
 	toString(): string {
-		return `${super.toString()}(${this._building?.constructor.name})`
+		return `${super.toString()}(${this._building})`
 	}
 }

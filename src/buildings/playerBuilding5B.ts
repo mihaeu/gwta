@@ -16,7 +16,7 @@ export class PlayerBuilding5B extends PlayerBuilding {
 			return []
 		}
 
-		const actions = [new DoubleAuxiliaryOptions()]
+		const actions: Option[] = [new DoubleAuxiliaryOptions()]
 		if (currentPlayer.farmers.length > 0) {
 			const numberOfSetsOfAllWorkers = Math.min(
 				currentPlayer.farmers.length,

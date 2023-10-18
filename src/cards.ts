@@ -5,9 +5,10 @@ export class AnyCard implements Card {}
 
 export class Objective implements Card {
 	constructor(
-		private readonly benefit: Option,
-		private readonly victoryPointsFulfilled: number,
-		private readonly victoryPointsUnfulfilled: number, // private readonly condition: (gameBoard: GameBoard, currentPlayer: Player) => boolean,
+		public readonly id: number,
+		public readonly benefit: Option,
+		private readonly victoryPointsFulfilled: number, // private readonly condition: (gameBoard: GameBoard, currentPlayer: Player) => boolean,
+		private readonly victoryPointsUnfulfilled: number,
 	) {}
 
 	toString(): string {

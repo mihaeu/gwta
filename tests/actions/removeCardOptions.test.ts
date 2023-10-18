@@ -4,6 +4,7 @@ import { AberdeenAngus, AnyCard, AnyCowCard, HolandoArgentino, Niata, Objective,
 import { CompoundOption } from "../../src/options/compoundOption.js"
 import { RemoveCardOption } from "../../src/options/removeCardOption.js"
 import { RemoveCardOptions } from "../../src/actions/removeCardOptions.js"
+import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 
 describe("Remove Card Options", () => {
 	it("should present all cow cards on hand if none is specified", () => {
@@ -13,7 +14,7 @@ describe("Remove Card Options", () => {
 		one.handCards.push(new AberdeenAngus(7))
 		one.handCards.push(new HolandoArgentino())
 		one.handCards.push(new Niata())
-		one.handCards.push(new Objective())
+		one.handCards.push(new Objective(1, new GainCoinOption(1), 5, -2))
 		expect(new RemoveCardOptions(new AnyCowCard()).resolve(gameBoard, one)).toEqual([
 			new RemoveCardOption(new Patagonico()),
 			new RemoveCardOption(new AberdeenAngus(7)),

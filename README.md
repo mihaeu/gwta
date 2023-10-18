@@ -78,8 +78,8 @@ end
     - ❌ End of track situations
     - ❌ Move backward
   - ⚠️ Objective Cards
-    - ❌ immediate impact
-    - ❌ playable
+    - ✅ immediate impact
+    - ✅ playable
     - ❌ endgame scoring
   - ⚠️ Buying cow combinations (allow buying of multiple cows and filling cow market)
   - ✅ Grain
@@ -115,3 +115,16 @@ end
   - ⚠️ Hiring workers
     - ✅ should not be possible if player already has 6 of a type
     - ❌ hiring effects
+
+## Ideas
+
+### Ideas
+
+- cows
+- buildings
+- locations
+- objectives
+- exhaustion cards
+- exchange tokens
+- workers
+- farmers

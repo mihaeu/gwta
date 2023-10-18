@@ -21,6 +21,8 @@ import { JobMarketToken } from "./tiles.js"
 import { CertificateOptions } from "./actions/certificateOptions.js"
 import { CertificateOption } from "./options/certificateOption.js"
 import { UseExchangeTokenOption } from "./options/useExchangeTokenOption.js"
+import { PlayObjectiveCardOptions } from "./actions/playObjectiveCardOptions.js"
+import { PlayObjectiveCardOption } from "./options/playObjectiveCardOption.js"
 
 export default class Engine {
 	private readonly gameBoard: GameBoard
@@ -69,11 +71,21 @@ export default class Engine {
 	}
 
 	async phaseA(currentPlayer: Player) {
-		// TODO: objective options
 		const previousLocation = currentPlayer.location
 		console.info(`Player ${currentPlayer.name} is on ${previousLocation.constructor.name} and takes a turn.`)
-		const chosenMove = await this.chooseOption(currentPlayer, new MoveOptions().resolve(this.gameBoard, currentPlayer))
-		chosenMove.resolve(this.gameBoard, currentPlayer)
+		let chosenOption
+		while (!(chosenOption instanceof MoveOption)) {
+			chosenOption = await this.chooseOption(
+				currentPlayer,
+				new MoveOptions()
+					.resolve(this.gameBoard, currentPlayer)
+					.concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)),
+			)
+			const subOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
+			if (subOptions.length > 0) {
+				await this.chooseOption(currentPlayer, subOptions)
+			}
+		}
 	}
 
 	determineValueOfHandCards(currentPlayer: Player) {
@@ -106,16 +118,33 @@ export default class Engine {
 				: [new AuxiliaryActionOptions(currentLocation)]
 			const chosenOption = await this.chooseOption(currentPlayer, initialPhaseBOptions)
 			if (chosenOption instanceof AuxiliaryActionOptions) {
-				const chosenAuxiliaryActionOption = await this.chooseOption(currentPlayer, chosenOption.resolve(this.gameBoard, currentPlayer))
-				let subOptions = chosenAuxiliaryActionOption.resolve(this.gameBoard, currentPlayer)
-				while (subOptions.length > 0) {
-					const chosenSubOption = await this.chooseOption(currentPlayer, subOptions)
-					subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
+				let chosenAuxiliaryActionOption
+				let subOptions: Option[] = []
+				while (chosenAuxiliaryActionOption instanceof PlayObjectiveCardOption || chosenAuxiliaryActionOption === undefined) {
+					chosenAuxiliaryActionOption = await this.chooseOption(
+						currentPlayer,
+						chosenOption
+							.resolve(this.gameBoard, currentPlayer)
+							.concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)),
+					)
+					subOptions = chosenAuxiliaryActionOption.resolve(this.gameBoard, currentPlayer)
+					while (subOptions.length > 0) {
+						const chosenSubOption = await this.chooseOption(currentPlayer, subOptions)
+						subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
+					}
 				}
-				// TODO: add objective options after aux
+
+				let objectiveCardOptions = new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)
+				while (objectiveCardOptions.length > 0) {
+					const objectiveCardOption = await this.chooseOption(currentPlayer, objectiveCardOptions)
+					objectiveCardOption.resolve(this.gameBoard, currentPlayer)
+					objectiveCardOptions = new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)
+				}
 			}
 			if (chosenOption instanceof LocationOptions) {
-				let locationOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
+				let locationOptions = chosenOption
+					.resolve(this.gameBoard, currentPlayer)
+					.concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer))
 				const takenOptions: Option[] = []
 				while (locationOptions.length > 0) {
 					let chosenLocationOption = await this.chooseOption(currentPlayer, locationOptions)
@@ -138,6 +167,7 @@ export default class Engine {
 					locationOptions = chosenOption
 						.resolve(this.gameBoard, currentPlayer)
 						.filter((option) => !takenOptions.some((takenOption) => takenOption.toString() === option.toString()))
+						.concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer))
 					if (!locationOptions.some((option) => option instanceof PassOption) && locationOptions.length > 0) {
 						locationOptions.push(new PassOption())
 					}

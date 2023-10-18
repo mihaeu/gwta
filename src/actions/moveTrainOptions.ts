@@ -30,4 +30,8 @@ export class MoveTrainOptions extends Option {
 		}
 		return false
 	}
+
+	toString(): string {
+		return `${super.toString()}(${this.distance})`
+	}
 }
