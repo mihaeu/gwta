@@ -96,6 +96,7 @@ import { DrawCardOption } from "./options/drawCardOption.js"
 import { DiscardCardOptions } from "./actions/discardCardOptions.js"
 import { GainGrainOption } from "./options/gainGrainOption.js"
 
+const drawAndDiscardOption = (count: number) => new FirstThanSecondsOption(new DrawCardOption(count), new DiscardCardOptions(count))
 export default class GameBoard {
 	public readonly startLocation = new Start()
 	private neutralBuilding1 = new NeutralBuilding1(new NeutralBuildingA())
@@ -353,19 +354,9 @@ export default class GameBoard {
 		new Objective(105, new MoveTrainOptions(1), 3, -2, { westPort: 1, blueFarmer: 1, greenFarmer: 1 }),
 		new Objective(106, new MoveTrainOptions(1), 3, -2, { caracu: 1, building: 2 }),
 		new Objective(107, new MoveTrainOptions(1), 3, -2, { franqueiro: 1, westPort: 1 }),
-		new Objective(108, new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 4, -2, {
-			value3Cow: 2,
-			trainStation: 1,
-		}),
-		new Objective(109, new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 4, -2, {
-			trainStation: 1,
-			yellowFarmer: 1,
-			blueFarmer: 1,
-		}),
-		new Objective(110, new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)), 3, -2, {
-			building: 2,
-			greenFarmer: 1,
-		}),
+		new Objective(108, drawAndDiscardOption(3), 4, -2, { value3Cow: 2, trainStation: 1 }),
+		new Objective(109, drawAndDiscardOption(3), 4, -2, { trainStation: 1, yellowFarmer: 1, blueFarmer: 1 }),
+		new Objective(110, drawAndDiscardOption(3), 3, -2, { building: 2, greenFarmer: 1 }),
 		new Objective(111, new GainCoinOption(3), 2, -2, { value3Cow: 2, northPort: 1 }),
 		new Objective(112, new GainCoinOption(2), 5, -2, { value3Cow: 1, aberdeenAngus: 1, building: 1 }),
 		new Objective(113, new GainCoinOption(3), 4, -2, { southPort: 1, building: 1 }),
