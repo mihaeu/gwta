@@ -866,6 +866,9 @@ export default class GameBoard {
 			.filter((card) => card instanceof ObjectiveCard) as ObjectiveCard[]
 		const allObjectives = currentPlayer.playedObjectives.concat(remainingObjectives)
 		const allCombinationsOfObjectives = this.getAllCombinationsOfObjectives(allObjectives)
+		if (allCombinationsOfObjectives.length === 0) {
+			return 0
+		}
 		return allCombinationsOfObjectives.reduce((highestScore, objectivesCombo) => {
 			const possibleObjectives = objectives.clone()
 			const victoryPoints: number = objectivesCombo.reduce((victoryPoints, objectiveCard) => {

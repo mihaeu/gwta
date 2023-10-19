@@ -141,6 +141,11 @@ describe("Game Board", () => {
 
 			expect(gameBoard.endgameScoring()[one.name].fulfilledObjectiveCards).toBe(-4)
 		})
+
+		it("should only score objective cards if the player has any", () => {
+			const { gameBoard, one } = gameBoardWithTwoPlayers()
+			expect(gameBoard.endgameScoring()[one.name].fulfilledObjectiveCards).toBe(0)
+		})
 	})
 
 	describe("cow market", () => {
