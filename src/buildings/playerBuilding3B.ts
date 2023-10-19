@@ -4,9 +4,9 @@ import { BuildingHand } from "./neutralBuilding.js"
 import { PlayerBuilding } from "./playerBuilding.js"
 import { Option } from "../options/option.js"
 import { CertificateOption } from "../options/certificateOption.js"
-import { Objective } from "../cards.js"
 import { DiscardCardOption } from "../options/discardCardOption.js"
 import { CompoundOption } from "../options/compoundOption.js"
+import { ObjectiveCard } from "../objectiveCard.js"
 
 export class PlayerBuilding3B extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.BLACK
@@ -21,7 +21,7 @@ export class PlayerBuilding3B extends PlayerBuilding {
 
 		options.push(new CertificateOption(2))
 		currentPlayer.handCards.forEach((card) => {
-			if (card instanceof Objective) {
+			if (card instanceof ObjectiveCard) {
 				options.push(new CompoundOption(new DiscardCardOption(card), new CertificateOption(3)))
 			}
 		})

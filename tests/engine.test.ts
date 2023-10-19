@@ -6,12 +6,14 @@ import GameBoard from "../src/gameBoard.js"
 import { TestPlayer } from "./testPlayer.js"
 import { MoveOption } from "../src/options/moveOption.js"
 import { PlayObjectiveCardOption } from "../src/options/playObjectiveCardOption.js"
-import { Caracu, Fronterizo, Objective } from "../src/cards.js"
+import { Caracu, Fronterizo } from "../src/cards.js"
 import { GainCoinOption } from "../src/options/gainCoinOption.js"
 import { LocationOptions } from "../src/actions/locationOptions.js"
 import { CompoundOption } from "../src/options/compoundOption.js"
 import { BuyCowOption } from "../src/options/buyCowOption.js"
 import { AuxiliaryActionOptions } from "../src/actions/auxiliaryActionOptions.js"
+import { Objectives } from "../src/objectives.js"
+import { ObjectiveCard } from "../src/objectiveCard.js"
 
 describe("Engine", () => {
 	let gameBoard: GameBoard
@@ -45,7 +47,7 @@ describe("Engine", () => {
 		})
 
 		it("should allow playing objective cards before choosing a move", async () => {
-			const objective = new Objective(1, new GainCoinOption(1), 5, -2, {})
+			const objective = new ObjectiveCard(1, new GainCoinOption(1), 5, -2, new Objectives())
 			one.handCards.push(objective)
 			one.selectOptionMock = (options) => options[options.length - 1]
 
@@ -61,9 +63,9 @@ describe("Engine", () => {
 		})
 
 		it("should allow playing objective cards before and after a location action during phase B", async () => {
-			const objective1 = new Objective(1, new GainCoinOption(1), 5, -2, {})
-			const objective2 = new Objective(2, new GainCoinOption(1), 5, -2, {})
-			const objective3 = new Objective(2, new GainCoinOption(1), 5, -2, {})
+			const objective1 = new ObjectiveCard(1, new GainCoinOption(1), 5, -2, new Objectives())
+			const objective2 = new ObjectiveCard(2, new GainCoinOption(1), 5, -2, new Objectives())
+			const objective3 = new ObjectiveCard(2, new GainCoinOption(1), 5, -2, new Objectives())
 			one.discardCards()
 			one.handCards.push(objective1, objective2, objective3, new Fronterizo())
 			one.location = gameBoard["neutralBuilding5"]
@@ -93,23 +95,23 @@ describe("Engine", () => {
 
 			expect(one.callArgs[1].join(", ")).toBe("LocationOptions(NeutralBuilding5(NeutralBuildingE)), AuxiliaryActionOptions")
 			expect(one.callArgs[2].join(", ")).toBe(
-				"CompoundOption(GainCoinOption(2),DiscardCardOption(Fronterizo)), BuyCowOption(Caracu,4), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2))",
+				"CompoundOption(GainCoinOption(2),DiscardCardOption(Fronterizo)), BuyCowOption(Caracu,4), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2))",
 			)
 			expect(one.callArgs[3].join(", ")).toBe(
-				"CompoundOption(GainCoinOption(2),DiscardCardOption(Fronterizo)), BuyCowOption(Caracu,4), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PassOption",
+				"CompoundOption(GainCoinOption(2),DiscardCardOption(Fronterizo)), BuyCowOption(Caracu,4), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption",
 			)
 			expect(one.callArgs[4].join(", ")).toBe(
-				"BuyCowOption(Caracu,4), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PassOption",
+				"BuyCowOption(Caracu,4), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption",
 			)
 			expect(one.callArgs[5].join(", ")).toBe(
-				"BuyCowOption(Caracu,4), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PassOption",
+				"BuyCowOption(Caracu,4), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption",
 			)
-			expect(one.callArgs[6].join(", ")).toBe("PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PassOption")
+			expect(one.callArgs[6].join(", ")).toBe("PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption")
 		})
 
 		it("should allow playing objective cards before and after auxiliary actions", async () => {
-			const objective1 = new Objective(1, new GainCoinOption(1), 5, -2, {})
-			const objective2 = new Objective(2, new GainCoinOption(1), 5, -2, {})
+			const objective1 = new ObjectiveCard(1, new GainCoinOption(1), 5, -2, new Objectives())
+			const objective2 = new ObjectiveCard(2, new GainCoinOption(1), 5, -2, new Objectives())
 			one.discardCards()
 			one.handCards.push(objective1, objective2)
 			one.location = gameBoard["neutralBuilding5"]
@@ -134,12 +136,12 @@ describe("Engine", () => {
 
 			expect(one.callArgs[1].join(", ")).toBe("LocationOptions(NeutralBuilding5(NeutralBuildingE)), AuxiliaryActionOptions")
 			expect(one.callArgs[2].join(", ")).toBe(
-				"GainCoinOption(1), FirstThanSecondsOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2))",
+				"GainCoinOption(1), FirstThanSecondsOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2))",
 			)
 			expect(one.callArgs[3].join(", ")).toBe(
-				"GainCoinOption(1), FirstThanSecondsOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2))",
+				"GainCoinOption(1), FirstThanSecondsOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2))",
 			)
-			expect(one.callArgs[4].join(", ")).toBe("PlayObjectiveCardOption(Objective(GainCoinOption(1),5,-2)), PassOption")
+			expect(one.callArgs[4].join(", ")).toBe("PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption")
 		})
 	})
 

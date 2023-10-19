@@ -1,11 +1,12 @@
 import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers, gameBoardWithTwoPlayersAndBuildings, setUpThreeFarmersWithTotalStrengthOf9 } from "../testUtils.js"
-import { Objective } from "../../src/cards.js"
 import { PlayerBuilding3B } from "../../src/buildings/playerBuilding3B.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
 import { CompoundOption } from "../../src/options/compoundOption.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
+import { Objectives } from "../../src/objectives.js"
+import { ObjectiveCard } from "../../src/objectiveCard.js"
 
 describe("Player Building 3B", () => {
 	const { gameBoard, one, two } = gameBoardWithTwoPlayersAndBuildings(new PlayerBuilding3B())
@@ -24,8 +25,8 @@ describe("Player Building 3B", () => {
 	it("should be be able to get +3 certificate options if objective cards are on player's hand", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		setUpThreeFarmersWithTotalStrengthOf9(gameBoard)
-		const objective1 = new Objective(1, new GainCoinOption(1), 5, -2, {})
-		const objective2 = new Objective(2, new GainCoinOption(1), 4, -2, {})
+		const objective1 = new ObjectiveCard(1, new GainCoinOption(1), 5, -2, new Objectives())
+		const objective2 = new ObjectiveCard(2, new GainCoinOption(1), 4, -2, new Objectives())
 		one.handCards.push(objective1, objective2)
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
 			new CertificateOption(2),

@@ -5,6 +5,11 @@ import RandomPlayer from "../src/randomPlayer.js"
 import { gameBoardWithFourPlayers, gameBoardWithThreePlayers, gameBoardWithTwoPlayers } from "./testUtils.js"
 import { AberdeenAngus, BlancoOrejinegro, Caracu, Chaquenyo, ExhaustionCard, Franqueiro, Serrano } from "../src/cards.js"
 import { BlueFarmer, GreenFarmer, HandColor, OrangeFarmer, YellowFarmer } from "../src/farmer.js"
+import { ObjectiveCard } from "../src/objectiveCard.js"
+import { CertificateOption } from "../src/options/certificateOption.js"
+import { Objectives } from "../src/objectives.js"
+import { GainCoinOption } from "../src/options/gainCoinOption.js"
+import { GainGrainOption } from "../src/options/gainGrainOption.js"
 
 describe("Game Board", () => {
 	describe("buildings", () => {
@@ -107,6 +112,35 @@ describe("Game Board", () => {
 			expect(gameBoard.endgameScoring()[one.name].ships).toBe(10)
 			expect(gameBoard.endgameScoring()[two.name].ships).toBe(-2)
 		})
+
+		it("should find the best possible combination of objective cards and score them", () => {
+			const { gameBoard, one } = gameBoardWithTwoPlayers()
+			one.discardedCards.push(
+				new ObjectiveCard(101, new CertificateOption(1), 3, -2, new Objectives().withEastPort(1).withBuilding(1)),
+				new ObjectiveCard(113, new GainCoinOption(3), 4, -2, new Objectives().withSouthPort(1).withBuilding(1)),
+				new ObjectiveCard(114, new GainCoinOption(3), 3, -2, new Objectives().withNorthPort(1).withBuilding(2)),
+				new ObjectiveCard(123, new GainGrainOption(1), 4, -2, new Objectives().withValue3Cow(1).withFranqueiro(1).withBlueFarmer(1), false),
+			)
+			gameBoard["grainBuilding1"].buildOrUpgradeBuilding(one.availableBuildings[0])
+			gameBoard["grainBuilding2"].buildOrUpgradeBuilding(one.availableBuildings[1])
+			gameBoard["grainBuilding3"].buildOrUpgradeBuilding(one.availableBuildings[2])
+			gameBoard.leHavre.north.spaces[0].player = one
+			gameBoard.leHavre.east.spaces[0].player = one
+			gameBoard.leHavre.south.spaces[0].player = one
+			expect(gameBoard.endgameScoring()[one.name].fulfilledObjectiveCards).toBe(5)
+		})
+
+		it("should only score unfulfilled objective cards if they were played", () => {
+			const { gameBoard, one } = gameBoardWithTwoPlayers()
+			one.discardedCards.push(
+				new ObjectiveCard(101, new CertificateOption(1), 3, -2, new Objectives().withEastPort(1).withBuilding(1)),
+				new ObjectiveCard(113, new GainCoinOption(3), 4, -2, new Objectives().withSouthPort(1).withBuilding(1)),
+				new ObjectiveCard(114, new GainCoinOption(3), 3, -2, new Objectives().withNorthPort(1).withBuilding(2), false),
+				new ObjectiveCard(123, new GainGrainOption(1), 4, -2, new Objectives().withValue3Cow(1).withFranqueiro(1).withBlueFarmer(1), false),
+			)
+
+			expect(gameBoard.endgameScoring()[one.name].fulfilledObjectiveCards).toBe(-4)
+		})
 	})
 
 	describe("cow market", () => {
@@ -139,7 +173,7 @@ describe("Game Board", () => {
 
 	describe("objectives", () => {
 		it("should count all objectives per player", () => {
-			const { gameBoard, one } = gameBoardWithTwoPlayers()
+			const { gameBoard } = gameBoardWithTwoPlayers()
 			expect(gameBoard.collectObjectives()).toEqual({
 				One: {
 					aberdeenAngus: 0,

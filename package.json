@@ -23,6 +23,7 @@
 		"two_random_players": "bun bin/play_one_game_with_two_random_players.ts",
 		"one_random_player_one_human_player": "bun bin/play_one_game_with_one_random_player_and_one_human.ts",
 		"test": "bun test",
-		"test:watch": "bun test --watch"
+		"test:watch": "bun test --watch",
+		"tsc:watch": "tsc --noEmit --watch"
 	}
 }

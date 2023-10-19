@@ -7,6 +7,6 @@ describe("Draw Objective Card Option", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		expect(one.discardedCards).toHaveLength(0)
 		new DrawObjectiveCardOption().resolve(gameBoard, one)
-		expect(one.discardedCards.toString()).toMatch(/Objective\([^)]+\)/)
+		expect(one.discardedCards.toString()).toMatch(/ObjectiveCard\([^)]+\)/)
 	})
 })

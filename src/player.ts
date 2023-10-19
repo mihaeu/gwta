@@ -1,6 +1,6 @@
 import { Node, Start } from "./nodes.js"
 import { Carpenter, Herder, JobMarketToken, Machinist, Worker } from "./tiles.js"
-import { Card, ExhaustionCard, Fronterizo, HolandoArgentino, Niata, Objective, Patagonico } from "./cards.js"
+import { Card, ExhaustionCard, Fronterizo, HolandoArgentino, Niata, Patagonico } from "./cards.js"
 import arrayShuffle from "array-shuffle"
 import { Option } from "./options/option.js"
 
@@ -26,6 +26,7 @@ import { PlayerBuilding9A } from "./buildings/playerBuilding9A.js"
 import { PlayerBuilding9B } from "./buildings/playerBuilding9B.js"
 import { PlayerBuilding10A } from "./buildings/playerBuilding10A.js"
 import { Farmer } from "./farmer.js"
+import { ObjectiveCard } from "./objectiveCard.js"
 
 export enum UpgradeType {
 	BLACK = "BLACK",
@@ -76,7 +77,7 @@ export default abstract class Player {
 	private _helpedFarmers: Farmer[] = []
 	public exchangeTokens = 1
 	public jobMarketToken?: JobMarketToken
-	public readonly playedObjectives: Objective[] = []
+	public readonly playedObjectives: ObjectiveCard[] = []
 	private static readonly startCards = [
 		new Niata(),
 		new Niata(),

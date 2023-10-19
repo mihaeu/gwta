@@ -77,10 +77,10 @@ end
     - ❌ Station Masters
     - ❌ End of track situations
     - ❌ Move backward
-  - ⚠️ Objective Cards
+  - ✅ Objective Cards
     - ✅ immediate impact
     - ✅ playable
-    - ❌ endgame scoring
+    - ✅ endgame scoring
   - ⚠️ Buying cow combinations (allow buying of multiple cows and filling cow market)
   - ✅ Grain
   - ✅ Buenos Aires

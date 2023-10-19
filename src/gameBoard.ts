@@ -62,19 +62,7 @@ import {
 	YellowFarmer7,
 } from "./nodes.js"
 import { Carpenter, Herder, JobMarketItem, JobMarketToken, Machinist, Tile, Worker } from "./tiles.js"
-import {
-	AberdeenAngus,
-	BlancoOrejinegro,
-	Caracu,
-	Card,
-	Chaquenyo,
-	CowCard,
-	ExhaustionCard,
-	Franqueiro,
-	Objective,
-	Objectives,
-	Serrano,
-} from "./cards.js"
+import { AberdeenAngus, BlancoOrejinegro, Caracu, Card, Chaquenyo, CowCard, ExhaustionCard, Franqueiro, Serrano } from "./cards.js"
 import Player, { UpgradeType } from "./player.js"
 import { NeutralBuildingA } from "./buildings/neutralBuildingA.js"
 import { NeutralBuildingB } from "./buildings/neutralBuildingB.js"
@@ -96,6 +84,9 @@ import { FirstThanSecondsOption } from "./options/firstThanSecondOption.js"
 import { DrawCardOption } from "./options/drawCardOption.js"
 import { DiscardCardOptions } from "./actions/discardCardOptions.js"
 import { GainGrainOption } from "./options/gainGrainOption.js"
+import { getAllCombinations } from "./util.js"
+import { Objectives } from "./objectives.js"
+import { ObjectiveCard } from "./objectiveCard.js"
 
 const drawAndDiscardOption = (count: number) => new FirstThanSecondsOption(new DrawCardOption(count), new DiscardCardOptions(count))
 export default class GameBoard {
@@ -347,30 +338,30 @@ export default class GameBoard {
 		new Machinist(true),
 	])
 	public readonly objectiveCards: Card[] = arrayShuffle([
-		new Objective(100, new CertificateOption(1), 4, -2, { westPort: 1, trainStation: 2 }),
-		new Objective(101, new CertificateOption(1), 3, -2, { eastPort: 1, building: 1 }),
-		new Objective(102, new CertificateOption(1), 4, -2, { caracu: 1, trainStation: 1, orangeFarmer: 1 }),
-		new Objective(103, new CertificateOption(3), 5, -2, { value3Cow: 1, franqueiro: 1, aberdeenAngus: 1 }),
-		new Objective(104, new MoveTrainOptions(1), 4, -2, { northPort: 1, eastPort: 1 }),
-		new Objective(105, new MoveTrainOptions(1), 3, -2, { westPort: 1, blueFarmer: 1, greenFarmer: 1 }),
-		new Objective(106, new MoveTrainOptions(1), 3, -2, { caracu: 1, building: 2 }),
-		new Objective(107, new MoveTrainOptions(1), 3, -2, { franqueiro: 1, westPort: 1 }),
-		new Objective(108, drawAndDiscardOption(3), 4, -2, { value3Cow: 2, trainStation: 1 }),
-		new Objective(109, drawAndDiscardOption(3), 4, -2, { trainStation: 1, yellowFarmer: 1, blueFarmer: 1 }),
-		new Objective(110, drawAndDiscardOption(3), 3, -2, { building: 2, greenFarmer: 1 }),
-		new Objective(111, new GainCoinOption(3), 2, -2, { value3Cow: 2, northPort: 1 }),
-		new Objective(112, new GainCoinOption(2), 5, -2, { value3Cow: 1, aberdeenAngus: 1, building: 1 }),
-		new Objective(113, new GainCoinOption(3), 4, -2, { southPort: 1, building: 1 }),
-		new Objective(114, new GainCoinOption(3), 3, -2, { northPort: 1, building: 2 }),
-		new Objective(115, new GainCoinOption(4), 5, -2, { value18Ship: 1 }),
-		new Objective(116, new GainCoinOption(2), 3, -2, { building: 1, yellowFarmer: 1, orangeFarmer: 1 }),
-		new Objective(117, new GainGrainOption(1), 3, -2, { westPort: 1, building: 1, yellowFarmer: 1 }),
-		new Objective(118, new GainGrainOption(1), 4, -2, { value3Cow: 1, trainStation: 2 }),
-		new Objective(119, new GainGrainOption(1), 3, -2, { value3Cow: 1, orangeFarmer: 1, greenFarmer: 1 }),
-		new Objective(120, new GainGrainOption(1), 4, -2, { building: 2, trainStation: 1 }),
-		new Objective(121, new GainGrainOption(1), 4, -2, { value3Cow: 1, franqueiro: 1, building: 1 }),
-		new Objective(122, new GainGrainOption(1), 5, -2, { southPort: 1, trainStation: 1 }),
-		new Objective(123, new GainGrainOption(1), 4, -2, { value3Cow: 1, franqueiro: 1, blueFarmer: 1 }),
+		new ObjectiveCard(100, new CertificateOption(1), 4, -2, new Objectives().withWestPort(1).withTrainStation(2)),
+		new ObjectiveCard(101, new CertificateOption(1), 3, -2, new Objectives().withEastPort(1).withBuilding(1)),
+		new ObjectiveCard(102, new CertificateOption(1), 4, -2, new Objectives().withCaracu(1).withTrainStation(1).withOrangeFarmer(1)),
+		new ObjectiveCard(103, new CertificateOption(3), 5, -2, new Objectives().withValue3Cow(1).withFranqueiro(1).withAberdeenAngus(1)),
+		new ObjectiveCard(104, new MoveTrainOptions(1), 4, -2, new Objectives().withNorthPort(1).withEastPort(1)),
+		new ObjectiveCard(105, new MoveTrainOptions(1), 3, -2, new Objectives().withWestPort(1).withBlueFarmer(1).withGreenFarmer(1)),
+		new ObjectiveCard(106, new MoveTrainOptions(1), 3, -2, new Objectives().withCaracu(1).withBuilding(2)),
+		new ObjectiveCard(107, new MoveTrainOptions(1), 3, -2, new Objectives().withFranqueiro(1).withWestPort(1)),
+		new ObjectiveCard(108, drawAndDiscardOption(3), 4, -2, new Objectives().withValue3Cow(2).withTrainStation(1)),
+		new ObjectiveCard(109, drawAndDiscardOption(3), 4, -2, new Objectives().withTrainStation(1).withYellowFarmer(1).withBlueFarmer(1)),
+		new ObjectiveCard(110, drawAndDiscardOption(3), 3, -2, new Objectives().withBuilding(2).withGreenFarmer(1)),
+		new ObjectiveCard(111, new GainCoinOption(3), 2, -2, new Objectives().withValue3Cow(2).withNorthPort(1)),
+		new ObjectiveCard(112, new GainCoinOption(2), 5, -2, new Objectives().withValue3Cow(1).withAberdeenAngus(1).withBuilding(1)),
+		new ObjectiveCard(113, new GainCoinOption(3), 4, -2, new Objectives().withSouthPort(1).withBuilding(1)),
+		new ObjectiveCard(114, new GainCoinOption(3), 3, -2, new Objectives().withNorthPort(1).withBuilding(2)),
+		new ObjectiveCard(115, new GainCoinOption(4), 5, -2, new Objectives().withValue18Ship(1)),
+		new ObjectiveCard(116, new GainCoinOption(2), 3, -2, new Objectives().withBuilding(1).withYellowFarmer(1).withOrangeFarmer(1)),
+		new ObjectiveCard(117, new GainGrainOption(1), 3, -2, new Objectives().withWestPort(1).withBuilding(1).withYellowFarmer(1)),
+		new ObjectiveCard(118, new GainGrainOption(1), 4, -2, new Objectives().withValue3Cow(1).withTrainStation(2)),
+		new ObjectiveCard(119, new GainGrainOption(1), 3, -2, new Objectives().withValue3Cow(1).withOrangeFarmer(1).withGreenFarmer(1)),
+		new ObjectiveCard(120, new GainGrainOption(1), 4, -2, new Objectives().withBuilding(2).withTrainStation(1)),
+		new ObjectiveCard(121, new GainGrainOption(1), 4, -2, new Objectives().withValue3Cow(1).withFranqueiro(1).withBuilding(1)),
+		new ObjectiveCard(122, new GainGrainOption(1), 5, -2, new Objectives().withSouthPort(1).withTrainStation(1)),
+		new ObjectiveCard(123, new GainGrainOption(1), 4, -2, new Objectives().withValue3Cow(1).withFranqueiro(1).withBlueFarmer(1)),
 	])
 	public jobMarket: Array<JobMarketItem> = []
 	public readonly foresightSpacesA: Tile[]
@@ -724,6 +715,7 @@ export default class GameBoard {
 
 	endgameScoring(): { [key: string]: ScoreCard } {
 		const score: { [key: string]: ScoreCard } = {}
+		const objectives = this.collectObjectives()
 		this.players.forEach((player) => {
 			const buildings = this.playerBuildings(player).reduce((sum, playerLocation) => {
 				return sum + playerLocation.building().victoryPoints
@@ -755,7 +747,7 @@ export default class GameBoard {
 				return ship.players.some((playerOnShip) => player.equals(playerOnShip)) ? total + ship.victoryPoints : total
 			}, 0)
 			const trainStations = 0
-			const fulfilledObjectiveCards = 0
+			const fulfilledObjectiveCards = this.countFulfilledObjectiveCards(player, objectives[player.name])
 			const stationMasters = 0
 			const helpedFarmers = player.helpedFarmers.length * 2
 			const cowCards = this.scoreCowAndExhaustionCards(player)
@@ -822,43 +814,78 @@ export default class GameBoard {
 		const objectives: { [key: string]: Objectives } = {}
 		this.players.forEach((player) => {
 			const allPlayerCards = player.handCards.concat(player.discardedCards).concat(player.cards)
-			objectives[player.name] = {
-				northPort:
+			objectives[player.name] = new Objectives()
+				.withNorthPort(
 					this.countPlayersOnPortDistrict(this.leHavre.north, player) +
-					this.countPlayersOnPortDistrict(this.rotterdam.north, player) +
-					this.countPlayersOnPortDistrict(this.liverpool.north, player),
-				eastPort:
+						this.countPlayersOnPortDistrict(this.rotterdam.north, player) +
+						this.countPlayersOnPortDistrict(this.liverpool.north, player),
+				)
+				.withEastPort(
 					this.countPlayersOnPortDistrict(this.leHavre.east, player) +
-					this.countPlayersOnPortDistrict(this.rotterdam.east, player) +
-					this.countPlayersOnPortDistrict(this.liverpool.east, player),
-				southPort:
+						this.countPlayersOnPortDistrict(this.rotterdam.east, player) +
+						this.countPlayersOnPortDistrict(this.liverpool.east, player),
+				)
+				.withSouthPort(
 					this.countPlayersOnPortDistrict(this.leHavre.south, player) +
-					this.countPlayersOnPortDistrict(this.rotterdam.south, player) +
-					this.countPlayersOnPortDistrict(this.liverpool.south, player),
-				westPort:
+						this.countPlayersOnPortDistrict(this.rotterdam.south, player) +
+						this.countPlayersOnPortDistrict(this.liverpool.south, player),
+				)
+				.withWestPort(
 					this.countPlayersOnPortDistrict(this.leHavre.west, player) +
-					this.countPlayersOnPortDistrict(this.rotterdam.west, player) +
-					this.countPlayersOnPortDistrict(this.liverpool.west, player),
-				caracu: allPlayerCards.reduce((count: number, card) => (card instanceof Caracu ? count + 1 : count), 0),
-				franqueiro: allPlayerCards.reduce((count: number, card) => (card instanceof Franqueiro ? count + 1 : count), 0),
-				aberdeenAngus: allPlayerCards.reduce((count: number, card) => (card instanceof AberdeenAngus ? count + 1 : count), 0),
-				value3Cow: allPlayerCards.reduce(
-					(count: number, card) =>
-						card instanceof Serrano || card instanceof Chaquenyo || card instanceof BlancoOrejinegro ? count + 1 : count,
-					0,
-				),
-				blueFarmer: player.helpedFarmers.reduce((count, farmer) => (farmer instanceof BlueFarmer ? count + 1 : count), 0),
-				yellowFarmer: player.helpedFarmers.reduce((count, farmer) => (farmer instanceof YellowFarmer ? count + 1 : count), 0),
-				orangeFarmer: player.helpedFarmers.reduce((count, farmer) => (farmer instanceof OrangeFarmer ? count + 1 : count), 0),
-				greenFarmer: player.helpedFarmers.reduce((count, farmer) => (farmer instanceof GreenFarmer ? count + 1 : count), 0),
-				building: this.playerBuildings(player).length,
-				value18Ship: this.availableShips
-					.find((ship) => ship.valueRequirement === 18)
-					?.players?.reduce((count, shipOwner) => (shipOwner.equals(player) ? count + 1 : count), 0),
-				trainStation: 0,
-			}
+						this.countPlayersOnPortDistrict(this.rotterdam.west, player) +
+						this.countPlayersOnPortDistrict(this.liverpool.west, player),
+				)
+				.withCaracu(allPlayerCards.reduce((count: number, card) => (card instanceof Caracu ? count + 1 : count), 0))
+				.withFranqueiro(allPlayerCards.reduce((count: number, card) => (card instanceof Franqueiro ? count + 1 : count), 0))
+				.withAberdeenAngus(allPlayerCards.reduce((count: number, card) => (card instanceof AberdeenAngus ? count + 1 : count), 0))
+				.withValue3Cow(
+					allPlayerCards.reduce(
+						(count: number, card) =>
+							card instanceof Serrano || card instanceof Chaquenyo || card instanceof BlancoOrejinegro ? count + 1 : count,
+						0,
+					),
+				)
+				.withBlueFarmer(player.helpedFarmers.reduce((count, farmer) => (farmer instanceof BlueFarmer ? count + 1 : count), 0))
+				.withYellowFarmer(player.helpedFarmers.reduce((count, farmer) => (farmer instanceof YellowFarmer ? count + 1 : count), 0))
+				.withOrangeFarmer(player.helpedFarmers.reduce((count, farmer) => (farmer instanceof OrangeFarmer ? count + 1 : count), 0))
+				.withGreenFarmer(player.helpedFarmers.reduce((count, farmer) => (farmer instanceof GreenFarmer ? count + 1 : count), 0))
+				.withBuilding(this.playerBuildings(player).length)
+				.withValue18Ship(
+					this.availableShips
+						.find((ship) => ship.valueRequirement === 18)
+						?.players?.reduce((count, shipOwner) => (shipOwner.equals(player) ? count + 1 : count), 0) ?? 0,
+				)
+				.withTrainStation(0)
 		})
 		return objectives
+	}
+
+	private countFulfilledObjectiveCards(currentPlayer: Player, objectives: Objectives): number {
+		const remainingObjectives = currentPlayer.discardedCards
+			.concat(currentPlayer.cards)
+			.filter((card) => card instanceof ObjectiveCard) as ObjectiveCard[]
+		const allObjectives = currentPlayer.playedObjectives.concat(remainingObjectives)
+		const allCombinationsOfObjectives = this.getAllCombinationsOfObjectives(allObjectives)
+		return allCombinationsOfObjectives.reduce((highestScore, objectivesCombo) => {
+			const possibleObjectives = objectives.clone()
+			const victoryPoints: number = objectivesCombo.reduce((victoryPoints, objectiveCard) => {
+				const isFulfilled = possibleObjectives.fulfills(objectiveCard.objectives)
+				if (isFulfilled) {
+					possibleObjectives.subtract(objectiveCard.objectives)
+				}
+				return isFulfilled
+					? victoryPoints + objectiveCard.victoryPointsFulfilled
+					: victoryPoints + (objectiveCard.isOptional ? 0 : objectiveCard.victoryPointsUnfulfilled)
+			}, 0)
+			return victoryPoints > highestScore ? victoryPoints : highestScore
+		}, -999)
+	}
+
+	private getAllCombinationsOfObjectives(allObjectives: ObjectiveCard[]) {
+		const mandatoryObjectives = allObjectives.filter((objective) => !objective.isOptional)
+		return getAllCombinations(allObjectives).filter((objectiveCards) => {
+			return mandatoryObjectives.every((mandatoryObjective) => objectiveCards.includes(mandatoryObjective))
+		})
 	}
 }
 
