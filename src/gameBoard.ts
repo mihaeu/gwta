@@ -72,6 +72,7 @@ import {
 	ExhaustionCard,
 	Franqueiro,
 	Objective,
+	Objectives,
 	Serrano,
 } from "./cards.js"
 import Player, { UpgradeType } from "./player.js"
@@ -88,7 +89,7 @@ import { GainCoinOption } from "./options/gainCoinOption.js"
 import { DrawObjectiveCardOption } from "./options/drawObjectiveCardOption.js"
 import { FreeFranqueiroOptions } from "./actions/freeFranqueiroOptions.js"
 import { MoveTrainOptions } from "./actions/moveTrainOptions.js"
-import { Port, PortSpace } from "./port/port.js"
+import { Port, PortDistrict, PortSpace } from "./port/port.js"
 import { Ship, ShipColor } from "./ship.js"
 import { CertificateOption } from "./options/certificateOption.js"
 import { FirstThanSecondsOption } from "./options/firstThanSecondOption.js"
@@ -811,6 +812,53 @@ export default class GameBoard {
 
 	public refillShips() {
 		this.availableShips = this.availableShips.concat(this.remainingShips.splice(0, 3))
+	}
+
+	private countPlayersOnPortDistrict(portDistrict: PortDistrict, currentPlayer: Player): number {
+		return portDistrict.spaces.reduce((count, portSpace) => (currentPlayer.equals(portSpace.player) ? count + 1 : count), 0)
+	}
+
+	public collectObjectives() {
+		const objectives: { [key: string]: Objectives } = {}
+		this.players.forEach((player) => {
+			const allPlayerCards = player.handCards.concat(player.discardedCards).concat(player.cards)
+			objectives[player.name] = {
+				northPort:
+					this.countPlayersOnPortDistrict(this.leHavre.north, player) +
+					this.countPlayersOnPortDistrict(this.rotterdam.north, player) +
+					this.countPlayersOnPortDistrict(this.liverpool.north, player),
+				eastPort:
+					this.countPlayersOnPortDistrict(this.leHavre.east, player) +
+					this.countPlayersOnPortDistrict(this.rotterdam.east, player) +
+					this.countPlayersOnPortDistrict(this.liverpool.east, player),
+				southPort:
+					this.countPlayersOnPortDistrict(this.leHavre.south, player) +
+					this.countPlayersOnPortDistrict(this.rotterdam.south, player) +
+					this.countPlayersOnPortDistrict(this.liverpool.south, player),
+				westPort:
+					this.countPlayersOnPortDistrict(this.leHavre.west, player) +
+					this.countPlayersOnPortDistrict(this.rotterdam.west, player) +
+					this.countPlayersOnPortDistrict(this.liverpool.west, player),
+				caracu: allPlayerCards.reduce((count: number, card) => (card instanceof Caracu ? count + 1 : count), 0),
+				franqueiro: allPlayerCards.reduce((count: number, card) => (card instanceof Franqueiro ? count + 1 : count), 0),
+				aberdeenAngus: allPlayerCards.reduce((count: number, card) => (card instanceof AberdeenAngus ? count + 1 : count), 0),
+				value3Cow: allPlayerCards.reduce(
+					(count: number, card) =>
+						card instanceof Serrano || card instanceof Chaquenyo || card instanceof BlancoOrejinegro ? count + 1 : count,
+					0,
+				),
+				blueFarmer: player.helpedFarmers.reduce((count, farmer) => (farmer instanceof BlueFarmer ? count + 1 : count), 0),
+				yellowFarmer: player.helpedFarmers.reduce((count, farmer) => (farmer instanceof YellowFarmer ? count + 1 : count), 0),
+				orangeFarmer: player.helpedFarmers.reduce((count, farmer) => (farmer instanceof OrangeFarmer ? count + 1 : count), 0),
+				greenFarmer: player.helpedFarmers.reduce((count, farmer) => (farmer instanceof GreenFarmer ? count + 1 : count), 0),
+				building: this.playerBuildings(player).length,
+				value18Ship: this.availableShips
+					.find((ship) => ship.valueRequirement === 18)
+					?.players?.reduce((count, shipOwner) => (shipOwner.equals(player) ? count + 1 : count), 0),
+				trainStation: 0,
+			}
+		})
+		return objectives
 	}
 }
 

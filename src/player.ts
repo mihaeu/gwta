@@ -303,8 +303,8 @@ export default abstract class Player {
 		return this._name
 	}
 
-	equals(other: Player): boolean {
-		return this._name === other._name
+	equals(other?: Player): boolean {
+		return other !== undefined && this._name === other._name
 	}
 
 	cardLimit(): number {
