@@ -32,6 +32,8 @@ export default class SlightlySmarterRandomPlayer extends Player {
 			filteredOptions = options.filter((option) => !((option as MoveOption).location instanceof FarmerNode))
 		}
 
-		return Promise.resolve(filteredOptions[Math.round(Math.random() * (filteredOptions.length - 1))])
+		const option = filteredOptions[Math.round(Math.random() * (filteredOptions.length - 1))]
+		console.log(`Player ${this} chose option ${option}.`)
+		return Promise.resolve(option)
 	}
 }

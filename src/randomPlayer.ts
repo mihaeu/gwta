@@ -7,6 +7,8 @@ export default class RandomPlayer extends Player {
 	}
 
 	chooseOption(options: Option[]): Promise<Option> {
-		return Promise.resolve(options[Math.round(Math.random() * (options.length - 1))])
+		const option = options[Math.round(Math.random() * (options.length - 1))]
+		console.log(`Player ${this} chose option ${option}.`)
+		return Promise.resolve(option)
 	}
 }
