@@ -3,6 +3,7 @@ import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { BuenosAiresStepOneOptions } from "../../src/actions/buenosAiresStepOneOptions.js"
 import { BuenosAiresStepOneOption } from "../../src/options/buenosAiresStepOneOption.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
+import { ForfeitOption } from "../../src/options/forfeitOption.js"
 
 describe("Buenos Aires Step One Options", () => {
 	it("should not have any options at the beginning of the game without grain", () => {
@@ -26,7 +27,7 @@ describe("Buenos Aires Step One Options", () => {
 				1,
 			)
 		})
-		expect(actual.toString()).toEqual(expected.toString())
+		expect(actual.toString()).toEqual(expected.toString() + ",ForfeitOption")
 	})
 
 	it("should be able to afford a port space costing 4 with 1 grain if discount is 3", () => {
@@ -41,7 +42,7 @@ describe("Buenos Aires Step One Options", () => {
 
 		const actual = new BuenosAiresStepOneOptions().resolve(gameBoard, one)
 		const expected = new BuenosAiresStepOneOption(gameBoard.liverpool.portTwo, gameBoard.liverpool.north.spaces[0], 1)
-		expect(actual).toHaveLength(1)
-		expect(actual.pop()).toEqual(expected)
+		expect(actual).toHaveLength(2)
+		expect(actual).toEqual([expected, new ForfeitOption()])
 	})
 })

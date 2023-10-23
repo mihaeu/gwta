@@ -3,16 +3,17 @@ import Player from "../player.js"
 import { Option } from "../options/option.js"
 import { Port } from "../port/port.js"
 import { BuenosAiresStepOneOption } from "../options/buenosAiresStepOneOption.js"
+import { ForfeitOption } from "../options/forfeitOption.js"
 
 export class BuenosAiresStepOneOptions extends Option {
 	optionsForPortDistrict(currentPlayer: Player, port: Port, availableGrain: number): Option[] {
-		let options: Option[] = []
 		const isPlayerOnPortOne = port.portOne.some((player) => player.equals(currentPlayer))
 		const isPlayerOnPortTwo = port.portTwo?.some((player) => player.equals(currentPlayer)) ?? false
 		if (!isPlayerOnPortOne && !isPlayerOnPortTwo) {
 			return []
 		}
 
+		let options: Option[] = []
 		for (let portDistrict of [port.west, port.north, port.east, port.south]) {
 			if (isPlayerOnPortOne && availableGrain >= portDistrict.cost && isPlayerOnPortOne) {
 				options = portDistrict.spaces
@@ -29,7 +30,7 @@ export class BuenosAiresStepOneOptions extends Option {
 				)
 			}
 		}
-		return options
+		return options.length > 0 ? [...options, new ForfeitOption()] : []
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
