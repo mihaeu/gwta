@@ -14,19 +14,19 @@ describe("Player Building 5B", () => {
 		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
-	it("should get only double auxiliary option if there are no farmers on the player board", () => {
-		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new DoubleAuxiliaryOptions()])
-	})
-
 	it("should get gold action for each set of 4 different workers on the player board", () => {
-		one.hireWorker(new Herder())
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new DoubleAuxiliaryOptions(), new GainCoinOption(6)])
+
 		one.hireWorker(new Herder())
 		one.hireWorker(new Carpenter())
-		one.hireWorker(new Carpenter())
-		one.hireWorker(new Machinist())
 		one.hireWorker(new Machinist())
 		one.farmers.push(new YellowFarmer(HandColor.GREEN, 7))
-		one.farmers.push(new YellowFarmer(HandColor.BLACK, 5))
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new DoubleAuxiliaryOptions(), new GainCoinOption(12)])
+
+		one.hireWorker(new Herder())
+		one.hireWorker(new Carpenter())
+		one.hireWorker(new Machinist())
+		one.farmers.push(new YellowFarmer(HandColor.BLACK, 5))
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new DoubleAuxiliaryOptions(), new GainCoinOption(18)])
 	})
 })

@@ -45,3 +45,9 @@ export class GreenFarmer extends Farmer {}
 export class OrangeFarmer extends Farmer {}
 
 export class YellowFarmer extends Farmer {}
+
+export class HiredFarmer extends Farmer {
+	constructor() {
+		super(HandColor.BLACK, 3)
+	}
+}

@@ -11,7 +11,7 @@ import { AuxiliaryActionOptions } from "../actions/auxiliaryActionOptions.js"
 export class NeutralBuildingH extends NeutralBuilding {
 	options(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		const options: Option[] = []
-		if (currentPlayer.farmers.length > 0) {
+		if (currentPlayer.grain < Player.MAX_GRAIN) {
 			options.push(new GainGrainOption(currentPlayer.farmers.length))
 		}
 

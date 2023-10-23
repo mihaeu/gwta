@@ -286,6 +286,6 @@ describe("Game Board", () => {
 			expect(objectives[one.name].westPort).toEqual(4)
 		})
 
-		it.skip("should count all train stations", () => {})
+		it.todo("should count all train stations", () => {})
 	})
 })

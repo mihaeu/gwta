@@ -114,7 +114,10 @@ end
     - ✅ use as action
   - ⚠️ Hiring workers
     - ✅ should not be possible if player already has 6 of a type
-    - ❌ hiring effects
+    - ⚠️ hiring effects
+      - ❌ last effect of machinist
+  - ⚠️ Grain
+    - ❌ consistent grain limitation (only present gain grain option if player has less than 8)
 
 ## Ideas
 

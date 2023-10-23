@@ -6,17 +6,16 @@ import { Option } from "./option.js"
 import { PlayerBuilding } from "../buildings/playerBuilding.js"
 
 export class UpgradeBuildingOption extends Option {
-	public readonly playerBuilding: PlayerBuilding
-	public readonly location: PlayerBuildingNode
-
-	constructor(playerBuilding: PlayerBuilding, location: PlayerBuildingNode) {
+	constructor(
+		public readonly playerBuilding: PlayerBuilding,
+		public readonly location: PlayerBuildingNode,
+		private readonly cost: number,
+	) {
 		super()
-		this.playerBuilding = playerBuilding
-		this.location = location
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		currentPlayer.pay((this.playerBuilding.requiredCarpenters - this.location.building().requiredCarpenters) * 2)
+		currentPlayer.pay(this.cost)
 
 		const oldBuilding: PlayerBuilding = this.location.building()
 		this.location.buildOrUpgradeBuilding(this.playerBuilding)
@@ -29,7 +28,6 @@ export class UpgradeBuildingOption extends Option {
 	}
 
 	toString(): string {
-		const cost = (this.playerBuilding.requiredCarpenters - this.location.building().requiredCarpenters) * 2
-		return `${super.toString()}(${this.playerBuilding.constructor.name},${cost})`
+		return `${super.toString()}(${this.playerBuilding.constructor.name},${this.cost})`
 	}
 }

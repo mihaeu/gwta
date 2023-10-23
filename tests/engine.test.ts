@@ -81,10 +81,12 @@ describe("Engine", () => {
 					case 3:
 						return options.find((option) => option instanceof CompoundOption)!
 					case 4:
-						return options.find((option) => option instanceof PlayObjectiveCardOption)!
+						return options.find((option) => option instanceof CompoundOption)!
 					case 5:
-						return options.find((option) => option instanceof BuyCowOption)!
+						return options.find((option) => option instanceof PlayObjectiveCardOption)!
 					case 6:
+						return options.find((option) => option instanceof BuyCowOption)!
+					case 7:
 						return options.find((option) => option instanceof PlayObjectiveCardOption)!
 					default:
 						return options.find((option) => option instanceof PlayObjectiveCardOption)!
@@ -100,13 +102,14 @@ describe("Engine", () => {
 			expect(one.callArgs[3].join(", ")).toBe(
 				"CompoundOption(GainCoinOption(2),DiscardCardOption(Fronterizo)), BuyCowOption(Caracu,4), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption",
 			)
-			expect(one.callArgs[4].join(", ")).toBe(
+			expect(one.callArgs[4].join(", ")).toBe("CompoundOption(DiscardCardOption(Fronterizo))")
+			expect(one.callArgs[5].join(", ")).toBe(
 				"BuyCowOption(Caracu,4), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption",
 			)
-			expect(one.callArgs[5].join(", ")).toBe(
+			expect(one.callArgs[6].join(", ")).toBe(
 				"BuyCowOption(Caracu,4), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption",
 			)
-			expect(one.callArgs[6].join(", ")).toBe("PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption")
+			expect(one.callArgs[7].join(", ")).toBe("PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption")
 		})
 
 		it("should allow playing objective cards before and after auxiliary actions", async () => {

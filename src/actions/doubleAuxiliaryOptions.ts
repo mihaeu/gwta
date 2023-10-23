@@ -18,6 +18,7 @@ export class DoubleAuxiliaryOptions extends Option {
 		const upgrades = currentPlayer.upgrades
 		const options: Option[] = []
 
+		// todo this needs to also provide single options if double is not available
 		if (upgrades.gainCoinDouble === UpgradeType.UPGRADED) {
 			options.push(new GainCoinOption(2))
 		}

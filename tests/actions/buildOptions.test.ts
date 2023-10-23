@@ -38,6 +38,6 @@ describe("Build Options", () => {
 		availableBuildingLocation.buildOrUpgradeBuilding(existingBuilding)
 		expect(gameBoard.playerBuildings(one)).toHaveLength(1)
 
-		expect(buildOptions.resolve(gameBoard, one)).toEqual([new UpgradeBuildingOption(building10a, availableBuildingLocation)])
+		expect(buildOptions.resolve(gameBoard, one)).toEqual([new UpgradeBuildingOption(building10a, availableBuildingLocation, 8)])
 	})
 })

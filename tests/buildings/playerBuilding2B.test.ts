@@ -26,16 +26,12 @@ describe("Player Building 2B", () => {
 		expect(playerBuildingOfPlayerOne.options(gameBoard, two)).toHaveLength(0)
 	})
 
-	it("should present a move action", () => {
-		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new MoveOptions(1)])
-	})
-
 	it("should present a grain per farmer action if there are hired farmers", () => {
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
 		one.hireWorker(new BlueFarmer(HandColor.BLACK, 3))
-		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainCoinOption(5), new MoveOptions(1)])
+		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([new GainCoinOption(6), new MoveOptions(1)])
 	})
 })

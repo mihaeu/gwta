@@ -11,8 +11,8 @@ export class CompoundOption extends Option {
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		this.options.forEach((option) => option.resolve(gameBoard, currentPlayer))
-		return []
+		this.options[0].resolve(gameBoard, currentPlayer)
+		return this.options.length > 1 ? [new CompoundOption(...this.options.slice(1))] : []
 	}
 
 	toString(): string {

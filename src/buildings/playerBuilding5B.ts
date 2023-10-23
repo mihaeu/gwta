@@ -16,16 +16,12 @@ export class PlayerBuilding5B extends PlayerBuilding {
 			return []
 		}
 
-		const actions: Option[] = [new DoubleAuxiliaryOptions()]
-		if (currentPlayer.farmers.length > 0) {
-			const numberOfSetsOfAllWorkers = Math.min(
-				currentPlayer.farmers.length,
-				currentPlayer.herders.length,
-				currentPlayer.machinists.length,
-				currentPlayer.carpenters.length,
-			)
-			actions.push(new GainCoinOption(6 * numberOfSetsOfAllWorkers))
-		}
-		return actions
+		const numberOfSetsOfAllWorkers = Math.min(
+			currentPlayer.farmers.length,
+			currentPlayer.herders.length,
+			currentPlayer.machinists.length,
+			currentPlayer.carpenters.length,
+		)
+		return [new DoubleAuxiliaryOptions(), new GainCoinOption(6 * numberOfSetsOfAllWorkers)]
 	}
 }

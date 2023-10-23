@@ -25,7 +25,7 @@ import { PlayerBuilding8B } from "./buildings/playerBuilding8B.js"
 import { PlayerBuilding9A } from "./buildings/playerBuilding9A.js"
 import { PlayerBuilding9B } from "./buildings/playerBuilding9B.js"
 import { PlayerBuilding10A } from "./buildings/playerBuilding10A.js"
-import { Farmer } from "./farmer.js"
+import { Farmer, HiredFarmer } from "./farmer.js"
 import { ObjectiveCard } from "./objectiveCard.js"
 
 export enum UpgradeType {
@@ -57,6 +57,7 @@ export type Upgrades = {
 export default abstract class Player {
 	public static readonly STARTING_CARD_LIMIT = 4
 	public static readonly MAX_GRAIN = 8
+	public static readonly MAX_WORKERS = 6
 	public static readonly STARTING_COINS = 7
 
 	protected readonly _name: string
@@ -70,7 +71,7 @@ export default abstract class Player {
 	private _herders: Worker[] = [new Herder()]
 	private _carpenters: Worker[] = [new Carpenter()]
 	private _machinists: Worker[] = [new Machinist()]
-	private _farmers: Farmer[] = []
+	private _farmers: Farmer[] = [new HiredFarmer()]
 	public availableBuildings: PlayerBuilding[] = []
 	private _grain = 0
 	private _certificates = 0
@@ -224,7 +225,7 @@ export default abstract class Player {
 	discardCard(card: Card) {
 		const index = this.handCards.findIndex((currentCard) => currentCard.toString() === card.toString())
 		if (index < 0) {
-			throw new Error(`Player doesn't have card ${card} on their hand.`)
+			throw new Error(`Player ${this} doesn't have card ${card} on their hand: ${this.handCards.join(",")}`)
 		}
 		this.discardedCards.push(this.handCards.splice(index, 1)[0])
 	}
@@ -232,7 +233,7 @@ export default abstract class Player {
 	removeCard(card: Card) {
 		const index = this.handCards.findIndex((currentCard) => currentCard.toString() === card.toString())
 		if (index < 0) {
-			throw new Error(`Player doesn't have card ${card} on their hand.`)
+			throw new Error(`Player ${this} doesn't have card ${card} on their hand: ${this.handCards.join(",")}`)
 		}
 		this._removedCards.push(this.handCards.splice(index, 1)[0])
 	}
