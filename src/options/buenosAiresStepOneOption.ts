@@ -22,6 +22,10 @@ export class BuenosAiresStepOneOption extends Option {
 		return this.portSpace.reward ? this.portSpace.reward.resolve(gameBoard, currentPlayer) : []
 	}
 
+	toString(): string {
+		return `${super.toString()}(grain:${this.grain},victoryPoints:${this.portSpace.victoryPoints},reward:${this.portSpace.reward})`
+	}
+
 	equals(other: BuenosAiresStepOneOption): boolean {
 		return this.port === other.port && this.portSpace === other.portSpace && this.grain === other.grain
 	}
