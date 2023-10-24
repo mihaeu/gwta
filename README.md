@@ -11,28 +11,70 @@ Just a "quick" warm-up exercise 😀
 ```puml
 @startuml
 
-loop until game ends
-    Engine -> GameBoard : determine current player
-    GameBoard -> Engine : player
-    group Phase A
-        Engine -> Engine : calculate move options
-        Engine -> Player : present options
-        Player -> Engine : chosen option
-    end
+start
+
+repeat
+
+    if (is first turn?) then (yes)
+      group First Turn
+        :choose first location;
+        :discard to card limit;
+        end group
+    else (no)
+      group Phase A
+        :present movement options;
+      end group
+    endif
 
     group Phase B
-        loop until no more options are available or wanted
-            Engine -> Player : present options
-            Player -> Engine : chosen option
-            Engine -> Engine : resolve option
-        end
-    end
+        if (is on building?) then (yes)
+            if (is neutral or owned by player and wants to use local action) then (yes)
+                repeat
+                :use location action;
+                repeat while (are there more actions and wants to play them?) is (yes)
+                -> no;
+            else (no)
+'                group objective cards
+'                if (has objective card?) then (yes)
+'                    :present objective card(s);
+'                    if (wants to play objective card?) then (yes)
+'                        :play objective card;
+'                    endif
+'                endif
+'                end group
+                :use single auxiliary;
+            endif
+        else (no, farmer)
+            if (help farmer?) then (yes, help farmer)
+                :help farmer;
+            else (no, use single auxiliary)
+                :use single auxiliary;
+            endif
+        endif
+    end group
 
     group Phase C
-        Engine -> Player : discard/draw cards
-        Player -> Engine
-    end
-end
+        :discard or draw to card limit;
+    end group
+
+repeat while (is game over?) is (no)
+-> yes;
+
+'switch (test?)
+'case ( condition A )
+'  :Text 1;
+'case ( condition B )
+'  :Text 2;
+'case ( condition C )
+'  :Text 3;
+'case ( condition D )
+'  :Text 4;
+'case ( condition E )
+'  :Text 5;
+'endswitch
+
+
+stop
 
 @enduml
 
