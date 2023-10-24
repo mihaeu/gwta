@@ -208,7 +208,7 @@ export default class Engine {
 	}
 
 	private async buenosAiresStepOne(currentPlayer: Player) {
-		console.log("Handling Buenos Aires step 2")
+		console.log("Handling Buenos Aires step 1")
 		const options: Option[] = new BuenosAiresStepOneOptions().resolve(this.gameBoard, currentPlayer)
 		if (options.length === 0) {
 			return
@@ -217,7 +217,7 @@ export default class Engine {
 		const chosenOption = await this.chooseOption(currentPlayer, options)
 		let subOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		while (subOptions.length > 0) {
-			const chosenOption = await this.chooseOption(currentPlayer, options)
+			const chosenOption = await this.chooseOption(currentPlayer, subOptions)
 			subOptions = chosenOption.resolve(this.gameBoard, currentPlayer)
 		}
 	}
@@ -260,7 +260,7 @@ export default class Engine {
 		if (options.length === 0) {
 			return
 		}
-		const chosenOption = (await this.chooseOption(currentPlayer, options)) as TileOption
+		const chosenOption = (options.length === 1 ? options[0] : await this.chooseOption(currentPlayer, options)) as TileOption
 		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
@@ -271,7 +271,7 @@ export default class Engine {
 		if (options.length === 0) {
 			return
 		}
-		const chosenOption = (await this.chooseOption(currentPlayer, options)) as TileOption
+		const chosenOption = (options.length === 1 ? options[0] : await this.chooseOption(currentPlayer, options)) as TileOption
 		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
@@ -282,7 +282,7 @@ export default class Engine {
 		if (options.length === 0) {
 			return
 		}
-		const chosenOption = (await this.chooseOption(currentPlayer, options)) as TileOption
+		const chosenOption = (options.length === 1 ? options[0] : await this.chooseOption(currentPlayer, options)) as TileOption
 		this.handleWorkerEvents(chosenOption, currentPlayer)
 		chosenOption.resolve(this.gameBoard, currentPlayer)
 	}
