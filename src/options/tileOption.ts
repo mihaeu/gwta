@@ -38,7 +38,6 @@ export class TileOption extends Option {
 					firstEmptyFarmer.addFarmer(chosenTile)
 				}
 			}
-			gameBoard.foresightSpacesA[this.index] = gameBoard.aTiles.splice(0, 1)[0]
 		}
 
 		if (this.isWorker()) {
@@ -57,6 +56,19 @@ export class TileOption extends Option {
 					new JobMarketToken(),
 				)
 			}
+		}
+
+		if (this.tiles === gameBoard.foresightSpacesA && gameBoard.aTiles.length > 0) {
+			this.tiles[this.index] = gameBoard.aTiles.splice(0, 1)[0]
+			console.log(`Refilling foresight space a with ${this.tiles[this.index]}`)
+		}
+		if (this.tiles === gameBoard.foresightSpacesB && gameBoard.bTiles.length > 0) {
+			this.tiles[this.index] = gameBoard.bTiles.splice(0, 1)[0]
+			console.log(`Refilling foresight space b with ${this.tiles[this.index]}`)
+		}
+		if (this.tiles === gameBoard.foresightSpacesC && gameBoard.cTiles.length > 0) {
+			this.tiles[this.index] = gameBoard.cTiles.splice(0, 1)[0]
+			console.log(`Refilling foresight space c with ${this.tiles[this.index]}`)
 		}
 
 		return []
