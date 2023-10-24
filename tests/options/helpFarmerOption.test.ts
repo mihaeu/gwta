@@ -4,7 +4,7 @@ import { HelpFarmerOption } from "../../src/options/helpFarmerOption.js"
 import { Caracu, ExhaustionCard, Niata } from "../../src/cards.js"
 import { HandColor, YellowFarmer } from "../../src/farmer.js"
 import { HireWorkerOption } from "../../src/options/hireWorkerOption.js"
-import { CompoundOption } from "../../src/options/compoundOption.js"
+import { OneByOneOption } from "../../src/options/oneByOneOption.js"
 
 describe("Help Farmer Option", () => {
 	it("should remove all farmers from the game board and add them to the player", () => {
@@ -17,7 +17,7 @@ describe("Help Farmer Option", () => {
 		expect(gameBoard.blueFarmers[0].isEmpty()).toBeTrue()
 		expect(gameBoard.greenFarmers[0].isEmpty()).toBeTrue()
 		expect(one.discardedCards).toHaveLength(0)
-		expect(options).toEqual([new CompoundOption(new HireWorkerOption(orangeFarmer, -1, 6))])
+		expect(options).toEqual([new OneByOneOption(new HireWorkerOption(orangeFarmer, -1, 6))])
 		expect(one["_helpedFarmers"]).toEqual([blueFarmer, greenFarmer])
 	})
 
@@ -29,7 +29,7 @@ describe("Help Farmer Option", () => {
 		const options = new HelpFarmerOption(farmerLocations, []).resolve(gameBoard, one)
 
 		expect(options).toEqual([
-			new CompoundOption(
+			new OneByOneOption(
 				new HireWorkerOption(orangeFarmer, -1, 6),
 				new HireWorkerOption(greenFarmer, -1, 6),
 				new HireWorkerOption(blueFarmer, -1, 8),

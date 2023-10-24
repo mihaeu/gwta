@@ -4,7 +4,7 @@ import { Option } from "./option.js"
 import { FarmerNode } from "../nodes.js"
 import { CowCard, ExhaustionCard } from "../cards.js"
 import { HireWorkerOption } from "./hireWorkerOption.js"
-import { CompoundOption } from "./compoundOption.js"
+import { OneByOneOption } from "./oneByOneOption.js"
 import { Farmer } from "../farmer.js"
 
 export class HelpFarmerOption extends Option {
@@ -34,7 +34,7 @@ export class HelpFarmerOption extends Option {
 
 		const options = this.createHiringOptions(currentPlayer, farmers)
 		this.addRemainingFarmersToHelpedFarmers(farmers, options, currentPlayer)
-		return options.length > 0 ? [new CompoundOption(...options)] : []
+		return options.length > 0 ? [new OneByOneOption(...options)] : []
 	}
 
 	private createHiringOptions(currentPlayer: Player, farmers: Farmer[]) {

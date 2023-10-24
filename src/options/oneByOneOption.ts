@@ -2,7 +2,7 @@ import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Option } from "./option.js"
 
-export class CompoundOption extends Option {
+export class OneByOneOption extends Option {
 	public readonly options: Option[]
 
 	constructor(...options: Option[]) {
@@ -12,7 +12,7 @@ export class CompoundOption extends Option {
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		this.options[0].resolve(gameBoard, currentPlayer)
-		return this.options.length > 1 ? [new CompoundOption(...this.options.slice(1))] : []
+		return this.options.length > 1 ? [new OneByOneOption(...this.options.slice(1))] : []
 	}
 
 	toString(): string {
