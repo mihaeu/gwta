@@ -10,9 +10,9 @@ import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombine
 import { DrawCardOption } from "../../src/options/drawCardOption.js"
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 import { AnyCard } from "../../src/cards.js"
-import { CompoundOption } from "../../src/options/compoundOption.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
 import { RemoveCardOptions } from "../../src/actions/removeCardOptions.js"
+import { AllAsOneOption } from "../../src/options/allAsOneOption.js"
 
 describe("Double Auxiliary Options", () => {
 	it("should not have any options for a player without upgrades", () => {
@@ -65,7 +65,7 @@ describe("Double Auxiliary Options", () => {
 		one.upgrades.grainForCertificateAndGoldDouble = UpgradeType.UPGRADED
 		one.gainGrain(2)
 		expect(new DoubleAuxiliaryOptions().resolve(gameBoard, one)).toEqual([
-			new CompoundOption(new GainGrainOption(-2), new CertificateOption(2), new GainCoinOption(2)),
+			new AllAsOneOption(new GainGrainOption(-2), new CertificateOption(2), new GainCoinOption(2)),
 		])
 	})
 

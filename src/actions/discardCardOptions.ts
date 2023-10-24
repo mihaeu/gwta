@@ -4,7 +4,7 @@ import Player from "../player.js"
 import { Option } from "../options/option.js"
 import { DiscardCardOption } from "../options/discardCardOption.js"
 import { getAllCombinations } from "../util.js"
-import { CompoundOption } from "../options/compoundOption.js"
+import { AllAsOneOption } from "../options/allAsOneOption.js"
 
 export class DiscardCardOptions extends Option {
 	constructor(
@@ -48,6 +48,6 @@ export class DiscardCardOptions extends Option {
 					return map
 				}, new Map<string, Card[]>())
 				.values(),
-		].map((combination) => new CompoundOption(...combination.map((card) => new DiscardCardOption(card))))
+		].map((combination) => new AllAsOneOption(...combination.map((card) => new DiscardCardOption(card))))
 	}
 }

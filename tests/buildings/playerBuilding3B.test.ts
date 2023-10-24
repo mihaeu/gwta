@@ -3,10 +3,10 @@ import { gameBoardWithTwoPlayers, gameBoardWithTwoPlayersAndBuildings, setUpThre
 import { PlayerBuilding3B } from "../../src/buildings/playerBuilding3B.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
-import { CompoundOption } from "../../src/options/compoundOption.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 import { Objectives } from "../../src/objectives.js"
 import { ObjectiveCard } from "../../src/objectiveCard.js"
+import { AllAsOneOption } from "../../src/options/allAsOneOption.js"
 
 describe("Player Building 3B", () => {
 	const { gameBoard, one, two } = gameBoardWithTwoPlayersAndBuildings(new PlayerBuilding3B())
@@ -30,8 +30,8 @@ describe("Player Building 3B", () => {
 		one.handCards.push(objective1, objective2)
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
 			new CertificateOption(2),
-			new CompoundOption(new DiscardCardOption(objective1), new CertificateOption(3)),
-			new CompoundOption(new DiscardCardOption(objective2), new CertificateOption(3)),
+			new AllAsOneOption(new DiscardCardOption(objective1), new CertificateOption(3)),
+			new AllAsOneOption(new DiscardCardOption(objective2), new CertificateOption(3)),
 		])
 	})
 })

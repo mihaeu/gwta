@@ -1,12 +1,12 @@
 import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { AberdeenAngus, AnyCard, AnyCowCard, HolandoArgentino, Niata, Patagonico } from "../../src/cards.js"
-import { CompoundOption } from "../../src/options/compoundOption.js"
 import { RemoveCardOption } from "../../src/options/removeCardOption.js"
 import { RemoveCardOptions } from "../../src/actions/removeCardOptions.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 import { Objectives } from "../../src/objectives.js"
 import { ObjectiveCard } from "../../src/objectiveCard.js"
+import { AllAsOneOption } from "../../src/options/allAsOneOption.js"
 
 describe("Remove Card Options", () => {
 	it("should present all cow cards on hand if none is specified", () => {
@@ -43,9 +43,9 @@ describe("Remove Card Options", () => {
 		one.handCards.push(new Patagonico())
 		one.handCards.push(new Patagonico())
 		expect(new RemoveCardOptions(new AnyCard(), 2).resolve(gameBoard, one)).toEqual([
-			new CompoundOption(new RemoveCardOption(new AberdeenAngus(7)), new RemoveCardOption(new AberdeenAngus(7))),
-			new CompoundOption(new RemoveCardOption(new AberdeenAngus(7)), new RemoveCardOption(new Patagonico())),
-			new CompoundOption(new RemoveCardOption(new Patagonico()), new RemoveCardOption(new Patagonico())),
+			new AllAsOneOption(new RemoveCardOption(new AberdeenAngus(7)), new RemoveCardOption(new AberdeenAngus(7))),
+			new AllAsOneOption(new RemoveCardOption(new AberdeenAngus(7)), new RemoveCardOption(new Patagonico())),
+			new AllAsOneOption(new RemoveCardOption(new Patagonico()), new RemoveCardOption(new Patagonico())),
 		])
 	})
 })

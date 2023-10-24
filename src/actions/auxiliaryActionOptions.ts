@@ -7,12 +7,12 @@ import { FirstThanSecondsOption } from "../options/firstThanSecondOption.js"
 import { DiscardCardOptions } from "./discardCardOptions.js"
 import { Building } from "../buildings/building.js"
 import { GainGrainOption } from "../options/gainGrainOption.js"
-import { CompoundOption } from "../options/compoundOption.js"
 import { CertificateOption } from "../options/certificateOption.js"
 import { MoveTrainOptions } from "./moveTrainOptions.js"
 import { AnyCard } from "../cards.js"
 import { CostBenefitCombinedOptions } from "./costBenefitCombinedOptions.js"
 import { RemoveCardOptions } from "./removeCardOptions.js"
+import { AllAsOneOption } from "../options/allAsOneOption.js"
 
 export class AuxiliaryActionOptions extends Option {
 	constructor(building?: Building) {
@@ -44,7 +44,7 @@ export class AuxiliaryActionOptions extends Option {
 		}
 
 		if (upgrades.grainForCertificateAndGoldSingle === UpgradeType.UPGRADED && currentPlayer.grain > 0) {
-			options.push(new CompoundOption(new GainGrainOption(-1), new CertificateOption(1), new GainCoinOption(1)))
+			options.push(new AllAsOneOption(new GainGrainOption(-1), new CertificateOption(1), new GainCoinOption(1)))
 		}
 
 		return options

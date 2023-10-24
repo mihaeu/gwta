@@ -3,9 +3,9 @@ import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { Fronterizo, Serrano } from "../../src/cards.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 import { NeutralBuildingE } from "../../src/buildings/neutralBuildingE.js"
-import { CompoundOption } from "../../src/options/compoundOption.js"
 import { DiscardCardOption } from "../../src/options/discardCardOption.js"
 import { BuyCowOption } from "../../src/options/buyCowOption.js"
+import { AllAsOneOption } from "../../src/options/allAsOneOption.js"
 
 describe("Neutral Building E", () => {
 	it("should only list discard option if it exists", () => {
@@ -18,7 +18,7 @@ describe("Neutral Building E", () => {
 
 		one.handCards.push(new Fronterizo())
 		expect(neutralBuildingE.options(gameBoard, one)).toEqual([
-			new CompoundOption(new GainCoinOption(2), new DiscardCardOption(new Fronterizo())),
+			new AllAsOneOption(new GainCoinOption(2), new DiscardCardOption(new Fronterizo())),
 		])
 	})
 

@@ -3,8 +3,8 @@ import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Option } from "../options/option.js"
 import { getAllCombinations } from "../util.js"
-import { CompoundOption } from "../options/compoundOption.js"
 import { RemoveCardOption } from "../options/removeCardOption.js"
+import { AllAsOneOption } from "../options/allAsOneOption.js"
 
 export class RemoveCardOptions extends Option {
 	constructor(
@@ -48,6 +48,6 @@ export class RemoveCardOptions extends Option {
 					return map
 				}, new Map<string, Card[]>())
 				.values(),
-		].map((combination) => new CompoundOption(...combination.map((card) => new RemoveCardOption(card))))
+		].map((combination) => new AllAsOneOption(...combination.map((card) => new RemoveCardOption(card))))
 	}
 }

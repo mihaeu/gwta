@@ -9,10 +9,10 @@ import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 import { GainGrainOption } from "../../src/options/gainGrainOption.js"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
 import { RemoveCardOption } from "../../src/options/removeCardOption.js"
-import { CompoundOption } from "../../src/options/compoundOption.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
 import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
 import { UpgradeType } from "../../src/player.js"
+import { AllAsOneOption } from "../../src/options/allAsOneOption.js"
 
 describe("Auxiliary Action Options", () => {
 	it("should list gain coins and draw card discard card action", () => {
@@ -53,7 +53,7 @@ describe("Auxiliary Action Options", () => {
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
 			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
-			new CompoundOption(new GainGrainOption(-1), new CertificateOption(1), new GainCoinOption(1)),
+			new AllAsOneOption(new GainGrainOption(-1), new CertificateOption(1), new GainCoinOption(1)),
 		])
 	})
 

@@ -5,10 +5,10 @@ import { PlayerBuilding } from "./playerBuilding.js"
 import { Option } from "../options/option.js"
 import { MoveOptions } from "../actions/moveOptions.js"
 import { GainGrainOption } from "../options/gainGrainOption.js"
-import { CompoundOption } from "../options/compoundOption.js"
 import { GainCoinOption } from "../options/gainCoinOption.js"
 import { MoveTrainOptions } from "../actions/moveTrainOptions.js"
 import { FirstThanSecondsOption } from "../options/firstThanSecondOption.js"
+import { AllAsOneOption } from "../options/allAsOneOption.js"
 
 export class PlayerBuilding7A extends PlayerBuilding {
 	public readonly hand: BuildingHand = BuildingHand.GREEN
@@ -22,7 +22,7 @@ export class PlayerBuilding7A extends PlayerBuilding {
 
 		return currentPlayer.grain > 0
 			? [
-					new FirstThanSecondsOption(new CompoundOption(new GainGrainOption(-1), new GainCoinOption(2)), new MoveTrainOptions(2)),
+					new FirstThanSecondsOption(new AllAsOneOption(new GainGrainOption(-1), new GainCoinOption(2)), new MoveTrainOptions(2)),
 					new MoveOptions(3),
 			  ]
 			: [new MoveOptions(3)]

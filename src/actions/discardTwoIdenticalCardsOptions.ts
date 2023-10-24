@@ -2,13 +2,13 @@ import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Option } from "../options/option.js"
 import { CowCard } from "../cards.js"
-import { CompoundOption } from "../options/compoundOption.js"
 import { DiscardCardOption } from "../options/discardCardOption.js"
+import { AllAsOneOption } from "../options/allAsOneOption.js"
 
 export class DiscardTwoIdenticalCardsOptions extends Option {
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		return this.identicalCowCardsOnHand(currentPlayer).map(
-			(card) => new CompoundOption(new DiscardCardOption(card), new DiscardCardOption(card)),
+			(card) => new AllAsOneOption(new DiscardCardOption(card), new DiscardCardOption(card)),
 		)
 	}
 

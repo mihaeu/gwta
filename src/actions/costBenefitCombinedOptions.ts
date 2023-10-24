@@ -1,8 +1,8 @@
 import GameBoard from "../gameBoard.js"
 import Player from "../player.js"
 import { Option } from "../options/option.js"
-import { CompoundOption } from "../options/compoundOption.js"
 import { Building } from "../buildings/building.js"
+import { AllAsOneOption } from "../options/allAsOneOption.js"
 
 export class CostBenefitCombinedOptions extends Option {
 	constructor(
@@ -18,7 +18,7 @@ export class CostBenefitCombinedOptions extends Option {
 		const options = []
 		for (const left of this.cost.resolve(gameBoard, currentPlayer)) {
 			for (const right of this.benefit.resolve(gameBoard, currentPlayer)) {
-				options.push(new CompoundOption(left, right))
+				options.push(new AllAsOneOption(left, right))
 			}
 		}
 		return options
