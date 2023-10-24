@@ -16,7 +16,6 @@ export class RemoveCardOption extends Option {
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
 		for (let i = 0; i < this.count; ++i) {
 			currentPlayer.removeCard(this.card)
-			console.log(`Player ${currentPlayer} removed ${this.card} and now has ${currentPlayer.handCards.length} on their hand.`)
 		}
 		return []
 	}

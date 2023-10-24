@@ -228,6 +228,7 @@ export default abstract class Player {
 			throw new Error(`Player ${this} doesn't have card ${card} on their hand: ${this.handCards.join(",")}`)
 		}
 		this.discardedCards.push(this.handCards.splice(index, 1)[0])
+		console.log(`Player ${this} discarded ${card} and now has ${this.handCards.length} on their hand.`)
 	}
 
 	removeCard(card: Card) {
@@ -235,6 +236,7 @@ export default abstract class Player {
 		if (index < 0) {
 			throw new Error(`Player ${this} doesn't have card ${card} on their hand: ${this.handCards.join(",")}`)
 		}
+		console.log(`Player ${this} removed ${card} and now has ${this.handCards.length} on their hand.`)
 		this._removedCards.push(this.handCards.splice(index, 1)[0])
 	}
 

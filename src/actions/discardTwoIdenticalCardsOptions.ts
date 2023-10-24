@@ -27,6 +27,6 @@ export class DiscardTwoIdenticalCardsOptions extends Option {
 			}
 			return map
 		}, new Map<string, [number, CowCard]>())
-		return [...cowCardCount.values()].filter(([count, card]) => count >= 2).map(([count, card]) => card)
+		return [...cowCardCount.values()].filter(([count]) => count >= 2).map(([_, card]) => card)
 	}
 }
