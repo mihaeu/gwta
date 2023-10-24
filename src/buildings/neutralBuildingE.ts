@@ -15,6 +15,9 @@ export class NeutralBuildingE extends NeutralBuilding {
 			options.push(new AllAsOneOption(new GainCoinOption(2), new DiscardCardOption(new Fronterizo())))
 		}
 		const cowBuyingOptions = new BuyCowOptions().resolve(gameBoard, currentPlayer)
-		return cowBuyingOptions.length > 0 ? options.concat(cowBuyingOptions) : options
+		if (cowBuyingOptions.length > 0) {
+			options.push(new BuyCowOptions())
+		}
+		return options
 	}
 }
