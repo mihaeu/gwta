@@ -10,15 +10,16 @@ describe("One By One Option", () => {
 		expect(one.coins).toBe(10)
 	})
 
-	it("should return remaining options if there are more than 2", () => {
+	it("should return remaining options wrapped if there are more than 2 and unwrapped if there is just one remaining", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
+
 		let options = new OneByOneOption(new GainCoinOption(3), new GainCoinOption(4), new GainCoinOption(5)).resolve(gameBoard, one)
 		expect(one.coins).toBe(10)
 		expect(options).toEqual([new OneByOneOption(new GainCoinOption(4), new GainCoinOption(5))])
 
 		options = options[0].resolve(gameBoard, one)
 		expect(one.coins).toBe(14)
-		expect(options).toEqual([new OneByOneOption(new GainCoinOption(5))])
+		expect(options).toEqual([new GainCoinOption(5)])
 
 		options = options[0].resolve(gameBoard, one)
 		expect(one.coins).toBe(19)
