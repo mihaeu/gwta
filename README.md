@@ -27,30 +27,31 @@ repeat
     endif
 
     group Phase B
-        if (is on building?) then (yes)
-            if (is neutral or owned by player and wants to use local action) then (yes)
-                repeat
-                :use location action;
+        switch (location type)
+        case (neutral or player-owned building)
+            if (wants to use location actions?) then (yes)
+            repeat
+            :use location action;
                 repeat while (are there more actions and wants to play them?) is (yes)
-                -> no;
             else (no)
-'                group objective cards
-'                if (has objective card?) then (yes)
-'                    :present objective card(s);
-'                    if (wants to play objective card?) then (yes)
-'                        :play objective card;
-'                    endif
-'                endif
-'                end group
                 :use single auxiliary;
             endif
-        else (no, farmer)
+        case (other player's building)
+                :use single auxiliary;
+        case (farmer)
             if (help farmer?) then (yes, help farmer)
                 :help farmer;
             else (no, use single auxiliary)
                 :use single auxiliary;
             endif
-        endif
+        case (Buenos Aires)
+            :step 1;
+            :step 2;
+            :step 3;
+            :step 4;
+            :step 5;
+            :step 6;
+        endswitch
     end group
 
     group Phase C
@@ -73,11 +74,26 @@ repeat while (is game over?) is (no)
 '  :Text 5;
 'endswitch
 
-
 stop
 
 @enduml
+```
 
+### Dummy Code for option handling
+
+```
+do
+    (re-)calculate options
+    filter options that have already been taken
+    if options contain only location options or are move options and player has objective cards
+        add objective card options
+    if player has exchange tokens
+        add exchange tokens to options
+    if option is not an exchange token or objective card
+        add passing option
+    resolve option
+    add option id to options taken
+while there are sub options or player passes
 ```
 
 ## Roadmap
