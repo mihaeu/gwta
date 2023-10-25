@@ -1,6 +1,6 @@
 import Player from "./player.js"
 import GameBoard from "./gameBoard.js"
-import { BuenosAiresNode, BuildingNode, FarmerNode } from "./nodes.js"
+import { BuenosAiresNode } from "./nodes.js"
 import { AnyCard, Card, CowCard, ExhaustionCard } from "./cards.js"
 import { Option } from "./options/option.js"
 import { MoveOptions } from "./actions/moveOptions.js"
@@ -109,71 +109,69 @@ export default class Engine {
 			await this.buenosAiresStepFour(currentPlayer)
 			await this.buenosAiresStepFive(currentPlayer)
 			await this.buenosAiresStepSix(currentPlayer)
+			return
 		}
 
-		if (currentLocation instanceof BuildingNode || currentLocation instanceof FarmerNode) {
-			const locationHasOptions = currentLocation.options(this.gameBoard, currentPlayer).length > 0
-			const initialPhaseBOptions = locationHasOptions
-				? [new LocationOptions(currentLocation), new AuxiliaryActionOptions(currentLocation)]
-				: [new AuxiliaryActionOptions(currentLocation)]
-			const chosenOption = await this.chooseOption(currentPlayer, initialPhaseBOptions)
-			if (chosenOption instanceof AuxiliaryActionOptions) {
-				let chosenAuxiliaryActionOption
-				let subOptions: Option[] = []
-				while (chosenAuxiliaryActionOption instanceof PlayObjectiveCardOption || chosenAuxiliaryActionOption === undefined) {
-					chosenAuxiliaryActionOption = await this.chooseOption(
-						currentPlayer,
-						chosenOption
-							.resolve(this.gameBoard, currentPlayer)
-							.concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)),
-					)
-					subOptions = chosenAuxiliaryActionOption.resolve(this.gameBoard, currentPlayer)
-					while (subOptions.length > 0) {
-						const chosenSubOption = await this.chooseOption(currentPlayer, subOptions)
-						subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
-					}
-				}
-
-				let objectiveCardOptions = new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)
-				while (objectiveCardOptions.length > 0) {
-					if (!objectiveCardOptions.some((option) => option instanceof PassOption)) {
-						objectiveCardOptions.push(new PassOption())
-					}
-					const objectiveCardOption = await this.chooseOption(currentPlayer, objectiveCardOptions)
-					objectiveCardOption.resolve(this.gameBoard, currentPlayer)
-					objectiveCardOptions = new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)
+		const locationHasOptions = currentLocation.options(this.gameBoard, currentPlayer).length > 0
+		const initialPhaseBOptions = locationHasOptions
+			? [new LocationOptions(currentLocation), new AuxiliaryActionOptions(currentLocation)]
+			: [new AuxiliaryActionOptions(currentLocation)]
+		const chosenOption = await this.chooseOption(currentPlayer, initialPhaseBOptions)
+		if (chosenOption instanceof AuxiliaryActionOptions) {
+			let chosenAuxiliaryActionOption
+			let subOptions: Option[] = []
+			while (chosenAuxiliaryActionOption instanceof PlayObjectiveCardOption || chosenAuxiliaryActionOption === undefined) {
+				chosenAuxiliaryActionOption = await this.chooseOption(
+					currentPlayer,
+					chosenOption.resolve(this.gameBoard, currentPlayer).concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)),
+				)
+				subOptions = chosenAuxiliaryActionOption.resolve(this.gameBoard, currentPlayer)
+				while (subOptions.length > 0) {
+					const chosenSubOption = await this.chooseOption(currentPlayer, subOptions)
+					subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
 				}
 			}
-			if (chosenOption instanceof LocationOptions) {
-				let locationOptions = chosenOption
+
+			let objectiveCardOptions = new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)
+			while (objectiveCardOptions.length > 0) {
+				if (!objectiveCardOptions.some((option) => option instanceof PassOption)) {
+					objectiveCardOptions.push(new PassOption())
+				}
+				const objectiveCardOption = await this.chooseOption(currentPlayer, objectiveCardOptions)
+				objectiveCardOption.resolve(this.gameBoard, currentPlayer)
+				objectiveCardOptions = new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer)
+			}
+		}
+
+		if (chosenOption instanceof LocationOptions) {
+			let locationOptions = chosenOption
+				.resolve(this.gameBoard, currentPlayer)
+				.concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer))
+			const takenOptions: Option[] = []
+			while (locationOptions.length > 0) {
+				let chosenLocationOption = await this.chooseOption(currentPlayer, locationOptions)
+				takenOptions.push(chosenLocationOption)
+				if (chosenLocationOption instanceof MoveOption) {
+					chosenLocationOption.resolve(this.gameBoard, currentPlayer)
+					await this.phaseB(currentPlayer)
+					break
+				}
+
+				if (chosenLocationOption instanceof PassOption) {
+					break
+				}
+
+				let subOptions = chosenLocationOption.resolve(this.gameBoard, currentPlayer)
+				while (subOptions.length > 0) {
+					const chosenSubOption = await this.chooseOption(currentPlayer, subOptions)
+					subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
+				}
+				locationOptions = chosenOption
 					.resolve(this.gameBoard, currentPlayer)
+					.filter((option) => !takenOptions.some((takenOption) => takenOption.toString() === option.toString()))
 					.concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer))
-				const takenOptions: Option[] = []
-				while (locationOptions.length > 0) {
-					let chosenLocationOption = await this.chooseOption(currentPlayer, locationOptions)
-					takenOptions.push(chosenLocationOption)
-					if (chosenLocationOption instanceof MoveOption) {
-						chosenLocationOption.resolve(this.gameBoard, currentPlayer)
-						await this.phaseB(currentPlayer)
-						break
-					}
-
-					if (chosenLocationOption instanceof PassOption) {
-						break
-					}
-
-					let subOptions = chosenLocationOption.resolve(this.gameBoard, currentPlayer)
-					while (subOptions.length > 0) {
-						const chosenSubOption = await this.chooseOption(currentPlayer, subOptions)
-						subOptions = chosenSubOption.resolve(this.gameBoard, currentPlayer)
-					}
-					locationOptions = chosenOption
-						.resolve(this.gameBoard, currentPlayer)
-						.filter((option) => !takenOptions.some((takenOption) => takenOption.toString() === option.toString()))
-						.concat(new PlayObjectiveCardOptions().resolve(this.gameBoard, currentPlayer))
-					if (!locationOptions.some((option) => option instanceof PassOption) && locationOptions.length > 0) {
-						locationOptions.push(new PassOption())
-					}
+				if (!locationOptions.some((option) => option instanceof PassOption) && locationOptions.length > 0) {
+					locationOptions.push(new PassOption())
 				}
 			}
 		}
