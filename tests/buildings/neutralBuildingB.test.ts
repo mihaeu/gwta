@@ -4,7 +4,7 @@ import { Patagonico } from "../../src/cards.js"
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
-import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
+import { OneByOneOption } from "../../src/options/oneByOneOption.js"
 
 describe("Neutral Building B", () => {
 	it("should list discard Patagonico action if player has the card on their hand", () => {
@@ -14,7 +14,7 @@ describe("Neutral Building B", () => {
 		one.handCards.push(new Patagonico())
 		one.pay(7)
 		const availableActions = neutralBuildingB.options(gameBoard, one)
-		expect(availableActions).toEqual([new FirstThanSecondsOption(new GainCoinOption(2), new DiscardCardOptions(new Patagonico()))])
+		expect(availableActions).toEqual([new OneByOneOption(new GainCoinOption(2), new DiscardCardOptions(new Patagonico()))])
 	})
 
 	it("should not list options if player has no Patagonico on their hand and no coins", () => {

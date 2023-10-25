@@ -7,7 +7,7 @@ import { Option } from "./options/option.js"
 import { Farmer } from "./farmer.js"
 import { AnyCowCard } from "./cards.js"
 import { GainCoinOption } from "./options/gainCoinOption.js"
-import { FirstThanSecondsOption } from "./options/firstThanSecondOption.js"
+import { OneByOneOption } from "./options/oneByOneOption.js"
 import { CertificateOption } from "./options/certificateOption.js"
 import { GainGrainOption } from "./options/gainGrainOption.js"
 import { DiscardCardOptions } from "./actions/discardCardOptions.js"
@@ -31,7 +31,7 @@ export abstract class Node {
 	protected riskActionForBenefit(benefit: Option, gameBoard: GameBoard, currentPlayer: Player) {
 		const discardOptions = new DiscardCardOptions(new AnyCowCard())
 		return this.isOwnedByCurrentPlayer(currentPlayer) && discardOptions.resolve(gameBoard, currentPlayer).length > 0
-			? [new FirstThanSecondsOption(benefit, discardOptions)]
+			? [new OneByOneOption(benefit, discardOptions)]
 			: []
 	}
 

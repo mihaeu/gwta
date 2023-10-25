@@ -2,7 +2,7 @@ import { Option } from "../options/option.js"
 import Player, { Upgrades, UpgradeType } from "../player.js"
 import GameBoard from "../gameBoard.js"
 import { GainCoinOption } from "../options/gainCoinOption.js"
-import { FirstThanSecondsOption } from "../options/firstThanSecondOption.js"
+import { OneByOneOption } from "../options/oneByOneOption.js"
 import { GainGrainOption } from "../options/gainGrainOption.js"
 import { MoveTrainOptions } from "./moveTrainOptions.js"
 import { CostBenefitCombinedOptions } from "./costBenefitCombinedOptions.js"
@@ -24,15 +24,15 @@ export class DoubleAuxiliaryOptions extends Option {
 		}
 
 		if (currentPlayer.handCards.length >= 2 && upgrades.drawAndDiscardCardDouble === UpgradeType.UPGRADED) {
-			options.push(new FirstThanSecondsOption(new DrawCardOption(2), new DiscardCardOptions(new AnyCard(), 2)))
+			options.push(new OneByOneOption(new DrawCardOption(2), new DiscardCardOptions(new AnyCard(), 2)))
 		}
 
 		if (this.isGoldForGrainFullyUpgraded(upgrades) && currentPlayer.coins >= 2) {
-			options.push(new FirstThanSecondsOption(new GainCoinOption(-2), new GainGrainOption(2)))
+			options.push(new OneByOneOption(new GainCoinOption(-2), new GainGrainOption(2)))
 		}
 
 		if (this.isGoldForTrainFullyUpgraded(upgrades) && currentPlayer.coins >= 2) {
-			options.push(new FirstThanSecondsOption(new GainCoinOption(-2), new MoveTrainOptions(2)))
+			options.push(new OneByOneOption(new GainCoinOption(-2), new MoveTrainOptions(2)))
 		}
 
 		if (

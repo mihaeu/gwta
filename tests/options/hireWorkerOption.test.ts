@@ -7,7 +7,7 @@ import { ForfeitOption } from "../../src/options/forfeitOption.js"
 import { GainExchangeTokenOption } from "../../src/options/gainExchangeTokenOption.js"
 import GameBoard from "../../src/gameBoard.js"
 import Player, { UpgradeType } from "../../src/player.js"
-import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
+import { OneByOneOption } from "../../src/options/oneByOneOption.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 import { RemoveCardOptions } from "../../src/actions/removeCardOptions.js"
 import { AnyCard, AnyCowCard } from "../../src/cards.js"
@@ -62,7 +62,7 @@ describe("Hire Worker Option", () => {
 			one.herders.push(new Herder())
 			const options = new HireWorkerOption(...herderArgs).resolve(gameBoard, one)
 			expect(options).toEqual([
-				new OrOption(new FirstThanSecondsOption(new GainCoinOption(2), new RemoveCardOptions(new AnyCard())), new ForfeitOption()),
+				new OrOption(new OneByOneOption(new GainCoinOption(2), new RemoveCardOptions(new AnyCard())), new ForfeitOption()),
 			])
 		})
 
@@ -80,7 +80,7 @@ describe("Hire Worker Option", () => {
 		it("should give 3 gold and buy cow options for 6th herder", () => {
 			one.herders.push(new Herder(), new Herder(), new Herder(), new Herder())
 			const options = new HireWorkerOption(...herderArgs).resolve(gameBoard, one)
-			expect(options).toEqual([new OrOption(new FirstThanSecondsOption(new GainCoinOption(3), new BuyCowOptions()), new ForfeitOption())])
+			expect(options).toEqual([new OrOption(new OneByOneOption(new GainCoinOption(3), new BuyCowOptions()), new ForfeitOption())])
 		})
 	})
 
@@ -123,7 +123,7 @@ describe("Hire Worker Option", () => {
 			one.machinists.push(new Machinist())
 			const options = new HireWorkerOption(...machinistArgs).resolve(gameBoard, one)
 			expect(options).toEqual([
-				new OrOption(new FirstThanSecondsOption(new CertificateOption(1), new DiscardCardOptions(new AnyCowCard())), new ForfeitOption()),
+				new OrOption(new OneByOneOption(new CertificateOption(1), new DiscardCardOptions(new AnyCowCard())), new ForfeitOption()),
 			])
 		})
 

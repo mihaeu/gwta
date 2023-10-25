@@ -8,7 +8,7 @@ import { MoveOptions } from "../../src/actions/moveOptions.js"
 import { GainGrainOption } from "../../src/options/gainGrainOption.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
-import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
+import { OneByOneOption } from "../../src/options/oneByOneOption.js"
 import { AllAsOneOption } from "../../src/options/allAsOneOption.js"
 
 describe("Player Building 7A", () => {
@@ -36,7 +36,7 @@ describe("Player Building 7A", () => {
 	it("should see pay 1 grain for two coins and up to two train movement", () => {
 		one.gainGrain(1)
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
-			new FirstThanSecondsOption(new AllAsOneOption(new GainGrainOption(-1), new GainCoinOption(2)), new MoveTrainOptions(2)),
+			new OneByOneOption(new AllAsOneOption(new GainGrainOption(-1), new GainCoinOption(2)), new MoveTrainOptions(2)),
 			new MoveOptions(3),
 		])
 	})

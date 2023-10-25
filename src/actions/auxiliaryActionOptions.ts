@@ -3,7 +3,7 @@ import Player, { UpgradeType } from "../player.js"
 import GameBoard from "../gameBoard.js"
 import { GainCoinOption } from "../options/gainCoinOption.js"
 import { DrawCardOption } from "../options/drawCardOption.js"
-import { FirstThanSecondsOption } from "../options/firstThanSecondOption.js"
+import { OneByOneOption } from "../options/oneByOneOption.js"
 import { DiscardCardOptions } from "./discardCardOptions.js"
 import { Building } from "../buildings/building.js"
 import { GainGrainOption } from "../options/gainGrainOption.js"
@@ -24,16 +24,16 @@ export class AuxiliaryActionOptions extends Option {
 		const options: Option[] = [new GainCoinOption(1)]
 
 		if (currentPlayer.handCards.length > 0) {
-			options.push(new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()))
+			options.push(new OneByOneOption(new DrawCardOption(), new DiscardCardOptions()))
 		}
 
 		const upgrades = currentPlayer.upgrades
 		if (currentPlayer.coins > 0 && upgrades.goldForGrainSingle === UpgradeType.UPGRADED) {
-			options.push(new FirstThanSecondsOption(new GainCoinOption(-1), new GainGrainOption(1)))
+			options.push(new OneByOneOption(new GainCoinOption(-1), new GainGrainOption(1)))
 		}
 
 		if (currentPlayer.coins > 0 && upgrades.goldForTrainSingle === UpgradeType.UPGRADED) {
-			upgrades.goldForTrainSingle && options.push(new FirstThanSecondsOption(new GainCoinOption(-1), new MoveTrainOptions(1)))
+			upgrades.goldForTrainSingle && options.push(new OneByOneOption(new GainCoinOption(-1), new MoveTrainOptions(1)))
 		}
 
 		if (

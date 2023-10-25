@@ -4,7 +4,7 @@ import { AuxiliaryActionOptions } from "../../src/actions/auxiliaryActionOptions
 import { AnyCard, HolandoArgentino, Patagonico } from "../../src/cards.js"
 import { DrawCardOption } from "../../src/options/drawCardOption.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
-import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
+import { OneByOneOption } from "../../src/options/oneByOneOption.js"
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 import { GainGrainOption } from "../../src/options/gainGrainOption.js"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
@@ -23,7 +23,7 @@ describe("Auxiliary Action Options", () => {
 		one.handCards.push(new HolandoArgentino())
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
-			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
+			new OneByOneOption(new DrawCardOption(), new DiscardCardOptions()),
 		])
 	})
 
@@ -36,9 +36,9 @@ describe("Auxiliary Action Options", () => {
 		one.upgrades.goldForGrainSingle = UpgradeType.UPGRADED
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
-			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
-			new FirstThanSecondsOption(new GainCoinOption(-1), new GainGrainOption(1)),
-			new FirstThanSecondsOption(new GainCoinOption(-1), new MoveTrainOptions(1)),
+			new OneByOneOption(new DrawCardOption(), new DiscardCardOptions()),
+			new OneByOneOption(new GainCoinOption(-1), new GainGrainOption(1)),
+			new OneByOneOption(new GainCoinOption(-1), new MoveTrainOptions(1)),
 		])
 	})
 
@@ -52,7 +52,7 @@ describe("Auxiliary Action Options", () => {
 		one.upgrades.grainForCertificateAndGoldSingle = UpgradeType.UPGRADED
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
-			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
+			new OneByOneOption(new DrawCardOption(), new DiscardCardOptions()),
 			new AllAsOneOption(new GainGrainOption(-1), new CertificateOption(1), new GainCoinOption(1)),
 		])
 	})
@@ -65,7 +65,7 @@ describe("Auxiliary Action Options", () => {
 		one.upgrades.revertTrainForCardRemovalSingle = UpgradeType.UPGRADED
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
-			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
+			new OneByOneOption(new DrawCardOption(), new DiscardCardOptions()),
 			new CostBenefitCombinedOptions(new MoveTrainOptions(-1), new RemoveCardOption(new AnyCard())),
 		])
 	})
@@ -77,7 +77,7 @@ describe("Auxiliary Action Options", () => {
 		one.upgrades.revertTrainForCardRemovalSingle = UpgradeType.UPGRADED
 		expect(new AuxiliaryActionOptions().resolve(gameBoard, one)).toEqual([
 			new GainCoinOption(1),
-			new FirstThanSecondsOption(new DrawCardOption(), new DiscardCardOptions()),
+			new OneByOneOption(new DrawCardOption(), new DiscardCardOptions()),
 		])
 	})
 })

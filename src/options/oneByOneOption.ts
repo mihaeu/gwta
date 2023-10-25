@@ -11,11 +11,15 @@ export class OneByOneOption extends Option {
 	}
 
 	resolve(gameBoard: GameBoard, currentPlayer: Player): Option[] {
-		this.options[0].resolve(gameBoard, currentPlayer)
-		if (this.options.length === 2) {
-			return this.options.slice(1)
+		const currentOption = this.options[0]
+		currentOption.resolve(gameBoard, currentPlayer)
+
+		const remainingOptions = this.options.slice(1)
+		if (remainingOptions.length <= 1) {
+			return remainingOptions
 		}
-		return [new OneByOneOption(...this.options.slice(1))]
+
+		return [new OneByOneOption(...remainingOptions)]
 	}
 
 	toString(): string {

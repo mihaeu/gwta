@@ -138,10 +138,10 @@ describe("Engine", () => {
 
 			expect(one.callArgs[1].join(", ")).toBe("LocationOptions(NeutralBuilding5(NeutralBuildingE)), AuxiliaryActionOptions")
 			expect(one.callArgs[2].join(", ")).toBe(
-				"GainCoinOption(1), FirstThanSecondsOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2))",
+				"GainCoinOption(1), OneByOneOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2))",
 			)
 			expect(one.callArgs[3].join(", ")).toBe(
-				"GainCoinOption(1), FirstThanSecondsOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2))",
+				"GainCoinOption(1), OneByOneOption(DrawCardOption,DiscardCardOptions), PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2))",
 			)
 			expect(one.callArgs[4].join(", ")).toBe("PlayObjectiveCardOption(ObjectiveCard(GainCoinOption(1),5,-2)), PassOption")
 		})

@@ -6,7 +6,7 @@ import { Farmer } from "../farmer.js"
 import { GainCoinOption } from "./gainCoinOption.js"
 import { GainGrainOption } from "./gainGrainOption.js"
 import { GainExchangeTokenOption } from "./gainExchangeTokenOption.js"
-import { FirstThanSecondsOption } from "./firstThanSecondOption.js"
+import { OneByOneOption } from "./oneByOneOption.js"
 import { AnyCard, AnyCowCard } from "../cards.js"
 import { BuyCowOptions } from "../actions/buyCowOptions.js"
 import { BuildOptions } from "../actions/buildOptions.js"
@@ -40,15 +40,13 @@ export class HireWorkerOption extends Option {
 				case 2:
 					return [new OrOption(new GainExchangeTokenOption(), new ForfeitOption())]
 				case 3:
-					return [
-						new OrOption(new FirstThanSecondsOption(new GainCoinOption(2), new RemoveCardOptions(new AnyCard())), new ForfeitOption()),
-					]
+					return [new OrOption(new OneByOneOption(new GainCoinOption(2), new RemoveCardOptions(new AnyCard())), new ForfeitOption())]
 				case 4:
 					return [new OrOption(new GainExchangeTokenOption(), new ForfeitOption())]
 				case 5:
 					break
 				case 6:
-					return [new OrOption(new FirstThanSecondsOption(new GainCoinOption(3), new BuyCowOptions()), new ForfeitOption())]
+					return [new OrOption(new OneByOneOption(new GainCoinOption(3), new BuyCowOptions()), new ForfeitOption())]
 			}
 		} else if (this.worker instanceof Carpenter) {
 			switch (currentPlayer.carpenters.length) {
@@ -68,12 +66,7 @@ export class HireWorkerOption extends Option {
 				case 2:
 					return [new OrOption(new RemoveCardOptions(new AnyCard()), new ForfeitOption())]
 				case 3:
-					return [
-						new OrOption(
-							new FirstThanSecondsOption(new CertificateOption(1), new DiscardCardOptions(new AnyCowCard())),
-							new ForfeitOption(),
-						),
-					]
+					return [new OrOption(new OneByOneOption(new CertificateOption(1), new DiscardCardOptions(new AnyCowCard())), new ForfeitOption())]
 				case 4:
 					return [new OrOption(new MoveTrainOptions(2), new ForfeitOption())]
 				case 5:

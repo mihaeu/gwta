@@ -4,7 +4,7 @@ import { BuildingHand } from "./neutralBuilding.js"
 import { PlayerBuilding } from "./playerBuilding.js"
 import { Option } from "../options/option.js"
 import { CertificateOption } from "../options/certificateOption.js"
-import { FirstThanSecondsOption } from "../options/firstThanSecondOption.js"
+import { OneByOneOption } from "../options/oneByOneOption.js"
 import { DrawCardOption } from "../options/drawCardOption.js"
 import { DiscardCardOptions } from "../actions/discardCardOptions.js"
 
@@ -19,6 +19,6 @@ export class PlayerBuilding4A extends PlayerBuilding {
 		}
 
 		const herderCount = currentPlayer.herders.length
-		return [new FirstThanSecondsOption(new DrawCardOption(herderCount), new DiscardCardOptions(herderCount)), new CertificateOption(2)]
+		return [new OneByOneOption(new DrawCardOption(herderCount), new DiscardCardOptions(herderCount)), new CertificateOption(2)]
 	}
 }

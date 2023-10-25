@@ -3,7 +3,7 @@ import { gameBoardWithTwoPlayers } from "../testUtils.js"
 import { DoubleAuxiliaryOptions } from "../../src/actions/doubleAuxiliaryOptions.js"
 import { UpgradeType } from "../../src/player.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
-import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
+import { OneByOneOption } from "../../src/options/oneByOneOption.js"
 import { GainGrainOption } from "../../src/options/gainGrainOption.js"
 import { MoveTrainOptions } from "../../src/actions/moveTrainOptions.js"
 import { CostBenefitCombinedOptions } from "../../src/actions/costBenefitCombinedOptions.js"
@@ -30,7 +30,7 @@ describe("Double Auxiliary Options", () => {
 		const { gameBoard, one } = gameBoardWithTwoPlayers()
 		one.upgrades.drawAndDiscardCardDouble = UpgradeType.UPGRADED
 		expect(new DoubleAuxiliaryOptions().resolve(gameBoard, one)).toEqual([
-			new FirstThanSecondsOption(new DrawCardOption(2), new DiscardCardOptions(new AnyCard(), 2)),
+			new OneByOneOption(new DrawCardOption(2), new DiscardCardOptions(new AnyCard(), 2)),
 		])
 	})
 
@@ -46,7 +46,7 @@ describe("Double Auxiliary Options", () => {
 		one.upgrades.goldForGrainSingle = UpgradeType.UPGRADED
 		one.upgrades.goldForGrainDouble = UpgradeType.UPGRADED
 		expect(new DoubleAuxiliaryOptions().resolve(gameBoard, one)).toEqual([
-			new FirstThanSecondsOption(new GainCoinOption(-2), new GainGrainOption(2)),
+			new OneByOneOption(new GainCoinOption(-2), new GainGrainOption(2)),
 		])
 	})
 
@@ -55,7 +55,7 @@ describe("Double Auxiliary Options", () => {
 		one.upgrades.goldForTrainSingle = UpgradeType.UPGRADED
 		one.upgrades.goldForTrainDouble = UpgradeType.UPGRADED
 		expect(new DoubleAuxiliaryOptions().resolve(gameBoard, one)).toEqual([
-			new FirstThanSecondsOption(new GainCoinOption(-2), new MoveTrainOptions(2)),
+			new OneByOneOption(new GainCoinOption(-2), new MoveTrainOptions(2)),
 		])
 	})
 

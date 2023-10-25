@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test"
 import { gameBoardWithTwoPlayersAndBuildings } from "../testUtils.js"
 import { PlayerBuilding4A } from "../../src/buildings/playerBuilding4A.js"
-import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
+import { OneByOneOption } from "../../src/options/oneByOneOption.js"
 import { DrawCardOption } from "../../src/options/drawCardOption.js"
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 import { CertificateOption } from "../../src/options/certificateOption.js"
@@ -21,7 +21,7 @@ describe("Player Building 4A", () => {
 		one.hireWorker(new Herder())
 		one.hireWorker(new Herder())
 		expect(playerBuildingOfPlayerOne.options(gameBoard, one)).toEqual([
-			new FirstThanSecondsOption(new DrawCardOption(3), new DiscardCardOptions(3)),
+			new OneByOneOption(new DrawCardOption(3), new DiscardCardOptions(3)),
 			new CertificateOption(2),
 		])
 	})

@@ -7,7 +7,7 @@ import { HireWorkerOptions } from "../../src/actions/hireWorkerOptions.js"
 import { DiscardCardOptions } from "../../src/actions/discardCardOptions.js"
 import { GainCoinOption } from "../../src/options/gainCoinOption.js"
 import { gameBoardWithTwoPlayers } from "../testUtils.js"
-import { FirstThanSecondsOption } from "../../src/options/firstThanSecondOption.js"
+import { OneByOneOption } from "../../src/options/oneByOneOption.js"
 
 describe("Neutral Building A", () => {
 	it("should list discard Holando Argentino action if player has the card on their hand", () => {
@@ -17,7 +17,7 @@ describe("Neutral Building A", () => {
 		one.pay(7)
 		one.handCards.push(new HolandoArgentino())
 		const availableActions = neutralBuildingA.options(gameBoard, one)
-		expect(availableActions).toEqual([new FirstThanSecondsOption(new GainCoinOption(2), new DiscardCardOptions(new HolandoArgentino()))])
+		expect(availableActions).toEqual([new OneByOneOption(new GainCoinOption(2), new DiscardCardOptions(new HolandoArgentino()))])
 	})
 
 	it("should list one hire worker action if player only has coins for one", () => {

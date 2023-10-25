@@ -6,7 +6,7 @@ import { BuildOptions } from "../actions/buildOptions.js"
 import { Option } from "../options/option.js"
 import { DiscardCardOptions } from "../actions/discardCardOptions.js"
 import { GainCoinOption } from "../options/gainCoinOption.js"
-import { FirstThanSecondsOption } from "../options/firstThanSecondOption.js"
+import { OneByOneOption } from "../options/oneByOneOption.js"
 
 /**
  * Up to three available action:
@@ -18,7 +18,7 @@ export class NeutralBuildingB extends NeutralBuilding {
 		const actions: Option[] = []
 
 		if (currentPlayer.hasCardOfTypeInHand(new Patagonico())) {
-			actions.push(new FirstThanSecondsOption(new GainCoinOption(2), new DiscardCardOptions(new Patagonico())))
+			actions.push(new OneByOneOption(new GainCoinOption(2), new DiscardCardOptions(new Patagonico())))
 		}
 
 		if (new BuildOptions().resolve(gameBoard, currentPlayer).length > 0) {

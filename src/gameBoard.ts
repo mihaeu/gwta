@@ -80,7 +80,7 @@ import { MoveTrainOptions } from "./actions/moveTrainOptions.js"
 import { Port, PortDistrict, PortSpace } from "./port/port.js"
 import { Ship, ShipColor } from "./ship.js"
 import { CertificateOption } from "./options/certificateOption.js"
-import { FirstThanSecondsOption } from "./options/firstThanSecondOption.js"
+import { OneByOneOption } from "./options/oneByOneOption.js"
 import { DrawCardOption } from "./options/drawCardOption.js"
 import { DiscardCardOptions } from "./actions/discardCardOptions.js"
 import { GainGrainOption } from "./options/gainGrainOption.js"
@@ -88,7 +88,7 @@ import { getAllCombinations } from "./util.js"
 import { Objectives } from "./objectives.js"
 import { ObjectiveCard } from "./objectiveCard.js"
 
-const drawAndDiscardOption = (count: number) => new FirstThanSecondsOption(new DrawCardOption(count), new DiscardCardOptions(count))
+const drawAndDiscardOption = (count: number) => new OneByOneOption(new DrawCardOption(count), new DiscardCardOptions(count))
 export default class GameBoard {
 	public readonly startLocation = new Start()
 	private neutralBuilding1 = new NeutralBuilding1(new NeutralBuildingA())
